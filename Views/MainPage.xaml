@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TFGMaui.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodels="clr-namespace:TFGMaui.ViewModels"
+    x:DataType="viewmodels:MainViewModel"
+    BackgroundImageSource="fondo.jpg"
+    BindingContext="{viewmodels:MainViewModel}">
+
+    <VerticalStackLayout
+        Padding="15"
+        Background="WhiteSmoke"
+        HeightRequest="500"
+        WidthRequest="650">
+        <Button
+            Command="{Binding NavegarCommand}"
+            CommandParameter="SettingsPage"
+            HorizontalOptions="End"
+            WidthRequest="50" />
+
+        <Button
+            Margin="10"
+            Command="{Binding NavegarCommand}"
+            CommandParameter="LoginPage"
+            HorizontalOptions="End"
+            Text="Cerrar sesion"
+            WidthRequest="150" />
+
+        <VerticalStackLayout>
+            <Label
+                HorizontalOptions="Center"
+                Text="Cosas del main"
+                VerticalOptions="Center" />
+        </VerticalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>

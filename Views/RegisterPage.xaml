@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TFGMaui.Views.RegisterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:TFGMaui.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodels="clr-namespace:TFGMaui.ViewModels"
+    x:DataType="viewmodels:RegisterViewModel"
+    BackgroundImageSource="fondo.jpg"
+    BindingContext="{viewmodels:RegisterViewModel}">
+
+    <StackLayout HeightRequest="480" WidthRequest="425">
+        <Border IsVisible="{Binding FirstState}">
+            <Border.Shadow>
+                <Shadow
+                    Brush="Black"
+                    Opacity=".5"
+                    Radius="12"
+                    Offset="10,10" />
+            </Border.Shadow>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,0,0,0" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout Padding="20" Background="WhiteSmoke">
+                <Label
+                    Margin="10"
+                    FontSize="20"
+                    HorizontalOptions="Center"
+                    Text="REGISTRO" />
+
+                <Label
+                    Margin="10"
+                    HorizontalOptions="Center"
+                    Text="Introduce tus creedenciales para registrarte" />
+
+                <Entry
+                    Margin="10"
+                    BackgroundColor="LightGray"
+                    HorizontalOptions="Center"
+                    Opacity=".8"
+                    Placeholder="Nombre de usuario"
+                    PlaceholderColor="DimGray"
+                    Text="{Binding UsuarioReg.NombreUsuario}"
+                    VerticalOptions="Center"
+                    WidthRequest="300" />
+
+                <Entry
+                    Margin="10"
+                    BackgroundColor="LightGray"
+                    HorizontalOptions="Center"
+                    Opacity=".8"
+                    Placeholder="Contraseña"
+                    PlaceholderColor="DimGray"
+                    Text="{Binding UsuarioReg.Email}"
+                    VerticalOptions="Center"
+                    WidthRequest="300" />
+
+                <Entry
+                    Margin="10"
+                    BackgroundColor="LightGray"
+                    HorizontalOptions="Center"
+                    IsPassword="True"
+                    Opacity=".8"
+                    Placeholder="Contraseña"
+                    PlaceholderColor="DimGray"
+                    Text="{Binding UsuarioReg.Password}"
+                    VerticalOptions="Center"
+                    WidthRequest="300" />
+
+                <Entry
+                    Margin="10"
+                    BackgroundColor="LightGray"
+                    HorizontalOptions="Center"
+                    IsPassword="True"
+                    Opacity=".8"
+                    Placeholder="Repite tu contraseña"
+                    PlaceholderColor="DimGray"
+                    Text="{Binding RepContra}"
+                    VerticalOptions="Center"
+                    WidthRequest="300" />
+
+                <Button
+                    Command="{Binding SiguienteEstadoCommand}"
+                    Text="Siguiente"
+                    WidthRequest="300" />
+
+                <HorizontalStackLayout
+                    Margin="10"
+                    Padding="10,0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="300">
+                    <Label
+                        HorizontalOptions="Center"
+                        Text="¿Tienes una cuenta?"
+                        TextColor="DarkGray"
+                        VerticalOptions="Center" />
+                    <Label
+                        Margin="5,0"
+                        HorizontalOptions="Center"
+                        Text="Inicia sesion"
+                        VerticalOptions="Center">
+
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="LoginPage" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+
+        <Border IsVisible="{Binding FirstState, Converter={toolkit:InvertedBoolConverter}}">
+            <Border.Shadow>
+                <Shadow
+                    Brush="Black"
+                    Opacity=".5"
+                    Radius="12"
+                    Offset="10,10" />
+            </Border.Shadow>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,0,0,0" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout Padding="20" Background="WhiteSmoke">
+                <CollectionView
+                    HeightRequest="350"
+                    ItemsSource="{Binding Items}"
+                    SelectionMode="Single"
+                    WidthRequest="400">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            HorizontalItemSpacing="5"
+                            Orientation="Vertical"
+                            Span="2"
+                            VerticalItemSpacing="5" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:HobbieModel">
+                            <Border>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12" />
+                                </Border.StrokeShape>
+
+                                <VerticalStackLayout Padding="0,15" HorizontalOptions="Center">
+                                    <Image
+                                        HorizontalOptions="Center"
+                                        Source="fondo.jpg"
+                                        WidthRequest="100" />
+
+                                    <CheckBox HorizontalOptions="Center" IsChecked="{Binding IsChecked}" />
+
+                                    <Label HorizontalOptions="Center" Text="{Binding NombreHobbie}" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <Button
+                        Command="{Binding SiguienteEstadoCommand}"
+                        Text="Atrás"
+                        WidthRequest="140" />
+                    <Button
+                        Margin="20,0,0,0"
+                        Command="{Binding RegistrarCommand}"
+                        Text="Registrar"
+                        WidthRequest="140" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+    </StackLayout>
+
+</ContentPage>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="TFGMaui.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TFGMaui"
+    xmlns:views="clr-namespace:TFGMaui.Views"
+    Title="TFGMaui"
+    Shell.FlyoutBehavior="Disabled">
+
+    <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" Route="LoginPage" />
+    <ShellContent ContentTemplate="{DataTemplate views:RegisterPage}" Route="RegisterPage" />
+    <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
+    <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="SettingsPage" />
+</Shell>

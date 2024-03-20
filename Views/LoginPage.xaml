@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TFGMaui.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodels="clr-namespace:TFGMaui.ViewModels"
+    x:DataType="viewmodels:LoginViewModel"
+    BackgroundImageSource="fondo.jpg"
+    BindingContext="{viewmodels:LoginViewModel}">
+
+    <Border HeightRequest="350" WidthRequest="425">
+        <Border.Shadow>
+            <Shadow
+                Brush="Black"
+                Opacity=".5"
+                Radius="12"
+                Offset="10,10" />
+        </Border.Shadow>
+
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20,0,0,0" />
+        </Border.StrokeShape>
+
+        <VerticalStackLayout Padding="20" Background="WhiteSmoke">
+            <Label
+                Margin="10"
+                FontSize="20"
+                HorizontalOptions="Center"
+                Text="LOGIN" />
+
+            <Label
+                Margin="10"
+                HorizontalOptions="Center"
+                Text="Introduce tus creedenciales para iniciar sesión" />
+
+            <Entry
+                Margin="10"
+                BackgroundColor="LightGray"
+                HorizontalOptions="Center"
+                Opacity=".8"
+                Placeholder="Usuario o correo"
+                PlaceholderColor="DimGray"
+                Text="{Binding UsuarioActivo.NombreUsuario}"
+                VerticalOptions="Center"
+                WidthRequest="300" />
+
+            <Entry
+                Margin="10"
+                BackgroundColor="LightGray"
+                HorizontalOptions="Center"
+                IsPassword="True"
+                Opacity=".8"
+                Placeholder="Contraseña"
+                PlaceholderColor="DimGray"
+                ReturnCommand="{Binding LoginCommand}"
+                Text="{Binding UsuarioActivo.Password}"
+                VerticalOptions="Center"
+                WidthRequest="300" />
+
+            <Button
+                Margin="10"
+                Command="{Binding LoginCommand}"
+                HorizontalOptions="Center"
+                Text="Iniciar"
+                VerticalOptions="Center"
+                WidthRequest="300" />
+
+            <HorizontalStackLayout
+                Margin="10"
+                Padding="10,0"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="300">
+                <Label
+                    HorizontalOptions="Center"
+                    Text="¿No te has registrado?"
+                    TextColor="DarkGray"
+                    VerticalOptions="Center" />
+
+                <Label
+                    Margin="5,0"
+                    HorizontalOptions="Center"
+                    Text="Crea una cuenta"
+                    VerticalOptions="Center">
+
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Border>
+</ContentPage>

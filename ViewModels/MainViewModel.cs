@@ -27,7 +27,7 @@ namespace TFGMaui.ViewModels
         {
             var peli = GetMovie("438631");
 
-            string type = "week";
+            string type = "week";    // week o day
             var options = new RestClientOptions($"https://api.themoviedb.org/3/trending/movie/{type}");
             var client = new RestClient(options);
             var request = new RestRequest();

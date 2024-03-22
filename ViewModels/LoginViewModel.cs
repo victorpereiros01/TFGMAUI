@@ -1,8 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Data;
-using System.Text;
 using TFGMaui.Services;
 using System.Diagnostics;
 

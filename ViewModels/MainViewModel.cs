@@ -5,7 +5,6 @@ using RestSharp;
 using System.Collections.ObjectModel;
 using TFGMaui.Models;
 using TFGMaui.Services;
-using Windows.Media.Protection.PlayReady;
 
 namespace TFGMaui.ViewModels
 {

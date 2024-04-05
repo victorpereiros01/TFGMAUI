@@ -8,11 +8,16 @@ namespace TFGMaui.Models
 {
     public class MovieModel : HobbieModel
     {
+        // v funciona bien
+
         public int Id { get; set; } // v
 
         public bool Adult { get; set; } // Solo para adultos v
+
         public List<Genre> Genres { get; set; } // Generos v
+
         public List<int> Genre_ids { get; set; }
+
         public string Title { get; set; }   // titulo v
 
         public class Genre
@@ -24,18 +29,34 @@ namespace TFGMaui.Models
         public string Release_Date { get; set; } // v
 
         public string Original_Language { get; set; } // Idioma original v
+
         public string OverView { get; set; }    // Descripcion v
+
         public double Popularity { get; set; }  // Popularidad v
-        public string Poster_Path { get; set; }  // Miniatura estilo portrait v
+
+        public string Poster_Path { get; set; }  // Miniatura estilo portrait v, no confundir con el backdrop_path, que es otra imagen distinta: la que se puede poner de fondo al ver los detalles de la imagen
+
         public long Budget { get; set; }    // Coste v
+
         public long Revenue { get; set; }   // Dinero obtenido v
+
         public string Tagline { get; set; } // Frase gancho v
+
         public string Status { get; set; }  // Como proximamente o released v
 
-        public List<ProductionCompany> Production_Companies { get; set; }    // productoras
         public List<MovieModel> ListRecommendations { get; set; }    // recomendaciones
+        
+        public List<ProductionCompany> Production_Companies { get; set; }    // productoras
+        
+        public class ProductionCompany
+        {
+            public int Id { get; set; }
+            public string Logo_Path { get; set; }
+            public string Name { get; set; }
+            public string Origin_Country { get; set; }
+        }
+
         public List<WatchProvider> FilmProviders { get; set; }  // plataformas
-        public Credits FilmCredits { get; set; }    // actores
 
         public class WatchProvider
         {
@@ -59,13 +80,7 @@ namespace TFGMaui.Models
             }
         }
 
-        public class ProductionCompany
-        {
-            public int Id { get; set; }
-            public string Logo_Path { get; set; }
-            public string Name { get; set; }
-            public string Origin_Country { get; set; }
-        }
+        public Credits FilmCredits { get; set; }    // actores
 
         public class Credits
         {
@@ -81,5 +96,6 @@ namespace TFGMaui.Models
                 public string Job { get; set; }
             }
         }
+
     }
 }

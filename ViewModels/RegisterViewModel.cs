@@ -1,12 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using TFGMaui.Models;
 using TFGMaui.Services;
-using Windows.UI.ViewManagement;
 
 namespace TFGMaui.ViewModels
 {

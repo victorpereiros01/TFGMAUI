@@ -24,7 +24,7 @@ namespace TFGMaui.ViewModels
 
         public MainViewModel()
         {
-            var peli = GetMovie("438631");
+            var peli = GetMovie("438631");  // dune 2022
 
             string type = "week";    // week o day
             var options = new RestClientOptions($"https://api.themoviedb.org/3/trending/movie/{type}");

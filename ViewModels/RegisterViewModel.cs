@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.Data;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 using TFGMaui.Models;
 using TFGMaui.Services;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,8 @@ namespace TFGMaui.Models
 
         public string Status { get; set; }  // Como proximamente o released v
 
+        public double VoteAverage { get; set; }
+
         public List<MovieModel> ListRecommendations { get; set; }    // recomendaciones
 
         public List<ProductionCompany> Production_Companies { get; set; }    // productoras
@@ -43,6 +46,14 @@ namespace TFGMaui.Models
         public List<WatchProvider> FilmProviders { get; set; }  // plataformas
 
         public Credits FilmCredits { get; set; }    // actores
+    }
+
+    public class Page
+    {
+        public int PageC { get; set; }
+        public ObservableCollection<MovieModel> Results { get; set; }
+        public int Total_pages { get; set; }
+        public int Total_results { get; set; }
     }
 
     public class GenreM

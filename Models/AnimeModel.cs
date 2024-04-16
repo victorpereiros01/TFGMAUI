@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TFGMaui.Models
 {
-    public class AnimeModel() : HobbieModel
+    public class AnimeModel : HobbieModel
     {
         [JsonProperty("mal_id")]
         public int Id { get; set; } // v

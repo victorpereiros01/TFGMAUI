@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Data;
 using TFGMaui.Services;
 using System.Diagnostics;
+using TFGMaui.Utils;
 
 namespace TFGMaui.ViewModels
 {
@@ -31,10 +32,11 @@ namespace TFGMaui.ViewModels
         {
             try
             {
+                // string file = (await FileUtils.OpenFile()).FileBase64;
                 using SqlConnection oconexion = new(IConstantes.ConnectionString);
-                String query = "SELECT NombreUsuario, Email, Avatar FROM Usuarios u WHERE u.NombreUsuario = @Nombre or u.Email = @Nombre AND u.Password = @Pass";
+                string query = "SELECT NombreUsuario, Email, f.ValorImagenEnc FROM Usuarios u join Imagenes f on f.IdImagen=u.Avatar WHERE u.NombreUsuario = @Nombre or u.Email = @Nombre AND u.Password = @Pass";
 
-                SqlCommand cmd = new SqlCommand(query, oconexion);
+                SqlCommand cmd = new(query, oconexion);
                 cmd.Parameters.AddWithValue("@Nombre", UsuarioActivo.NombreUsuario);
                 cmd.Parameters.AddWithValue("@Pass", UsuarioActivo.Password);
                 cmd.CommandType = CommandType.Text;
@@ -42,15 +44,14 @@ namespace TFGMaui.ViewModels
                 oconexion.Open();
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    while (dr.Read())
+                    if (dr.Read())
                     {
                         UsuarioActivo.NombreUsuario = dr.GetString(0);
                         UsuarioActivo.Email = dr.GetString(1);
-                        //UsuarioActivo.Avatar = dr.GetByte(2);
+                        UsuarioActivo.Avatar = FileUtils.GetSource(dr.GetString(2)).Result;
                     }
                 }
 
-                oconexion.Close();
                 Navegar("MainPage");
 
                 await Application.Current.MainPage.DisplayAlert("Saludos", "Bienvenid@ " + UsuarioActivo.NombreUsuario, "Aceptar");

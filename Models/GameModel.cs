@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TFGMaui.Models
 {
-    public class Game : HobbieModel
+    public class GameModel : HobbieModel
     {
         public int Id { get; set; } //
 
@@ -15,8 +15,6 @@ namespace TFGMaui.Models
         public double Aggregated_Rating { get; set; }   //
 
         public double Rating { get; set; }  //
-
-        public List<int> AlternativeNames { get; set; }
 
         public int Category { get; set; }   //
 

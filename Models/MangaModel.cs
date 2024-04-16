@@ -20,7 +20,11 @@ namespace TFGMaui.Models
 
         public string Rank { get; set; }    // -
 
-        public AiredIn Aired { get; set; } // -
+        public AiredIn Aired { get; set; }  // -
+
+        public int Chapters { get; set; }   // -
+
+        public int Volumes { get; set; }    // -
 
         public List<Parameters> Authors { get; set; }
 

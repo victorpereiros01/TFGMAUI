@@ -20,20 +20,12 @@
             HorizontalOptions="End"
             WidthRequest="50" />
 
-        <Button
-            Margin="10"
-            Command="{Binding NavegarCommand}"
-            CommandParameter="LoginPage"
-            HorizontalOptions="End"
-            Text="Cerrar sesion"
-            WidthRequest="150" />
+        <Label
+            HorizontalOptions="Center"
+            Text="{Binding Saludos}"
+            VerticalOptions="Center" />
 
-        <VerticalStackLayout>
-            <Label
-                HorizontalOptions="Center"
-                Text="Cosas del main"
-                VerticalOptions="Center" />
-        </VerticalStackLayout>
+        <Image HeightRequest="100" Source="{Binding UsuarioActivo.Avatar}" />
 
     </VerticalStackLayout>
 </ContentPage>

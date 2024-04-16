@@ -66,6 +66,7 @@
 		<None Remove="Resources\Images\Continentes.png" />
 		<None Remove="Resources\Images\europa.png" />
 		<None Remove="Resources\Images\fondo.jpg" />
+		<None Remove="Resources\Images\user.png" />
 	</ItemGroup>
 
 	<ItemGroup>

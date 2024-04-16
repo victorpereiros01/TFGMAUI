@@ -6,19 +6,11 @@ using System.Threading.Tasks;
 
 namespace TFGMaui.Models
 {
-    public class MangaModel
+    public class MangaModel : HobbieModel
     {
         public int Mal_id { get; set; } // -
 
-        public class Images
-        {
-            private class Jpg
-            {
-                public string Image_url { get; set; }
-            }
-        }
-
-        public Images Imagen { get; set; }  // -
+        public Imagen Imagen { get; set; }  // -
 
         public string Title { get; set; }   // -
 
@@ -28,39 +20,17 @@ namespace TFGMaui.Models
 
         public string Rank { get; set; }    // -
 
-        public class Genre
-        {
-            public int Mal_Id { get; set; }
-            public string Type { get; set; }
-            public string Name { get; set; }
-        }
+        public AiredIn Aired { get; set; }  // -
 
-        public class PublishedIn
-        {
-            public string String { get; set; }
-        }
+        public int Chapters { get; set; }   // -
 
-        public PublishedIn Aired { get; set; } // -
+        public int Volumes { get; set; }    // -
 
-        public class Author
-        {
-            public int Mal_Id { get; set; }
-            public string Type { get; set; }
-            public string Name { get; set; }
-        }
+        public List<Parameters> Authors { get; set; }
 
-        public List<Author> Authors { get; set; }
+        public List<Parameters> Genres { get; set; } // -
 
-        public List<Genre> Genres { get; set; } // -
-
-        public class Demography
-        {
-            public int Mal_Id { get; set; }
-            public string Type { get; set; }
-            public string Name { get; set; }
-        }
-
-        public List<Demography> Demographics { get; set; }   // -
+        public List<Parameters> Demographics { get; set; }   // -
 
         public double Score { get; set; }   // -
 

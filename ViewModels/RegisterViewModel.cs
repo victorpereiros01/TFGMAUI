@@ -5,8 +5,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
-using System.Windows.Forms;
 using TFGMaui.Models;
 using TFGMaui.Services;
 using TFGMaui.Utils;

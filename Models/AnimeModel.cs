@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,73 +7,71 @@ using System.Threading.Tasks;
 
 namespace TFGMaui.Models
 {
-    public class AnimeModel()
+    public class AnimeModel : HobbieModel
     {
-        // - En teoria funciona
-        // x Mirarlo como seria
+        [JsonProperty("mal_id")]
+        public int Id { get; set; } // v
 
-        public int Mal_id { get; set; } // -
+        public Imagen Images { get; set; }  // v
 
-        public class Images { 
-            private class Jpg
-            {
-                public string Image_url { get; set; }
-            }
-        }
+        public string Title { get; set; }   // v
 
-        public Images Imagen { get; set; }  // -
+        public string Type { get; set; }    // v
 
-        public string Title { get; set; }   // -
+        public int Episodes { get; set; }   // v
 
-        public string Type { get; set; }    // -
+        public string Status { get; set; }  // v
 
-        public int Episodes { get; set; }   // -
+        public AiredIn Aired { get; set; } // v
 
-        public string Status { get; set; }  // -
+        public int Year { get; set; }   // v
 
-        public class AiredIn {
-            public string String { get; set; }
-        }  
+        public string Rating { get; set; }  // v
 
-        public AiredIn Aired { get; set; } // -
+        public string Duration { get; set; }    // v
 
-        public int Year { get; set; }   // -
+        public List<Parameters> Studios { get; set; } // v
 
-        public string Rating { get; set; }  // -
+        public List<Parameters> Genres { get; set; } // v
 
-        public string Duration { get; set; }    // -
+        public List<Parameters> Demographics { get; set; }   // v
 
-        public class Studio
-        {
-            public int Mal_id { get; set; }
-            public string Type { get; set; }
-            public string Name { get; set; }
-        }
+        public string Synopsis { get; set; }    // v
 
-        public List<Studio> Studios{ get; set; } // -
+        public string Rank { get; set; }    // v
 
-        public class Genre
-        {
-            public int Mal_Id { get; set; }
-            public string Type { get; set; }
-            public string Name { get; set; }
-        }
+        public double Score { get; set; }   // v
+    }
 
-        public List<Genre> Genres { get; set; } // -
+    public class AnimeData
+    {
+        public AnimeModel Data { get; set; }
+    }
 
-        public class Demography
-        {
-            public int Mal_Id { get; set; }
-            public string Type { get; set; }
-            public string Name { get; set; }
-        }
+    public class AnimeList
+    {
+        public List<AnimeModel> DataList { get; set; }
+    }
 
-        public List<Demography> Demographics { get; set; }   // -
+    public class AiredIn
+    {
+        public string String { get; set; }
+    }
 
-        public string Synopsis { get; set; }    // -
+    public class Imagen
+    {
+        public JpgInfo Jpg;
+    }
 
-        public string Rank { get; set; }    // -
+    public class Parameters
+    {
+        public int Mal_Id { get; set; }
+        public string Type { get; set; }
+        public string Name { get; set; }
+    }
 
-        public double Score { get; set; }   // -
+    public class JpgInfo
+    {
+        public string Image_url { get; set; }
     }
 }

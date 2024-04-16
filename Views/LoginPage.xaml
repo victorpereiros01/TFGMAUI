@@ -9,86 +9,111 @@
     BackgroundImageSource="fondo.jpg"
     BindingContext="{viewmodels:LoginViewModel}">
 
-    <Border HeightRequest="350" WidthRequest="425">
-        <Border.Shadow>
+    <Frame
+        CornerRadius="30"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        WidthRequest="500">
+        <Frame.Shadow>
             <Shadow
                 Brush="Black"
                 Opacity=".5"
                 Radius="12"
                 Offset="10,10" />
-        </Border.Shadow>
+        </Frame.Shadow>
 
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="20,0,0,0" />
-        </Border.StrokeShape>
+        <Frame.Background>
+            <LinearGradientBrush EndPoint="0,1">
+                <GradientStop Offset="0.7" Color="Transparent" />
+                <GradientStop Offset="0" Color="Black" />
+            </LinearGradientBrush>
+        </Frame.Background>
 
-        <VerticalStackLayout Padding="20" Background="WhiteSmoke">
+        <Grid
+            ColumnDefinitions="*,200,200,*"
+            HorizontalOptions="Center"
+            RowDefinitions="*,80,40,65,65,70,50,*"
+            VerticalOptions="Center">
             <Label
-                Margin="10"
-                FontSize="20"
+                Grid.Row="1"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                FontAttributes="Bold"
+                FontSize="Title"
                 HorizontalOptions="Center"
-                Text="LOGIN" />
+                Text="Hobbyer"
+                TextColor="White"
+                VerticalOptions="Center" />
 
             <Label
-                Margin="10"
+                Grid.Row="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
                 HorizontalOptions="Center"
-                Text="Introduce tus creedenciales para iniciar sesión" />
+                Text="All yor hobbies reunited: One app"
+                TextColor="White" />
 
             <Entry
-                Margin="10"
+                Grid.Row="3"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
                 BackgroundColor="LightGray"
                 HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
                 Opacity=".8"
-                Placeholder="Usuario o correo"
+                Placeholder="Username or email"
                 PlaceholderColor="DimGray"
                 Text="{Binding UsuarioActivo.NombreUsuario}"
                 VerticalOptions="Center"
-                WidthRequest="300" />
-
+                WidthRequest="400" />
             <Entry
-                Margin="10"
+                Grid.Row="4"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
                 BackgroundColor="LightGray"
                 HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
                 IsPassword="True"
                 Opacity=".8"
-                Placeholder="Contraseña"
+                Placeholder="Password"
                 PlaceholderColor="DimGray"
-                ReturnCommand="{Binding LoginCommand}"
                 Text="{Binding UsuarioActivo.Password}"
                 VerticalOptions="Center"
-                WidthRequest="300" />
+                WidthRequest="400" />
+
 
             <Button
-                Margin="10"
+                Grid.Row="5"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
                 Command="{Binding LoginCommand}"
-                HorizontalOptions="Center"
+                HeightRequest="60"
                 Text="Iniciar"
-                VerticalOptions="Center"
-                WidthRequest="300" />
+                WidthRequest="400" />
 
-            <HorizontalStackLayout
-                Margin="10"
-                Padding="10,0"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                WidthRequest="300">
-                <Label
-                    HorizontalOptions="Center"
-                    Text="¿No te has registrado?"
-                    TextColor="DarkGray"
-                    VerticalOptions="Center" />
+            <Label
+                Grid.Row="6"
+                Grid.Column="1"
+                HorizontalOptions="End"
+                Text="¿Haven´t registered yet?"
+                TextColor="DarkGray"
+                VerticalOptions="CenterAndExpand">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
+                </Label.GestureRecognizers>
+            </Label>
 
-                <Label
-                    Margin="5,0"
-                    HorizontalOptions="Center"
-                    Text="Crea una cuenta"
-                    VerticalOptions="Center">
-
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
-                    </Label.GestureRecognizers>
-                </Label>
-            </HorizontalStackLayout>
-        </VerticalStackLayout>
-    </Border>
+            <Label
+                Grid.Row="6"
+                Grid.Column="2"
+                Margin="10,0"
+                HorizontalOptions="Start"
+                Text="Create an account"
+                VerticalOptions="CenterAndExpand">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+    </Frame>
 </ContentPage>

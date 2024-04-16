@@ -1,10 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 using TFGMaui.Models;
 using TFGMaui.Services;
+using TFGMaui.Utils;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TFGMaui.ViewModels
 {
@@ -28,10 +32,10 @@ namespace TFGMaui.ViewModels
             FirstState = true;
             Items =
             [
-                new HobbieModel() { IsChecked = false, NombreHobbie="Peliculas" },
-                new HobbieModel() { IsChecked = false, NombreHobbie="Series" },
-                new HobbieModel() { IsChecked = false, NombreHobbie="Manga" },
-                new HobbieModel() { IsChecked = false, NombreHobbie="Anime" },
+                new HobbieModel() { IsChecked = false, NombreHobbie="Cinema" },
+                new HobbieModel() { IsChecked = false, NombreHobbie="Manganime" },
+                new HobbieModel() { IsChecked = false, NombreHobbie="Games" },
+                new HobbieModel() { IsChecked = false, NombreHobbie="Books & comics" }
             ];
             UsuarioReg.Hobbies = [];
         }
@@ -46,54 +50,110 @@ namespace TFGMaui.ViewModels
         }
 
         [RelayCommand]
-        public async Task SiguienteEstado()
+        public async Task CambiarEstado()
         {
-            FirstState = !FirstState;
+            if (FirstState)
+            {
+                if (!RepContra.Equals(UsuarioReg.Password))
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
+                }
+                else
+                {
+                    FirstState = !CheckUserDoesntExists();
+                }
+            }
+            else
+            {
+                FirstState = true;
+            }
+        }
+
+        /// <summary>
+        /// Metodo que evalua que el usuario exista o no
+        /// </summary>
+        /// <returns>True si no existe</returns>
+        public bool CheckUserDoesntExists()
+        {
+            // Conexion con la base de datos sql server
+            using SqlConnection oconexion = new(IConstantes.ConnectionString);
+
+            SqlCommand cmd = new("SELECT 1 FROM Usuarios u WHERE @NombreUsuario = u.NombreUsuario or @Email = u.Email", oconexion);
+
+            // Añade valores de entrada del stored procedure sql server
+            cmd.Parameters.AddWithValue("@NombreUsuario", UsuarioReg.NombreUsuario);
+            cmd.Parameters.AddWithValue("@Password", UsuarioReg.Password);
+            cmd.Parameters.AddWithValue("@Email", UsuarioReg.Email);
+
+            cmd.CommandType = CommandType.Text;
+            oconexion.Open();
+
+            // Checkea que si devuelve algo el usuario existe, por lo que da error
+            return cmd.ExecuteScalar() == null;
+        }
+
+        public async Task ActualizarImagenDef()
+        {
+            using SqlConnection connection = new(IConstantes.ConnectionString);
+            string query = "UPDATE [dbo].[Usuarios] SET Avatar = f.IdImagen from Usuarios RIGHT join Imagenes f on f.NombreCol = 'default' WHERE Usuarios.NombreUsuario = @Nombre";
+
+            using SqlCommand command = new(query, connection);
+
+            command.Parameters.AddWithValue("@Nombre", UsuarioReg.NombreUsuario);
+
+            command.CommandType = CommandType.Text;
+            connection.Open();
+
+            // Check Error
+            if (command.ExecuteNonQuery() < 1)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "Error al actualizar el avatar", "Aceptar");
+            }
+
+            await App.Current.MainPage.DisplayAlert("Actualizacion", "Imagen actualizada", "Aceptar");
         }
 
         [RelayCommand]
         public async Task Registrar()
         {
-            string Mensaje = string.Empty;
-
-            if (!RepContra.Equals(UsuarioReg.Password))
+            foreach (var item in Items)
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
+                UsuarioReg.Hobbies.Add(item.IsChecked);
             }
-            else
+
+            try
             {
-                foreach (var item in Items)
+                using SqlConnection connection = new(IConstantes.ConnectionString);
+                string query = "INSERT INTO Usuarios  ( [NombreUsuario], [Email], [Password], [Hobbie1], [Hobbie2], [Hobbie3], [Hobbie4]) \nVALUES (@Nombre, @Email, @Password, @Hobbie1, @Hobbie2, @Hobbie3, @Hobbie4)";
+
+                using SqlCommand command = new(query, connection);
+
+                command.Parameters.AddWithValue("@Nombre", UsuarioReg.NombreUsuario);
+                command.Parameters.AddWithValue("@Email", UsuarioReg.Email);
+                command.Parameters.AddWithValue("@Password", UsuarioReg.Password);
+                command.Parameters.AddWithValue("@Hobbie1", UsuarioReg.Hobbies[0]);
+                command.Parameters.AddWithValue("@Hobbie2", UsuarioReg.Hobbies[1]);
+                command.Parameters.AddWithValue("@Hobbie3", UsuarioReg.Hobbies[2]);
+                command.Parameters.AddWithValue("@Hobbie4", UsuarioReg.Hobbies[3]);
+
+                command.CommandType = CommandType.Text;
+                connection.Open();
+
+                // Check Error
+                if (command.ExecuteNonQuery() < 1)
                 {
-                    UsuarioReg.Hobbies.Add(item.IsChecked);
+                    await App.Current.MainPage.DisplayAlert("Error", "Error al registrar", "Aceptar");
                 }
-
-                try
-                {   // Conexion con la base de datos sql server
-                    using SqlConnection oconexion = new(IConstantes.ConnectionString);
-
-                    SqlCommand cmd = new("SP_REGISTRAR_USUARIO", oconexion);
-                    // Añade valores de entrada del stored procedure sql server
-                    cmd.Parameters.AddWithValue("NombreUsuario", UsuarioReg.NombreUsuario);
-                    cmd.Parameters.AddWithValue("Password", UsuarioReg.Password);
-                    cmd.Parameters.AddWithValue("Email", UsuarioReg.Email);
-
-                    // Añade parametros de vuelta del procedimiento
-                    cmd.Parameters.Add("Mensaje", SqlDbType.VarChar, 500).Direction = ParameterDirection.Output;
-
-                    // Pone el tipo del comando a procedimiento abre la conexion y la ejecuta
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    oconexion.Open();
-                    cmd.ExecuteNonQuery();
-
-                    // Obtiene el mensaje de la base de datos
-                    Mensaje = Convert.ToString(cmd.Parameters["Mensaje"].Value);
-                }
-                catch (Exception ex)
+                else
                 {
-                    Mensaje = ex.Message;
-                }
+                    await ActualizarImagenDef();
 
-                await App.Current.MainPage.DisplayAlert("Actualizacion", Mensaje, "Aceptar");
+                    await App.Current.MainPage.DisplayAlert("Usuario creado", "Se ha registrado el usuario correctamente", "Aceptar");
+                }
+            }
+            catch (Exception e)
+            {
+                await App.Current.MainPage.DisplayAlert("Actualizacion", e.Message, "Aceptar");
             }
         }
     }

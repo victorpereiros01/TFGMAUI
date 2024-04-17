@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Devices.Spi;
-
-namespace TFGMaui.Models
+﻿namespace TFGMaui.Models
 {
     public class SeriesModel : HobbieModel
     {

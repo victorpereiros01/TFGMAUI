@@ -57,14 +57,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Remove="Resources\Images\africa.png" />
-		<None Remove="Resources\Images\americanorte.png" />
-		<None Remove="Resources\Images\americasur.png" />
-		<None Remove="Resources\Images\asia.png" />
-		<None Remove="Resources\Images\australia.png" />
-		<None Remove="Resources\Images\contgris.png" />
-		<None Remove="Resources\Images\Continentes.png" />
-		<None Remove="Resources\Images\europa.png" />
 		<None Remove="Resources\Images\fondo.jpg" />
 		<None Remove="Resources\Images\user.png" />
 	</ItemGroup>

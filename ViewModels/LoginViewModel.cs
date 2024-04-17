@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Data;
 using TFGMaui.Services;
 using System.Diagnostics;
@@ -32,7 +32,6 @@ namespace TFGMaui.ViewModels
         {
             try
             {
-                // string file = (await FileUtils.OpenFile()).FileBase64;
                 using SqlConnection oconexion = new(IConstantes.ConnectionString);
                 string query = "SELECT NombreUsuario, Email, f.ValorImagenEnc FROM Usuarios u join Imagenes f on f.IdImagen=u.Avatar WHERE u.NombreUsuario = @Nombre or u.Email = @Nombre AND u.Password = @Pass";
 
@@ -52,11 +51,11 @@ namespace TFGMaui.ViewModels
                     }
                 }
 
-                Navegar("MainPage");
+                await Navegar("MainPage");
 
                 await Application.Current.MainPage.DisplayAlert("Saludos", "Bienvenid@ " + UsuarioActivo.NombreUsuario, "Aceptar");
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Creedenciales incorrectas", "Aceptar");
                 Debug.WriteLine(e.Message);

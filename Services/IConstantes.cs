@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TFGMaui.Services
+﻿namespace TFGMaui.Services
 {
     interface IConstantes
     {
@@ -31,7 +24,6 @@ namespace TFGMaui.Services
         public static string UserData = $"ts={Ts}&apikey={PublicMarvelKey}&hash={Hash}";
 
         public static string MarvelPage => $"{BaseMarvel}?{UserData}";  // Digest md5 ts+privateKey+publicKey
-
-        public void SetMarvelUrl();
+        
     }
 }

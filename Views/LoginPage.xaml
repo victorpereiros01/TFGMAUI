@@ -39,7 +39,7 @@
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
                 FontAttributes="Bold"
-                FontSize="Title"
+                FontSize="Large"
                 HorizontalOptions="Center"
                 Text="Hobbyer"
                 TextColor="White"
@@ -49,6 +49,7 @@
                 Grid.Row="2"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
+                FontSize="Small"
                 HorizontalOptions="Center"
                 Text="All yor hobbies reunited: One app"
                 TextColor="White" />

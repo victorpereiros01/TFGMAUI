@@ -20,12 +20,24 @@
             HorizontalOptions="End"
             WidthRequest="50" />
 
+        <Button
+            BackgroundColor="Red"
+            FontSize="Large"
+            Text="Hobbyer"
+            WidthRequest="300" />
+
         <Label
+            Margin="20"
             HorizontalOptions="Center"
             Text="{Binding Saludos}"
             VerticalOptions="Center" />
+        <Label HorizontalOptions="Center" Text="{Binding UsuarioActivo.NombreUsuario}" />
 
-        <Image HeightRequest="100" Source="{Binding UsuarioActivo.Avatar}" />
+        <Image
+            Aspect="AspectFill"
+            HeightRequest="50"
+            Source="{Binding UsuarioActivo.Avatar}"
+            WidthRequest="50" />
 
     </VerticalStackLayout>
 </ContentPage>

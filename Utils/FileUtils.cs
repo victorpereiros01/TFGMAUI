@@ -1,12 +1,4 @@
-﻿using Microsoft.Maui.Storage;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TFGMaui.Utils
+﻿namespace TFGMaui.Utils
 {
     public class RecursoModel
     {

@@ -2,6 +2,11 @@
 {
     interface IConstantes
     {
+        public const string BaseMarvel = "https://gateway.marvel.com:443/v1/public";
+        public const string BaseBooks = "https://www.googleapis.com/books/v1";
+        public const string BaseAnimeManga = "https://api.jikan.moe/v4";
+        public const string BaseMovieDb = "https://api.themoviedb.org/3";
+
         public const string ConnectionString = "Data Source=DESKTOP-5UTJUQ6;Initial Catalog=APIHobbies;Integrated Security=True;TrustServerCertificate=True";
 
         public const string Bearer = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MGFmYzNlODc1NTgzMDM2YTlhOTNjMTVjMzRhYWU2ZCIsInN1YiI6IjY1ZjgxYTE2MjQyZjk0MDE2NGNjZTM2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uEBiF1avCHP0UeZaSQuvltxWLSN93rEYf9E2mO2mJz8";
@@ -16,14 +21,6 @@
 
         public static string Hash { get; set; }
 
-        public const string BaseMarvel = "https://gateway.marvel.com:443/v1/public";
-        public const string BaseBooks = "https://www.googleapis.com/books/v1";
-        public const string BaseAnimeManga = "https://api.jikan.moe/v4";
-        public const string BaseMovieDb = "https://api.themoviedb.org/3";
-
-        public static string UserData = $"ts={Ts}&apikey={PublicMarvelKey}&hash={Hash}";
-
-        public static string MarvelPage => $"{BaseMarvel}?{UserData}";  // Digest md5 ts+privateKey+publicKey
-        
+        public static string MarvelPage => $"{BaseMarvel}?ts={Ts}&apikey={PublicMarvelKey}&hash={Hash}";  // Digest md5 ts+privateKey+publicKey
     }
 }

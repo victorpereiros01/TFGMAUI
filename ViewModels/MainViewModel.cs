@@ -32,7 +32,8 @@ namespace TFGMaui.ViewModels
             byte[] hashBytes = MD5.HashData(Encoding.UTF8.GetBytes(input));
 
             // Convert the hash bytes to a hexadecimal string
-            string hash = string.Join(string.Empty, hashBytes.Select(b => b.ToString("x2")));
+            string hash = string.Join(string.Empty,
+                hashBytes.Select(b => b.ToString("x2")));
 
             // Assign the hash to IConstantes.Hash
             IConstantes.Hash = hash;
@@ -42,13 +43,13 @@ namespace TFGMaui.ViewModels
         {
             SetMarvelUrl();
 
-            string cosa = IConstantes.MarvelPage;
+            string webmarvel = IConstantes.MarvelPage;
 
             var peli = GetMovie("438631");  // dune 2022
             var anime = GetAnime("2");
             var book = GetBook("2gk0EAAAQBAJ");
 
-            var pagina = GetTrending("week");    // week o day
+            var paginat = GetTrending("week");    // week o day
             var animes = SearchAnime("one piece");    // week o day
 
             Saludos = "Have a nice " + DateTime.Now.DayOfWeek.ToString() + " " + DateTime.Now.Day + " - " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)

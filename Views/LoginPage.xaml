@@ -82,7 +82,6 @@
                 VerticalOptions="Center"
                 WidthRequest="400" />
 
-
             <Button
                 Grid.Row="5"
                 Grid.Column="1"

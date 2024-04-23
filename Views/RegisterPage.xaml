@@ -146,6 +146,7 @@
                 </HorizontalStackLayout>
             </Grid>
         </Frame>
+
         <Frame
             CornerRadius="30"
             HorizontalOptions="Center"

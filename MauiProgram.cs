@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Mopups.Hosting;
 
 namespace TFGMaui
 {
@@ -14,7 +15,7 @@ namespace TFGMaui
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                }).ConfigureMopups();
 
 #if DEBUG
             builder.Logging.AddDebug();

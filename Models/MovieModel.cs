@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace TFGMaui.Models
 {
@@ -22,7 +23,8 @@ namespace TFGMaui.Models
 
         public double Popularity { get; set; }  // Popularidad v
 
-        public string Poster_Path { get; set; }  // Miniatura estilo portrait v, no confundir con el backdrop_path, que es otra imagen distinta: la que se puede poner de fondo al ver los detalles de la imagen
+        [JsonProperty("Poster_path")]
+        public new string Imagen { get; set; }  // Miniatura estilo portrait v, no confundir con el backdrop_path, que es otra imagen distinta: la que se puede poner de fondo al ver los detalles de la imagen
 
         public long Budget { get; set; }    // Coste v
 
@@ -32,7 +34,7 @@ namespace TFGMaui.Models
 
         public string Status { get; set; }  // Como proximamente o released v
 
-        public double VoteAverage { get; set; }
+        public double Vote_Average { get; set; }
 
         public List<MovieModel> ListRecommendations { get; set; }    // recomendaciones
 
@@ -41,14 +43,6 @@ namespace TFGMaui.Models
         public List<WatchProvider> FilmProviders { get; set; }  // plataformas
 
         public Credits FilmCredits { get; set; }    // actores
-    }
-
-    public class Page
-    {
-        public int PageC { get; set; }
-        public ObservableCollection<MovieModel> Results { get; set; }
-        public int Total_pages { get; set; }
-        public int Total_results { get; set; }
     }
 
     public class GenreM

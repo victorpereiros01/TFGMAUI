@@ -3,8 +3,10 @@
     x:Class="TFGMaui.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:TFGMaui.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodels="clr-namespace:TFGMaui.ViewModels"
+    x:Name="main_page"
     x:DataType="viewmodels:MainViewModel"
     BackgroundImageSource="fondo.jpg"
     BindingContext="{viewmodels:MainViewModel}">
@@ -12,32 +14,150 @@
     <VerticalStackLayout
         Padding="15"
         Background="WhiteSmoke"
-        HeightRequest="500"
+        HeightRequest="550"
         WidthRequest="650">
-        <Button
-            Command="{Binding NavegarCommand}"
-            CommandParameter="SettingsPage"
-            HorizontalOptions="End"
-            WidthRequest="50" />
+        <HorizontalStackLayout>
+            <Label
+                Margin="20"
+                HorizontalOptions="Center"
+                Text="{Binding Saludos}"
+                VerticalOptions="Center" />
 
-        <Button
-            BackgroundColor="Red"
-            FontSize="Large"
-            Text="Hobbyer"
-            WidthRequest="300" />
+            <Button
+                BackgroundColor="Red"
+                FontSize="Large"
+                Text="Hobbyflix"
+                WidthRequest="170" />
+
+            <Label
+                Margin="10"
+                HorizontalOptions="Center"
+                Text="{Binding UsuarioActivo.NombreUsuario}" />
+            <Image
+                Margin="10"
+                Aspect="AspectFill"
+                HeightRequest="50"
+                Source="{Binding UsuarioActivo.Avatar}"
+                WidthRequest="70" />
+
+            <Button
+                Command="{Binding NavegarCommand}"
+                CommandParameter="SettingsPage"
+                HeightRequest="50"
+                HorizontalOptions="End"
+                Text="A"
+                WidthRequest="50" />
+        </HorizontalStackLayout>
+
+        <Picker
+            Margin="10,10,20,0"
+            HeightRequest="50"
+            HorizontalOptions="End"
+            ItemsSource="{Binding Languages}"
+            SelectedItem="{Binding SelectedLanguage}"
+            WidthRequest="90" />
 
         <Label
-            Margin="20"
-            HorizontalOptions="Center"
-            Text="{Binding Saludos}"
-            VerticalOptions="Center" />
-        <Label HorizontalOptions="Center" Text="{Binding UsuarioActivo.NombreUsuario}" />
+            Margin="20,0"
+            FontSize="Title"
+            Text="Tendencias" />
+        <HorizontalStackLayout>
+            <CollectionView
+                x:Name="trend"
+                Margin="10"
+                HeightRequest="140"
+                ItemsSource="{Binding PaginaPelis.Results}"
+                SelectionMode="Single"
+                WidthRequest="500">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="5"
+                        Orientation="Vertical"
+                        Span="6"
+                        VerticalItemSpacing="5" />
+                </CollectionView.ItemsLayout>
 
-        <Image
-            Aspect="AspectFill"
-            HeightRequest="50"
-            Source="{Binding UsuarioActivo.Avatar}"
-            WidthRequest="50" />
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:MovieModel">
+                        <Border>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12" />
+                            </Border.StrokeShape>
 
+                            <VerticalStackLayout
+                                Padding="0,5,0,0"
+                                HeightRequest="130"
+                                HorizontalOptions="Center"
+                                WidthRequest="60">
+                                <HorizontalStackLayout>
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        Text="{Binding Title}"
+                                        VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+
+                                <Image HeightRequest="110" Source="{Binding Imagen}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button
+                Command="{Binding ShowMovieMopupCommand}"
+                CommandParameter="438631"
+                HeightRequest="130"
+                Text="&gt;"
+                WidthRequest="80" />
+        </HorizontalStackLayout>
+
+        <Label
+            Margin="20,0"
+            FontSize="Title"
+            Text="Top" />
+
+        <HorizontalStackLayout>
+            <CollectionView
+                Margin="10"
+                HeightRequest="140"
+                ItemsSource="{Binding PaginaPelisTop.Results}"
+                SelectionMode="Single"
+                WidthRequest="500">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="5"
+                        Orientation="Vertical"
+                        Span="6"
+                        VerticalItemSpacing="5" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:MovieModel">
+                        <Border>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout
+                                Padding="0,5,0,0"
+                                HeightRequest="130"
+                                HorizontalOptions="Center"
+                                WidthRequest="60">
+                                <HorizontalStackLayout>
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        Text="{Binding Title}"
+                                        VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <Image HeightRequest="110" Source="{Binding Imagen}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button
+                HeightRequest="130"
+                Text="&gt;"
+                WidthRequest="80" />
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

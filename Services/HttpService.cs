@@ -9,11 +9,10 @@ namespace TFGMaui.Services
         // Método para ejecutar una solicitud HTTP y obtener una respuesta asincrónica
         public static async Task<object> ExecuteRequestAsync<T>(HttpRequestModel requestModel)
         {
+            // Establece la pagina, la extension, los encabezados y los parametros
             var client = new RestClient(requestModel.Url);
             var request = new RestRequest(requestModel.Endpoint);
-
             request.AddHeaders(requestModel.Headers);
-
             foreach (var item in requestModel.Parameters)
             {
                 if (!requestModel.Parameters.TryGetValue(item.Key, out var value))
@@ -21,7 +20,8 @@ namespace TFGMaui.Services
                 request.AddParameter(item.Key, value);
             }
 
-            var response = await client.GetAsync(request);
+            // Ejecuta la request y si da error lanza una excepcion
+            var response = await client.ExecuteGetAsync(request);
 
             if (!response.IsSuccessful)
             {

@@ -1,13 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Mopups.Services;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using TFGMaui.Models;
 using TFGMaui.Services;
-using Page = TFGMaui.Models.Page;
+using TFGMaui.Views.Mopups;
 
 namespace TFGMaui.ViewModels
 {
@@ -20,33 +22,84 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private string saludos;
 
+        [ObservableProperty]
+        private Page paginaPelis;
+        [ObservableProperty]
+        private Page paginaPelisTop;
+
+        [ObservableProperty]
+        private ObservableCollection<string> languages;
+
+        [ObservableProperty]
+        private string selectedLanguage;
+
+        [ObservableProperty]
+        private int selectedPage;
+
+        private MovieMopup MovieMopup;
+        private MovieMopupViewModel MovieMopupViewModel;
+
         public MainViewModel()
         {
-            var peli = GetMovieAsync("438631");
-            var pag = GetTrending("week");
+            _ = InitializeComponents();
 
-            Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)
-    .ToString("dddd, d MMM", CultureInfo.InvariantCulture);
+            // Inicializa lo requerido para el mopup
+            MovieMopupViewModel = new MovieMopupViewModel();
+            MovieMopup = new MovieMopup(MovieMopupViewModel);
         }
 
-        public async Task<Page> GetTrending(string type)
+        /// <summary>
+        /// Inicializa los saludos, con el dia en formato Dia de la semana, numero y mes. Y obtiene las listas de trending y top
+        /// </summary>
+        public async Task InitializeComponents()
+        {
+            try
+            {
+                Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)
+    .ToString("dddd, d MMM", CultureInfo.InvariantCulture);
+
+                Languages = ["es-ES", "en-US", "en-UK"];
+                SelectedLanguage = Languages[0];
+
+                SelectedPage = 1;
+
+                await GetTrending("day");
+                await GetTop();
+            }
+            catch
+            {
+                Application.Current.MainPage.DisplayAlert("Error", "Fatal", "Aceptar");
+            }
+        }
+
+        public async Task GetTrending(string type)
         {
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
                 endpoint: $"trending/movie/{type}",
-                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", "es-ES" }, { "page", "1" } },
+                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", SelectedLanguage }, { "page", SelectedPage.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
-            return (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina);    // v
+            PaginaPelis = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+
+            foreach (var item in PaginaPelis.Results)
+            {
+                item.Imagen = "https://image.tmdb.org/t/p/original" + item.Imagen;
+            }
         }
 
-        public async Task<MovieModel> GetMovieAsync(string id)
+        public async Task GetTop()
         {
-            var requestPelicula = new HttpRequestModel(url: IConstantes.BaseMovieDb,
-                endpoint: $"movie/{id}",
-                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", "es-ES" } },
+            var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
+                endpoint: $"movie/top_rated",
+                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", SelectedLanguage }, { "page", SelectedPage.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
-            return (MovieModel)await HttpService.ExecuteRequestAsync<MovieModel>(requestPelicula);  // v
+            PaginaPelisTop = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+
+            foreach (var item in PaginaPelisTop.Results)
+            {
+                item.Imagen = "https://image.tmdb.org/t/p/original" + item.Imagen;
+            }
         }
 
         [RelayCommand]
@@ -59,68 +112,65 @@ namespace TFGMaui.ViewModels
         }
 
         /// <summary>
+        /// Abre el mopup
+        /// </summary>
+        /// <param name="id">Id de la pelicula seleccionada</param>
+        [RelayCommand]
+        public async Task ShowMovieMopup(string id)
+        {
+            MovieMopupViewModel.SendHobbieById(id);
+            await MopupService.Instance.PushAsync(MovieMopup);
+        }
+
+        /// <summary>
         /// Pruebas
         /// </summary>
-        private void pruebas()
+        private async void pruebas()
         {
-            SetMarvelUrl();
-
             string webmarvel = IConstantes.MarvelPage;
 
-            // var peli = MainViewModel.GetMovie("");  // dune 2022
-            var anime = GetAnime("2");
-            var book = GetBook("2gk0EAAAQBAJ");
-
-            var paginat = GetTrending("week");    // week o day
-            var animes = SearchAnime("one piece");    // week o day
-        }
-
-        public async Task GetBook(string id)
-        {
-            var options = new RestClientOptions($"{IConstantes.BaseBooks}/volumes/{id}");
+            // 438631 // dune 2022
+            var options = new RestClientOptions($"{IConstantes.BaseAnimeManga}/manga/2");
             var client = new RestClient(options);
             var request = new RestRequest();
 
             request.AddParameter("language", "es-ES");
             request.AddHeader("Accept", "application/json");
 
-            var response = await client.ExecuteAsync(request);
+            //
+            // libro por id
+            //
 
-            BookModel b = JsonConvert.DeserializeObject<BookModel>(response.Content);
-        }
+            var options2 = new RestClientOptions($"{IConstantes.BaseBooks}/volumes/2gk0EAAAQBAJ");
+            var client2 = new RestClient(options2);
+            var request2 = new RestRequest();
 
-        public async Task GetAnime(string id)
-        {
-            var options = new RestClientOptions($"{IConstantes.BaseAnimeManga}/manga/{id}");
-            var client = new RestClient(options);
-            var request = new RestRequest();
+            request2.AddParameter("language", "es-ES");
+            request2.AddHeader("Accept", "application/json");
 
-            request.AddParameter("language", "es-ES");
+            var response2 = await client.ExecuteAsync(request2);
+
+            BookModel b = JsonConvert.DeserializeObject<BookModel>(response2.Content);
+
+            //
+            // anime search
+            //
+
+            var options3 = new RestClientOptions($"{IConstantes.BaseAnimeManga}/anime?q=one piece");
+            var client3 = new RestClient(options3);
+            var request3 = new RestRequest();
+
+            request3.AddParameter("language", "es-ES");
             request.AddHeader("Accept", "application/json");
 
-            var response = await client.ExecuteAsync(request);
+            var response3 = await client.GetAsync(request3);
 
-            AnimeData a = JsonConvert.DeserializeObject<AnimeData>(response.Content);
+            var s = JsonConvert.DeserializeObject<AnimeList>(response3.Content);
 
-            var an = a.Data;
-        }
+            //
+            // Get the marvel api_key
+            //
 
-        public async Task SearchAnime(string anime)
-        {
-            var options = new RestClientOptions($"{IConstantes.BaseAnimeManga}/anime?q={anime}");
-            var client = new RestClient(options);
-            var request = new RestRequest();
-
-            request.AddParameter("language", "es-ES");
-            request.AddHeader("Accept", "application/json");
-
-            var response = await client.GetAsync(request);
-
-            var s = JsonConvert.DeserializeObject<AnimeList>(response.Content);
-        }
-
-        public void SetMarvelUrl()
-        {
             // Generate a random TimeStamp
             IConstantes.Ts = new Random().Next().ToString();
 
@@ -137,5 +187,13 @@ namespace TFGMaui.ViewModels
             // Assign the hash to IConstantes.Hash
             IConstantes.Hash = hash;
         }
+    }
+
+    internal class Page
+    {
+        public int PageC { get; set; }
+        public ObservableCollection<MovieModel> Results { get; set; }
+        public int Total_pages { get; set; }
+        public int Total_results { get; set; }
     }
 }

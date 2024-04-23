@@ -1,4 +1,6 @@
-﻿namespace TFGMaui
+﻿using Mopups.Interfaces;
+
+namespace TFGMaui
 {
     public partial class MainPage : ContentPage
     {

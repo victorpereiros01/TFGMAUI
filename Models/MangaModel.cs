@@ -4,7 +4,7 @@
     {
         public int Mal_id { get; set; } // -
 
-        public Imagen Imagen { get; set; }  // -
+        public new Imagen Imagen { get; set; }  // -
 
         public string Title { get; set; }   // -
 

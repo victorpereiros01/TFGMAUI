@@ -11,13 +11,11 @@
     CloseWhenBackgroundIsClicked="False">
 
     <mopups:PopupPage.Animation>
-        <mopupsanim:ScaleAnimation
+        <mopupsanim:MoveAnimation
             DurationIn="700"
             EasingIn="BounceOut"
             PositionIn="Bottom"
-            PositionOut="Center"
-            ScaleIn="1"
-            ScaleOut="0.7" />
+            PositionOut="Center" />
     </mopups:PopupPage.Animation>
 
     <VerticalStackLayout
@@ -44,7 +42,7 @@
 
         <Image
             BackgroundColor="Red"
-            HeightRequest="110"
+            HeightRequest="90"
             HorizontalOptions="Center"
             Source="{Binding Movie.Imagen}"
             VerticalOptions="Center"

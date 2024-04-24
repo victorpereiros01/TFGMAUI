@@ -20,7 +20,7 @@
             VerticalOptions="Center" />
 
         <Image HeightRequest="200" Source="{Binding UsuarioActivo.Avatar}" />
-        <Button Command="{Binding ChangeAvatarCommand}" />
+        <Button Command="{Binding ChangeAvatarCommand}" Text="cambiar foto" />
 
         <Button
             Margin="10"

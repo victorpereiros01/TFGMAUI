@@ -1,6 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Data.SqlClient;
+using Mopups.PreBaked.PopupPages.SingleResponse;
+using Mopups.PreBaked.Services;
+using RestSharp;
+using System.Collections.ObjectModel;
+using TFGMaui.Models;
 using TFGMaui.Services;
 using TFGMaui.Utils;
 
@@ -87,6 +92,30 @@ namespace TFGMaui.ViewModels
             {
                 ["UsuarioActivo"] = UsuarioActivo
             });
+        }
+
+        [RelayCommand]
+        public async Task ChangeLanguage()
+        {
+
+        }
+
+        [RelayCommand]
+        public async Task ChangeCreedentials()
+        {
+
+        }
+
+        [RelayCommand]
+        public async Task ChangeHobbies()
+        {
+
+        }
+
+        [RelayCommand]
+        public async Task EnableParentalMode()
+        {
+
         }
     }
 }

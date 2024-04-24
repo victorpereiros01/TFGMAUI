@@ -106,7 +106,7 @@ namespace TFGMaui.ViewModels
                 await App.Current.MainPage.DisplayAlert("Error", "Error al actualizar el avatar", "Aceptar");
             }
 
-            await App.Current.MainPage.DisplayAlert("Actualizacion", "Imagen actualizada", "Aceptar");
+            //await App.Current.MainPage.DisplayAlert("Actualizacion", "Imagen actualizada", "Aceptar");
         }
 
         [RelayCommand]
@@ -145,6 +145,7 @@ namespace TFGMaui.ViewModels
                     await ActualizarImagenDef();
 
                     await App.Current.MainPage.DisplayAlert("Usuario creado", "Se ha registrado el usuario correctamente", "Aceptar");
+                    await Navegar("LoginPage");
                 }
             }
             catch (Exception e)

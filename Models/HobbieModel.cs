@@ -1,6 +1,6 @@
 ﻿namespace TFGMaui.Models
 {
-    public class HobbieModel()
+    public class HobbieModel
     {
         public string Imagen { get; set; }
 

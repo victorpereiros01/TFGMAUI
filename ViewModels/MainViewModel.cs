@@ -1,8 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Mopups.PreBaked.PopupPages.DualResponse;
+using Mopups.PreBaked.PopupPages.EntryInput;
+using Mopups.PreBaked.PopupPages.Loader;
+using Mopups.PreBaked.PopupPages.SingleResponse;
+using Mopups.PreBaked.PopupPages.TextInput;
+using Mopups.PreBaked.Services;
 using Mopups.Services;
 using Newtonsoft.Json;
 using RestSharp;
+using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Security.Cryptography;
@@ -10,6 +17,7 @@ using System.Text;
 using TFGMaui.Models;
 using TFGMaui.Services;
 using TFGMaui.Views.Mopups;
+using Color = System.Drawing.Color;
 
 namespace TFGMaui.ViewModels
 {
@@ -39,6 +47,9 @@ namespace TFGMaui.ViewModels
         private MovieMopup MovieMopup;
         private MovieMopupViewModel MovieMopupViewModel;
 
+        [ObservableProperty]
+        private ObservableCollection<QuoteModel> quotes;
+
         public MainViewModel()
         {
             _ = InitializeComponents();
@@ -49,7 +60,7 @@ namespace TFGMaui.ViewModels
         }
 
         /// <summary>
-        /// Inicializa los saludos, con el dia en formato Dia de la semana, numero y mes. Y obtiene las listas de trending y top
+        /// Inicializa los saludos, con el dia en formato dia de la semana, numero y mes. Y obtiene las listas de trending y top
         /// </summary>
         public async Task InitializeComponents()
         {
@@ -79,27 +90,39 @@ namespace TFGMaui.ViewModels
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", SelectedLanguage }, { "page", SelectedPage.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
-            PaginaPelis = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+            var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
 
-            foreach (var item in PaginaPelis.Results)
-            {
-                item.Imagen = "https://image.tmdb.org/t/p/original" + item.Imagen;
-            }
+            pagtrend.Results = GetNelements(pagtrend.Results, 6);
+            pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+
+            PaginaPelis = pagtrend;
         }
 
         public async Task GetTop()
         {
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
-                endpoint: $"movie/top_rated",
+                endpoint: "movie/top_rated",
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", SelectedLanguage }, { "page", SelectedPage.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
-            PaginaPelisTop = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+            var pagtop = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
 
-            foreach (var item in PaginaPelisTop.Results)
+            pagtop.Results = GetNelements(pagtop.Results, 6);
+            pagtop.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+
+            PaginaPelisTop = pagtop;
+        }
+
+        private List<MovieModel> GetNelements(List<MovieModel> results, int v2)
+        {
+            List<MovieModel> list = [];
+
+            for (int i = 0; i < v2; i++)
             {
-                item.Imagen = "https://image.tmdb.org/t/p/original" + item.Imagen;
+                list.Add(results[i]);
             }
+
+            return list;
         }
 
         [RelayCommand]
@@ -187,12 +210,54 @@ namespace TFGMaui.ViewModels
             // Assign the hash to IConstantes.Hash
             IConstantes.Hash = hash;
         }
+
+        [RelayCommand]
+        public async Task ShowLoadingMopup()
+        {
+            // Loader
+            await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(5000), ColorConverterUtil.ConvertFromSystemDrawingColor(Color.Blue), ColorConverterUtil.ConvertFromSystemDrawingColor(Color.White), LoadingReasons(), ColorConverterUtil.ConvertFromSystemDrawingColor(Color.Black));
+
+            //// Single response
+            // return await SingleResponseViewModel.AutoGenerateBasicPopup(Color.HotPink, Color.Black, "I Accept", Color.Gray, "Good Job, enjoy this single response example", "thumbsup.png");
+
+            //// Dual response
+            // return await DualResponseViewModel.AutoGenerateBasicPopup(Color.WhiteSmoke, Color.Red, "Okay", Color.WhiteSmoke, Color.Green, "Looks Good!", Color.DimGray, "This is an example of a dual response popup page", "thumbsup.png");
+
+            //// Text input
+            //await TextInputViewModel.AutoGenerateBasicPopup(Color.WhiteSmoke, Color.Red, "Cancel", Color.WhiteSmoke, Color.Green, "Submit", Color.DimGray, "Text input Example", string.Empty);
+
+            //// Entry input
+            //await EntryInputViewModel.AutoGenerateBasicPopup(Color.WhiteSmoke, Color.Red, "Cancel", Color.WhiteSmoke, Color.Green, "Submit", Color.DimGray, "Text input Example", string.Empty);
+
+            //// Login page popup
+            //var (username, password) = await LoginViewModel.AutoGenerateBasicPopup(Color.WhiteSmoke, Color.Red, "Cancel", Color.WhiteSmoke, Color.Green, "Submit", Color.DimGray, string.Empty, "Username Here", string.Empty, "Password here", "thumbsup.png", 0, 0);
+            //// or to return from the loader value
+            //await PreBakedMopupService.GetInstance().WrapReturnableTaskInLoader<bool, LoaderPopupPage>(IndepthCheckAgainstDatabase(), Color.Blue, Color.White, LoadingReasons(), Color.Black);
+        }
+
+        private List<string> LoadingReasons()
+        {
+            _ = GetQuoteRandomAsync();
+
+            //return ["Huevo", "Mi"];
+            return [Quotes[0].Author, Quotes[0].Content];
+        }
+
+        private async Task GetQuoteRandomAsync()
+        {
+            var requestPagina = new HttpRequestModel(url: IConstantes.BaseQuotes,
+                endpoint: "quotes/random",
+                parameters: new Dictionary<string, string> { { "maxLength", "50" } },
+                headers: []);
+
+            Quotes = (ObservableCollection<QuoteModel>)await HttpService.ExecuteRequestAsync<ObservableCollection<QuoteModel>>(requestPagina);
+        }
     }
 
     internal class Page
     {
         public int PageC { get; set; }
-        public ObservableCollection<MovieModel> Results { get; set; }
+        public List<MovieModel> Results { get; set; }
         public int Total_pages { get; set; }
         public int Total_results { get; set; }
     }

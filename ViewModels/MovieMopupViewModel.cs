@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Mopups.Services;
+using System.Collections.ObjectModel;
 using TFGMaui.Models;
 using TFGMaui.Services;
 
@@ -29,8 +30,18 @@ namespace TFGMaui.ViewModels
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", "es-ES" } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
-            Movie = (MovieModel)await HttpService.ExecuteRequestAsync<MovieModel>(requestPelicula); // v
-            Movie.Imagen = "https://image.tmdb.org/t/p/original" + Movie.Imagen;
+            var m = (MovieModel)await HttpService.ExecuteRequestAsync<MovieModel>(requestPelicula); // v
+            m.Imagen = "https://image.tmdb.org/t/p/original" + m.Imagen;
+            Movie = m;
         }
+
+        [RelayCommand]
+        public async Task AddToFavorites() { }
+
+        [RelayCommand]
+        public async Task AddToPending() { }
+
+        [RelayCommand]
+        public async Task AddToSeen() { }
     }
 }

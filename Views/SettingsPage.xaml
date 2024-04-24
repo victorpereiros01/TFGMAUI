@@ -3,31 +3,145 @@
     x:Class="TFGMaui.Views.SettingsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:TFGMaui.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodels="clr-namespace:TFGMaui.ViewModels"
     x:DataType="viewmodels:SettingsViewModel"
     BackgroundImageSource="fondo.jpg"
     BindingContext="{viewmodels:SettingsViewModel}">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding SetHobbiesCommand}" EventName="Loaded" />
+    </ContentPage.Behaviors>
 
     <VerticalStackLayout
         Padding="15"
         Background="WhiteSmoke"
         HeightRequest="500"
         WidthRequest="650">
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
+        <HorizontalStackLayout>
+            <Button
+                Margin="10"
+                Command="{Binding LogOutCommand}"
+                CommandParameter="LoginPage"
+                HorizontalOptions="End"
+                Text="Cerrar sesion"
+                WidthRequest="120" />
 
-        <Image HeightRequest="200" Source="{Binding UsuarioActivo.Avatar}" />
-        <Button Command="{Binding ChangeAvatarCommand}" Text="cambiar foto" />
+            <Label Text="adulto" WidthRequest="50" />
+            <Switch
+                Margin="10"
+                IsToggled="{Binding UsuarioActivo.Adulto}"
+                OnColor="DimGrey"
+                ThumbColor="Red" />
+            <Button Command="{Binding EnableParentalModeCommand}" Text="cambiar" />
 
-        <Button
+            <ListView BackgroundColor="Beige" WidthRequest="200">
+                <ListView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>USA</x:String>
+                        <x:String>Canada</x:String>
+                        <x:String>UK</x:String>
+                        <x:String>Germany</x:String>
+                        <x:String>France</x:String>
+                    </x:Array>
+                </ListView.ItemsSource>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding .}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </HorizontalStackLayout>
+
+
+        <HorizontalStackLayout
             Margin="10"
-            Command="{Binding NavegarCommand}"
-            CommandParameter="LoginPage"
-            HorizontalOptions="End"
-            Text="Cerrar sesion"
-            WidthRequest="150" />
+            HeightRequest="200"
+            HorizontalOptions="Start"
+            WidthRequest="600">
+            <Image
+                HeightRequest="200"
+                Source="{Binding UsuarioActivo.Avatar}"
+                WidthRequest="200" />
+            <Button
+                Margin="10"
+                Command="{Binding ChangeAvatarCommand}"
+                HeightRequest="50"
+                Text="cambiar foto"
+                WidthRequest="150" />
+
+            <VerticalStackLayout>
+                <Label Text="Introduce el nuevo username" />
+                <Entry Text="{Binding NuevoNombre}" />
+                <Button
+                    Command="{Binding ChangeUsernameCommand}"
+                    HeightRequest="50"
+                    Text="Cambiar usuario"
+                    WidthRequest="150" />
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
+
+
+        <HorizontalStackLayout
+            HeightRequest="200"
+            HorizontalOptions="Start"
+            WidthRequest="600">
+            <CollectionView
+                Margin="10"
+                HeightRequest="200"
+                ItemsSource="{Binding Items}"
+                SelectionMode="Single"
+                WidthRequest="200">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="5"
+                        Orientation="Vertical"
+                        Span="2"
+                        VerticalItemSpacing="5" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:HobbieModel">
+                        <Border BackgroundColor="Gray">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout
+                                Padding="0,15"
+                                HeightRequest="80"
+                                HorizontalOptions="Center"
+                                WidthRequest="90">
+                                <CheckBox
+                                    HorizontalOptions="Center"
+                                    IsChecked="{Binding IsChecked}"
+                                    VerticalOptions="Center"
+                                    Color="White" />
+
+                                <Label
+                                    HorizontalOptions="Center"
+                                    Text="{Binding NombreHobbie}"
+                                    TextColor="White"
+                                    VerticalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button
+                Command="{Binding ChangeHobbiesCommand}"
+                HeightRequest="50"
+                Text="Cambiar hobbies" />
+
+            <VerticalStackLayout
+                HeightRequest="200"
+                HorizontalOptions="End"
+                WidthRequest="300">
+                <Entry Text="{Binding NuevaPass}" WidthRequest="150" />
+                <Button Command="{Binding ChangePassCommand}" WidthRequest="150" />
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

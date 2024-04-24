@@ -28,10 +28,10 @@ namespace TFGMaui.ViewModels
             FirstState = true;
             Items =
             [
-                new HobbieModel() { IsChecked = false, NombreHobbie="Cinema" },
-                new HobbieModel() { IsChecked = false, NombreHobbie="Manganime" },
-                new HobbieModel() { IsChecked = false, NombreHobbie="Games" },
-                new HobbieModel() { IsChecked = false, NombreHobbie="Books & comics" }
+                new HobbieModel() { IsChecked = false, NombreHobbie = "Cinema" },
+                new HobbieModel() { IsChecked = false, NombreHobbie = "Manganime" },
+                new HobbieModel() { IsChecked = false, NombreHobbie = "Games" },
+                new HobbieModel() { IsChecked = false, NombreHobbie = "Books & comics" }
             ];
             UsuarioReg.Hobbies = [];
         }
@@ -88,7 +88,11 @@ namespace TFGMaui.ViewModels
             return cmd.ExecuteScalar() == null;
         }
 
-        public async Task ActualizarImagenDef()
+        /// <summary>
+        /// Inicializa la imagen con la default
+        /// </summary>
+        /// <returns></returns>
+        public async Task InicializarImagen()
         {
             using SqlConnection connection = new(IConstantes.ConnectionString);
             string query = "UPDATE [dbo].[Usuarios] SET Avatar = f.IdImagen from Usuarios RIGHT join Imagenes f on f.NombreCol = 'default' WHERE Usuarios.NombreUsuario = @Nombre";
@@ -112,15 +116,12 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task Registrar()
         {
-            foreach (var item in Items)
-            {
-                UsuarioReg.Hobbies.Add(item.IsChecked);
-            }
+            Items.ToList().ForEach(x => UsuarioReg.Hobbies.Add(x.IsChecked));
 
             try
             {
                 using SqlConnection connection = new(IConstantes.ConnectionString);
-                string query = "INSERT INTO Usuarios  ( [NombreUsuario], [Email], [Password], [Hobbie1], [Hobbie2], [Hobbie3], [Hobbie4]) \nVALUES (@Nombre, @Email, @Password, @Hobbie1, @Hobbie2, @Hobbie3, @Hobbie4)";
+                string query = "INSERT INTO Usuarios  ( [NombreUsuario], [Email], [Password], [Hobbie1], [Hobbie2], [Hobbie3], [Hobbie4], [Adult]) \nVALUES (@Nombre, @Email, @Password, @Hobbie1, @Hobbie2, @Hobbie3, @Hobbie4, @Adulto)";
 
                 using SqlCommand command = new(query, connection);
 
@@ -131,6 +132,7 @@ namespace TFGMaui.ViewModels
                 command.Parameters.AddWithValue("@Hobbie2", UsuarioReg.Hobbies[1]);
                 command.Parameters.AddWithValue("@Hobbie3", UsuarioReg.Hobbies[2]);
                 command.Parameters.AddWithValue("@Hobbie4", UsuarioReg.Hobbies[3]);
+                command.Parameters.AddWithValue("@Adulto", false);
 
                 command.CommandType = CommandType.Text;
                 connection.Open();
@@ -142,7 +144,7 @@ namespace TFGMaui.ViewModels
                 }
                 else
                 {
-                    await ActualizarImagenDef();
+                    await InicializarImagen();
 
                     await App.Current.MainPage.DisplayAlert("Usuario creado", "Se ha registrado el usuario correctamente", "Aceptar");
                     await Navegar("LoginPage");

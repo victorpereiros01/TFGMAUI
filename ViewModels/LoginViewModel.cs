@@ -40,7 +40,7 @@ namespace TFGMaui.ViewModels
                 };
 
                 using SqlConnection oconexion = new(IConstantes.ConnectionString);
-                string query = "SELECT NombreUsuario, Email, f.ValorImagenEnc, Password FROM Usuarios u join Imagenes f on f.IdImagen=u.Avatar WHERE u.NombreUsuario = @Nombre or u.Email = @Nombre AND u.Password = @Pass";
+                string query = "SELECT NombreUsuario, Email, f.ValorImagenEnc, Password, Hobbie1, Hobbie2, Hobbie3, Hobbie4, Adult FROM Usuarios u join Imagenes f on f.IdImagen=u.Avatar WHERE u.NombreUsuario = @Nombre or u.Email = @Nombre AND u.Password = @Pass";
 
                 SqlCommand cmd = new(query, oconexion);
                 cmd.Parameters.AddWithValue("@Nombre", user.NombreUsuario);
@@ -56,6 +56,14 @@ namespace TFGMaui.ViewModels
                     UsuarioActivo.Email = dr.GetString(1).Trim();
                     UsuarioActivo.Avatar = FileUtils.GetSource(dr.GetString(2)).Result;
                     UsuarioActivo.Password = dr.GetString(3).Trim();
+                    UsuarioActivo.Hobbies =
+                    [
+                        dr.GetBoolean(4),
+                        dr.GetBoolean(5),
+                        dr.GetBoolean(6),
+                        dr.GetBoolean(7),
+                    ];
+                    UsuarioActivo.Adulto = dr.GetBoolean(8);
 
                     if (user.Equals(UsuarioActivo))
                     {

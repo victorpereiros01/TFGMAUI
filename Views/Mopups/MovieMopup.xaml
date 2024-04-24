@@ -42,10 +42,10 @@
 
         <Image
             BackgroundColor="Red"
-            HeightRequest="90"
+            HeightRequest="180"
             HorizontalOptions="Center"
             Source="{Binding Movie.Imagen}"
             VerticalOptions="Center"
-            WidthRequest="60" />
+            WidthRequest="100" />
     </VerticalStackLayout>
 </mopups:PopupPage>

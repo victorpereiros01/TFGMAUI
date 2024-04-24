@@ -38,7 +38,7 @@
                 Aspect="AspectFill"
                 HeightRequest="50"
                 Source="{Binding UsuarioActivo.Avatar}"
-                WidthRequest="70" />
+                WidthRequest="50" />
 
             <Button
                 Command="{Binding NavegarCommand}"

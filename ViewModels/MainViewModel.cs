@@ -83,6 +83,11 @@ namespace TFGMaui.ViewModels
             }
         }
 
+        /// <summary>
+        /// Obtiene las peliculas trending de moviedb
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public async Task GetTrending(string type)
         {
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
@@ -98,6 +103,10 @@ namespace TFGMaui.ViewModels
             PaginaPelis = pagtrend;
         }
 
+        /// <summary>
+        /// Obtiene las peliculas top de moviedb
+        /// </summary>
+        /// <returns></returns>
         public async Task GetTop()
         {
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
@@ -113,6 +122,12 @@ namespace TFGMaui.ViewModels
             PaginaPelisTop = pagtop;
         }
 
+        /// <summary>
+        /// Obtiene los primeros n elementos de la lista
+        /// </summary>
+        /// <param name="results"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
         private List<MovieModel> GetNelements(List<MovieModel> results, int v2)
         {
             List<MovieModel> list = [];
@@ -211,6 +226,10 @@ namespace TFGMaui.ViewModels
             IConstantes.Hash = hash;
         }
 
+        /// <summary>
+        /// Abre el mopup de loading
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         public async Task ShowLoadingMopup()
         {
@@ -235,6 +254,10 @@ namespace TFGMaui.ViewModels
             //await PreBakedMopupService.GetInstance().WrapReturnableTaskInLoader<bool, LoaderPopupPage>(IndepthCheckAgainstDatabase(), Color.Blue, Color.White, LoadingReasons(), Color.Black);
         }
 
+        /// <summary>
+        /// Loadin reasons para que muestre el mopup
+        /// </summary>
+        /// <returns></returns>
         private List<string> LoadingReasons()
         {
             _ = GetQuoteRandomAsync();
@@ -243,9 +266,13 @@ namespace TFGMaui.ViewModels
             return [Quotes[0].Author, Quotes[0].Content];
         }
 
+        /// <summary>
+        /// Metodo para obtener citas
+        /// </summary>
+        /// <returns></returns>
         private async Task GetQuoteRandomAsync()
         {
-            var requestPagina = new HttpRequestModel(url: IConstantes.BaseQuotes,
+            var requestPagina = new HttpRequestModel(url: IConstantes.BaseQuotesQuotable,
                 endpoint: "quotes/random",
                 parameters: new Dictionary<string, string> { { "maxLength", "50" } },
                 headers: []);

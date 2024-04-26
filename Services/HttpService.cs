@@ -7,7 +7,13 @@ namespace TFGMaui.Services
 {
     internal class HttpService
     {
-        // Método para ejecutar una solicitud HTTP y obtener una respuesta asincrónica
+        /// <summary>
+        /// Método para ejecutar una solicitud HTTP y obtener una respuesta asincrónica
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static async Task<object> ExecuteRequestAsync<T>(HttpRequestModel requestModel)
         {
             // Establece la pagina, la extension, los encabezados y los parametros
@@ -26,7 +32,7 @@ namespace TFGMaui.Services
 
             if (!response.IsSuccessful)
             {
-                throw new Exception();
+                throw new Exception("Request incorrecta");
             }
 
             return JsonConvert.DeserializeObject<T>(response.Content!)!;

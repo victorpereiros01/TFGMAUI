@@ -7,17 +7,17 @@
         public const string BaseBooks = "https://www.googleapis.com/books/v1";
         public const string BaseAnimeManga = "https://api.jikan.moe/v4";
 
-        // Constantes para la api de libros
-        public const string BaseQuotes = "https://api.quotable.io";
+        // Constantes para la api de citas
+        public const string BaseQuotesQuotable = "https://api.quotable.io";
+        public const string BaseQuotesSaidSo = "https://quotes.rest/qod";
 
         // Conexion para SQL Server
         public const string ConnectionString = "Data Source=DESKTOP-5UTJUQ6;Initial Catalog=APIHobbies;Integrated Security=True;TrustServerCertificate=True";
 
-        // Constantes para la pi de MovieDB
+        // Constantes para la api de MovieDB
         public const string BaseMovieDb = "https://api.themoviedb.org/3";
         public const string MovieDB_Bearer = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MGFmYzNlODc1NTgzMDM2YTlhOTNjMTVjMzRhYWU2ZCIsInN1YiI6IjY1ZjgxYTE2MjQyZjk0MDE2NGNjZTM2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uEBiF1avCHP0UeZaSQuvltxWLSN93rEYf9E2mO2mJz8";
         public const string MovieDB_ApiKey = "40afc3e875583036a9a93c15c34aae6d";
-
 
         // Constantes para la api de marvel comics
         public static string Ts { get; set; }

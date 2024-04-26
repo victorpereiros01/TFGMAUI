@@ -20,9 +20,17 @@ namespace TFGMaui.ViewModels
             _ = GetMovieDetails();
         }
 
+        /// <summary>
+        /// Cierra el mopup
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         public async Task CloseInfoMopup() => await MopupService.Instance.PopAllAsync();
 
+        /// <summary>
+        /// Obtiene los detalles de la pelicula
+        /// </summary>
+        /// <returns></returns>
         public async Task GetMovieDetails()
         {
             var requestPelicula = new HttpRequestModel(url: IConstantes.BaseMovieDb,

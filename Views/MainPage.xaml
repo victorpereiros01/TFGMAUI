@@ -32,7 +32,7 @@
             <Label
                 Margin="10"
                 HorizontalOptions="Center"
-                Text="{Binding UsuarioActivo.NombreUsuario}"
+                Text="{Binding UsuarioActivo.Username}"
                 VerticalOptions="Center" />
 
             <Image

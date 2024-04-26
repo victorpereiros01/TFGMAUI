@@ -2,7 +2,7 @@
 {
     internal class UsuarioModel
     {
-        public string NombreUsuario { get; set; }
+        public string Username { get; set; }
 
         public string Password { get; set; }
 
@@ -19,6 +19,6 @@
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool Equals(UsuarioModel obj) => obj.NombreUsuario.Equals(NombreUsuario) || obj.Email.Equals(Email) && obj.Password.Equals(Password);
+        public bool Equals(UsuarioModel obj) => obj.Username.Equals(Username) || obj.Email.Equals(Email) && obj.Password.Equals(Password);
     }
 }

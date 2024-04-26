@@ -9,8 +9,8 @@ namespace TFGMaui.Models
 {
     public class QuoteModel
     {
-        [JsonProperty("_id")]
-        public string Id { get; set; }
+        //[JsonProperty("_id")]
+        //public string Id { get; set; }
 
         public string Content { get; set; }
 

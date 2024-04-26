@@ -5,13 +5,14 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using TFGMaui.Models;
 using TFGMaui.Services;
+using TFGMaui.Repositories;
 
 namespace TFGMaui.ViewModels
 {
     internal partial class RegisterViewModel : ObservableObject
     {
         [ObservableProperty]
-        private bool firstState;
+        private bool firstPageReg;
 
         [ObservableProperty]
         private UsuarioModel usuarioReg;
@@ -25,7 +26,7 @@ namespace TFGMaui.ViewModels
         public RegisterViewModel()
         {
             UsuarioReg = new();
-            FirstState = true;
+            FirstPageReg = true;
             Items =
             [
                 new HobbieModel() { IsChecked = false, NombreHobbie = "Cinema" },
@@ -45,114 +46,54 @@ namespace TFGMaui.ViewModels
             });
         }
 
+        /// <summary>
+        /// Cambia entre las dos paginas del registro
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
-        public async Task CambiarEstado()
+        public async Task CambiarPagina()
         {
-            if (FirstState)
+            // Esta en la primera pagina
+            if (FirstPageReg)
             {
-                if (!RepContra.Equals(UsuarioReg.Password))
+                // Si no existe el usuario esta valido para crearlo
+                if (new AuthCommandRepository().UserDoesntExists(UsuarioReg))
                 {
-                    await App.Current.MainPage.DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
+                    if (RepContra.Equals(UsuarioReg.Password))
+                    {
+                        // Cambia a la segunda pagina
+                        FirstPageReg = false;
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
+                    }
                 }
                 else
                 {
-                    FirstState = !CheckUserDoesntExists();
+                    await App.Current.MainPage.DisplayAlert("Error", "El nombre de usuario está en uso", "Aceptar");
                 }
             }
             else
             {
-                FirstState = true;
+                // Esta en la segunda pagina y cambia a la primera
+                FirstPageReg = true;
             }
         }
 
         /// <summary>
-        /// Metodo que evalua que el usuario exista o no
-        /// </summary>
-        /// <returns>True si no existe</returns>
-        public bool CheckUserDoesntExists()
-        {
-            // Conexion con la base de datos sql server
-            using SqlConnection oconexion = new(IConstantes.ConnectionString);
-
-            SqlCommand cmd = new("SELECT 1 FROM Usuarios u WHERE @NombreUsuario = u.NombreUsuario or @Email = u.Email", oconexion);
-
-            // Añade valores de entrada del stored procedure sql server
-            cmd.Parameters.AddWithValue("@NombreUsuario", UsuarioReg.NombreUsuario);
-            cmd.Parameters.AddWithValue("@Password", UsuarioReg.Password);
-            cmd.Parameters.AddWithValue("@Email", UsuarioReg.Email);
-
-            cmd.CommandType = CommandType.Text;
-            oconexion.Open();
-
-            // Checkea que si devuelve algo el usuario existe, por lo que da error
-            return cmd.ExecuteScalar() == null;
-        }
-
-        /// <summary>
-        /// Inicializa la imagen con la default
+        /// Sube a la base de datos los datos del usuario, como los hobbies y la imagen
         /// </summary>
         /// <returns></returns>
-        public async Task InicializarImagen()
-        {
-            using SqlConnection connection = new(IConstantes.ConnectionString);
-            string query = "UPDATE [dbo].[Usuarios] SET Avatar = f.IdImagen from Usuarios RIGHT join Imagenes f on f.NombreCol = 'default' WHERE Usuarios.NombreUsuario = @Nombre";
-
-            using SqlCommand command = new(query, connection);
-
-            command.Parameters.AddWithValue("@Nombre", UsuarioReg.NombreUsuario);
-
-            command.CommandType = CommandType.Text;
-            connection.Open();
-
-            // Check Error
-            if (command.ExecuteNonQuery() < 1)
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Error al actualizar el avatar", "Aceptar");
-            }
-
-            //await App.Current.MainPage.DisplayAlert("Actualizacion", "Imagen actualizada", "Aceptar");
-        }
-
         [RelayCommand]
         public async Task Registrar()
         {
             Items.ToList().ForEach(x => UsuarioReg.Hobbies.Add(x.IsChecked));
 
-            try
+            if (new AuthCommandRepository().Registrar(UsuarioReg))
             {
-                using SqlConnection connection = new(IConstantes.ConnectionString);
-                string query = "INSERT INTO Usuarios  ( [NombreUsuario], [Email], [Password], [Hobbie1], [Hobbie2], [Hobbie3], [Hobbie4], [Adult]) \nVALUES (@Nombre, @Email, @Password, @Hobbie1, @Hobbie2, @Hobbie3, @Hobbie4, @Adulto)";
-
-                using SqlCommand command = new(query, connection);
-
-                command.Parameters.AddWithValue("@Nombre", UsuarioReg.NombreUsuario);
-                command.Parameters.AddWithValue("@Email", UsuarioReg.Email);
-                command.Parameters.AddWithValue("@Password", UsuarioReg.Password);
-                command.Parameters.AddWithValue("@Hobbie1", UsuarioReg.Hobbies[0]);
-                command.Parameters.AddWithValue("@Hobbie2", UsuarioReg.Hobbies[1]);
-                command.Parameters.AddWithValue("@Hobbie3", UsuarioReg.Hobbies[2]);
-                command.Parameters.AddWithValue("@Hobbie4", UsuarioReg.Hobbies[3]);
-                command.Parameters.AddWithValue("@Adulto", false);
-
-                command.CommandType = CommandType.Text;
-                connection.Open();
-
-                // Check Error
-                if (command.ExecuteNonQuery() < 1)
-                {
-                    await App.Current.MainPage.DisplayAlert("Error", "Error al registrar", "Aceptar");
-                }
-                else
-                {
-                    await InicializarImagen();
-
-                    await App.Current.MainPage.DisplayAlert("Usuario creado", "Se ha registrado el usuario correctamente", "Aceptar");
-                    await Navegar("LoginPage");
-                }
-            }
-            catch (Exception e)
-            {
-                await App.Current.MainPage.DisplayAlert("Actualizacion", e.Message, "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Usuario creado", "Se ha registrado el usuario correctamente", "Aceptar");
+                await Navegar("LoginPage");
             }
         }
     }

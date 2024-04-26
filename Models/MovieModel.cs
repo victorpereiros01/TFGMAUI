@@ -11,8 +11,6 @@ namespace TFGMaui.Models
 
         public List<GenreM> Genres { get; set; } // Generos v
 
-        public List<int> Genre_ids { get; set; }
-
         public string Title { get; set; }   // titulo v
 
         public string Release_Date { get; set; } // v

@@ -14,7 +14,7 @@
         <Frame
             CornerRadius="30"
             HorizontalOptions="Center"
-            IsVisible="{Binding FirstState}"
+            IsVisible="{Binding FirstPageReg}"
             VerticalOptions="Center"
             WidthRequest="500">
             <Frame.Shadow>
@@ -66,7 +66,7 @@
                     Opacity=".8"
                     Placeholder="Username"
                     PlaceholderColor="DimGray"
-                    Text="{Binding UsuarioReg.NombreUsuario}"
+                    Text="{Binding UsuarioReg.Username}"
                     VerticalOptions="Center"
                     WidthRequest="400" />
 
@@ -118,7 +118,7 @@
                     Grid.Row="7"
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
-                    Command="{Binding CambiarEstadoCommand}"
+                    Command="{Binding CambiarPaginaCommand}"
                     HeightRequest="60"
                     Text="Next"
                     WidthRequest="400" />
@@ -150,7 +150,7 @@
         <Frame
             CornerRadius="30"
             HorizontalOptions="Center"
-            IsVisible="{Binding FirstState, Converter={toolkit:InvertedBoolConverter}}"
+            IsVisible="{Binding FirstPageReg, Converter={toolkit:InvertedBoolConverter}}"
             VerticalOptions="Center"
             WidthRequest="500">
             <Frame.Shadow>
@@ -242,7 +242,7 @@
                     Grid.Row="7"
                     Grid.Column="1"
                     Margin="0,0,5,0"
-                    Command="{Binding CambiarEstadoCommand}"
+                    Command="{Binding CambiarPaginaCommand}"
                     HeightRequest="60"
                     Text="Back"
                     WidthRequest="180" />

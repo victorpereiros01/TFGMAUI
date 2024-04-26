@@ -5,6 +5,7 @@ using System.Data;
 using TFGMaui.Services;
 using System.Diagnostics;
 using TFGMaui.Utils;
+using TFGMaui.Repositories;
 
 namespace TFGMaui.ViewModels
 {
@@ -15,7 +16,7 @@ namespace TFGMaui.ViewModels
 
         public LoginViewModel()
         {
-            UsuarioActivo = new() { NombreUsuario = "@admin", Password = "admin" };
+            UsuarioActivo = new() { Username = "@admin", Password = "admin" };
         }
 
         [RelayCommand]
@@ -27,58 +28,22 @@ namespace TFGMaui.ViewModels
             });
         }
 
+        /// <summary>
+        /// Logea con el usuario o email
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         public async Task Login()
         {
-            try
+            UsuarioActivo = new AuthCommandRepository().Login(UsuarioActivo.Username, UsuarioActivo.Password)!;
+
+            if (UsuarioActivo == null)
             {
-                var user = new UsuarioModel
-                {
-                    Email = UsuarioActivo.NombreUsuario,
-                    Password = UsuarioActivo.Password,
-                    NombreUsuario = UsuarioActivo.NombreUsuario
-                };
-
-                using SqlConnection oconexion = new(IConstantes.ConnectionString);
-                string query = "SELECT NombreUsuario, Email, f.ValorImagenEnc, Password, Hobbie1, Hobbie2, Hobbie3, Hobbie4, Adult FROM Usuarios u join Imagenes f on f.IdImagen=u.Avatar WHERE u.NombreUsuario = @Nombre or u.Email = @Nombre AND u.Password = @Pass";
-
-                SqlCommand cmd = new(query, oconexion);
-                cmd.Parameters.AddWithValue("@Nombre", user.NombreUsuario);
-                cmd.Parameters.AddWithValue("@Pass", user.Password);
-                cmd.CommandType = CommandType.Text;
-
-                oconexion.Open();
-                using SqlDataReader dr = cmd.ExecuteReader();
-
-                if (dr.Read())
-                {
-                    UsuarioActivo.NombreUsuario = dr.GetString(0).Trim();
-                    UsuarioActivo.Email = dr.GetString(1).Trim();
-                    UsuarioActivo.Avatar = FileUtils.GetSource(dr.GetString(2)).Result;
-                    UsuarioActivo.Password = dr.GetString(3).Trim();
-                    UsuarioActivo.Hobbies =
-                    [
-                        dr.GetBoolean(4),
-                        dr.GetBoolean(5),
-                        dr.GetBoolean(6),
-                        dr.GetBoolean(7),
-                    ];
-                    UsuarioActivo.Adulto = dr.GetBoolean(8);
-
-                    if (user.Equals(UsuarioActivo))
-                    {
-                        await Navegar("MainPage");
-
-                        await Application.Current.MainPage.DisplayAlert("Saludos", "Bienvenid@ " + UsuarioActivo.NombreUsuario, "Aceptar");
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Creedenciales incorrectas", "Aceptar");
-                Debug.WriteLine(e.Message);
+                return;
             }
 
+            await Navegar("MainPage");
+            await Application.Current.MainPage.DisplayAlert("Saludos", "Bienvenid@ " + UsuarioActivo.Username, "Aceptar");
         }
     }
 }

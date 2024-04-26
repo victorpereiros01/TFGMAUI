@@ -1,7 +1,10 @@
-﻿using Microsoft.Maui.Graphics;
-
-public static class ColorConverterUtil
+﻿public static class ColorConverterUtil
 {
+    /// <summary>
+    /// Cambia el tipo del color
+    /// </summary>
+    /// <param name="systemColor"></param>
+    /// <returns>Maui.graphics.color</returns>
     public static Color ConvertFromSystemDrawingColor(System.Drawing.Color systemColor)
     {
         // Convert RGB values

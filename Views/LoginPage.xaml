@@ -64,7 +64,7 @@
                 Opacity=".8"
                 Placeholder="Username or email"
                 PlaceholderColor="DimGray"
-                Text="{Binding UsuarioActivo.NombreUsuario}"
+                Text="{Binding UsuarioActivo.Username}"
                 VerticalOptions="Center"
                 WidthRequest="400" />
             <Entry

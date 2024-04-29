@@ -32,6 +32,9 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private string nuevoNombre;
 
+        [ObservableProperty]
+        private ImageSource avatar;
+
         [RelayCommand]
         public async Task ChangeLanguage() { }
 
@@ -49,6 +52,8 @@ namespace TFGMaui.ViewModels
                 new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[2], NombreHobbie = "Games" },
                 new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[3], NombreHobbie = "Books & comics" }
             ];
+
+            Avatar = UsuarioActivo.Avatar;
         }
 
         [RelayCommand]
@@ -65,7 +70,16 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         private async Task ChangeAvatar()
         {
-            string base64 = (await FileUtils.OpenFile()).FileBase64;
+            var f = await FileUtils.OpenFile();
+
+            if (f == null)
+            {
+                return;
+            }
+
+            string base64 = f.FileBase64;
+            Avatar = f.ImageSource;
+            UsuarioActivo.Avatar = Avatar;
 
             if (new SettingsRepository().ChangeAvatar(base64, UsuarioActivo))
             {

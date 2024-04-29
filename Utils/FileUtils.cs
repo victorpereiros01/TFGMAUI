@@ -1,12 +1,12 @@
 ﻿namespace TFGMaui.Utils
 {
-    public class RecursoModel
+    internal class RecursoModel
     {
         public string Id { get; set; }
 
         public string FileBase64 { get; set; }
 
-        public string Name { get; set; }
+        public ImageSource ImageSource { get; set; }
     }
 
     public static class FileUtils
@@ -31,7 +31,8 @@
         {
             var result = await FilePicker.PickAsync(new PickOptions
             {
-                PickerTitle = "Selecciona un archivo"
+                PickerTitle = "Selecciona un archivo",
+                FileTypes = FilePickerFileType.Images
             });
 
             if (result == null)
@@ -39,13 +40,17 @@
                 return null;
             }
 
+            var stream = await result.OpenReadAsync();
+            var image = ImageSource.FromStream(() => stream);
+
             var streamForImageBase64 = await result.OpenReadAsync();
             var msstream = new MemoryStream();
             streamForImageBase64.CopyTo(msstream);
 
             return new RecursoModel
             {
-                FileBase64 = "data:" + result.ContentType + ";base64," + Convert.ToBase64String(msstream.ToArray())
+                FileBase64 = "data:" + result.ContentType + ";base64," + Convert.ToBase64String(msstream.ToArray()),
+                ImageSource = image
             };
         }
     }

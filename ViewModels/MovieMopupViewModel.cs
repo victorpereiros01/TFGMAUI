@@ -60,7 +60,7 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task RemoveHobbie(string type)
         {
-            if (new HobbieRepository().RemoveHobbie(type, Movie.Id))
+            if (new HobbieRepository().RemoveHobbie(type, UserId, Movie.GetType().ToString(), Movie.Id))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie borrado satisfactoriamente", "Aceptar");
             }

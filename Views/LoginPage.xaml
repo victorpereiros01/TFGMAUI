@@ -51,7 +51,7 @@
                 Grid.ColumnSpan="2"
                 FontSize="Small"
                 HorizontalOptions="Center"
-                Text="All yor hobbies reunited: One app"
+                Text="All your hobbies reunited: One app"
                 TextColor="White" />
 
             <Entry

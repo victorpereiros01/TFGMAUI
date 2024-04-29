@@ -1,4 +1,6 @@
 ﻿using System.Data;
+using System.Security.Cryptography;
+using System.Text;
 using Azure.Core;
 using Microsoft.Data.SqlClient;
 using TFGMaui.Services;
@@ -45,6 +47,54 @@ namespace TFGMaui.Repositories
         }
 
         /// <summary>
+        /// Metodo que evalua que el usuario exista o no
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public bool UserDoesntExists(UsuarioModel user)
+        {
+            SetCmdQuery("SELECT 1 FROM Users WHERE Username = @Username or Email = @Email");
+
+            AddCmdParameters(new() { { "@Username", user.Username }, { "@Email", user.Email } });
+
+            Oconexion.Open();
+
+            // Si devuelve null el usuario existe
+            return Cmd.ExecuteScalar() == null;
+        }
+
+        public bool SetImageDefault(string username)
+        {
+            SetCmdQuery("SELECT Avatar FROM Users WHERE Username = 'admin'");
+
+            // Abre la conexion e inicializa el reader para obtener los datos
+            Oconexion.Open();
+            using (SqlDataReader dr = Cmd.ExecuteReader())
+            {
+                if (!dr.Read())
+                {
+                    return false;
+                }
+
+                SetCmdQuery("UPDATE [dbo].[Users] SET [Avatar] = @Avatar WHERE Username = @Username");
+
+                AddCmdParameters(new() { { "@Username", username }, { "@Avatar", dr.GetString(0) } });
+            }
+
+            // A la conexion y ejecuta la query devolviendo las columnas afectadas
+            Oconexion.Close();
+            Oconexion.Open();
+
+            // Si no hay columnas afectadas da error
+            if (Cmd.ExecuteNonQuery() == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Devuelve el usuario de la base de datos
         /// </summary>
         /// <param name="username"></param>
@@ -75,54 +125,6 @@ namespace TFGMaui.Repositories
                 Hobbies = [dr.GetBoolean(5), dr.GetBoolean(6), dr.GetBoolean(7), dr.GetBoolean(8)],
                 Adulto = dr.GetBoolean(9)
             };
-        }
-
-        /// <summary>
-        /// Metodo que evalua que el usuario exista o no
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        public bool UserDoesntExists(UsuarioModel user)
-        {
-            SetCmdQuery("SELECT 1 FROM Users WHERE Username = @Username or Email = @Email");
-
-            AddCmdParameters(new() { { "@Username", user.Username }, { "@Email", user.Email } });
-
-            Oconexion.Open();
-
-            // Si devuelve null el usuario existe
-            return Cmd.ExecuteScalar() == null;
-        }
-
-        public bool SetImageDefault(string username)
-        {
-            SetCmdQuery("SELECT Avatar FROM Users WHERE Username = 'admin'");
-
-            // Abre la conexion e inicializa el reader para obtener los datos
-            Oconexion.Open();
-            using (SqlDataReader dr = Cmd.ExecuteReader())
-            {
-                if (!dr.Read())
-                {
-                    return false;
-                }
-
-                SetCmdQuery("UPDATE [dbo].[Users] SET [Avatar]= @Avatar WHERE Username = @Username");
-
-                AddCmdParameters(new() { { "@Username", username }, { "@Avatar", dr.GetString(0) } });
-            }
-
-            // A la conexion y ejecuta la query devolviendo las columnas afectadas
-            Oconexion.Close();
-            Oconexion.Open();
-
-            // Si no hay columnas afectadas da error
-            if (Cmd.ExecuteNonQuery() == 0)
-            {
-                return false;
-            }
-
-            return true;
         }
 
         public bool Registrar(UsuarioModel user)
@@ -156,18 +158,25 @@ namespace TFGMaui.Repositories
             return true;
         }
 
-        // Placeholder for password hashing (replace with proper implementation)
-        private string HashPassword(string password)
+        public static string HashPasswordSHA256(string password)
         {
-            // Your password hashing implementation here
-            return password; // Placeholder implementation
+            byte[] data = SHA256.HashData(Encoding.UTF8.GetBytes(password));
+
+            StringBuilder sBuilder = new();
+
+            foreach (byte v in data)
+            {
+                sBuilder.Append(v.ToString("x2"));
+            }
+
+            return sBuilder.ToString();
         }
 
-        // Placeholder for password verification (replace with proper implementation)
-        private bool VerifyPassword(string password, string hashedPassword)
+        public static bool VerifyPassword(string inputPassword, string storedHash)
         {
-            // Your password verification implementation here
-            return password == hashedPassword; // Placeholder implementation
+            string hashOfInput = HashPasswordSHA256(inputPassword);
+
+            return StringComparer.OrdinalIgnoreCase.Compare(hashOfInput, storedHash) == 0;
         }
     }
 }

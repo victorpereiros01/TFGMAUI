@@ -9,6 +9,7 @@
     x:DataType="viewmodels:SettingsViewModel"
     BackgroundImageSource="fondo.jpg"
     BindingContext="{viewmodels:SettingsViewModel}">
+
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding SetHobbiesCommand}" EventName="Loaded" />
     </ContentPage.Behaviors>
@@ -61,8 +62,9 @@
             HorizontalOptions="Start"
             WidthRequest="600">
             <Image
+                Aspect="AspectFill"
                 HeightRequest="200"
-                Source="{Binding UsuarioActivo.Avatar}"
+                Source="{Binding Avatar}"
                 WidthRequest="200" />
             <Button
                 Margin="10"

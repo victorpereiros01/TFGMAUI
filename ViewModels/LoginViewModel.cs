@@ -1,10 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Data.SqlClient;
-using System.Data;
-using TFGMaui.Services;
-using System.Diagnostics;
-using TFGMaui.Utils;
 using TFGMaui.Repositories;
 
 namespace TFGMaui.ViewModels

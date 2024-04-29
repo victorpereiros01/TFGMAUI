@@ -29,18 +29,18 @@
                 Text="Hobbyflix"
                 WidthRequest="170" />
 
-            <Label
-                Margin="10"
-                HorizontalOptions="Center"
-                Text="{Binding UsuarioActivo.Username}"
-                VerticalOptions="Center" />
-
             <Image
                 Margin="10"
                 Aspect="AspectFill"
                 HeightRequest="50"
                 Source="{Binding UsuarioActivo.Avatar}"
                 WidthRequest="50" />
+            <Label
+                Margin="10"
+                HorizontalOptions="Center"
+                Text="{Binding UsuarioActivo.Username}"
+                VerticalOptions="Center"
+                WidthRequest="60" />
 
             <Button
                 Command="{Binding NavegarCommand}"

@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Mopups.Services;
 using System.Collections.ObjectModel;
 using TFGMaui.Models;
+using TFGMaui.Repositories;
 using TFGMaui.Services;
 
 namespace TFGMaui.ViewModels
@@ -12,11 +13,15 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private MovieModel movie;
 
-        public int id;
+        private int UserId;
 
-        public void SendHobbieById(string id)
+        public void SendHobbieById(string id, int userId)
         {
-            this.id = Convert.ToInt32(id);
+            UserId = userId;
+            Movie = new()
+            {
+                Id = id
+            };
             _ = GetMovieDetails();
         }
 
@@ -34,7 +39,7 @@ namespace TFGMaui.ViewModels
         public async Task GetMovieDetails()
         {
             var requestPelicula = new HttpRequestModel(url: IConstantes.BaseMovieDb,
-                endpoint: $"movie/{id}",
+                endpoint: $"movie/{Movie.Id}",
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", "es-ES" } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
@@ -44,12 +49,21 @@ namespace TFGMaui.ViewModels
         }
 
         [RelayCommand]
-        public async Task AddToFavorites() { }
+        public async Task AddHobbie(string type)
+        {
+            if (new HobbieRepository().AddHobbie(type, UserId, Movie.GetType().ToString(), Movie.Id))
+            {
+                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie añadido satisfactoriamente", "Aceptar");
+            }
+        }
 
         [RelayCommand]
-        public async Task AddToPending() { }
-
-        [RelayCommand]
-        public async Task AddToSeen() { }
+        public async Task RemoveHobbie(string type)
+        {
+            if (new HobbieRepository().RemoveHobbie(type, Movie.Id))
+            {
+                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie borrado satisfactoriamente", "Aceptar");
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ using TFGMaui.Repositories;
 
 namespace TFGMaui.ViewModels
 {
+    [QueryProperty("UsuarioActivo", "UsuarioActivo")]
     internal partial class LoginViewModel : ObservableObject
     {
         [ObservableProperty]
@@ -35,7 +36,7 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task Login()
         {
-            UsuarioActivo = new AuthCommandRepository().Login(UsuarioActivo.Username, UsuarioActivo.Password)!;
+            UsuarioActivo = new AuthRepository().Login(UsuarioActivo.Username, UsuarioActivo.Password)!;
 
             if (UsuarioActivo == null)
             {

@@ -8,6 +8,7 @@ using Mopups.PreBaked.PopupPages.SingleResponse;
 using Mopups.PreBaked.Services;
 using RestSharp;
 using TFGMaui.Models;
+using TFGMaui.Repositories;
 using TFGMaui.Services;
 using TFGMaui.Utils;
 
@@ -66,32 +67,9 @@ namespace TFGMaui.ViewModels
         {
             string base64 = (await FileUtils.OpenFile()).FileBase64;
 
-            try
+            if (new SettingsRepository().ChangeAvatar(base64, UsuarioActivo))
             {
-                using SqlConnection connection = new(IConstantes.ConnectionString);
-                string query = "UPDATE [dbo].[Users] SET [Avatar]=@Avatar WHERE Username=@Nombre";
-
-                using SqlCommand command = new(query, connection);
-
-                command.Parameters.AddWithValue("@Nombre", UsuarioActivo.Username);
-                command.Parameters.AddWithValue("@Avatar", base64);
-
-                command.CommandType = CommandType.Text;
-                connection.Open();
-
-                // Check Error
-                if (command.ExecuteNonQuery() < 1)
-                {
-                    await App.Current.MainPage.DisplayAlert("Error", "Error al cambiar la contraseña", "Aceptar");
-                }
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert("Exito", "Contraseña cambiada satisfactoriamente", "Aceptar");
-                }
-            }
-            catch (Exception e)
-            {
-                await App.Current.MainPage.DisplayAlert("Actualizacion", e.Message, "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Exito", "Avatar cambiado satisfactoriamente", "Aceptar");
             }
         }
 
@@ -109,7 +87,7 @@ namespace TFGMaui.ViewModels
         {
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
-                ["UsuarioActivo"] = new()
+                ["UsuarioActivo"] = new UsuarioModel()
             });
         }
 
@@ -122,37 +100,14 @@ namespace TFGMaui.ViewModels
         {
             Pass = await App.Current.MainPage.DisplayPromptAsync("Alerta", "Introduce tu contraseña");
 
-            if (!Pass.Equals(UsuarioActivo.Password))
+            if (!Pass.Equals(UsuarioActivo.Password.Trim()))
             {
                 return;
             }
 
-            try
+            if (new SettingsRepository().ChangePass(NuevaPass, UsuarioActivo))
             {
-                using SqlConnection connection = new(IConstantes.ConnectionString);
-                string query = "UPDATE [dbo].[Users] SET [Password]=@Pass WHERE Username=@Nombre";
-
-                using SqlCommand command = new(query, connection);
-
-                command.Parameters.AddWithValue("@Nombre", UsuarioActivo.Username);
-                command.Parameters.AddWithValue("@Pass", NuevaPass);
-
-                command.CommandType = CommandType.Text;
-                connection.Open();
-
-                // Check Error
-                if (command.ExecuteNonQuery() < 1)
-                {
-                    await App.Current.MainPage.DisplayAlert("Error", "Error al cambiar la contraseña", "Aceptar");
-                }
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert("Exito", "Contraseña cambiada satisfactoriamente", "Aceptar");
-                }
-            }
-            catch (Exception e)
-            {
-                await App.Current.MainPage.DisplayAlert("Actualizacion", e.Message, "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Exito", "Contraseña cambiada satisfactoriamente", "Aceptar");
             }
         }
 
@@ -164,37 +119,14 @@ namespace TFGMaui.ViewModels
         {
             Pass = await App.Current.MainPage.DisplayPromptAsync("Alerta", "Introduce tu contraseña");
 
-            if (!Pass.Equals(UsuarioActivo.Password))
+            if (!Pass.Equals(UsuarioActivo.Password.Trim()))
             {
                 return;
             }
 
-            try
+            if (new SettingsRepository().ChangeParentalMode(UsuarioActivo))
             {
-                using SqlConnection connection = new(IConstantes.ConnectionString);
-                string query = "UPDATE [dbo].[Users] SET [Adult]=@Adulto WHERE Username=@Nombre";
-
-                using SqlCommand command = new(query, connection);
-
-                command.Parameters.AddWithValue("@Adulto", UsuarioActivo.Adulto);
-                command.Parameters.AddWithValue("@Nombre", UsuarioActivo.Username);
-
-                command.CommandType = CommandType.Text;
-                connection.Open();
-
-                // Check Error
-                if (command.ExecuteNonQuery() < 1)
-                {
-                    await App.Current.MainPage.DisplayAlert("Error", "Error al cambiar el modo parental", "Aceptar");
-                }
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert("Exito", "Modo parental cambiado satisfactoriamente", "Aceptar");
-                }
-            }
-            catch (Exception e)
-            {
-                await App.Current.MainPage.DisplayAlert("Actualizacion", e.Message, "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Exito", "Modo parental cambiado satisfactoriamente", "Aceptar");
             }
         }
 
@@ -207,46 +139,14 @@ namespace TFGMaui.ViewModels
         {
             Pass = await App.Current.MainPage.DisplayPromptAsync("Alerta", "Introduce tu contraseña");
 
-            if (!Pass.Equals(UsuarioActivo.Password))
+            if (!Pass.Equals(UsuarioActivo.Password.Trim()))
             {
                 return;
             }
 
-            try
+            if (new SettingsRepository().ChangeUsername(NuevoNombre, UsuarioActivo))
             {
-                using SqlConnection connection = new(IConstantes.ConnectionString);
-                SqlCommand command = connection.CreateCommand();
-                command.Connection = connection;
-                string query = "SELECT IdUsuario FROM Users WHERE Username=@Nombre";
-                command.CommandText = query;
-                command.Parameters.AddWithValue("@Nombre", UsuarioActivo.Username);
-
-                connection.Open();
-                int idUsuario = (int)command.ExecuteScalar();
-
-                if (idUsuario == 0)
-                {
-                    return;
-                }
-
-                string query2 = "UPDATE [dbo].[Users] SET [Username]=@NuevoNombre  WHERE IdUsuario=@IdUsuario";
-                command.CommandText = query2;
-                command.Parameters.AddWithValue("@IdUsuario", idUsuario);
-                command.Parameters.AddWithValue("@NuevoNombre", NuevoNombre);
-
-                // Check Error
-                if (command.ExecuteNonQuery() < 1)
-                {
-                    await App.Current.MainPage.DisplayAlert("Error", "Error el nombre de usuario", "Aceptar");
-                }
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert("Exito", "Nombre de usuario cambiado satisfactoriamente", "Aceptar");
-                }
-            }
-            catch (Exception e)
-            {
-                await App.Current.MainPage.DisplayAlert("Actualizacion", e.Message, "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Exito", "Nombre de usuario cambiado satisfactoriamente", "Aceptar");
             }
         }
 
@@ -260,35 +160,9 @@ namespace TFGMaui.ViewModels
             UsuarioActivo.Hobbies = [];
             Items.ToList().ForEach(x => UsuarioActivo.Hobbies.Add(x.IsChecked));
 
-            try
+            if (new SettingsRepository().ChangeHobbies(UsuarioActivo))
             {
-                using SqlConnection connection = new(IConstantes.ConnectionString);
-                string query = "UPDATE [dbo].[Users] SET [Hobbie1]=@Hobbie1, [Hobbie2]=@Hobbie2, [Hobbie3]=@Hobbie3, [Hobbie4]=@Hobbie4 WHERE Username=@Nombre";
-
-                using SqlCommand command = new(query, connection);
-
-                command.Parameters.AddWithValue("@Nombre", UsuarioActivo.Username);
-                command.Parameters.AddWithValue("@Hobbie1", UsuarioActivo.Hobbies[0]);
-                command.Parameters.AddWithValue("@Hobbie2", UsuarioActivo.Hobbies[1]);
-                command.Parameters.AddWithValue("@Hobbie3", UsuarioActivo.Hobbies[2]);
-                command.Parameters.AddWithValue("@Hobbie4", UsuarioActivo.Hobbies[3]);
-
-                command.CommandType = CommandType.Text;
-                connection.Open();
-
-                // Check Error
-                if (command.ExecuteNonQuery() < 1)
-                {
-                    await App.Current.MainPage.DisplayAlert("Error", "Error al cambiar los hobbies", "Aceptar");
-                }
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert("Exito", "Hobbies cambiados satisfactoriamente", "Aceptar");
-                }
-            }
-            catch (Exception e)
-            {
-                await App.Current.MainPage.DisplayAlert("Actualizacion", e.Message, "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Exito", "Hobbies cambiados satisfactoriamente", "Aceptar");
             }
         }
     }

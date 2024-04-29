@@ -57,7 +57,7 @@ namespace TFGMaui.ViewModels
             if (FirstPageReg)
             {
                 // Si no existe el usuario esta valido para crearlo
-                if (new AuthCommandRepository().UserDoesntExists(UsuarioReg))
+                if (new AuthRepository().UserDoesntExists(UsuarioReg))
                 {
                     if (RepContra.Equals(UsuarioReg.Password))
                     {
@@ -90,8 +90,10 @@ namespace TFGMaui.ViewModels
         {
             Items.ToList().ForEach(x => UsuarioReg.Hobbies.Add(x.IsChecked));
 
-            if (new AuthCommandRepository().Registrar(UsuarioReg))
+            if (new AuthRepository().Registrar(UsuarioReg))
             {
+                new AuthRepository().SetImageDefault(usuarioReg.Username);
+
                 await App.Current.MainPage.DisplayAlert("Usuario creado", "Se ha registrado el usuario correctamente", "Aceptar");
                 await Navegar("LoginPage");
             }

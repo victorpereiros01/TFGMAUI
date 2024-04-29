@@ -5,7 +5,7 @@ namespace TFGMaui.Models
 {
     public class MovieModel : HobbieModel
     {
-        public int Id { get; set; } // v
+        public string Id { get; set; } // v
 
         public bool Adult { get; set; } // Solo para adultos v
 

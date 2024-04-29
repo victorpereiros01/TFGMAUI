@@ -30,22 +30,71 @@
             VerticalOptions="Center"
             WidthRequest="50" />
 
-        <Label
+        <HorizontalStackLayout>
+            <Label
+                HorizontalOptions="Start"
+                Text="{Binding Movie.Title}"
+                VerticalOptions="Center" />
+            <Label
+                Margin="5,0,0,0"
+                HorizontalOptions="Center"
+                Text="{Binding Movie.Vote_Average}"
+                VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <Editor
+            HeightRequest="100"
             HorizontalOptions="Start"
-            Text="{Binding Movie.Title}"
+            IsEnabled="False"
+            IsReadOnly="True"
+            Text="{Binding Movie.OverView}"
             VerticalOptions="Center" />
 
-        <Label
-            HorizontalOptions="Center"
-            Text="{Binding Movie.Vote_Average}"
-            VerticalOptions="Center" />
 
-        <Image
-            BackgroundColor="Red"
-            HeightRequest="180"
-            HorizontalOptions="Center"
-            Source="{Binding Movie.Imagen}"
-            VerticalOptions="Center"
-            WidthRequest="100" />
+        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Image
+                Margin="10"
+                BackgroundColor="Red"
+                HeightRequest="150"
+                HorizontalOptions="Center"
+                Source="{Binding Movie.Imagen}"
+                VerticalOptions="Center"
+                WidthRequest="100" />
+
+            <VerticalStackLayout>
+                <Button
+                    Margin="10"
+                    Command="{Binding AddHobbieCommand}"
+                    CommandParameter="Favorite"
+                    Text="Favoritos" />
+                <Button
+                    Margin="10"
+                    Command="{Binding AddHobbieCommand}"
+                    CommandParameter="Pending"
+                    Text="Pendiente" />
+                <Button
+                    Margin="10,0,10,10"
+                    Command="{Binding AddHobbieCommand}"
+                    CommandParameter="Seen"
+                    Text="Vista" />
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Button
+                    Margin="10"
+                    Command="{Binding RemoveHobbieCommand}"
+                    CommandParameter="Favorite"
+                    Text="Favoritos" />
+                <Button
+                    Margin="10"
+                    Command="{Binding RemoveHobbieCommand}"
+                    CommandParameter="Pending"
+                    Text="Pendiente" />
+                <Button
+                    Margin="10,0,10,10"
+                    Command="{Binding RemoveHobbieCommand}"
+                    CommandParameter="Seen"
+                    Text="Vista" />
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </mopups:PopupPage>

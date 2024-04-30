@@ -15,6 +15,13 @@ namespace TFGMaui.ViewModels
 
         private int UserId;
 
+        [ObservableProperty]
+        private bool isVisibleEditor;
+
+        public MovieMopupViewModel() {
+            IsVisibleEditor = false;
+        }
+
         public void SendHobbieById(string id, int userId)
         {
             UserId = userId;
@@ -23,6 +30,11 @@ namespace TFGMaui.ViewModels
                 Id = id
             };
             _ = GetMovieDetails();
+        }
+
+        [RelayCommand]
+        public async Task CambiarEditor() {
+            IsVisibleEditor = !IsVisibleEditor;
         }
 
         /// <summary>

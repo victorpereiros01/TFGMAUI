@@ -50,6 +50,9 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private ObservableCollection<QuoteModel> quotes;
 
+        [ObservableProperty]
+        private MovieModel movie;
+
         public MainViewModel()
         {
             _ = InitializeComponents();

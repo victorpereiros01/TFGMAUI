@@ -39,11 +39,13 @@
             <ListView BackgroundColor="Beige" WidthRequest="200">
                 <ListView.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
-                        <x:String>USA</x:String>
-                        <x:String>Canada</x:String>
-                        <x:String>UK</x:String>
-                        <x:String>Germany</x:String>
-                        <x:String>France</x:String>
+                        <x:String>English</x:String>
+                        <x:String>Spanish</x:String>
+                        <x:String>French</x:String>
+                        <x:String>German</x:String>
+                        <x:String>Italian</x:String>
+                        <x:String>Portuguese</x:String>
+                        <x:String>Japanese</x:String>
                     </x:Array>
                 </ListView.ItemsSource>
 
@@ -52,6 +54,10 @@
                         <TextCell Text="{Binding .}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
+
+                <ListView.Behaviors>
+                    <toolkit:EventToCommandBehavior Command="{Binding BrowserOpen_ClickedCommand}" EventName="ItemSelected" />
+                </ListView.Behaviors>
             </ListView>
         </HorizontalStackLayout>
 

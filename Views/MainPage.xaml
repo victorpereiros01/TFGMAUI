@@ -26,7 +26,7 @@
             <Button
                 BackgroundColor="Red"
                 FontSize="Large"
-                Text="Hobbyflix"
+                Text="Hobbyer"
                 WidthRequest="170" />
 
             <Image
@@ -65,9 +65,11 @@
             Text="Tendencias" />
         <HorizontalStackLayout Margin="5" Padding="5">
             <CollectionView
-                x:Name="trend"
                 HeightRequest="142"
                 ItemsSource="{Binding PaginaPelis.Results}"
+                SelectedItem="{Binding Movie}"
+                SelectionChangedCommand="{Binding ShowMovieMopupCommand}"
+                SelectionChangedCommandParameter="{Binding Movie.Id}"
                 SelectionMode="Single"
                 WidthRequest="500">
                 <CollectionView.ItemsLayout>
@@ -79,7 +81,7 @@
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:MovieModel">
+                    <DataTemplate x:Name="trend" x:DataType="models:MovieModel">
                         <Border>
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="12" />
@@ -103,6 +105,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+
             <Button
                 Margin="10,0"
                 Command="{Binding ShowMovieMopupCommand}"

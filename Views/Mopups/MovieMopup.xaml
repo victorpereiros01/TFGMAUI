@@ -21,7 +21,7 @@
     <VerticalStackLayout
         Padding="10"
         BackgroundColor="White"
-        HeightRequest="400"
+        HeightRequest="600"
         WidthRequest="400">
         <Button
             Command="{Binding CloseInfoMopupCommand}"
@@ -30,7 +30,7 @@
             VerticalOptions="Center"
             WidthRequest="50" />
 
-        <HorizontalStackLayout>
+        <HorizontalStackLayout Margin="10">
             <Label
                 HorizontalOptions="Start"
                 Text="{Binding Movie.Title}"
@@ -45,13 +45,20 @@
         <Editor
             HeightRequest="100"
             HorizontalOptions="Start"
-            IsEnabled="False"
+            IsEnabled="{Binding IsVisibleEditor}"
             IsReadOnly="True"
             Text="{Binding Movie.OverView}"
             VerticalOptions="Center" />
 
+        <Button
+            Margin="10"
+            Command="{Binding CambiarEditorCommand}"
+            Text="Ver descripcion completa" />
 
-        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+        <HorizontalStackLayout
+            HeightRequest="180"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
             <Image
                 Margin="10"
                 BackgroundColor="Red"

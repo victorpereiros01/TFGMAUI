@@ -24,10 +24,25 @@ namespace TFGMaui.ViewModels
         private ObservableCollection<HobbieModel> items;
 
         [ObservableProperty]
+        private ObservableCollection<LanguageModel> languages;
+
+        [ObservableProperty]
+        private LanguageModel language;
+
+        [ObservableProperty]
         private string pass;
+        [ObservableProperty]
+        private string passP;
+
+        [ObservableProperty]
+        private bool isDark;
+        [ObservableProperty]
+        private string color;
 
         [ObservableProperty]
         private string nuevaPass;
+        [ObservableProperty]
+        private string nuevaPassRep;
 
         [ObservableProperty]
         private string nuevoNombre;
@@ -35,8 +50,32 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private ImageSource avatar;
 
+        [ObservableProperty]
+        private string base64;
+
+        public SettingsViewModel()
+        {
+            Color = "Oscuro"; IsDark = true;
+            Languages = [
+                new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "Spanish", Utf8= "es-ES"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "English", Utf8= "en-US"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "German", Utf8= "de"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "Italian", Utf8= "it"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "Portuguese", Utf8= "pt"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "Japanese", Utf8= "ja"}
+            ];
+        }
+
         [RelayCommand]
-        public async Task ChangeLanguage() { }
+        public async Task ChangeLanguage(string utf8)
+        {
+            UsuarioActivo.Language = utf8;
+
+            if (new SettingsRepository().ChangeLanguage(UsuarioActivo))
+            {
+                await App.Current.MainPage.DisplayAlert("Exito", "Idioma cambiado satisfactoriamente", "Aceptar");
+            }
+        }
 
         /// <summary>
         /// Establece los hobbies para que en la vista funcionen
@@ -63,12 +102,8 @@ namespace TFGMaui.ViewModels
             await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         }
 
-        /// <summary>
-        /// Busca la imagen con el nombre de usuario, e inserta o actualiza la imagen
-        /// </summary>
-        /// <returns></returns>
         [RelayCommand]
-        private async Task ChangeAvatar()
+        private async Task EditAvatar()
         {
             var f = await FileUtils.OpenFile();
 
@@ -77,10 +112,18 @@ namespace TFGMaui.ViewModels
                 return;
             }
 
-            string base64 = f.FileBase64;
+            base64 = f.FileBase64;
             Avatar = f.ImageSource;
             UsuarioActivo.Avatar = Avatar;
+        }
 
+        /// <summary>
+        /// Busca la imagen con el nombre de usuario, e inserta o actualiza la imagen
+        /// </summary>
+        /// <returns></returns>
+        [RelayCommand]
+        private async Task ChangeAvatar()
+        {
             if (new SettingsRepository().ChangeAvatar(base64, UsuarioActivo))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Avatar cambiado satisfactoriamente", "Aceptar");
@@ -112,9 +155,12 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ChangePass()
         {
-            Pass = await App.Current.MainPage.DisplayPromptAsync("Alerta", "Introduce tu contraseña");
+            if (!NuevaPass.Equals(NuevaPassRep))
+            {
+                return;
+            }
 
-            if (!Pass.Equals(UsuarioActivo.Password.Trim()))
+            if (!PassP.Equals(UsuarioActivo.Password.Trim()))
             {
                 return;
             }
@@ -144,6 +190,23 @@ namespace TFGMaui.ViewModels
             }
         }
 
+        [RelayCommand]
+        public async Task ChangeDarkLight()
+        {
+            if (IsDark)
+            {
+                Color = "Claro";
+                IsDark = false;
+                Application.Current.UserAppTheme = AppTheme.Dark;
+            }
+            else
+            {
+                Color = "Oscuro";
+                IsDark = true;
+                Application.Current.UserAppTheme = AppTheme.Light;
+            }
+        }
+
         /// <summary>
         /// Si la contraseña es igual cambia el nombre de usuario(si no está cogido) con el id de usuario
         /// </summary>
@@ -151,8 +214,6 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ChangeUsername()
         {
-            Pass = await App.Current.MainPage.DisplayPromptAsync("Alerta", "Introduce tu contraseña");
-
             if (!Pass.Equals(UsuarioActivo.Password.Trim()))
             {
                 return;

@@ -18,13 +18,18 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private bool isVisibleEditor;
 
-        public MovieMopupViewModel() {
+        [ObservableProperty]
+        private string lang;
+
+        public MovieMopupViewModel()
+        {
             IsVisibleEditor = false;
         }
 
-        public void SendHobbieById(string id, int userId)
+        public void SendHobbieById(string id, int userId, string lang)
         {
             UserId = userId;
+            Lang = lang;
             Movie = new()
             {
                 Id = id
@@ -33,7 +38,8 @@ namespace TFGMaui.ViewModels
         }
 
         [RelayCommand]
-        public async Task CambiarEditor() {
+        public async Task CambiarEditor()
+        {
             IsVisibleEditor = !IsVisibleEditor;
         }
 
@@ -52,7 +58,7 @@ namespace TFGMaui.ViewModels
         {
             var requestPelicula = new HttpRequestModel(url: IConstantes.BaseMovieDb,
                 endpoint: $"movie/{Movie.Id}",
-                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", "es-ES" } },
+                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", Lang.Trim() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
             var m = (MovieModel)await HttpService.ExecuteRequestAsync<MovieModel>(requestPelicula); // v

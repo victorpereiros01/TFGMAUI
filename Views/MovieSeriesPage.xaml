@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="TFGMaui.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -6,10 +6,10 @@
     xmlns:models="clr-namespace:TFGMaui.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodels="clr-namespace:TFGMaui.ViewModels"
-    x:Name="main_page"
-    x:DataType="viewmodels:MainViewModel"
+    x:Name="mdb_page"
+    x:DataType="viewmodels:MovieSeriesViewModel"
     BackgroundImageSource="fondo.jpg"
-    BindingContext="{viewmodels:MainViewModel}">
+    BindingContext="{viewmodels:MovieSeriesViewModel}">
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding InitializeComponentsCommand}" EventName="Loaded" />
@@ -20,40 +20,7 @@
         Background="WhiteSmoke"
         HeightRequest="550"
         WidthRequest="650">
-        <HorizontalStackLayout>
-            <Label
-                Margin="20"
-                HorizontalOptions="Center"
-                Text="{Binding Saludos}"
-                VerticalOptions="Center" />
-
-            <Button
-                BackgroundColor="Red"
-                FontSize="Large"
-                Text="Hobbyer"
-                WidthRequest="170" />
-
-            <Image
-                Margin="10"
-                Aspect="AspectFill"
-                HeightRequest="50"
-                Source="{Binding UsuarioActivo.Avatar}"
-                WidthRequest="50" />
-            <Label
-                Margin="10"
-                HorizontalOptions="Center"
-                Text="{Binding UsuarioActivo.Username}"
-                VerticalOptions="Center"
-                WidthRequest="60" />
-
-            <Button
-                Command="{Binding NavegarCommand}"
-                CommandParameter="SettingsPage"
-                HeightRequest="50"
-                HorizontalOptions="End"
-                Text="A"
-                WidthRequest="50" />
-        </HorizontalStackLayout>
+        
 
         <Label
             Margin="20,0"

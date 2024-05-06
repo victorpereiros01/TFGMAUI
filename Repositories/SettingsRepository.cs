@@ -145,5 +145,27 @@ namespace TFGMaui.Repositories
 
             return true;
         }
+
+        public bool ChangeLanguage(UsuarioModel user)
+        {
+            SetCmdQuery("UPDATE [dbo].[Users] SET [Language] = @Language WHERE IdUser = @IdUser");
+
+            AddCmdParameters(
+                new()
+                {
+                    { "@Language", user.Language },
+                    { "@IdUser", user.Id }
+                }
+            );
+
+            Oconexion.Open();
+
+            if (Cmd.ExecuteNonQuery() == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

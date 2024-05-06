@@ -102,7 +102,7 @@ namespace TFGMaui.Repositories
         /// <returns></returns>
         public UsuarioModel? Login(string username, string password)
         {
-            SetCmdQuery("SELECT IdUser, Username, Email, Avatar, Password, Hobbie1, Hobbie2, Hobbie3, Hobbie4, Adult FROM Users WHERE Username = @Username or Email = @Username AND Password = @Pass");
+            SetCmdQuery("SELECT IdUser, Username, Email, Avatar, Password, Hobbie1, Hobbie2, Hobbie3, Hobbie4, Adult, Language FROM Users WHERE Username = @Username or Email = @Username AND Password = @Pass");
 
             AddCmdParameters(new() { { "@Username", username }, { "@Pass", password } });
 
@@ -115,7 +115,7 @@ namespace TFGMaui.Repositories
                 return null;
             }
 
-            return new UsuarioModel
+            var user = new UsuarioModel
             {
                 Id = dr.GetInt32(0),
                 Username = dr.GetString(1),
@@ -123,15 +123,16 @@ namespace TFGMaui.Repositories
                 Avatar = FileUtils.GetSource(dr.GetString(3)),
                 Password = dr.GetString(4),
                 Hobbies = [dr.GetBoolean(5), dr.GetBoolean(6), dr.GetBoolean(7), dr.GetBoolean(8)],
-                Adulto = dr.GetBoolean(9)
+                Adulto = dr.GetBoolean(9),
+                Language = dr.GetString(10)
             };
+
+            return user;
         }
 
         public bool Registrar(UsuarioModel user)
         {
-            SetCmdQuery(
-                "INSERT INTO Users ([Username], [Email], [Password], [Hobbie1], [Hobbie2], [Hobbie3], [Hobbie4], [Adult]) \nVALUES (@Username, @Email, @Password, @Hobbie1, @Hobbie2, @Hobbie3, @Hobbie4, @Adulto)"
-            );
+            SetCmdQuery("INSERT INTO Users ([Username], [Email], [Password], [Hobbie1], [Hobbie2], [Hobbie3], [Hobbie4], [Adult], [Language]) \nVALUES (@Username, @Email, @Password, @Hobbie1, @Hobbie2, @Hobbie3, @Hobbie4, @Adulto, 'en-US')");
 
             AddCmdParameters(
                 new()

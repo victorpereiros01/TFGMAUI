@@ -2,23 +2,19 @@
 using CommunityToolkit.Mvvm.Input;
 using Mopups.PreBaked.Services;
 using Mopups.Services;
-using Newtonsoft.Json;
-using RestSharp;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Security.Cryptography;
-using System.Text;
 using TFGMaui.Models;
 using TFGMaui.Repositories;
-using TFGMaui.Services;
 using TFGMaui.Views.Mopups;
 using Color = System.Drawing.Color;
 using Page = TFGMaui.Models.Page;
+using TFGMaui.Services;
 
 namespace TFGMaui.ViewModels
 {
     [QueryProperty("UsuarioActivo", "UsuarioActivo")]
-    internal partial class MainViewModel : ObservableObject
+    internal partial class MovieSeriesViewModel : ObservableObject
     {
         [ObservableProperty]
         private UsuarioModel usuarioActivo;
@@ -43,7 +39,7 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private MovieModel movie;
 
-        public MainViewModel()
+        public MovieSeriesViewModel()
         {
             // Inicializa lo requerido para el mopup
             MovieMopupViewModel = new MovieMopupViewModel();
@@ -149,71 +145,6 @@ namespace TFGMaui.ViewModels
             await MopupService.Instance.PushAsync(MovieMopup);
         }
 
-        /// <summary>
-        /// Pruebas
-        /// </summary>
-        private async void pruebas()
-        {
-            string webmarvel = IConstantes.MarvelPage;
-
-            // 438631 // dune 2022
-            var options = new RestClientOptions($"{IConstantes.BaseAnimeManga}/manga/2");
-            var client = new RestClient(options);
-            var request = new RestRequest();
-
-            request.AddParameter("language", "es-ES");
-            request.AddHeader("Accept", "application/json");
-
-            //
-            // libro por id
-            //
-
-            var options2 = new RestClientOptions($"{IConstantes.BaseBooks}/volumes/2gk0EAAAQBAJ");
-            var client2 = new RestClient(options2);
-            var request2 = new RestRequest();
-
-            request2.AddParameter("language", "es-ES");
-            request2.AddHeader("Accept", "application/json");
-
-            var response2 = await client.ExecuteAsync(request2);
-
-            BookModel b = JsonConvert.DeserializeObject<BookModel>(response2.Content);
-
-            //
-            // anime search
-            //
-
-            var options3 = new RestClientOptions($"{IConstantes.BaseAnimeManga}/anime?q=one piece");
-            var client3 = new RestClient(options3);
-            var request3 = new RestRequest();
-
-            request3.AddParameter("language", "es-ES");
-            request.AddHeader("Accept", "application/json");
-
-            var response3 = await client.GetAsync(request3);
-
-            var s = JsonConvert.DeserializeObject<AnimeList>(response3.Content);
-
-            //
-            // Get the marvel api_key
-            //
-
-            // Generate a random TimeStamp
-            IConstantes.Ts = new Random().Next().ToString();
-
-            // Prepare the input string for hashing
-            string input = $"{IConstantes.Ts}{IConstantes.PrivateMarvelKey}{IConstantes.PublicMarvelKey}";
-
-            // Convert the input string to a byte array and then compute the MD5 hash         
-            byte[] hashBytes = MD5.HashData(Encoding.UTF8.GetBytes(input));
-
-            // Convert the hash bytes to a hexadecimal string
-            string hash = string.Join(string.Empty,
-                hashBytes.Select(b => b.ToString("x2")));
-
-            // Assign the hash to IConstantes.Hash
-            IConstantes.Hash = hash;
-        }
 
         /// <summary>
         /// Abre el mopup de loading

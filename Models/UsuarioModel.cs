@@ -16,6 +16,8 @@
 
         public bool Adulto { get; set; }
 
+        public string Language { get; set; }
+
         /// <summary>
         /// Si el usuario tiene los mismos nombre o correo y contraseña
         /// </summary>

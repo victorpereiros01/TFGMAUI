@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TFGMaui.Models;
 using TFGMaui.Services;
 
 namespace TFGMaui.Repositories
@@ -112,6 +113,26 @@ namespace TFGMaui.Repositories
             }
 
             return true;
+        }
+
+        public QuoteModel GetQuoteRandom()
+        {
+            SetCmdQuery("SELECT TOP 1 [Value], Source FROM[dbo].[Quotes] ORDER by newid()");
+
+            Oconexion.Open();
+
+            using SqlDataReader dr = Cmd.ExecuteReader();
+
+            if (!dr.Read())
+            {
+                return null;
+            }
+
+            return new QuoteModel()
+            {
+                Value = dr.GetString(0),
+                Source = dr.GetString(1)
+            };
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Mopups.PreBaked.Services;
-using Mopups.Services;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.ObjectModel;
@@ -9,10 +7,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using TFGMaui.Models;
-using TFGMaui.Repositories;
 using TFGMaui.Services;
-using TFGMaui.Views.Mopups;
-using Color = System.Drawing.Color;
 using Page = TFGMaui.Models.Page;
 
 namespace TFGMaui.ViewModels
@@ -34,21 +29,9 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private int selectedPage;
 
-        private MovieMopup MovieMopup;
-        private MovieMopupViewModel MovieMopupViewModel;
-
         [ObservableProperty]
         private ObservableCollection<QuoteModel> quotes;
 
-        [ObservableProperty]
-        private MovieModel movie;
-
-        public MainViewModel()
-        {
-            // Inicializa lo requerido para el mopup
-            MovieMopupViewModel = new MovieMopupViewModel();
-            MovieMopup = new MovieMopup(MovieMopupViewModel);
-        }
 
         /// <summary>
         /// Inicializa los saludos, con el dia en formato dia de la semana, numero y mes. Y obtiene las listas de trending y top
@@ -80,7 +63,7 @@ namespace TFGMaui.ViewModels
         public async Task GetTrending(string type)
         {
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
-                endpoint: $"trending/movie/{type}",
+                endpoint: $"trending/all/{type}",
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", SelectedPage.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
@@ -134,19 +117,10 @@ namespace TFGMaui.ViewModels
         {
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
-                ["UsuarioActivo"] = UsuarioActivo
+                ["UsuarioActivo"] = UsuarioActivo,
+                ["PaginaPelisTop"] = PaginaPelisTop,
+                ["PaginaPelis"] = PaginaPelis
             });
-        }
-
-        /// <summary>
-        /// Abre el mopup
-        /// </summary>
-        /// <param name="id">Id de la pelicula seleccionada</param>
-        [RelayCommand]
-        public async Task ShowMovieMopup(string id)
-        {
-            MovieMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
-            await MopupService.Instance.PushAsync(MovieMopup);
         }
 
         /// <summary>
@@ -213,25 +187,6 @@ namespace TFGMaui.ViewModels
 
             // Assign the hash to IConstantes.Hash
             IConstantes.Hash = hash;
-        }
-
-        /// <summary>
-        /// Abre el mopup de loading
-        /// </summary>
-        /// <returns></returns>
-        [RelayCommand]
-        public async Task ShowLoadingMopup()
-        {
-            var quote = new HobbieRepository().GetQuoteRandom();
-            if (quote is null)
-            {
-                return;
-            }
-
-            List<string> list = [quote.Source, quote.Value];
-
-            // Loader
-            await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(4000), ColorConverterUtil.ConvertFromSystemDrawingColor(Color.Red), ColorConverterUtil.ConvertFromSystemDrawingColor(Color.White), list, ColorConverterUtil.ConvertFromSystemDrawingColor(Color.Black));
         }
     }
 }

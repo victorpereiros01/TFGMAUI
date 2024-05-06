@@ -12,4 +12,5 @@
     <ShellContent ContentTemplate="{DataTemplate views:RegisterPage}" Route="RegisterPage" />
     <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
     <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="SettingsPage" />
+    <ShellContent ContentTemplate="{DataTemplate views:MovieSeriesPage}" Route="MovieSeriesPage" />
 </Shell>

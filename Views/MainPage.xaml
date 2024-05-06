@@ -55,117 +55,28 @@
                 WidthRequest="50" />
         </HorizontalStackLayout>
 
-        <Label
-            Margin="20,0"
-            FontSize="Title"
-            Text="Tendencias" />
-        <HorizontalStackLayout Margin="5" Padding="5">
-            <CollectionView
-                HeightRequest="142"
-                ItemsSource="{Binding PaginaPelis.Results}"
-                SelectedItem="{Binding Movie}"
-                SelectionChangedCommand="{Binding ShowMovieMopupCommand}"
-                SelectionChangedCommandParameter="{Binding Movie.Id}"
-                SelectionMode="Single"
-                WidthRequest="500">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout
-                        HorizontalItemSpacing="5"
-                        Orientation="Vertical"
-                        Span="6"
-                        VerticalItemSpacing="5" />
-                </CollectionView.ItemsLayout>
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:Name="trend" x:DataType="models:MovieModel">
-                        <Border>
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="12" />
-                            </Border.StrokeShape>
-
-                            <VerticalStackLayout
-                                HeightRequest="130"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center"
-                                WidthRequest="60">
-                                <Image HeightRequest="110" Source="{Binding Imagen}" />
-
-                                <HorizontalStackLayout>
-                                    <Label
-                                        HorizontalOptions="Center"
-                                        Text="{Binding Title}"
-                                        VerticalOptions="Center" />
-                                </HorizontalStackLayout>
-                            </VerticalStackLayout>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
+        <HorizontalStackLayout>
             <Button
-                Margin="10,0"
-                Command="{Binding ShowMovieMopupCommand}"
-                CommandParameter="438631"
-                HeightRequest="132"
-                HorizontalOptions="Center"
-                Text="&gt;"
-                VerticalOptions="Center"
-                WidthRequest="80" />
-        </HorizontalStackLayout>
-
-        <Label
-            Margin="20,0"
-            FontSize="Title"
-            Text="Top" />
-
-        <HorizontalStackLayout Margin="5" Padding="5">
-            <CollectionView
-                HeightRequest="142"
-                ItemsSource="{Binding PaginaPelisTop.Results}"
-                SelectionMode="Single"
-                WidthRequest="500">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout
-                        HorizontalItemSpacing="5"
-                        Orientation="Vertical"
-                        Span="6"
-                        VerticalItemSpacing="5" />
-                </CollectionView.ItemsLayout>
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:MovieModel">
-                        <Border>
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="12" />
-                            </Border.StrokeShape>
-
-                            <VerticalStackLayout
-                                HeightRequest="130"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center"
-                                WidthRequest="60">
-                                <Image HeightRequest="110" Source="{Binding Imagen}" />
-
-                                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                    <Label
-                                        HorizontalOptions="Center"
-                                        Text="{Binding Title}"
-                                        VerticalOptions="Center" />
-                                </HorizontalStackLayout>
-                            </VerticalStackLayout>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                Margin="10,0,0,0"
+                Command="{Binding NavegarCommand}"
+                CommandParameter="MovieSeriesPage"
+                HeightRequest="150"
+                Text="Movies"
+                WidthRequest="140" />
             <Button
-                Margin="10,0"
-                Command="{Binding ShowLoadingMopupCommand}"
-                CommandParameter="438631"
-                HeightRequest="132"
-                HorizontalOptions="Center"
-                Text="&gt;"
-                VerticalOptions="Center"
-                WidthRequest="80" />
+                Margin="10"
+                HeightRequest="150"
+                Text="Games"
+                WidthRequest="140" />
+            <Button
+                HeightRequest="150"
+                Text="Books"
+                WidthRequest="140" />
+            <Button
+                Margin="10,0,0,0"
+                HeightRequest="150"
+                Text="Anime"
+                WidthRequest="140" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="TFGMaui.MainPage"
+    x:Class="TFGMaui.Views.MovieSeriesPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:models="clr-namespace:TFGMaui.Models"
@@ -11,21 +11,54 @@
     BackgroundImageSource="fondo.jpg"
     BindingContext="{viewmodels:MovieSeriesViewModel}">
 
-    <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding InitializeComponentsCommand}" EventName="Loaded" />
-    </ContentPage.Behaviors>
-
     <VerticalStackLayout
         Padding="15"
         Background="WhiteSmoke"
         HeightRequest="550"
         WidthRequest="650">
-        
+
+        <HorizontalStackLayout HorizontalOptions="Center" WidthRequest="400">
+            <Label
+                FontSize="Title"
+                HorizontalOptions="Center"
+                Text="Titulo" />
+
+            <Button
+                Command="{Binding NavegarCommand}"
+                CommandParameter="MainPage"
+                HorizontalOptions="End"
+                Text="salir"
+                WidthRequest="100" />
+        </HorizontalStackLayout>
+
+        <Button
+            Margin="10"
+            HorizontalOptions="Center"
+            Text="Buscar"
+            WidthRequest="300" />
+
+        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Button
+                HeightRequest="90"
+                HorizontalOptions="Center"
+                Text="Movies"
+                VerticalOptions="Center"
+                WidthRequest="250" />
+            <Button
+                Margin="10"
+                HeightRequest="90"
+                HorizontalOptions="Center"
+                Text="Series"
+                VerticalOptions="Center"
+                WidthRequest="250" />
+        </HorizontalStackLayout>
 
         <Label
             Margin="20,0"
             FontSize="Title"
             Text="Tendencias" />
+        <Switch />
+        <Button Text="top" WidthRequest="100" />
         <HorizontalStackLayout Margin="5" Padding="5">
             <CollectionView
                 HeightRequest="142"
@@ -80,7 +113,7 @@
                 WidthRequest="80" />
         </HorizontalStackLayout>
 
-        <Label
+        <!--<Label
             Margin="20,0"
             FontSize="Title"
             Text="Top" />
@@ -133,6 +166,6 @@
                 Text="&gt;"
                 VerticalOptions="Center"
                 WidthRequest="80" />
-        </HorizontalStackLayout>
+        </HorizontalStackLayout>-->
     </VerticalStackLayout>
 </ContentPage>

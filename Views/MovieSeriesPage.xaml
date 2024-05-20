@@ -17,25 +17,29 @@
         HeightRequest="550"
         WidthRequest="650">
 
-        <HorizontalStackLayout HorizontalOptions="Center" WidthRequest="400">
-            <Label
-                FontSize="Title"
-                HorizontalOptions="Center"
-                Text="Titulo" />
-
-            <Button
-                Command="{Binding NavegarCommand}"
-                CommandParameter="MainPage"
-                HorizontalOptions="End"
-                Text="salir"
-                WidthRequest="100" />
-        </HorizontalStackLayout>
-
         <Button
-            Margin="10"
-            HorizontalOptions="Center"
-            Text="Buscar"
-            WidthRequest="300" />
+            BackgroundColor="Red"
+            Command="{Binding NavegarCommand}"
+            CommandParameter="MainPage"
+            FontSize="Large"
+            Text="Hobbyer"
+            WidthRequest="170" />
+
+        <SearchBar
+            x:Name="tx_filtro"
+            CancelButtonColor="Red"
+            IsTextPredictionEnabled="True"
+            WidthRequest="300">
+            <SearchBar.Behaviors>
+                <toolkit:EventToCommandBehavior
+                    Command="{Binding GetSearchCommand}"
+                    CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
+                    EventName="TextChanged" />
+                <!--<toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />-->
+            </SearchBar.Behaviors>
+        </SearchBar>
+
+        <Button Command="{Binding NavegarSearchCommand}" />
 
         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
             <Button
@@ -53,12 +57,14 @@
                 WidthRequest="250" />
         </HorizontalStackLayout>
 
-        <Label
-            Margin="20,0"
-            FontSize="Title"
-            Text="Tendencias" />
-        <Switch />
-        <Button Text="top" WidthRequest="100" />
+        <HorizontalStackLayout>
+            <Label
+                Margin="20,0"
+                FontSize="Title"
+                Text="Tendencias" />
+            <Switch />
+        </HorizontalStackLayout>
+
         <HorizontalStackLayout Margin="5" Padding="5">
             <CollectionView
                 HeightRequest="142"

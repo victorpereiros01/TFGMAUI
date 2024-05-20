@@ -3,9 +3,9 @@ using TFGMaui.ViewModels.Mopup;
 
 namespace TFGMaui.Views.Mopups;
 
-public partial class MovieMopup : PopupPage
+public partial class SerieMopup : PopupPage
 {
-    public MovieMopup(MovieMopupViewModel movieMopupViewModel)
+    public SerieMopup(MovieMopupViewModel movieMopupViewModel)
     {
         InitializeComponent();
         BindingContext = movieMopupViewModel;

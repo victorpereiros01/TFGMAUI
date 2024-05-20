@@ -12,5 +12,14 @@
     <ShellContent ContentTemplate="{DataTemplate views:RegisterPage}" Route="RegisterPage" />
     <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
     <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="SettingsPage" />
+
     <ShellContent ContentTemplate="{DataTemplate views:MovieSeriesPage}" Route="MovieSeriesPage" />
+    <ShellContent ContentTemplate="{DataTemplate views:MoviesPage}" Route="MoviesPage" />
+    <ShellContent ContentTemplate="{DataTemplate views:SeriesPage}" Route="SeriesPage" />
+
+    <ShellContent ContentTemplate="{DataTemplate views:FilterPage}" Route="FilterPage" />
+
+    <ShellContent ContentTemplate="{DataTemplate views:GamesPage}" Route="GamesPage" />
+    <ShellContent ContentTemplate="{DataTemplate views:BooksPage}" Route="BooksPage" />
+    <ShellContent ContentTemplate="{DataTemplate views:AnimeMangaPage}" Route="AnimeMangaPage" />
 </Shell>

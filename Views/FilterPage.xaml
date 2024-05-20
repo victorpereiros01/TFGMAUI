@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TFGMaui.Views.FilterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:TFGMaui.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodels="clr-namespace:TFGMaui.ViewModels"
+    x:DataType="viewmodels:FilterViewModel"
+    BackgroundImageSource="fondo.jpg"
+    BindingContext="{viewmodels:FilterViewModel}">
+
+    <VerticalStackLayout
+        Padding="15"
+        Background="WhiteSmoke"
+        HeightRequest="550"
+        WidthRequest="650">
+        <Button
+            BackgroundColor="Red"
+            Command="{Binding NavegarCommand}"
+            CommandParameter="MainPage"
+            FontSize="Large"
+            Text="Hobbyer"
+            WidthRequest="170" />
+
+        <SearchBar
+            x:Name="tx_filtro"
+            CancelButtonColor="Red"
+            IsTextPredictionEnabled="True"
+            WidthRequest="300">
+            <SearchBar.Behaviors>
+                <toolkit:EventToCommandBehavior
+                    Command="{Binding GetSearchCommand}"
+                    CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
+                    EventName="TextChanged" />
+                <!--<toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />-->
+            </SearchBar.Behaviors>
+        </SearchBar>
+        <CollectionView />
+
+        <HorizontalStackLayout>
+            <VerticalStackLayout BackgroundColor="LightBlue" WidthRequest="200">
+                <Label Text="Izquierda" />
+
+                <!--  Plataformas en las q esta disponible  -->
+                <CollectionView />
+
+                <!--  Para fecha de emision  -->
+                <Label />
+                <Slider
+                    Maximum="151"
+                    Minimum="1"
+                    Value="{Binding PrimeraFecha}">
+                    <Slider.Behaviors>
+                        <toolkit:EventToCommandBehavior Command="{Binding FiltrarFechaCommand}" EventName="DragCompleted" />
+                    </Slider.Behaviors>
+                </Slider>
+                <Label />
+                <Slider
+                    FlowDirection="RightToLeft"
+                    Maximum="151"
+                    Minimum="1"
+                    Value="{Binding SegundaFecha}">
+                    <Slider.Behaviors>
+                        <toolkit:EventToCommandBehavior Command="{Binding FiltrarFechaCommand}" EventName="DragCompleted" />
+                    </Slider.Behaviors>
+                </Slider>
+
+                <!--  Para filtrar por generos  -->
+                <SearchBar />
+                <CollectionView />
+
+                <ListView />
+
+                <Picker ItemsSource="{Binding SortByList}" SelectedItem="{Binding ValueSort}">
+                    <Picker.Behaviors>
+                        <toolkit:EventToCommandBehavior Command="{Binding FiltrarFechaCommand}" EventName="SelectedIndexChanged" />
+                    </Picker.Behaviors>
+                </Picker>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                BackgroundColor="Pink"
+                HeightRequest="400"
+                WidthRequest="520">
+                <Label Text="Derecha" />
+
+                <CollectionView
+                    HeightRequest="500"
+                    ItemsSource="{Binding PaginaPelis.Results}"
+                    SelectedItem="{Binding Movie}"
+                    SelectionChangedCommand="{Binding ShowMovieMopupCommand}"
+                    SelectionChangedCommandParameter="{Binding Movie.Id}"
+                    SelectionMode="Single"
+                    WidthRequest="500">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            HorizontalItemSpacing="5"
+                            Orientation="Vertical"
+                            Span="5"
+                            VerticalItemSpacing="5" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:Name="trend" x:DataType="models:MovieModel">
+                            <Border>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12" />
+                                </Border.StrokeShape>
+
+                                <VerticalStackLayout
+                                    HeightRequest="130"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    WidthRequest="60">
+                                    <Image HeightRequest="110" Source="{Binding Imagen}" />
+
+                                    <HorizontalStackLayout>
+                                        <Label
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Title}"
+                                            VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Button Command="{Binding FirstPageCommand}" Text="Primero" />
+            <Button Command="{Binding PreviousPageCommand}" Text="&lt;" />
+            <Button Command="{Binding NextPageCommand}" Text="&gt;" />
+            <Button Command="{Binding LastPageCommand}" Text="Ultimo" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

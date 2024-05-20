@@ -1,11 +1,12 @@
 using Mopups.Pages;
+using TFGMaui.ViewModels;
 using TFGMaui.ViewModels.Mopup;
 
 namespace TFGMaui.Views.Mopups;
 
-public partial class MovieMopup : PopupPage
+public partial class AnimeMopup : PopupPage
 {
-    public MovieMopup(MovieMopupViewModel movieMopupViewModel)
+    public AnimeMopup(MovieMopupViewModel movieMopupViewModel)
     {
         InitializeComponent();
         BindingContext = movieMopupViewModel;

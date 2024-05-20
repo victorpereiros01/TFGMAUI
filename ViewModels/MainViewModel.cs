@@ -27,11 +27,10 @@ namespace TFGMaui.ViewModels
         private Page paginaPelisTop;
 
         [ObservableProperty]
-        private int selectedPage;
+        private Page paginaAux;
 
         [ObservableProperty]
         private ObservableCollection<QuoteModel> quotes;
-
 
         /// <summary>
         /// Inicializa los saludos, con el dia en formato dia de la semana, numero y mes. Y obtiene las listas de trending y top
@@ -44,7 +43,6 @@ namespace TFGMaui.ViewModels
                 Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)
     .ToString("dddd, d MMM", CultureInfo.InvariantCulture);
 
-                SelectedPage = 1;
 
                 await GetTrending("day");
                 await GetTop();
@@ -64,12 +62,12 @@ namespace TFGMaui.ViewModels
         {
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
                 endpoint: $"trending/all/{type}",
-                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", SelectedPage.ToString() } },
+                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", 1.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
             var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
 
-            pagtrend.Results = GetNelements(pagtrend.Results, 6);
+            pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 6);
             pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
             PaginaPelis = pagtrend;
@@ -83,33 +81,15 @@ namespace TFGMaui.ViewModels
         {
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
                 endpoint: "movie/top_rated",
-                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", SelectedPage.ToString() } },
+                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", 1.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
             var pagtop = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
 
-            pagtop.Results = GetNelements(pagtop.Results, 6);
+            pagtop.Results = MiscellaneousUtils.GetNelements(pagtop.Results, 6);
             pagtop.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
             PaginaPelisTop = pagtop;
-        }
-
-        /// <summary>
-        /// Obtiene los primeros n elementos de la lista
-        /// </summary>
-        /// <param name="results"></param>
-        /// <param name="v2"></param>
-        /// <returns></returns>
-        private List<MovieModel> GetNelements(List<MovieModel> results, int v2)
-        {
-            List<MovieModel> list = [];
-
-            for (int i = 0; i < v2; i++)
-            {
-                list.Add(results[i]);
-            }
-
-            return list;
         }
 
         [RelayCommand]
@@ -118,7 +98,6 @@ namespace TFGMaui.ViewModels
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
                 ["UsuarioActivo"] = UsuarioActivo,
-                ["PaginaPelisTop"] = PaginaPelisTop,
                 ["PaginaPelis"] = PaginaPelis
             });
         }

@@ -6,9 +6,9 @@ using TFGMaui.Models;
 using TFGMaui.Repositories;
 using TFGMaui.Services;
 
-namespace TFGMaui.ViewModels
+namespace TFGMaui.ViewModels.Mopup
 {
-    public partial class MovieMopupViewModel : ObservableObject
+    public partial class MangaMopupViewModel : ObservableObject
     {
         [ObservableProperty]
         private MovieModel movie;
@@ -21,7 +21,7 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private string lang;
 
-        public MovieMopupViewModel()
+        public MangaMopupViewModel()
         {
             IsVisibleEditor = false;
         }

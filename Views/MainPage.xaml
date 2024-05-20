@@ -56,6 +56,21 @@
         </HorizontalStackLayout>
 
         <HorizontalStackLayout>
+            <CarouselView
+                BackgroundColor="LightYellow"
+                HeightRequest="300"
+                WidthRequest="200" />
+            <CarouselView
+                BackgroundColor="LightCyan"
+                HeightRequest="300"
+                WidthRequest="200" />
+            <CarouselView
+                BackgroundColor="LightGreen"
+                HeightRequest="300"
+                WidthRequest="200" />
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout>
             <Button
                 Margin="10,0,0,0"
                 Command="{Binding NavegarCommand}"
@@ -65,6 +80,8 @@
                 WidthRequest="140" />
             <Button
                 Margin="10"
+                Command="{Binding NavegarCommand}"
+                CommandParameter="FilterPage"
                 HeightRequest="150"
                 Text="Games"
                 WidthRequest="140" />

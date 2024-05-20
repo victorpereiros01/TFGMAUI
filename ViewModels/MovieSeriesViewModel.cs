@@ -5,6 +5,8 @@ using Mopups.Services;
 using System.Collections.ObjectModel;
 using TFGMaui.Models;
 using TFGMaui.Repositories;
+using TFGMaui.Services;
+using TFGMaui.ViewModels.Mopup;
 using TFGMaui.Views.Mopups;
 using Color = System.Drawing.Color;
 using Page = TFGMaui.Models.Page;
@@ -52,6 +54,35 @@ namespace TFGMaui.ViewModels
             });
         }
 
+        [RelayCommand]
+        public async Task NavegarSearch()
+        {
+            await Shell.Current.GoToAsync("//FilterPage", new Dictionary<string, object>()
+            {
+                ["UsuarioActivo"] = UsuarioActivo,
+                ["PaginaPelis"] = PaginaPelis
+            });
+        }
+
+        /// <summary>
+        /// Busca las peliculas que coincidan con un termino
+        /// </summary>
+        /// <returns></returns>
+        [RelayCommand]
+        public async Task GetSearch(string busqueda)
+        {
+            var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
+                endpoint: $"search/movie",
+                parameters: new Dictionary<string, string> { { "query", busqueda }, { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language } },
+                headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
+
+            var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+
+            pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+
+            PaginaPelis = pagtrend;
+        }
+
         /// <summary>
         /// Abre el mopup
         /// </summary>
@@ -79,7 +110,7 @@ namespace TFGMaui.ViewModels
             List<string> list = [quote.Source, quote.Value];
 
             // Loader
-            await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(4000), ColorConverterUtil.ConvertFromSystemDrawingColor(Color.Red), ColorConverterUtil.ConvertFromSystemDrawingColor(Color.White), list, ColorConverterUtil.ConvertFromSystemDrawingColor(Color.Black));
+            await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(4000), MiscellaneousUtils.ConvertFromSystemDrawingColor(Color.Red), MiscellaneousUtils.ConvertFromSystemDrawingColor(Color.White), list, MiscellaneousUtils.ConvertFromSystemDrawingColor(Color.Black));
         }
     }
 }

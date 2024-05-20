@@ -14,356 +14,358 @@
         <toolkit:EventToCommandBehavior Command="{Binding SetHobbiesCommand}" EventName="Loaded" />
     </ContentPage.Behaviors>
 
-    <ScrollView
+    <VerticalStackLayout
         Background="WhiteSmoke"
         HeightRequest="500"
         WidthRequest="650">
-        <VerticalStackLayout>
-            <HorizontalStackLayout BackgroundColor="Blue">
-                <Image
-                    Margin="10"
-                    Aspect="AspectFill"
-                    HeightRequest="120"
-                    Source="fondo.jpg"
-                    WidthRequest="120" />
-                <Label
-                    Margin="10"
-                    HorizontalOptions="Center"
-                    Text="Ajustes"
-                    VerticalOptions="Center"
-                    WidthRequest="350" />
-                <Button
-                    Command="{Binding LogOutCommand}"
-                    CommandParameter="LoginPage"
-                    HeightRequest="120"
-                    HorizontalOptions="End"
-                    Text="Cerrar sesion"
-                    WidthRequest="120" />
-            </HorizontalStackLayout>
+        <HorizontalStackLayout BackgroundColor="Blue">
+            <Image
+                Margin="10"
+                Aspect="AspectFill"
+                HeightRequest="120"
+                Source="fondo.jpg"
+                WidthRequest="120" />
+            <Label
+                Margin="10"
+                HorizontalOptions="Center"
+                Text="Ajustes"
+                VerticalOptions="Center"
+                WidthRequest="350" />
+            <Button
+                Command="{Binding LogOutCommand}"
+                CommandParameter="LoginPage"
+                HeightRequest="120"
+                HorizontalOptions="End"
+                Text="Cerrar sesion"
+                WidthRequest="120" />
+        </HorizontalStackLayout>
 
-            <HorizontalStackLayout Padding="15,0" BackgroundColor="Pink">
-                <Label
-                    Margin="10"
-                    HorizontalOptions="Center"
-                    Text="{Binding Color}"
-                    TextColor="{AppThemeBinding Light=black,
-                                                Dark=white}"
-                    VerticalOptions="Center"
-                    WidthRequest="50" />
-                <Switch
-                    Margin="0,0,-110,0"
-                    IsEnabled="False"
-                    IsToggled="{Binding IsDark}" />
-                <Button
-                    Margin="8"
-                    Command="{Binding ChangeDarkLightCommand}"
-                    HorizontalOptions="Center"
-                    Text="cambiar colores"
-                    VerticalOptions="Center" />
-
-
-                <Label
-                    Margin="20"
-                    HorizontalOptions="Center"
-                    Text="Modo parental"
-                    VerticalOptions="Center" />
-                <Switch
-                    Margin="0,0,-110,0"
-                    HorizontalOptions="Center"
-                    IsToggled="{Binding UsuarioActivo.Adulto}"
-                    OnColor="DimGrey"
-                    ThumbColor="Red"
-                    VerticalOptions="Center" />
-                <Button
-                    Command="{Binding EnableParentalModeCommand}"
-                    HorizontalOptions="Center"
-                    Text="cambiar"
-                    VerticalOptions="Center" />
-            </HorizontalStackLayout>
-
-            <!--  Expander para las creedenciales  -->
-            <toolkit:Expander x:Name="MyExpander3" BackgroundColor="Red">
-                <toolkit:Expander.Header>
-                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label
-                            HorizontalOptions="Center"
-                            Text="Cambiar creedenciales"
-                            VerticalOptions="Center" />
-                        <Image
-                            x:Name="HeaderImage3"
-                            HeightRequest="50"
-                            HorizontalOptions="Center"
-                            Source="dotnet_bot.png"
-                            VerticalOptions="Center"
-                            WidthRequest="50">
-                            <Image.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Source={x:Reference MyExpander3}, Path=IsExpanded}"
-                                    TargetType="Image"
-                                    Value="True">
-                                    <Setter Property="Rotation" Value="180" />
-                                </DataTrigger>
-                            </Image.Triggers>
-                        </Image>
-                    </HorizontalStackLayout>
-                </toolkit:Expander.Header>
-
-                <toolkit:Expander.Content>
-                    <VerticalStackLayout>
-                        <Label Text="Introduce el nuevo username" />
-                        <HorizontalStackLayout>
-                            <Entry
-                                Placeholder="Nuevo user"
-                                Text="{Binding NuevoNombre}"
-                                WidthRequest="200" />
-                            <Entry
-                                Margin="10,0"
-                                Placeholder="Contraseña"
-                                Text="{Binding Pass}"
-                                WidthRequest="190" />
-                            <Button
-                                Command="{Binding ChangeUsernameCommand}"
+        <ScrollView HeightRequest="300">
+            <VerticalStackLayout>
+                <!--  Expander para las creedenciales  -->
+                <toolkit:Expander x:Name="MyExpander3" BackgroundColor="Red">
+                    <toolkit:Expander.Header>
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="Cambiar creedenciales"
+                                VerticalOptions="Center" />
+                            <Image
+                                x:Name="HeaderImage3"
                                 HeightRequest="50"
-                                Text="Cambiar nombre de usuario"
-                                WidthRequest="220" />
+                                HorizontalOptions="Center"
+                                Source="dotnet_bot.png"
+                                VerticalOptions="Center"
+                                WidthRequest="50">
+                                <Image.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Source={x:Reference MyExpander3}, Path=IsExpanded}"
+                                        TargetType="Image"
+                                        Value="True">
+                                        <Setter Property="Rotation" Value="180" />
+                                    </DataTrigger>
+                                </Image.Triggers>
+                            </Image>
                         </HorizontalStackLayout>
+                    </toolkit:Expander.Header>
 
-                        <Label Text="Cambiar contraseña" />
-                        <HorizontalStackLayout>
-                            <Entry
-                                Placeholder="Antigua contra"
-                                Text="{Binding PassP}"
-                                WidthRequest="140" />
-                            <Entry
-                                Margin="10,0"
-                                Placeholder="Nueva"
-                                Text="{Binding NuevaPass}"
-                                WidthRequest="140" />
-                            <Entry
-                                Placeholder="Rep nueva"
-                                Text="{Binding NuevaPassRep}"
-                                WidthRequest="140" />
-                            <Button
-                                Margin="10,0,0,0"
-                                Command="{Binding ChangePassCommand}"
-                                Text="cambiar pass"
-                                WidthRequest="150" />
+                    <toolkit:Expander.Content>
+                        <VerticalStackLayout>
+                            <Label Text="Introduce el nuevo username" />
+                            <HorizontalStackLayout>
+                                <Entry
+                                    Placeholder="Nuevo user"
+                                    Text="{Binding NuevoNombre}"
+                                    WidthRequest="200" />
+                                <Entry
+                                    Margin="10,0"
+                                    Placeholder="Contraseña"
+                                    Text="{Binding Pass}"
+                                    WidthRequest="190" />
+                                <Button
+                                    Command="{Binding ChangeUsernameCommand}"
+                                    HeightRequest="50"
+                                    Text="Cambiar nombre de usuario"
+                                    WidthRequest="220" />
+                            </HorizontalStackLayout>
+
+                            <Label Text="Cambiar contraseña" />
+                            <HorizontalStackLayout>
+                                <Entry
+                                    Placeholder="Antigua contra"
+                                    Text="{Binding PassP}"
+                                    WidthRequest="140" />
+                                <Entry
+                                    Margin="10,0"
+                                    Placeholder="Nueva"
+                                    Text="{Binding NuevaPass}"
+                                    WidthRequest="140" />
+                                <Entry
+                                    Placeholder="Rep nueva"
+                                    Text="{Binding NuevaPassRep}"
+                                    WidthRequest="140" />
+                                <Button
+                                    Margin="10,0,0,0"
+                                    Command="{Binding ChangePassCommand}"
+                                    Text="cambiar pass"
+                                    WidthRequest="150" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </toolkit:Expander.Content>
+                </toolkit:Expander>
+
+                <!--  Expander para los hobbies  -->
+                <toolkit:Expander x:Name="MyExpander4" BackgroundColor="OrangeRed">
+                    <toolkit:Expander.Header>
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="Cambiar hobbies"
+                                VerticalOptions="Center" />
+                            <Image
+                                x:Name="HeaderImage4"
+                                HeightRequest="50"
+                                HorizontalOptions="Center"
+                                Source="dotnet_bot.png"
+                                VerticalOptions="Center"
+                                WidthRequest="50">
+                                <Image.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Source={x:Reference MyExpander4}, Path=IsExpanded}"
+                                        TargetType="Image"
+                                        Value="True">
+                                        <Setter Property="Rotation" Value="180" />
+                                    </DataTrigger>
+                                </Image.Triggers>
+                            </Image>
                         </HorizontalStackLayout>
-                    </VerticalStackLayout>
-                </toolkit:Expander.Content>
-            </toolkit:Expander>
+                    </toolkit:Expander.Header>
 
-            <!--  Expander para los hobbies  -->
-            <toolkit:Expander x:Name="MyExpander4" BackgroundColor="OrangeRed">
-                <toolkit:Expander.Header>
-                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label
-                            HorizontalOptions="Center"
-                            Text="Cambiar hobbies"
-                            VerticalOptions="Center" />
-                        <Image
-                            x:Name="HeaderImage4"
-                            HeightRequest="50"
-                            HorizontalOptions="Center"
-                            Source="dotnet_bot.png"
-                            VerticalOptions="Center"
-                            WidthRequest="50">
-                            <Image.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Source={x:Reference MyExpander4}, Path=IsExpanded}"
-                                    TargetType="Image"
-                                    Value="True">
-                                    <Setter Property="Rotation" Value="180" />
-                                </DataTrigger>
-                            </Image.Triggers>
-                        </Image>
-                    </HorizontalStackLayout>
-                </toolkit:Expander.Header>
-
-                <toolkit:Expander.Content>
-                    <HorizontalStackLayout
-                        HeightRequest="200"
-                        HorizontalOptions="Start"
-                        WidthRequest="800">
-                        <CollectionView
-                            Margin="10"
+                    <toolkit:Expander.Content>
+                        <HorizontalStackLayout
                             HeightRequest="200"
-                            ItemsSource="{Binding Items}"
+                            HorizontalOptions="Start"
+                            WidthRequest="800">
+                            <CollectionView
+                                Margin="10"
+                                HeightRequest="200"
+                                ItemsSource="{Binding Items}"
+                                SelectionMode="Single"
+                                WidthRequest="200">
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout
+                                        HorizontalItemSpacing="5"
+                                        Orientation="Vertical"
+                                        Span="2"
+                                        VerticalItemSpacing="5" />
+                                </CollectionView.ItemsLayout>
+
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:HobbieModel">
+                                        <Border BackgroundColor="Gray">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="12" />
+                                            </Border.StrokeShape>
+
+                                            <VerticalStackLayout
+                                                Padding="0,15"
+                                                HeightRequest="80"
+                                                HorizontalOptions="Center"
+                                                WidthRequest="90">
+                                                <CheckBox
+                                                    HorizontalOptions="Center"
+                                                    IsChecked="{Binding IsChecked}"
+                                                    VerticalOptions="Center"
+                                                    Color="White" />
+
+                                                <Label
+                                                    HorizontalOptions="Center"
+                                                    Text="{Binding NombreHobbie}"
+                                                    TextColor="White"
+                                                    VerticalOptions="Center" />
+                                            </VerticalStackLayout>
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+                            <Button
+                                Command="{Binding ChangeHobbiesCommand}"
+                                HeightRequest="50"
+                                Text="Cambiar hobbies" />
+                        </HorizontalStackLayout>
+                    </toolkit:Expander.Content>
+                </toolkit:Expander>
+
+                <!--  Expander para los idiomas  -->
+                <toolkit:Expander x:Name="MyExpander" BackgroundColor="Green">
+                    <toolkit:Expander.Header>
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="Cambiar idiomas"
+                                VerticalOptions="Center" />
+                            <Image
+                                x:Name="HeaderImage"
+                                HeightRequest="50"
+                                HorizontalOptions="Center"
+                                Source="dotnet_bot.png"
+                                VerticalOptions="Center"
+                                WidthRequest="50">
+                                <Image.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Source={x:Reference MyExpander}, Path=IsExpanded}"
+                                        TargetType="Image"
+                                        Value="True">
+                                        <Setter Property="Rotation" Value="180" />
+                                    </DataTrigger>
+                                </Image.Triggers>
+                            </Image>
+                        </HorizontalStackLayout>
+                    </toolkit:Expander.Header>
+
+                    <toolkit:Expander.Content>
+                        <CollectionView
+                            HeightRequest="142"
+                            ItemsSource="{Binding Languages}"
+                            SelectedItem="{Binding Language}"
+                            SelectionChangedCommand="{Binding ChangeLanguageCommand}"
+                            SelectionChangedCommandParameter="{Binding Language.Utf8}"
                             SelectionMode="Single"
-                            WidthRequest="200">
+                            WidthRequest="500">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout
                                     HorizontalItemSpacing="5"
                                     Orientation="Vertical"
-                                    Span="2"
+                                    Span="3"
                                     VerticalItemSpacing="5" />
                             </CollectionView.ItemsLayout>
 
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="models:HobbieModel">
-                                    <Border BackgroundColor="Gray">
+                                <DataTemplate x:Name="language" x:DataType="models:LanguageModel">
+                                    <Border>
                                         <Border.StrokeShape>
                                             <RoundRectangle CornerRadius="12" />
                                         </Border.StrokeShape>
 
-                                        <VerticalStackLayout
-                                            Padding="0,15"
-                                            HeightRequest="80"
+                                        <HorizontalStackLayout
+                                            HeightRequest="50"
                                             HorizontalOptions="Center"
-                                            WidthRequest="90">
-                                            <CheckBox
-                                                HorizontalOptions="Center"
-                                                IsChecked="{Binding IsChecked}"
-                                                VerticalOptions="Center"
-                                                Color="White" />
+                                            VerticalOptions="Center"
+                                            WidthRequest="120">
+                                            <Image
+                                                HeightRequest="50"
+                                                Source="{Binding Imagen}"
+                                                WidthRequest="60" />
 
                                             <Label
                                                 HorizontalOptions="Center"
-                                                Text="{Binding NombreHobbie}"
-                                                TextColor="White"
+                                                Text="{Binding Value}"
                                                 VerticalOptions="Center" />
-                                        </VerticalStackLayout>
+                                        </HorizontalStackLayout>
                                     </Border>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
+                    </toolkit:Expander.Content>
+                </toolkit:Expander>
 
-                        <Button
-                            Command="{Binding ChangeHobbiesCommand}"
-                            HeightRequest="50"
-                            Text="Cambiar hobbies" />
-                    </HorizontalStackLayout>
-                </toolkit:Expander.Content>
-            </toolkit:Expander>
+                <!--  Expander para la foto de perfil  -->
+                <toolkit:Expander x:Name="MyExpander2" BackgroundColor="Yellow">
+                    <toolkit:Expander.Header>
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="Cambiar imagen de perfil"
+                                VerticalOptions="Center" />
+                            <Image
+                                x:Name="HeaderImage2"
+                                HeightRequest="50"
+                                HorizontalOptions="Center"
+                                Source="dotnet_bot.png"
+                                VerticalOptions="Center"
+                                WidthRequest="50">
+                                <Image.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Source={x:Reference MyExpander2}, Path=IsExpanded}"
+                                        TargetType="Image"
+                                        Value="True">
+                                        <Setter Property="Rotation" Value="180" />
+                                    </DataTrigger>
+                                </Image.Triggers>
+                            </Image>
+                        </HorizontalStackLayout>
+                    </toolkit:Expander.Header>
 
-            <!--  Expander para los idiomas  -->
-            <toolkit:Expander x:Name="MyExpander" BackgroundColor="Green">
-                <toolkit:Expander.Header>
-                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label
-                            HorizontalOptions="Center"
-                            Text="Cambiar idiomas"
-                            VerticalOptions="Center" />
-                        <Image
-                            x:Name="HeaderImage"
-                            HeightRequest="50"
-                            HorizontalOptions="Center"
-                            Source="dotnet_bot.png"
-                            VerticalOptions="Center"
-                            WidthRequest="50">
-                            <Image.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Source={x:Reference MyExpander}, Path=IsExpanded}"
-                                    TargetType="Image"
-                                    Value="True">
-                                    <Setter Property="Rotation" Value="180" />
-                                </DataTrigger>
-                            </Image.Triggers>
-                        </Image>
-                    </HorizontalStackLayout>
-                </toolkit:Expander.Header>
-
-                <toolkit:Expander.Content>
-                    <CollectionView
-                        HeightRequest="142"
-                        ItemsSource="{Binding Languages}"
-                        SelectedItem="{Binding Language}"
-                        SelectionChangedCommand="{Binding ChangeLanguageCommand}"
-                        SelectionChangedCommandParameter="{Binding Language.Utf8}"
-                        SelectionMode="Single"
-                        WidthRequest="500">
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout
-                                HorizontalItemSpacing="5"
-                                Orientation="Vertical"
-                                Span="3"
-                                VerticalItemSpacing="5" />
-                        </CollectionView.ItemsLayout>
-
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:Name="language" x:DataType="models:LanguageModel">
-                                <Border>
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="12" />
-                                    </Border.StrokeShape>
-
-                                    <HorizontalStackLayout
-                                        HeightRequest="50"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Center"
-                                        WidthRequest="120">
-                                        <Image
-                                            HeightRequest="50"
-                                            Source="{Binding Imagen}"
-                                            WidthRequest="60" />
-
-                                        <Label
-                                            HorizontalOptions="Center"
-                                            Text="{Binding Value}"
-                                            VerticalOptions="Center" />
-                                    </HorizontalStackLayout>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </toolkit:Expander.Content>
-            </toolkit:Expander>
-
-            <!--  Expander para la foto de perfil  -->
-            <toolkit:Expander x:Name="MyExpander2" BackgroundColor="Yellow">
-                <toolkit:Expander.Header>
-                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label
-                            HorizontalOptions="Center"
-                            Text="Cambiar imagen de perfil"
-                            VerticalOptions="Center" />
-                        <Image
-                            x:Name="HeaderImage2"
-                            HeightRequest="50"
-                            HorizontalOptions="Center"
-                            Source="dotnet_bot.png"
-                            VerticalOptions="Center"
-                            WidthRequest="50">
-                            <Image.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Source={x:Reference MyExpander2}, Path=IsExpanded}"
-                                    TargetType="Image"
-                                    Value="True">
-                                    <Setter Property="Rotation" Value="180" />
-                                </DataTrigger>
-                            </Image.Triggers>
-                        </Image>
-                    </HorizontalStackLayout>
-                </toolkit:Expander.Header>
-
-                <toolkit:Expander.Content>
-                    <HorizontalStackLayout
-                        Margin="10"
-                        HeightRequest="200"
-                        HorizontalOptions="Start"
-                        WidthRequest="600">
-                        <Image
-                            Aspect="AspectFill"
+                    <toolkit:Expander.Content>
+                        <HorizontalStackLayout
+                            Margin="10"
                             HeightRequest="200"
-                            Source="{Binding Avatar}"
-                            WidthRequest="200" />
-                        <VerticalStackLayout>
-                            <Button
-                                Margin="10"
-                                Command="{Binding EditAvatarCommand}"
-                                HeightRequest="50"
-                                Text="editar"
-                                WidthRequest="150" />
-                            <Button
-                                Margin="10"
-                                Command="{Binding ChangeAvatarCommand}"
-                                HeightRequest="50"
-                                Text="cambiar foto"
-                                WidthRequest="150" />
-                        </VerticalStackLayout>
-                    </HorizontalStackLayout>
-                </toolkit:Expander.Content>
-            </toolkit:Expander>
-        </VerticalStackLayout>
-    </ScrollView>
+                            HorizontalOptions="Start"
+                            WidthRequest="600">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="200"
+                                Source="{Binding Avatar}"
+                                WidthRequest="200" />
+                            <VerticalStackLayout>
+                                <Button
+                                    Margin="10"
+                                    Command="{Binding EditAvatarCommand}"
+                                    HeightRequest="50"
+                                    Text="editar"
+                                    WidthRequest="150" />
+                                <Button
+                                    Margin="10"
+                                    Command="{Binding ChangeAvatarCommand}"
+                                    HeightRequest="50"
+                                    Text="cambiar foto"
+                                    WidthRequest="150" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </toolkit:Expander.Content>
+                </toolkit:Expander>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <HorizontalStackLayout Padding="15,0" BackgroundColor="Pink">
+            <Label
+                Margin="10"
+                HorizontalOptions="Center"
+                Text="{Binding Color}"
+                TextColor="{AppThemeBinding Light=black,
+                                            Dark=white}"
+                VerticalOptions="Center"
+                WidthRequest="50" />
+            <Switch
+                Margin="0,0,-110,0"
+                IsEnabled="False"
+                IsToggled="{Binding IsDark}" />
+            <Button
+                Margin="8"
+                Command="{Binding ChangeDarkLightCommand}"
+                HorizontalOptions="Center"
+                Text="cambiar colores"
+                VerticalOptions="Center" />
+
+
+            <Label
+                Margin="20"
+                HorizontalOptions="Center"
+                Text="Modo parental"
+                VerticalOptions="Center" />
+            <Switch
+                Margin="0,0,-110,0"
+                HorizontalOptions="Center"
+                IsToggled="{Binding UsuarioActivo.Adulto}"
+                OnColor="DimGrey"
+                ThumbColor="Red"
+                VerticalOptions="Center" />
+            <Button
+                Command="{Binding EnableParentalModeCommand}"
+                HorizontalOptions="Center"
+                Text="cambiar"
+                VerticalOptions="Center" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
 </ContentPage>

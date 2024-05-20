@@ -21,6 +21,8 @@ namespace TFGMaui.Models
 
         public double Popularity { get; set; }  // Popularidad v
 
+        public string Homepage { get; set; }
+
         [JsonProperty("Poster_path")]
         public new string Imagen { get; set; }  // Miniatura estilo portrait v, no confundir con el backdrop_path, que es otra imagen distinta: la que se puede poner de fondo al ver los detalles de la imagen
 

@@ -43,7 +43,6 @@ namespace TFGMaui.ViewModels
                 Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)
     .ToString("dddd, d MMM", CultureInfo.InvariantCulture);
 
-
                 await GetTrending("day");
                 await GetTop();
             }
@@ -61,14 +60,17 @@ namespace TFGMaui.ViewModels
         public async Task GetTrending(string type)
         {
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
-                endpoint: $"trending/all/{type}",
+                endpoint: $"trending/movie/{type}",
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", 1.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
             var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
 
+            PaginaAux = new();
+            PaginaAux.Results = pagtrend.Results;
             pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 6);
             pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+            PaginaAux.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
             PaginaPelis = pagtrend;
         }
@@ -98,7 +100,8 @@ namespace TFGMaui.ViewModels
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
                 ["UsuarioActivo"] = UsuarioActivo,
-                ["PaginaPelis"] = PaginaPelis
+                ["PaginaPelis"] = PaginaPelis,
+                ["PaginaAux"] = PaginaAux
             });
         }
 

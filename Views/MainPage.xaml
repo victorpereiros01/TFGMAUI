@@ -81,16 +81,20 @@
             <Button
                 Margin="10"
                 Command="{Binding NavegarCommand}"
-                CommandParameter="FilterPage"
+                CommandParameter="GamesPage"
                 HeightRequest="150"
                 Text="Games"
                 WidthRequest="140" />
             <Button
+                Command="{Binding NavegarCommand}"
+                CommandParameter="BooksPage"
                 HeightRequest="150"
                 Text="Books"
                 WidthRequest="140" />
             <Button
                 Margin="10,0,0,0"
+                Command="{Binding NavegarCommand}"
+                CommandParameter="AnimeMangaPage"
                 HeightRequest="150"
                 Text="Anime"
                 WidthRequest="140" />

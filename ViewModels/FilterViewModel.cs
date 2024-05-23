@@ -44,6 +44,8 @@ namespace TFGMaui.ViewModels
         public FilterViewModel()
         {
             SelectedPage = 1;
+            UltimoNumero = 500;
+            Type = "day";
             // Inicializa lo requerido para el mopup
             MovieMopupViewModel = new MovieMopupViewModel();
             MovieMopup = new MovieMopup(MovieMopupViewModel);
@@ -108,7 +110,7 @@ namespace TFGMaui.ViewModels
         public async Task GetTrending()
         {
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
-                endpoint: $"trending/all/{Type}",
+                endpoint: $"trending/movie/{Type}",
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", SelectedPage.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
@@ -124,17 +126,6 @@ namespace TFGMaui.ViewModels
         {
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
-                ["UsuarioActivo"] = UsuarioActivo
-            });
-        }
-
-        [RelayCommand]
-        public async Task NavegarSearch()
-        {
-            await Shell.Current.GoToAsync("//FilterPage", new Dictionary<string, object>()
-            {
-                ["UsuarioActivo"] = UsuarioActivo,
-                ["UsuarioActivo"] = UsuarioActivo,
                 ["UsuarioActivo"] = UsuarioActivo
             });
         }

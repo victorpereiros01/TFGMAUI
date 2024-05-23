@@ -1,11 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.IdentityModel.Tokens;
 using Mopups.PreBaked.Services;
 using Mopups.Services;
 using System.Collections.ObjectModel;
 using TFGMaui.Models;
 using TFGMaui.Repositories;
 using TFGMaui.Services;
+using TFGMaui.Utils;
 using TFGMaui.ViewModels.Mopup;
 using TFGMaui.Views.Mopups;
 using Color = System.Drawing.Color;
@@ -14,7 +16,7 @@ using Page = TFGMaui.Models.Page;
 namespace TFGMaui.ViewModels
 {
     [QueryProperty("UsuarioActivo", "UsuarioActivo")]
-    [QueryProperty("PaginaPelisTop", "PaginaPelisTop")]
+    [QueryProperty("PaginaAux", "PaginaAux")]
     [QueryProperty("PaginaPelis", "PaginaPelis")]
     internal partial class MovieSeriesViewModel : ObservableObject
     {
@@ -27,6 +29,9 @@ namespace TFGMaui.ViewModels
         private Page paginaPelisTop;
 
         [ObservableProperty]
+        private Page paginaAux;
+
+        [ObservableProperty]
         private int selectedPage;
 
         private MovieMopup MovieMopup;
@@ -36,13 +41,25 @@ namespace TFGMaui.ViewModels
         private ObservableCollection<QuoteModel> quotes;
 
         [ObservableProperty]
-        private MovieModel movie;
+        private MovieModel movie, movie2;
+
+        [ObservableProperty]
+        private bool isSearchFocus;
 
         public MovieSeriesViewModel()
         {
+            IsSearchFocus = false;
+            Movie = new();
+
             // Inicializa lo requerido para el mopup
             MovieMopupViewModel = new MovieMopupViewModel();
             MovieMopup = new MovieMopup(MovieMopupViewModel);
+        }
+
+        [RelayCommand]
+        public async Task Hide()
+        {
+            IsSearchFocus = false;
         }
 
         [RelayCommand]
@@ -71,6 +88,12 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task GetSearch(string busqueda)
         {
+            if (busqueda.IsNullOrEmpty())
+            {
+                await Hide();
+                return;
+            }
+
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
                 endpoint: $"search/movie",
                 parameters: new Dictionary<string, string> { { "query", busqueda }, { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language } },
@@ -80,7 +103,8 @@ namespace TFGMaui.ViewModels
 
             pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
-            PaginaPelis = pagtrend;
+            PaginaAux = pagtrend;
+            IsSearchFocus = true;
         }
 
         /// <summary>
@@ -92,6 +116,7 @@ namespace TFGMaui.ViewModels
         {
             MovieMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
             await MopupService.Instance.PushAsync(MovieMopup);
+            //await Hide();
         }
 
         /// <summary>

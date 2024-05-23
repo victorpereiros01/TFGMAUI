@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using TFGMaui.Models;
 using TFGMaui.Services;
+using TFGMaui.Utils;
 using Page = TFGMaui.Models.Page;
 
 namespace TFGMaui.ViewModels
@@ -38,11 +39,11 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task InitializeComponents()
         {
+            Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)
+.ToString("dddd, d MMM", CultureInfo.InvariantCulture);
+
             try
             {
-                Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)
-    .ToString("dddd, d MMM", CultureInfo.InvariantCulture);
-
                 await GetTrending("day");
                 await GetTop();
             }
@@ -103,6 +104,12 @@ namespace TFGMaui.ViewModels
                 ["PaginaPelis"] = PaginaPelis,
                 ["PaginaAux"] = PaginaAux
             });
+        }
+
+        [RelayCommand]
+        public async Task BtnEntered()
+        {
+            //await Application.Current.MainPage.DisplayAlert("Saludos", relativeToContainerPosition.ToString(), "Aceptar");
         }
 
         /// <summary>

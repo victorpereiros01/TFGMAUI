@@ -118,9 +118,11 @@
                     Grid.Row="7"
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
+                    BackgroundColor="{Binding ColorAcc}"
                     Command="{Binding CambiarPaginaCommand}"
                     HeightRequest="60"
                     Text="Next"
+                    TextColor="{Binding TxColor}"
                     WidthRequest="400" />
 
                 <HorizontalStackLayout
@@ -242,17 +244,21 @@
                     Grid.Row="7"
                     Grid.Column="1"
                     Margin="0,0,5,0"
+                    BackgroundColor="{Binding ColorAcc}"
                     Command="{Binding CambiarPaginaCommand}"
                     HeightRequest="60"
                     Text="Back"
+                    TextColor="{Binding TxColor}"
                     WidthRequest="180" />
                 <Button
                     Grid.Row="7"
                     Grid.Column="2"
                     Margin="5,0,0,0"
+                    BackgroundColor="{Binding ColorAcc}"
                     Command="{Binding RegistrarCommand}"
                     HeightRequest="60"
                     Text="Register"
+                    TextColor="{Binding TxColor}"
                     WidthRequest="180" />
 
                 <HorizontalStackLayout

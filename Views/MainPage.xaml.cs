@@ -6,6 +6,11 @@
         {
             InitializeComponent();
         }
+
+        private void PointerGestureRecognizer_PointerEntered(object sender, PointerEventArgs e)
+        {
+
+        }
     }
 
 }

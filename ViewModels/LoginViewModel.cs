@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using TFGMaui.Repositories;
+using TFGMaui.Utils;
+using Windows.UI.ViewManagement;
 
 namespace TFGMaui.ViewModels
 {
@@ -10,8 +12,15 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private UsuarioModel usuarioActivo;
 
+        [ObservableProperty]
+        private Color colorAcc, txColor;
+
         public LoginViewModel()
         {
+            ColorAcc = Color.Parse(new UISettings().GetColorValue(UIColorType.Accent).ToString());
+            //ColorAcc = Color.FromArgb("#f5ee8e");   // Claro
+            //ColorAcc = Color.FromArgb("#143261");   // Oscuro
+            TxColor = MiscellaneousUtils.ColorIsDarkOrLight(colorAcc);
             UsuarioActivo = new() { Username = "@admin", Password = "admin" };
         }
 

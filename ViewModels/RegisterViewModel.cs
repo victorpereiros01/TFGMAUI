@@ -1,11 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Data;
-using Microsoft.Data.SqlClient;
-using TFGMaui.Models;
-using TFGMaui.Services;
+y using TFGMaui.Models;
 using TFGMaui.Repositories;
+using Windows.UI.ViewManagement;
+using TFGMaui.Utils;
 
 namespace TFGMaui.ViewModels
 {
@@ -21,10 +20,16 @@ namespace TFGMaui.ViewModels
         private string repContra;
 
         [ObservableProperty]
+        private Color colorAcc, txColor;
+
+        [ObservableProperty]
         private ObservableCollection<HobbieModel> items;
 
         public RegisterViewModel()
         {
+            ColorAcc = Color.Parse(new UISettings().GetColorValue(UIColorType.Accent).ToString());
+            TxColor = MiscellaneousUtils.ColorIsDarkOrLight(colorAcc);
+
             UsuarioReg = new();
             FirstPageReg = true;
             Items =

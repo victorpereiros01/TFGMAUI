@@ -17,6 +17,10 @@
         HeightRequest="550"
         WidthRequest="650">
 
+        <VerticalStackLayout.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding HideCommand}" NumberOfTapsRequired="2" />
+        </VerticalStackLayout.GestureRecognizers>
+
         <Button
             BackgroundColor="Red"
             Command="{Binding NavegarCommand}"
@@ -29,33 +33,84 @@
             x:Name="tx_filtro"
             CancelButtonColor="Red"
             IsTextPredictionEnabled="True"
+            SearchCommand="{Binding NavegarSearchCommand}"
             WidthRequest="300">
             <SearchBar.Behaviors>
                 <toolkit:EventToCommandBehavior
                     Command="{Binding GetSearchCommand}"
                     CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
                     EventName="TextChanged" />
-                <!--<toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />-->
+                <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
             </SearchBar.Behaviors>
         </SearchBar>
 
-        <Button Command="{Binding NavegarSearchCommand}" />
+        <AbsoluteLayout>
+            <!--  Parametros del LayoutBounds: ejeX, ejeY, ancho y alto del rectangulo. Si pones 0,0 en los ejes lo situa en la esquina superior izquierda.  -->
+            <CollectionView
+                AbsoluteLayout.LayoutBounds="60,30"
+                BackgroundColor="White"
+                HeightRequest="142"
+                IsVisible="{Binding IsSearchFocus}"
+                ItemsSource="{Binding PaginaAux.Results}"
+                SelectedItem="{Binding Movie2}"
+                SelectionChangedCommand="{Binding ShowMovieMopupCommand}"
+                SelectionChangedCommandParameter="{Binding Movie2.Id}"
+                SelectionMode="Single"
+                WidthRequest="500"
+                ZIndex="1">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        HorizontalItemSpacing="5"
+                        Orientation="Vertical"
+                        Span="6"
+                        VerticalItemSpacing="5" />
+                </CollectionView.ItemsLayout>
 
-        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-            <Button
-                HeightRequest="90"
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:Name="aux" x:DataType="models:MovieModel">
+                        <Border>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout
+                                HeightRequest="130"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                WidthRequest="60">
+                                <Image HeightRequest="110" Source="{Binding Imagen}" />
+
+                                <HorizontalStackLayout>
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        Text="{Binding Title}"
+                                        VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <HorizontalStackLayout
+                AbsoluteLayout.LayoutBounds="60,0"
                 HorizontalOptions="Center"
-                Text="Movies"
-                VerticalOptions="Center"
-                WidthRequest="250" />
-            <Button
-                Margin="10"
-                HeightRequest="90"
-                HorizontalOptions="Center"
-                Text="Series"
-                VerticalOptions="Center"
-                WidthRequest="250" />
-        </HorizontalStackLayout>
+                VerticalOptions="Center">
+                <Button
+                    HeightRequest="90"
+                    HorizontalOptions="Center"
+                    Text="Movies"
+                    VerticalOptions="Center"
+                    WidthRequest="250" />
+                <Button
+                    Margin="10"
+                    HeightRequest="90"
+                    HorizontalOptions="Center"
+                    Text="Series"
+                    VerticalOptions="Center"
+                    WidthRequest="250" />
+            </HorizontalStackLayout>
+        </AbsoluteLayout>
 
         <HorizontalStackLayout>
             <Label

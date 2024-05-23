@@ -86,9 +86,11 @@
                 Grid.Row="5"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
+                BackgroundColor="{Binding ColorAcc}"
                 Command="{Binding LoginCommand}"
                 HeightRequest="60"
                 Text="Iniciar"
+                TextColor="{Binding TxColor}"
                 WidthRequest="400" />
 
             <Label

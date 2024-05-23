@@ -31,7 +31,19 @@
                 BackgroundColor="Red"
                 FontSize="Large"
                 Text="Hobbyer"
-                WidthRequest="170" />
+                ToolTipProperties.Text="coso"
+                WidthRequest="170">
+                <!--<Button.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Offset="0.7" Color="Black" />
+                        <GradientStop Offset="0" Color="Transparent" />
+                    </RadialGradientBrush>
+                </Button.Background>
+
+                <Button.GestureRecognizers>
+                    <PointerGestureRecognizer PointerEnteredCommand="{Binding BtnEnteredCommand}" />
+                </Button.GestureRecognizers>-->
+            </Button>
 
             <Image
                 Margin="10"
@@ -76,7 +88,7 @@
                 Command="{Binding NavegarCommand}"
                 CommandParameter="MovieSeriesPage"
                 HeightRequest="150"
-                Text="Movies"
+                Text="Cinema"
                 WidthRequest="140" />
             <Button
                 Margin="10"
@@ -96,7 +108,7 @@
                 Command="{Binding NavegarCommand}"
                 CommandParameter="AnimeMangaPage"
                 HeightRequest="150"
-                Text="Anime"
+                Text="Ani-manga"
                 WidthRequest="140" />
         </HorizontalStackLayout>
     </VerticalStackLayout>

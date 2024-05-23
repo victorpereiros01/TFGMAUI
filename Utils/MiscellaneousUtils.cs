@@ -24,6 +24,11 @@ namespace TFGMaui.Utils
             return new Color(red, green, blue, alpha);
         }
 
+        /// <summary>
+        /// Return a color that is eye-good looking with the color passed as parameter
+        /// </summary>
+        /// <param name="bgColor"></param>
+        /// <returns></returns>
         public static Color ColorIsDarkOrLight(Color bgColor)
         {
             // Calculate luminance

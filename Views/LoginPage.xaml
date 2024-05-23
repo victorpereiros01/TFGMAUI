@@ -9,113 +9,169 @@
     BackgroundImageSource="fondo.jpg"
     BindingContext="{viewmodels:LoginViewModel}">
 
-    <Frame
-        CornerRadius="30"
+    <AbsoluteLayout
+        HeightRequest="800"
         HorizontalOptions="Center"
         VerticalOptions="Center"
-        WidthRequest="500">
-        <Frame.Shadow>
-            <Shadow
-                Brush="Black"
-                Opacity=".5"
-                Radius="12"
-                Offset="10,10" />
-        </Frame.Shadow>
+        WidthRequest="1200">
+        <Button
+            AbsoluteLayout.LayoutBounds="1095,10"
+            BackgroundColor="Beige"
+            Command="{Binding MinimizeAppCommand}" />
 
-        <Frame.Background>
-            <LinearGradientBrush EndPoint="0,1">
-                <GradientStop Offset="0.7" Color="Transparent" />
-                <GradientStop Offset="0" Color="Black" />
-            </LinearGradientBrush>
-        </Frame.Background>
+        <Button
+            AbsoluteLayout.LayoutBounds="1145,10"
+            BackgroundColor="Red"
+            Command="{Binding CloseAppCommand}" />
 
-        <Grid
-            ColumnDefinitions="*,200,200,*"
+        <VerticalStackLayout
+            AbsoluteLayout.LayoutBounds="350,100,500,600"
             HorizontalOptions="Center"
-            RowDefinitions="*,80,40,65,65,70,50,*"
             VerticalOptions="Center">
-            <Label
-                Grid.Row="1"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                FontAttributes="Bold"
-                FontSize="Large"
-                HorizontalOptions="Center"
-                Text="Hobbyer"
-                TextColor="White"
-                VerticalOptions="Center" />
+            <Frame CornerRadius="30" WidthRequest="500">
+                <Frame.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Opacity=".5"
+                        Radius="12"
+                        Offset="10,10" />
+                </Frame.Shadow>
 
-            <Label
-                Grid.Row="2"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                FontSize="Small"
-                HorizontalOptions="Center"
-                Text="All your hobbies reunited: One app"
-                TextColor="White" />
+                <Frame.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Offset="0.9" Color="Transparent" />
+                        <GradientStop Offset="0" Color="Black" />
+                    </LinearGradientBrush>
+                </Frame.Background>
 
-            <Entry
-                Grid.Row="3"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                BackgroundColor="LightGray"
-                HorizontalOptions="Center"
-                HorizontalTextAlignment="Center"
-                Opacity=".8"
-                Placeholder="Username or email"
-                PlaceholderColor="DimGray"
-                Text="{Binding UsuarioActivo.Username}"
-                VerticalOptions="Center"
-                WidthRequest="400" />
-            <Entry
-                Grid.Row="4"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                BackgroundColor="LightGray"
-                HorizontalOptions="Center"
-                HorizontalTextAlignment="Center"
-                IsPassword="True"
-                Opacity=".8"
-                Placeholder="Password"
-                PlaceholderColor="DimGray"
-                Text="{Binding UsuarioActivo.Password}"
-                VerticalOptions="Center"
-                WidthRequest="400" />
+                <Grid
+                    ColumnDefinitions="*,200,200,*"
+                    HorizontalOptions="Center"
+                    RowDefinitions="*,80,40,65,65,70,50,*"
+                    VerticalOptions="Center">
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        FontAttributes="Bold"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        Text="Hobbyer"
+                        TextColor="White"
+                        VerticalOptions="Center" />
 
-            <Button
-                Grid.Row="5"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                BackgroundColor="{Binding ColorAcc}"
-                Command="{Binding LoginCommand}"
-                HeightRequest="60"
-                Text="Iniciar"
-                TextColor="{Binding TxColor}"
-                WidthRequest="400" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        FontSize="Small"
+                        HorizontalOptions="Center"
+                        Text="All your hobbies reunited: One app"
+                        TextColor="White" />
 
-            <Label
-                Grid.Row="6"
-                Grid.Column="1"
-                HorizontalOptions="End"
-                Text="¿Haven´t registered yet?"
-                TextColor="DarkGray"
-                VerticalOptions="CenterAndExpand">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
-                </Label.GestureRecognizers>
-            </Label>
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="LightGray"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Opacity=".8"
+                        Placeholder="Username or email"
+                        PlaceholderColor="DimGray"
+                        Text="{Binding UsuarioActivo.Username}"
+                        VerticalOptions="Center"
+                        WidthRequest="400" />
 
-            <Label
-                Grid.Row="6"
-                Grid.Column="2"
-                Margin="10,0"
-                HorizontalOptions="Start"
-                Text="Create an account"
-                VerticalOptions="CenterAndExpand">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
-                </Label.GestureRecognizers>
-            </Label>
-        </Grid>
-    </Frame>
+                    <AbsoluteLayout
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2">
+                        <Entry
+                            AbsoluteLayout.LayoutBounds="0,0"
+                            BackgroundColor="LightGray"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            IsPassword="{Binding IsPassword}"
+                            Opacity=".8"
+                            Placeholder="Password"
+                            PlaceholderColor="DimGray"
+                            Text="{Binding UsuarioActivo.Password}"
+                            VerticalOptions="Center"
+                            WidthRequest="400" />
+
+                        <Button
+                            AbsoluteLayout.LayoutBounds="360,10,25,25"
+                            Command="{Binding ChangePassVisCommand}"
+                            HeightRequest="20"
+                            ImageSource="fondo.jpg" />
+                    </AbsoluteLayout>
+
+                    <Button
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="{Binding ColorAcc}"
+                        Command="{Binding LoginCommand}"
+                        HeightRequest="60"
+                        Text="Iniciar"
+                        TextColor="{Binding TxColor}"
+                        WidthRequest="400" />
+
+                    <Label
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        Text="¿Haven´t registered yet?"
+                        TextColor="DarkGray"
+                        VerticalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <Label
+                        Grid.Row="6"
+                        Grid.Column="2"
+                        Margin="10,0"
+                        HorizontalOptions="Start"
+                        Text="Create an account"
+                        VerticalOptions="CenterAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Frame>
+
+            <Frame
+                Margin="0,10,0,0"
+                CornerRadius="30"
+                HeightRequest="120"
+                WidthRequest="500">
+                <Frame.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Opacity=".5"
+                        Radius="12"
+                        Offset="10,10" />
+                </Frame.Shadow>
+
+                <Frame.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Offset="0.6" Color="Transparent" />
+                        <GradientStop Offset="0" Color="Black" />
+                    </LinearGradientBrush>
+                </Frame.Background>
+
+                <Button
+                    BackgroundColor="{Binding ColorAccCom}"
+                    Command="{Binding LoginGuestCommand}"
+                    HeightRequest="60"
+                    Text="Or enter guest mode"
+                    TextColor="{Binding TxColorCom}"
+                    WidthRequest="400" />
+            </Frame>
+        </VerticalStackLayout>
+    </AbsoluteLayout>
 </ContentPage>

@@ -10,280 +10,304 @@
     BackgroundImageSource="fondo.jpg"
     BindingContext="{viewmodels:RegisterViewModel}">
 
-    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-        <Frame
-            CornerRadius="30"
+    <AbsoluteLayout
+        HeightRequest="800"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        WidthRequest="1200">
+
+        <Button
+            AbsoluteLayout.LayoutBounds="1116,0"
+            BackgroundColor="Beige"
+            Command="{Binding MinimizeAppCommand}"
+            CornerRadius="0" />
+
+        <Button
+            AbsoluteLayout.LayoutBounds="1160,0"
+            BackgroundColor="Red"
+            Command="{Binding CloseAppCommand}"
+            CornerRadius="0" />
+
+        <VerticalStackLayout
+            AbsoluteLayout.LayoutBounds="350,100,500,600"
             HorizontalOptions="Center"
-            IsVisible="{Binding FirstPageReg}"
-            VerticalOptions="Center"
-            WidthRequest="500">
-            <Frame.Shadow>
-                <Shadow
-                    Brush="Black"
-                    Opacity=".5"
-                    Radius="12"
-                    Offset="10,10" />
-            </Frame.Shadow>
-
-            <Frame.Background>
-                <LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Offset="0.7" Color="Transparent" />
-                    <GradientStop Offset="0" Color="Black" />
-                </LinearGradientBrush>
-            </Frame.Background>
-
-            <Grid
-                ColumnDefinitions="*,200,200,*"
+            VerticalOptions="Center">
+            <Frame
+                CornerRadius="30"
                 HorizontalOptions="Center"
-                RowDefinitions="*,80,40,65,65,65,65,70,50,*"
-                VerticalOptions="Center">
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    FontAttributes="Bold"
-                    FontSize="Title"
-                    HorizontalOptions="Center"
-                    Text="Hobbyer"
-                    TextColor="White"
-                    VerticalOptions="Center" />
+                IsVisible="{Binding FirstPageReg}"
+                VerticalOptions="Center"
+                WidthRequest="500">
+                <Frame.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Opacity=".5"
+                        Radius="12"
+                        Offset="10,10" />
+                </Frame.Shadow>
 
-                <Label
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="Center"
-                    Text="Enter your data to sign up"
-                    TextColor="White" />
+                <Frame.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Offset="0.7" Color="Transparent" />
+                        <GradientStop Offset="0" Color="Black" />
+                    </LinearGradientBrush>
+                </Frame.Background>
 
-                <Entry
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    BackgroundColor="LightGray"
+                <Grid
+                    ColumnDefinitions="*,200,200,*"
                     HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center"
-                    Opacity=".8"
-                    Placeholder="Username"
-                    PlaceholderColor="DimGray"
-                    Text="{Binding UsuarioReg.Username}"
-                    VerticalOptions="Center"
-                    WidthRequest="400" />
-
-                <Entry
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    BackgroundColor="LightGray"
-                    HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center"
-                    Opacity=".8"
-                    Placeholder="Email"
-                    PlaceholderColor="DimGray"
-                    Text="{Binding UsuarioReg.Email}"
-                    VerticalOptions="Center"
-                    WidthRequest="400" />
-
-                <Entry
-                    Grid.Row="5"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    BackgroundColor="LightGray"
-                    HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center"
-                    IsPassword="True"
-                    Opacity=".8"
-                    Placeholder="Password"
-                    PlaceholderColor="DimGray"
-                    Text="{Binding UsuarioReg.Password}"
-                    VerticalOptions="Center"
-                    WidthRequest="400" />
-
-                <Entry
-                    Grid.Row="6"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    BackgroundColor="LightGray"
-                    HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center"
-                    IsPassword="True"
-                    Opacity=".8"
-                    Placeholder="Repeat your password"
-                    PlaceholderColor="DimGray"
-                    Text="{Binding RepContra}"
-                    VerticalOptions="Center"
-                    WidthRequest="400" />
-
-                <Button
-                    Grid.Row="7"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    BackgroundColor="{Binding ColorAcc}"
-                    Command="{Binding CambiarPaginaCommand}"
-                    HeightRequest="60"
-                    Text="Next"
-                    TextColor="{Binding TxColor}"
-                    WidthRequest="400" />
-
-                <HorizontalStackLayout
-                    Grid.Row="8"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="Center"
+                    RowDefinitions="*,80,40,65,65,65,65,70,50,*"
                     VerticalOptions="Center">
                     <Label
-                        HorizontalOptions="End"
-                        Text="Already have an account?"
-                        TextColor="DarkGray"
-                        VerticalOptions="CenterAndExpand" />
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        FontAttributes="Bold"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        Text="Hobbyer"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+
                     <Label
-                        Margin="10,0"
-                        HorizontalOptions="Start"
-                        Text="Log in"
-                        VerticalOptions="CenterAndExpand" />
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        FontSize="Small"
+                        HorizontalOptions="Center"
+                        Text="Enter your data to sign up"
+                        TextColor="White" />
 
-                    <HorizontalStackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="LoginPage" />
-                    </HorizontalStackLayout.GestureRecognizers>
-                </HorizontalStackLayout>
-            </Grid>
-        </Frame>
+                    <Entry
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="LightGray"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Opacity=".8"
+                        Placeholder="Username"
+                        PlaceholderColor="DimGray"
+                        Text="{Binding UsuarioReg.Username}"
+                        VerticalOptions="Center"
+                        WidthRequest="400" />
 
-        <Frame
-            CornerRadius="30"
-            HorizontalOptions="Center"
-            IsVisible="{Binding FirstPageReg, Converter={toolkit:InvertedBoolConverter}}"
-            VerticalOptions="Center"
-            WidthRequest="500">
-            <Frame.Shadow>
-                <Shadow
-                    Brush="Black"
-                    Opacity=".5"
-                    Radius="12"
-                    Offset="10,10" />
-            </Frame.Shadow>
+                    <Entry
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="LightGray"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Opacity=".8"
+                        Placeholder="Email"
+                        PlaceholderColor="DimGray"
+                        Text="{Binding UsuarioReg.Email}"
+                        VerticalOptions="Center"
+                        WidthRequest="400" />
 
-            <Frame.Background>
-                <LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Offset="0.7" Color="Transparent" />
-                    <GradientStop Offset="0" Color="Black" />
-                </LinearGradientBrush>
-            </Frame.Background>
+                    <Entry
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="LightGray"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        IsPassword="True"
+                        Opacity=".8"
+                        Placeholder="Password"
+                        PlaceholderColor="DimGray"
+                        Text="{Binding UsuarioReg.Password}"
+                        VerticalOptions="Center"
+                        WidthRequest="400" />
 
-            <Grid
-                ColumnDefinitions="*,200,200,*"
+                    <Entry
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="LightGray"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        IsPassword="True"
+                        Opacity=".8"
+                        Placeholder="Repeat your password"
+                        PlaceholderColor="DimGray"
+                        Text="{Binding RepContra}"
+                        VerticalOptions="Center"
+                        WidthRequest="400" />
+
+                    <Button
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="{Binding ColorAcc}"
+                        Command="{Binding CambiarPaginaCommand}"
+                        HeightRequest="60"
+                        Text="Next"
+                        TextColor="{Binding TxColor}"
+                        WidthRequest="400" />
+
+                    <HorizontalStackLayout
+                        Grid.Row="8"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Label
+                            HorizontalOptions="End"
+                            Text="Already have an account?"
+                            TextColor="DarkGray"
+                            VerticalOptions="CenterAndExpand" />
+                        <Label
+                            Margin="10,0"
+                            HorizontalOptions="Start"
+                            Text="Log in"
+                            VerticalOptions="CenterAndExpand" />
+
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="LoginPage" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                    </HorizontalStackLayout>
+                </Grid>
+            </Frame>
+
+            <Frame
+                CornerRadius="30"
                 HorizontalOptions="Center"
-                RowDefinitions="*,80,40,65,65,65,65,70,50,*"
-                VerticalOptions="Center">
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    FontAttributes="Bold"
-                    FontSize="Title"
+                IsVisible="{Binding FirstPageReg, Converter={toolkit:InvertedBoolConverter}}"
+                VerticalOptions="Center"
+                WidthRequest="500">
+                <Frame.Shadow>
+                    <Shadow
+                        Brush="Black"
+                        Opacity=".5"
+                        Radius="12"
+                        Offset="10,10" />
+                </Frame.Shadow>
+
+                <Frame.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Offset="0.7" Color="Transparent" />
+                        <GradientStop Offset="0" Color="Black" />
+                    </LinearGradientBrush>
+                </Frame.Background>
+
+                <Grid
+                    ColumnDefinitions="*,200,200,*"
                     HorizontalOptions="Center"
-                    Text="Hobbyer"
-                    TextColor="White"
-                    VerticalOptions="Center" />
-
-                <Label
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="Center"
-                    Text="Choose your hobbies"
-                    TextColor="White" />
-
-                <CollectionView
-                    Grid.Row="3"
-                    Grid.RowSpan="4"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    ItemsSource="{Binding Items}"
-                    SelectionMode="Single">
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout
-                            HorizontalItemSpacing="5"
-                            Orientation="Vertical"
-                            Span="2"
-                            VerticalItemSpacing="5" />
-                    </CollectionView.ItemsLayout>
-
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:HobbieModel">
-                            <Border>
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="12" />
-                                </Border.StrokeShape>
-
-                                <VerticalStackLayout Padding="0,15" HorizontalOptions="Center">
-                                    <Image
-                                        HorizontalOptions="Center"
-                                        Source="fondo.jpg"
-                                        WidthRequest="70" />
-                                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                        <CheckBox
-                                            HorizontalOptions="Center"
-                                            IsChecked="{Binding IsChecked}"
-                                            VerticalOptions="Center"
-                                            Color="White" />
-
-                                        <Label
-                                            HorizontalOptions="Center"
-                                            Text="{Binding NombreHobbie}"
-                                            TextColor="White"
-                                            VerticalOptions="Center" />
-                                    </HorizontalStackLayout>
-                                </VerticalStackLayout>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-
-                <Button
-                    Grid.Row="7"
-                    Grid.Column="1"
-                    Margin="0,0,5,0"
-                    BackgroundColor="{Binding ColorAcc}"
-                    Command="{Binding CambiarPaginaCommand}"
-                    HeightRequest="60"
-                    Text="Back"
-                    TextColor="{Binding TxColor}"
-                    WidthRequest="180" />
-                <Button
-                    Grid.Row="7"
-                    Grid.Column="2"
-                    Margin="5,0,0,0"
-                    BackgroundColor="{Binding ColorAcc}"
-                    Command="{Binding RegistrarCommand}"
-                    HeightRequest="60"
-                    Text="Register"
-                    TextColor="{Binding TxColor}"
-                    WidthRequest="180" />
-
-                <HorizontalStackLayout
-                    Grid.Row="8"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="Center"
+                    RowDefinitions="*,80,40,65,65,65,65,70,50,*"
                     VerticalOptions="Center">
                     <Label
-                        HorizontalOptions="End"
-                        Text="Already have an account?"
-                        TextColor="DarkGray"
-                        VerticalOptions="CenterAndExpand" />
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        FontAttributes="Bold"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        Text="Hobbyer"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+
                     <Label
-                        Margin="10,0"
-                        HorizontalOptions="Start"
-                        Text="Log in"
-                        VerticalOptions="CenterAndExpand" />
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        FontSize="Small"
+                        HorizontalOptions="Center"
+                        Text="Choose your hobbies"
+                        TextColor="White" />
 
-                    <HorizontalStackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="LoginPage" />
-                    </HorizontalStackLayout.GestureRecognizers>
-                </HorizontalStackLayout>
-            </Grid>
-        </Frame>
-    </StackLayout>
+                    <CollectionView
+                        Grid.Row="3"
+                        Grid.RowSpan="4"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Items}"
+                        SelectionMode="Single">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout
+                                HorizontalItemSpacing="5"
+                                Orientation="Vertical"
+                                Span="2"
+                                VerticalItemSpacing="5" />
+                        </CollectionView.ItemsLayout>
 
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:HobbieModel">
+                                <Border>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12" />
+                                    </Border.StrokeShape>
+
+                                    <VerticalStackLayout Padding="0,15" HorizontalOptions="Center">
+                                        <Image
+                                            HorizontalOptions="Center"
+                                            Opacity=".6"
+                                            Source="fondo.jpg"
+                                            WidthRequest="70" />
+                                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                            <CheckBox
+                                                HorizontalOptions="Center"
+                                                IsChecked="{Binding IsChecked}"
+                                                VerticalOptions="Center"
+                                                Color="White" />
+
+                                            <Label
+                                                HorizontalOptions="Center"
+                                                Text="{Binding NombreHobbie}"
+                                                TextColor="White"
+                                                VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Button
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        Margin="0,0,5,0"
+                        BackgroundColor="{Binding ColorAcc}"
+                        Command="{Binding CambiarPaginaCommand}"
+                        HeightRequest="60"
+                        Text="Back"
+                        TextColor="{Binding TxColor}"
+                        WidthRequest="180" />
+                    <Button
+                        Grid.Row="7"
+                        Grid.Column="2"
+                        Margin="5,0,0,0"
+                        BackgroundColor="{Binding ColorAcc}"
+                        Command="{Binding RegistrarCommand}"
+                        HeightRequest="60"
+                        Text="Register"
+                        TextColor="{Binding TxColor}"
+                        WidthRequest="180" />
+
+                    <HorizontalStackLayout
+                        Grid.Row="8"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Label
+                            HorizontalOptions="End"
+                            Text="Already have an account?"
+                            TextColor="DarkGray"
+                            VerticalOptions="CenterAndExpand" />
+                        <Label
+                            Margin="10,0"
+                            HorizontalOptions="Start"
+                            Text="Log in"
+                            VerticalOptions="CenterAndExpand" />
+
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="LoginPage" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                    </HorizontalStackLayout>
+                </Grid>
+            </Frame>
+        </VerticalStackLayout>
+    </AbsoluteLayout>
 </ContentPage>

@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-y using TFGMaui.Models;
+using TFGMaui.Models;
 using TFGMaui.Repositories;
 using Windows.UI.ViewManagement;
 using TFGMaui.Utils;
+using Microsoft.UI.Windowing;
+using Microsoft.UI;
 
 namespace TFGMaui.ViewModels
 {
@@ -32,6 +34,7 @@ namespace TFGMaui.ViewModels
 
             UsuarioReg = new();
             FirstPageReg = true;
+
             Items =
             [
                 new HobbieModel() { IsChecked = false, NombreHobbie = "Cinema" },
@@ -45,10 +48,36 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task Navegar(string pagina)
         {
+            FirstPageReg = true;
+            UsuarioReg = new();
+            RepContra = string.Empty;
+
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
                 ["UsuarioActivo"] = UsuarioReg
             });
+        }
+
+        [RelayCommand]
+        public async Task MinimizeApp()
+        {
+#if WINDOWS
+            var nativeWindow = App.Current.Windows.First().Handler.PlatformView;
+            IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
+
+            AppWindow appWindow = AppWindow.GetFromWindowId(Win32Interop.GetWindowIdFromWindow(windowHandle));
+
+            if (appWindow.Presenter is OverlappedPresenter p)
+            {
+                p.Minimize();
+            }
+#endif
+        }
+
+        [RelayCommand]
+        public async Task CloseApp()
+        {
+            Application.Current.Quit();
         }
 
         /// <summary>
@@ -61,23 +90,27 @@ namespace TFGMaui.ViewModels
             // Esta en la primera pagina
             if (FirstPageReg)
             {
-                // Si no existe el usuario esta valido para crearlo
-                if (new AuthRepository().UserDoesntExists(UsuarioReg))
+                try
                 {
-                    if (RepContra.Equals(UsuarioReg.Password))
+                    // Si no existe el usuario esta valido para crearlo
+                    if (new AuthRepository().UserExists(UsuarioReg))
                     {
-                        // Cambia a la segunda pagina
-                        FirstPageReg = false;
+                        await App.Current.MainPage.DisplayAlert("Error", "El nombre de usuario está en uso", "Aceptar");
                     }
                     else
                     {
-                        await App.Current.MainPage.DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
+                        if (!RepContra.Equals(UsuarioReg.Password))
+                        {
+                            await App.Current.MainPage.DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
+                        }
+                        else
+                        {
+                            // Cambia a la segunda pagina
+                            FirstPageReg = false;
+                        }
                     }
                 }
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert("Error", "El nombre de usuario está en uso", "Aceptar");
-                }
+                catch { }
             }
             else
             {
@@ -93,15 +126,19 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task Registrar()
         {
-            Items.ToList().ForEach(x => UsuarioReg.Hobbies.Add(x.IsChecked));
-
-            if (new AuthRepository().Registrar(UsuarioReg))
+            try
             {
-                new AuthRepository().SetImageDefault(usuarioReg.Username);
+                Items.ToList().ForEach(x => UsuarioReg.Hobbies.Add(x.IsChecked));
 
-                await App.Current.MainPage.DisplayAlert("Usuario creado", "Se ha registrado el usuario correctamente", "Aceptar");
-                await Navegar("LoginPage");
+                if (new AuthRepository().Registrar(UsuarioReg))
+                {
+                    new AuthRepository().SetImageDefault(usuarioReg.Username);
+
+                    await App.Current.MainPage.DisplayAlert("Usuario creado", "Se ha registrado el usuario correctamente", "Aceptar");
+                    await Navegar("LoginPage");
+                }
             }
+            catch { }
         }
     }
 }

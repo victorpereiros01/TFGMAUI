@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI;
+using Microsoft.UI.Windowing;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.ObjectModel;
@@ -39,8 +41,7 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task InitializeComponents()
         {
-            Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)
-.ToString("dddd, d MMM", CultureInfo.InvariantCulture);
+            Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).ToString("dddd, d MMM", CultureInfo.InvariantCulture);
 
             try
             {
@@ -65,15 +66,24 @@ namespace TFGMaui.ViewModels
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", 1.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
-            var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+            try
+            {
+                var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina);
 
-            PaginaAux = new();
-            PaginaAux.Results = pagtrend.Results;
-            pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 6);
-            pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
-            PaginaAux.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                PaginaAux = new()
+                {
+                    Results = pagtrend.Results
+                };
+                pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 6);
+                pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                PaginaAux.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
-            PaginaPelis = pagtrend;
+                PaginaPelis = pagtrend;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+            }
         }
 
         /// <summary>
@@ -87,12 +97,41 @@ namespace TFGMaui.ViewModels
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", 1.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
-            var pagtop = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+            try
+            {
+                var pagtop = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
 
-            pagtop.Results = MiscellaneousUtils.GetNelements(pagtop.Results, 6);
-            pagtop.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                pagtop.Results = MiscellaneousUtils.GetNelements(pagtop.Results, 6);
+                pagtop.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
-            PaginaPelisTop = pagtop;
+                PaginaPelisTop = pagtop;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+            }
+        }
+
+        [RelayCommand]
+        public async Task MinimizeApp()
+        {
+#if WINDOWS
+            var nativeWindow = App.Current.Windows.First().Handler.PlatformView;
+            IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
+
+            AppWindow appWindow = AppWindow.GetFromWindowId(Win32Interop.GetWindowIdFromWindow(windowHandle));
+
+            if (appWindow.Presenter is OverlappedPresenter p)
+            {
+                p.Minimize();
+            }
+#endif
+        }
+
+        [RelayCommand]
+        public async Task CloseApp()
+        {
+            Application.Current.Quit();
         }
 
         [RelayCommand]
@@ -112,9 +151,6 @@ namespace TFGMaui.ViewModels
             //await Application.Current.MainPage.DisplayAlert("Saludos", relativeToContainerPosition.ToString(), "Aceptar");
         }
 
-        /// <summary>
-        /// Pruebas
-        /// </summary>
         private async void pruebas()
         {
             string webmarvel = IConstantes.MarvelPage;

@@ -51,7 +51,7 @@ namespace TFGMaui.Repositories
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public bool UserDoesntExists(UsuarioModel user)
+        public bool UserExists(UsuarioModel user)
         {
             SetCmdQuery("SELECT 1 FROM Users WHERE Username = @Username or Email = @Email");
 
@@ -60,7 +60,7 @@ namespace TFGMaui.Repositories
             Oconexion.Open();
 
             // Si devuelve null el usuario existe
-            return Cmd.ExecuteScalar() == null;
+            return Cmd.ExecuteScalar() != null;
         }
 
         public bool SetImageDefault(string username)

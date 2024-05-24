@@ -7,10 +7,6 @@
         public const string BaseBooks = "https://www.googleapis.com/books/v1";
         public const string BaseAnimeManga = "https://api.jikan.moe/v4";
 
-        // Constantes para la api de citas
-        public const string BaseQuotesQuotable = "https://api.quotable.io";
-        public const string BaseQuotesSaidSo = "https://quotes.rest/qod";
-
         // Conexion para SQL Server
         public const string ConnectionString = "Data Source=DESKTOP-5UTJUQ6;Initial Catalog=APIHobbies;Integrated Security=True;TrustServerCertificate=True";
 

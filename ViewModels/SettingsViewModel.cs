@@ -53,6 +53,9 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private string base64;
 
+        [ObservableProperty]
+        private bool adulto;
+
         public SettingsViewModel()
         {
             Color = "Oscuro"; IsDark = true;
@@ -93,6 +96,7 @@ namespace TFGMaui.ViewModels
             ];
 
             Avatar = UsuarioActivo.Avatar;
+            Adulto = UsuarioActivo.Adulto;
         }
 
         [RelayCommand]
@@ -177,6 +181,8 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task EnableParentalMode()
         {
+            Adulto = UsuarioActivo.Adulto;
+
             Pass = await App.Current.MainPage.DisplayPromptAsync("Alerta", "Introduce tu contraseña");
 
             if (!Pass.Equals(UsuarioActivo.Password.Trim()))
@@ -184,6 +190,7 @@ namespace TFGMaui.ViewModels
                 return;
             }
 
+            UsuarioActivo.Adulto = !UsuarioActivo.Adulto;
             if (new SettingsRepository().ChangeParentalMode(UsuarioActivo))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Modo parental cambiado satisfactoriamente", "Aceptar");

@@ -25,15 +25,10 @@ namespace TFGMaui.ViewModels
         private string saludos;
 
         [ObservableProperty]
-        private Page paginaPelis;
-        [ObservableProperty]
-        private Page paginaPelisTop;
+        private Page paginaT;
 
         [ObservableProperty]
-        private Page paginaAux;
-
-        [ObservableProperty]
-        private ObservableCollection<QuoteModel> quotes;
+        private int hobbieWidth;
 
         /// <summary>
         /// Inicializa los saludos, con el dia en formato dia de la semana, numero y mes. Y obtiene las listas de trending y top
@@ -43,15 +38,17 @@ namespace TFGMaui.ViewModels
         {
             Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).ToString("dddd, d MMM", CultureInfo.InvariantCulture);
 
-            try
+            var hobbieC = 0;
+            foreach (var item in UsuarioActivo.Hobbies)
             {
-                await GetTrending("day");
-                await GetTop();
+                if (item)
+                {
+                    hobbieC += 1;
+                }
             }
-            catch
-            {
-                Application.Current.MainPage.DisplayAlert("Error", "Fatal", "Aceptar");
-            }
+            HobbieWidth = 1140 / hobbieC - 20;
+
+            await GetTrending("day");
         }
 
         /// <summary>
@@ -62,7 +59,7 @@ namespace TFGMaui.ViewModels
         public async Task GetTrending(string type)
         {
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
-                endpoint: $"trending/movie/{type}",
+                endpoint: $"trending/all/{type}",
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", 1.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
@@ -70,41 +67,10 @@ namespace TFGMaui.ViewModels
             {
                 var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina);
 
-                PaginaAux = new()
-                {
-                    Results = pagtrend.Results
-                };
                 pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 6);
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
-                PaginaAux.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
-                PaginaPelis = pagtrend;
-            }
-            catch (Exception e)
-            {
-                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
-            }
-        }
-
-        /// <summary>
-        /// Obtiene las peliculas top de moviedb
-        /// </summary>
-        /// <returns></returns>
-        public async Task GetTop()
-        {
-            var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
-                endpoint: "movie/top_rated",
-                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", 1.ToString() } },
-                headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
-
-            try
-            {
-                var pagtop = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
-
-                pagtop.Results = MiscellaneousUtils.GetNelements(pagtop.Results, 6);
-                pagtop.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
-
-                PaginaPelisTop = pagtop;
+                PaginaT = pagtrend;
             }
             catch (Exception e)
             {
@@ -140,8 +106,7 @@ namespace TFGMaui.ViewModels
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
                 ["UsuarioActivo"] = UsuarioActivo,
-                ["PaginaPelis"] = PaginaPelis,
-                ["PaginaAux"] = PaginaAux
+                ["PaginaT"] = PaginaT
             });
         }
 
@@ -149,69 +114,6 @@ namespace TFGMaui.ViewModels
         public async Task BtnEntered()
         {
             //await Application.Current.MainPage.DisplayAlert("Saludos", relativeToContainerPosition.ToString(), "Aceptar");
-        }
-
-        private async void pruebas()
-        {
-            string webmarvel = IConstantes.MarvelPage;
-
-            // 438631 // dune 2022
-            var options = new RestClientOptions($"{IConstantes.BaseAnimeManga}/manga/2");
-            var client = new RestClient(options);
-            var request = new RestRequest();
-
-            request.AddParameter("language", "es-ES");
-            request.AddHeader("Accept", "application/json");
-
-            //
-            // libro por id
-            //
-
-            var options2 = new RestClientOptions($"{IConstantes.BaseBooks}/volumes/2gk0EAAAQBAJ");
-            var client2 = new RestClient(options2);
-            var request2 = new RestRequest();
-
-            request2.AddParameter("language", "es-ES");
-            request2.AddHeader("Accept", "application/json");
-
-            var response2 = await client.ExecuteAsync(request2);
-
-            BookModel b = JsonConvert.DeserializeObject<BookModel>(response2.Content);
-
-            //
-            // anime search
-            //
-
-            var options3 = new RestClientOptions($"{IConstantes.BaseAnimeManga}/anime?q=one piece");
-            var client3 = new RestClient(options3);
-            var request3 = new RestRequest();
-
-            request3.AddParameter("language", "es-ES");
-            request.AddHeader("Accept", "application/json");
-
-            var response3 = await client.GetAsync(request3);
-
-            var s = JsonConvert.DeserializeObject<AnimeList>(response3.Content);
-
-            //
-            // Get the marvel api_key
-            //
-
-            // Generate a random TimeStamp
-            IConstantes.Ts = new Random().Next().ToString();
-
-            // Prepare the input string for hashing
-            string input = $"{IConstantes.Ts}{IConstantes.PrivateMarvelKey}{IConstantes.PublicMarvelKey}";
-
-            // Convert the input string to a byte array and then compute the MD5 hash         
-            byte[] hashBytes = MD5.HashData(Encoding.UTF8.GetBytes(input));
-
-            // Convert the hash bytes to a hexadecimal string
-            string hash = string.Join(string.Empty,
-                hashBytes.Select(b => b.ToString("x2")));
-
-            // Assign the hash to IConstantes.Hash
-            IConstantes.Hash = hash;
         }
     }
 }

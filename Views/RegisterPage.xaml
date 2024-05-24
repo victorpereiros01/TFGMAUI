@@ -17,16 +17,14 @@
         WidthRequest="1200">
 
         <Button
-            AbsoluteLayout.LayoutBounds="1116,0"
+            AbsoluteLayout.LayoutBounds="1095,10"
             BackgroundColor="Beige"
-            Command="{Binding MinimizeAppCommand}"
-            CornerRadius="0" />
+            Command="{Binding MinimizeAppCommand}" />
 
         <Button
-            AbsoluteLayout.LayoutBounds="1160,0"
+            AbsoluteLayout.LayoutBounds="1145,10"
             BackgroundColor="Red"
-            Command="{Binding CloseAppCommand}"
-            CornerRadius="0" />
+            Command="{Binding CloseAppCommand}" />
 
         <VerticalStackLayout
             AbsoluteLayout.LayoutBounds="350,100,500,600"
@@ -106,35 +104,53 @@
                         VerticalOptions="Center"
                         WidthRequest="400" />
 
-                    <Entry
+                    <AbsoluteLayout
                         Grid.Row="5"
                         Grid.Column="1"
-                        Grid.ColumnSpan="2"
-                        BackgroundColor="LightGray"
-                        HorizontalOptions="Center"
-                        HorizontalTextAlignment="Center"
-                        IsPassword="True"
-                        Opacity=".8"
-                        Placeholder="Password"
-                        PlaceholderColor="DimGray"
-                        Text="{Binding UsuarioReg.Password}"
-                        VerticalOptions="Center"
-                        WidthRequest="400" />
+                        Grid.ColumnSpan="2">
+                        <Entry
+                            AbsoluteLayout.LayoutBounds="0,0"
+                            BackgroundColor="LightGray"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            IsPassword="{Binding IsPassword}"
+                            Opacity=".8"
+                            Placeholder="Password"
+                            PlaceholderColor="DimGray"
+                            Text="{Binding UsuarioReg.Password}"
+                            VerticalOptions="Center"
+                            WidthRequest="400" />
 
-                    <Entry
+                        <Button
+                            AbsoluteLayout.LayoutBounds="360,10,25,25"
+                            Command="{Binding ChangePassVisCommand}"
+                            HeightRequest="20"
+                            ImageSource="fondo.jpg" />
+                    </AbsoluteLayout>
+
+                    <AbsoluteLayout
                         Grid.Row="6"
                         Grid.Column="1"
-                        Grid.ColumnSpan="2"
-                        BackgroundColor="LightGray"
-                        HorizontalOptions="Center"
-                        HorizontalTextAlignment="Center"
-                        IsPassword="True"
-                        Opacity=".8"
-                        Placeholder="Repeat your password"
-                        PlaceholderColor="DimGray"
-                        Text="{Binding RepContra}"
-                        VerticalOptions="Center"
-                        WidthRequest="400" />
+                        Grid.ColumnSpan="2">
+                        <Entry
+                            AbsoluteLayout.LayoutBounds="0,0"
+                            BackgroundColor="LightGray"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            IsPassword="{Binding IsPasswordRep}"
+                            Opacity=".8"
+                            Placeholder="Repeat your password"
+                            PlaceholderColor="DimGray"
+                            Text="{Binding RepContra}"
+                            VerticalOptions="Center"
+                            WidthRequest="400" />
+
+                        <Button
+                            AbsoluteLayout.LayoutBounds="360,10,25,25"
+                            Command="{Binding ChangePassRepVisCommand}"
+                            HeightRequest="20"
+                            ImageSource="fondo.jpg" />
+                    </AbsoluteLayout>
 
                     <Button
                         Grid.Row="7"

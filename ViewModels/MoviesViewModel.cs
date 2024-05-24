@@ -4,11 +4,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Maui.Graphics;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
-using Mopups.PreBaked.Services;
 using Mopups.Services;
-using System.Collections.ObjectModel;
 using TFGMaui.Models;
-using TFGMaui.Repositories;
 using TFGMaui.Services;
 using TFGMaui.Utils;
 using TFGMaui.ViewModels.Mopup;
@@ -19,13 +16,25 @@ namespace TFGMaui.ViewModels
 {
     [QueryProperty("UsuarioActivo", "UsuarioActivo")]
     [QueryProperty("PaginaT", "PaginaT")]
-    internal partial class MovieSeriesViewModel : ObservableObject
+    [QueryProperty("PaginaPelisTop", "PaginaPelisTop")]
+    internal partial class MoviesViewModel : ObservableObject
     {
         [ObservableProperty]
         private UsuarioModel usuarioActivo;
 
         [ObservableProperty]
-        private Page paginaT, paginaPelisTop;
+        private bool isSearchFocus;
+
+        [ObservableProperty]
+        private MovieModel movie, movie2, movie3;
+
+        [ObservableProperty]
+        private Page paginaT;
+        [ObservableProperty]
+        private Page paginaPelisTop;
+
+        [ObservableProperty]
+        private Page paginaAux;
 
         private MovieMopup MovieMopup;
         private MovieMopupViewModel MovieMopupViewModel;
@@ -37,18 +46,18 @@ namespace TFGMaui.ViewModels
         private bool isDay;
 
         [ObservableProperty]
-        private MovieModel movie;
-
-        [ObservableProperty]
         private Color colorType;
 
-        public MovieSeriesViewModel()
+        public MoviesViewModel()
         {
             Type = "Day";
             IsDay = true;
             ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.LightGoldenrodYellow);
 
+            IsSearchFocus = false;
             Movie = new();
+            Movie2 = new();
+            Movie3 = new();
 
             // Inicializa lo requerido para el mopup
             MovieMopupViewModel = new MovieMopupViewModel();
@@ -56,9 +65,22 @@ namespace TFGMaui.ViewModels
         }
 
         [RelayCommand]
-        private async Task InitializeComponents()
+        public async Task CambiarType()
         {
-            await GetTop();
+            if (IsDay)
+            {
+                Type = "Week";
+                IsDay = false;
+                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.RebeccaPurple);
+            }
+            else
+            {
+                Type = "Day";
+                IsDay = true;
+                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.LightGoldenrodYellow);
+            }
+
+            await GetTrending(Type.ToLower());
         }
 
         [RelayCommand]
@@ -84,22 +106,18 @@ namespace TFGMaui.ViewModels
         }
 
         [RelayCommand]
-        public async Task CambiarType()
+        public async Task Hide()
         {
-            if (IsDay)
-            {
-                Type = "Week";
-                IsDay = false;
-                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.RebeccaPurple);
-            }
-            else
-            {
-                Type = "Day";
-                IsDay = true;
-                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.LightGoldenrodYellow);
-            }
+            IsSearchFocus = false;
+        }
 
-            await GetTrending(Type.ToLower(), false);
+        [RelayCommand]
+        public async Task Navegar(string pagina)
+        {
+            await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
+            {
+                ["UsuarioActivo"] = UsuarioActivo
+            });
         }
 
         /// <summary>
@@ -109,9 +127,8 @@ namespace TFGMaui.ViewModels
         /// <returns></returns>
         public async Task GetTrending(string type, bool cut = true)
         {
-            var movOrAll = cut ? "movie" : "all";
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
-                endpoint: $"trending/{movOrAll}/{type}",
+                endpoint: $"trending/movie/{type}",
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", 1.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
@@ -123,11 +140,6 @@ namespace TFGMaui.ViewModels
                 {
                     pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
                 }
-                else
-                {
-                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 6);
-                }
-
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
                 PaginaT = pagtrend;
@@ -136,6 +148,32 @@ namespace TFGMaui.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
             }
+        }
+
+        /// <summary>
+        /// Busca las peliculas que coincidan con un termino
+        /// </summary>
+        /// <returns></returns>
+        [RelayCommand]
+        public async Task GetSearch(string busqueda)
+        {
+            if (busqueda.IsNullOrEmpty())
+            {
+                await Hide();
+                return;
+            }
+
+            var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
+                endpoint: $"search/movie",
+                parameters: new Dictionary<string, string> { { "query", busqueda }, { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language } },
+                headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
+
+            var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+
+            pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+
+            PaginaAux = pagtrend;
+            IsSearchFocus = true;
         }
 
         /// <summary>
@@ -167,20 +205,6 @@ namespace TFGMaui.ViewModels
             }
         }
 
-        [RelayCommand]
-        public async Task Navegar(string pagina)
-        {
-            await ShowLoadingMopup();
-            await GetTrending(Type.ToLower());
-
-            await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
-            {
-                ["UsuarioActivo"] = UsuarioActivo,
-                ["PaginaPelisTop"] = PaginaPelisTop,
-                ["PaginaT"] = PaginaT
-            });
-        }
-
         /// <summary>
         /// Abre el mopup
         /// </summary>
@@ -190,25 +214,35 @@ namespace TFGMaui.ViewModels
         {
             MovieMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
             await MopupService.Instance.PushAsync(MovieMopup);
+            //await Hide();
         }
 
-        /// <summary>
-        /// Abre el mopup de loading
-        /// </summary>
-        /// <returns></returns>
         [RelayCommand]
-        public async Task ShowLoadingMopup()
+        public async Task NavegarT()
         {
-            var quote = new Repository().GetQuoteRandom();
-            if (quote is null)
+            await GetTrending(Type.ToLower(), false);
+            await NavegarSearch();
+        }
+
+        [RelayCommand]
+        public async Task NavegarTop()
+        {
+            await GetTop(false);
+            await Shell.Current.GoToAsync("//FilterPage", new Dictionary<string, object>()
             {
-                return;
-            }
+                ["UsuarioActivo"] = UsuarioActivo,
+                ["PaginaPelis"] = PaginaPelisTop
+            });
+        }
 
-            List<string> list = [quote.Source, quote.Value];
-
-            // Loader
-            await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(4000), MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Red), MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.White), list, MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Black));
+        [RelayCommand]
+        public async Task NavegarSearch()
+        {
+            await Shell.Current.GoToAsync("//FilterPage", new Dictionary<string, object>()
+            {
+                ["UsuarioActivo"] = UsuarioActivo,
+                ["PaginaPelis"] = PaginaT
+            });
         }
     }
 }

@@ -1,11 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TFGMaui.Services;
+﻿using System.Data;
 using TFGMaui.ViewModels;
 
 namespace TFGMaui.Repositories
@@ -13,40 +6,8 @@ namespace TFGMaui.Repositories
     /// <summary>
     /// Clase que contiene los metodos para cambiar los datos del usuario
     /// </summary>
-    internal class SettingsRepository
+    internal class SettingsRepository : Repository
     {
-        private readonly SqlConnection Oconexion;
-
-        public SqlCommand Cmd { get; set; }
-
-        /// <summary>
-        /// Añade la query
-        /// </summary>
-        /// <param name="query"></param>
-        public void SetCmdQuery(string query)
-        {
-            Cmd.CommandText = query;
-        }
-
-        /// <summary>
-        /// Añade los parametros al comando
-        /// </summary>
-        /// <param name="p"></param>
-        private void AddCmdParameters(Dictionary<string, object> p)
-        {
-            foreach (var item in p)
-            {
-                if (p.TryGetValue(item.Key, out var value))
-                    Cmd.Parameters.AddWithValue(item.Key, value);
-            }
-        }
-
-        public SettingsRepository()
-        {
-            Oconexion = new(IConstantes.ConnectionString);
-            Cmd = new SqlCommand { Connection = Oconexion };
-        }
-
         public bool ChangeAvatar(string base64, UsuarioModel user)
         {
             SetCmdQuery("UPDATE [dbo].[Users] SET [Avatar] = @Avatar WHERE IdUser = @IdUser");

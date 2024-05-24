@@ -1,51 +1,14 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TFGMaui.Models;
 using TFGMaui.Services;
 
 namespace TFGMaui.Repositories
 {
-    internal class HobbieRepository
+    /// <summary>
+    /// Clase para añadir hobbies y borrarlos de la base de datos
+    /// </summary>
+    internal class HobbieRepository : Repository
     {
-        /// <summary>
-        /// Clase para añadir hobbies y borrarlos de la base de datos
-        /// </summary>
-        private readonly SqlConnection Oconexion;
-
-        public SqlCommand Cmd { get; set; }
-
-        /// <summary>
-        /// Añade la query
-        /// </summary>
-        /// <param name="query"></param>
-        public void SetCmdQuery(string query)
-        {
-            Cmd.CommandText = query;
-        }
-
-        /// <summary>
-        /// Añade los parametros al comando
-        /// </summary>
-        /// <param name="p"></param>
-        private void AddCmdParameters(Dictionary<string, object> p)
-        {
-            foreach (var item in p)
-            {
-                if (p.TryGetValue(item.Key, out var value))
-                    Cmd.Parameters.AddWithValue(item.Key, value);
-            }
-        }
-
-        public HobbieRepository()
-        {
-            Oconexion = new(IConstantes.ConnectionString);
-            Cmd = new SqlCommand { Connection = Oconexion };
-        }
-
         /// <summary>
         /// Inserta en la base de datos en el usuario correspondiente el hobbie
         /// </summary>
@@ -113,26 +76,6 @@ namespace TFGMaui.Repositories
             }
 
             return true;
-        }
-
-        public QuoteModel GetQuoteRandom()
-        {
-            SetCmdQuery("SELECT TOP 1 [Value], Source FROM[dbo].[Quotes] ORDER by newid()");
-
-            Oconexion.Open();
-
-            using SqlDataReader dr = Cmd.ExecuteReader();
-
-            if (!dr.Read())
-            {
-                return null;
-            }
-
-            return new QuoteModel()
-            {
-                Value = dr.GetString(0),
-                Source = dr.GetString(1)
-            };
         }
     }
 }

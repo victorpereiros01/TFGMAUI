@@ -64,16 +64,20 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task GetSearch(string busqueda)
         {
-            var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
+            try
+            {
+                var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
                 endpoint: $"search/movie",
                 parameters: new Dictionary<string, string> { { "query", busqueda }, { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
-            var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+                var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
 
-            pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
-            PaginaPelis = pagtrend;
+                PaginaPelis = pagtrend;
+            }
+            catch { }
         }
 
         [RelayCommand]
@@ -83,7 +87,9 @@ namespace TFGMaui.ViewModels
             var seg = Math.Abs(SegundaFecha - 151) + 1 + 1873;
             await Application.Current.MainPage.DisplayAlert("Saludos", prim + "seg" + seg, "Aceptar");
 
-            var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
+            try
+            {
+                var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
                 endpoint: $"discover/movie",
                 parameters: new Dictionary<string, string> {
                     { "api_key", IConstantes.MovieDB_ApiKey },
@@ -95,11 +101,13 @@ namespace TFGMaui.ViewModels
                 },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } }); ;
 
-            var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+                var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
 
-            pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
-            PaginaPelis = pagtrend;
+                PaginaPelis = pagtrend;
+            }
+            catch { }
         }
 
         /// <summary>
@@ -109,16 +117,20 @@ namespace TFGMaui.ViewModels
         /// <returns></returns>
         public async Task GetTrending()
         {
-            var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
+            try
+            {
+                var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
                 endpoint: $"trending/movie/{Type}",
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", SelectedPage.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
-            var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+                var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
 
-            pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
-            PaginaPelis = pagtrend;
+                PaginaPelis = pagtrend;
+            }
+            catch { }
         }
 
         [RelayCommand]

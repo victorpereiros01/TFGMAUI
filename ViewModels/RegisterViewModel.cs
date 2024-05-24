@@ -27,6 +27,9 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private ObservableCollection<HobbieModel> items;
 
+        [ObservableProperty]
+        private bool isPassword, isPasswordRep;
+
         public RegisterViewModel()
         {
             ColorAcc = Color.Parse(new UISettings().GetColorValue(UIColorType.Accent).ToString());
@@ -34,6 +37,9 @@ namespace TFGMaui.ViewModels
 
             UsuarioReg = new();
             FirstPageReg = true;
+
+            IsPassword = true;
+            IsPasswordRep = true;
 
             Items =
             [
@@ -43,6 +49,18 @@ namespace TFGMaui.ViewModels
                 new HobbieModel() { IsChecked = false, NombreHobbie = "Books & comics" }
             ];
             UsuarioReg.Hobbies = [];
+        }
+
+        [RelayCommand]
+        private async Task ChangePassVis()
+        {
+            IsPassword = !IsPassword;
+        }
+
+        [RelayCommand]
+        private async Task ChangePassRepVis()
+        {
+            IsPasswordRep = !IsPasswordRep;
         }
 
         [RelayCommand]

@@ -348,7 +348,6 @@
                 Text="cambiar colores"
                 VerticalOptions="Center" />
 
-
             <Label
                 Margin="20"
                 HorizontalOptions="Center"
@@ -357,7 +356,8 @@
             <Switch
                 Margin="0,0,-110,0"
                 HorizontalOptions="Center"
-                IsToggled="{Binding UsuarioActivo.Adulto}"
+                IsEnabled="False"
+                IsToggled="{Binding Adulto}"
                 OnColor="DimGrey"
                 ThumbColor="Red"
                 VerticalOptions="Center" />

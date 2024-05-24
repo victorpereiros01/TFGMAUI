@@ -29,99 +29,156 @@
             AbsoluteLayout.LayoutBounds="1145,10"
             BackgroundColor="Red"
             Command="{Binding CloseAppCommand}" />
+        <Frame AbsoluteLayout.LayoutBounds="10,60,1180,730" CornerRadius="10">
+            <Frame.Shadow>
+                <Shadow
+                    Brush="Black"
+                    Opacity=".5"
+                    Radius="12"
+                    Offset="10,10" />
+            </Frame.Shadow>
 
-        <VerticalStackLayout AbsoluteLayout.LayoutBounds="10,60,1180,730" Background="WhiteSmoke">
-            <HorizontalStackLayout>
+            <Grid
+                ColumnDefinitions="400,340,80,240,80"
+                HeightRequest="730"
+                RowDefinitions="80,100,300,220"
+                WidthRequest="1180">
+                <CarouselView
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    Grid.Column="0"
+                    BackgroundColor="LightYellow" />
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    BackgroundColor="Red"
+                    FontSize="Large"
+                    Text="Hobbyer"
+                    ToolTipProperties.Text="Go to homepage">
+                    <!--<Button.Background>
+                        <RadialGradientBrush>
+                            <GradientStop Offset="0.7" Color="Black" />
+                            <GradientStop Offset="0" Color="Transparent" />
+                        </RadialGradientBrush>
+                    </Button.Background>-->
+
+                    <Button.GestureRecognizers>
+                        <PointerGestureRecognizer PointerEnteredCommand="{Binding BtnEnteredCommand}" />
+                    </Button.GestureRecognizers>
+                </Button>
                 <Label
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="3"
                     Margin="20"
+                    Padding="50,15"
+                    BackgroundColor="MediumPurple"
+                    FontSize="Subtitle"
                     HorizontalOptions="Center"
                     Text="{Binding Saludos}"
                     VerticalOptions="Center" />
 
-                <Button
-                    BackgroundColor="Red"
-                    FontSize="Large"
-                    Text="Hobbyer"
-                    ToolTipProperties.Text="coso"
-                    WidthRequest="170">
-                    <!--<Button.Background>
-                    <RadialGradientBrush>
-                        <GradientStop Offset="0.7" Color="Black" />
-                        <GradientStop Offset="0" Color="Transparent" />
-                    </RadialGradientBrush>
-                </Button.Background>
-
-                <Button.GestureRecognizers>
-                    <PointerGestureRecognizer PointerEnteredCommand="{Binding BtnEnteredCommand}" />
-                </Button.GestureRecognizers>-->
-                </Button>
-
                 <Image
-                    Margin="10"
+                    Grid.Row="0"
+                    Grid.Column="2"
                     Aspect="AspectFill"
-                    HeightRequest="50"
+                    HeightRequest="70"
+                    HorizontalOptions="Center"
                     Source="{Binding UsuarioActivo.Avatar}"
-                    WidthRequest="50" />
+                    VerticalOptions="Center"
+                    WidthRequest="70" />
                 <Label
-                    Margin="10"
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Padding="50,15"
+                    BackgroundColor="MediumPurple"
+                    FontSize="Title"
                     HorizontalOptions="Center"
                     Text="{Binding UsuarioActivo.Username}"
-                    VerticalOptions="Center"
-                    WidthRequest="60" />
-
+                    VerticalOptions="Center" />
                 <Button
+                    Grid.Row="0"
+                    Grid.Column="4"
                     Command="{Binding NavegarCommand}"
                     CommandParameter="SettingsPage"
-                    HeightRequest="50"
+                    HeightRequest="70"
                     HorizontalOptions="End"
                     Text="A"
-                    WidthRequest="50" />
-            </HorizontalStackLayout>
+                    WidthRequest="70" />
 
-            <HorizontalStackLayout>
                 <CarouselView
-                    BackgroundColor="LightYellow"
-                    HeightRequest="300"
-                    WidthRequest="200" />
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    BackgroundColor="LightCyan" />
                 <CarouselView
-                    BackgroundColor="LightCyan"
-                    HeightRequest="300"
-                    WidthRequest="200" />
-                <CarouselView
-                    BackgroundColor="LightGreen"
-                    HeightRequest="300"
-                    WidthRequest="200" />
-            </HorizontalStackLayout>
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="3"
+                    BackgroundColor="LightGreen" />
 
-            <HorizontalStackLayout>
-                <Button
-                    Margin="10,0,0,0"
-                    Command="{Binding NavegarCommand}"
-                    CommandParameter="MovieSeriesPage"
-                    HeightRequest="150"
-                    Text="Cinema"
-                    WidthRequest="140" />
-                <Button
-                    Margin="10"
-                    Command="{Binding NavegarCommand}"
-                    CommandParameter="GamesPage"
-                    HeightRequest="150"
-                    Text="Games"
-                    WidthRequest="140" />
-                <Button
-                    Command="{Binding NavegarCommand}"
-                    CommandParameter="BooksPage"
-                    HeightRequest="150"
-                    Text="Books"
-                    WidthRequest="140" />
-                <Button
-                    Margin="10,0,0,0"
-                    Command="{Binding NavegarCommand}"
-                    CommandParameter="AnimeMangaPage"
-                    HeightRequest="150"
-                    Text="Ani-manga"
-                    WidthRequest="140" />
-            </HorizontalStackLayout>
-        </VerticalStackLayout>
+                <HorizontalStackLayout
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="5">
+                    <Button
+                        Margin="10"
+                        Command="{Binding NavegarCommand}"
+                        CommandParameter="MovieSeriesPage"
+                        Text="Cinema"
+                        WidthRequest="{Binding HobbieWidth}">
+                        <Button.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Opacity=".5"
+                                Radius="12"
+                                Offset="10,10" />
+                        </Button.Shadow>
+                    </Button>
+                    <Button
+                        Margin="10"
+                        Command="{Binding NavegarCommand}"
+                        CommandParameter="GamesPage"
+                        Text="Games"
+                        WidthRequest="{Binding HobbieWidth}">
+                        <Button.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Opacity=".5"
+                                Radius="12"
+                                Offset="10,10" />
+                        </Button.Shadow>
+                    </Button>
+                    <Button
+                        Margin="10"
+                        Command="{Binding NavegarCommand}"
+                        CommandParameter="BooksPage"
+                        Text="Books"
+                        WidthRequest="{Binding HobbieWidth}">
+                        <Button.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Opacity=".5"
+                                Radius="12"
+                                Offset="10,10" />
+                        </Button.Shadow>
+                    </Button>
+                    <Button
+                        Margin="10"
+                        Command="{Binding NavegarCommand}"
+                        CommandParameter="AnimeMangaPage"
+                        Text="Ani-manga"
+                        WidthRequest="{Binding HobbieWidth}">
+                        <Button.Shadow>
+                            <Shadow
+                                Brush="Black"
+                                Opacity=".5"
+                                Radius="12"
+                                Offset="10,10" />
+                        </Button.Shadow>
+                    </Button>
+                </HorizontalStackLayout>
+            </Grid>
+        </Frame>
     </AbsoluteLayout>
 </ContentPage>

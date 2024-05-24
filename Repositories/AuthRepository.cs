@@ -1,7 +1,5 @@
-﻿using System.Data;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using Azure.Core;
 using Microsoft.Data.SqlClient;
 using TFGMaui.Services;
 using TFGMaui.Utils;
@@ -12,40 +10,8 @@ namespace TFGMaui.Repositories
     /// <summary>
     /// Clase que contiene los metodos para hacer login y registro
     /// </summary>
-    internal class AuthRepository
+    internal class AuthRepository : Repository
     {
-        private readonly SqlConnection Oconexion;
-
-        public SqlCommand Cmd { get; set; }
-
-        /// <summary>
-        /// Añade la query
-        /// </summary>
-        /// <param name="query"></param>
-        public void SetCmdQuery(string query)
-        {
-            Cmd.CommandText = query;
-        }
-
-        /// <summary>
-        /// Añade los parametros al comando
-        /// </summary>
-        /// <param name="p"></param>
-        private void AddCmdParameters(Dictionary<string, object> p)
-        {
-            foreach (var item in p)
-            {
-                if (p.TryGetValue(item.Key, out var value))
-                    Cmd.Parameters.AddWithValue(item.Key, value);
-            }
-        }
-
-        public AuthRepository()
-        {
-            Oconexion = new(IConstantes.ConnectionString);
-            Cmd = new SqlCommand { Connection = Oconexion };
-        }
-
         /// <summary>
         /// Metodo que evalua que el usuario exista o no
         /// </summary>

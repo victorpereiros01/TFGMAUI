@@ -121,11 +121,11 @@ namespace TFGMaui.ViewModels
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
+                    pagtrend.Results = MiscellaneousUtils.GetNelementsM(pagtrend.Results, 8);
                 }
                 else
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 6);
+                    pagtrend.Results = MiscellaneousUtils.GetNelementsM(pagtrend.Results, 6);
                 }
 
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
@@ -155,7 +155,7 @@ namespace TFGMaui.ViewModels
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
+                    pagtrend.Results = MiscellaneousUtils.GetNelementsM(pagtrend.Results, 8);
                 }
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
@@ -168,7 +168,7 @@ namespace TFGMaui.ViewModels
         }
 
         [RelayCommand]
-        public async Task Navegar(string pagina)
+        public async Task NavegarM(string pagina)
         {
             await ShowLoadingMopup();
             await GetTrending(Type.ToLower());
@@ -178,6 +178,15 @@ namespace TFGMaui.ViewModels
                 ["UsuarioActivo"] = UsuarioActivo,
                 ["PaginaPelisTop"] = PaginaPelisTop,
                 ["PaginaT"] = PaginaT
+            });
+        }
+
+        [RelayCommand]
+        public async Task Navegar(string pagina)
+        {
+            await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
+            {
+                ["UsuarioActivo"] = UsuarioActivo
             });
         }
 
@@ -200,6 +209,7 @@ namespace TFGMaui.ViewModels
         public async Task ShowLoadingMopup()
         {
             var quote = new Repository().GetQuoteRandom();
+
             if (quote is null)
             {
                 return;

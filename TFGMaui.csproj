@@ -59,7 +59,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Remove="Resources\Images\copo.png" />
+		<None Remove="Resources\Images\flor.png" />
 		<None Remove="Resources\Images\fondo.jpg" />
+		<None Remove="Resources\Images\hoja.png" />
+		<None Remove="Resources\Images\sol.png" />
 		<None Remove="Resources\Images\user.png" />
 	</ItemGroup>
 
@@ -78,68 +82,68 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\AnimeMangaPage.xaml.cs">
-	    <DependentUpon>AnimeMangaPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Mopups\MangaMopup.xaml.cs">
-	    <DependentUpon>MangaMopup.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Mopups\AnimeMopup.xaml.cs">
-	    <DependentUpon>AnimeMopup.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Mopups\BookMopup.xaml.cs">
-	    <DependentUpon>BookMopup.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Mopups\GameMopup.xaml.cs">
-	    <DependentUpon>GameMopup.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Mopups\SeriePopup.xaml.cs">
-	    <DependentUpon>SeriePopup.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\MoviesPage.xaml.cs">
-	    <DependentUpon>MoviesPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\SeriesPage.xaml.cs">
-	    <DependentUpon>SeriesPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\BooksPage.xaml.cs">
-	    <DependentUpon>BooksPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\GamesPage.xaml.cs">
-	    <DependentUpon>GamesPage.xaml</DependentUpon>
-	  </Compile>
+		<Compile Update="Views\AnimeMangaPage.xaml.cs">
+			<DependentUpon>AnimeMangaPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Mopups\MangaMopup.xaml.cs">
+			<DependentUpon>MangaMopup.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Mopups\AnimeMopup.xaml.cs">
+			<DependentUpon>AnimeMopup.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Mopups\BookMopup.xaml.cs">
+			<DependentUpon>BookMopup.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Mopups\GameMopup.xaml.cs">
+			<DependentUpon>GameMopup.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Mopups\SeriePopup.xaml.cs">
+			<DependentUpon>SeriePopup.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\MoviesPage.xaml.cs">
+			<DependentUpon>MoviesPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\SeriesPage.xaml.cs">
+			<DependentUpon>SeriesPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BooksPage.xaml.cs">
+			<DependentUpon>BooksPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\GamesPage.xaml.cs">
+			<DependentUpon>GamesPage.xaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 		<MauiXaml Update="Views\Mopups\MangaMopup.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Mopups\AnimeMopup.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Mopups\BookMopup.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Mopups\GameMopup.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\Mopups\SeriePopup.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\MoviesPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\SeriesPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\FilterPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\AnimeMangaPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\BooksPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\LoginPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
@@ -148,10 +152,10 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\GamesPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\MovieSeriesPage.xaml">
-		  <Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\RegisterPage.xaml">
 			<Generator>MSBuild:Compile</Generator>

@@ -11,5 +11,326 @@
     BackgroundImageSource="fondo.jpg"
     BindingContext="{viewmodels:AnimeMangaViewModel}">
 
-    <VerticalStackLayout />
+    <AbsoluteLayout
+        HeightRequest="800"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        WidthRequest="1200">
+        <Button
+            AbsoluteLayout.LayoutBounds="1095,10"
+            BackgroundColor="Beige"
+            Command="{Binding MinimizeAppCommand}" />
+
+        <Button
+            AbsoluteLayout.LayoutBounds="1145,10"
+            BackgroundColor="Red"
+            Command="{Binding CloseAppCommand}" />
+        <Frame AbsoluteLayout.LayoutBounds="75,90,1050,650" CornerRadius="10">
+            <VerticalStackLayout>
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding HideCommand}" NumberOfTapsRequired="2" />
+                </VerticalStackLayout.GestureRecognizers>
+
+                <Button
+                    BackgroundColor="Red"
+                    Command="{Binding NavegarCommand}"
+                    CommandParameter="MainPage"
+                    FontSize="Large"
+                    HeightRequest="80"
+                    Text="Hobbyer"
+                    ToolTipProperties.Text="Go to homepage"
+                    WidthRequest="340" />
+
+                <SearchBar
+                    x:Name="tx_filtro"
+                    Margin="10"
+                    CancelButtonColor="Red"
+                    IsTextPredictionEnabled="True"
+                    SearchCommand="{Binding NavegarSearchCommand}"
+                    WidthRequest="300">
+                    <SearchBar.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            Command="{Binding GetSearchCommand}"
+                            CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
+                            EventName="TextChanged" />
+                        <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
+                    </SearchBar.Behaviors>
+                </SearchBar>
+
+                <AbsoluteLayout>
+                    <!--  Parametros del LayoutBounds: ejeX, ejeY, ancho y alto del rectangulo. Si pones 0,0 en los ejes lo situa en la esquina superior izquierda.  -->
+                    <CollectionView
+                        AbsoluteLayout.LayoutBounds="354,10"
+                        BackgroundColor="White"
+                        HeightRequest="142"
+                        IsVisible="{Binding IsSearchFocus}"
+                        ItemsSource="{Binding PaginaAux.Data}"
+                        SelectedItem="{Binding Anime2}"
+                        SelectionChangedCommand="{Binding ShowAnimeMangaMopupCommand}"
+                        SelectionChangedCommandParameter="{Binding Anime2.Id}"
+                        SelectionMode="Single"
+                        WidthRequest="300"
+                        ZIndex="1">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:Name="aux" x:DataType="models:AnimeModel">
+                                <Border>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12" />
+                                    </Border.StrokeShape>
+                                    <HorizontalStackLayout Padding="10">
+                                        <Image
+                                            HeightRequest="120"
+                                            Source="{Binding Imagen}"
+                                            WidthRequest="120" />
+                                        <Label
+                                            Margin="10,0,0,0"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Title}"
+                                            VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <HorizontalStackLayout
+                        AbsoluteLayout.LayoutBounds="0,10"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Label
+                            Margin="20,0"
+                            FontSize="Title"
+                            HorizontalOptions="Center"
+                            Text="Animes de temporada"
+                            VerticalOptions="Center" />
+
+                        <Button
+                            BackgroundColor="LightBlue"
+                            CornerRadius="20"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            ImageSource="copo.png"
+                            VerticalOptions="Center"
+                            WidthRequest="80" />
+                        <Button
+                            Margin="15,0,0,0"
+                            BackgroundColor="LightGreen"
+                            CornerRadius="20"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            ImageSource="flor.png"
+                            VerticalOptions="Center"
+                            WidthRequest="80" />
+                        <Button
+                            Margin="15,0,0,0"
+                            BackgroundColor="LightGoldenrodYellow"
+                            CornerRadius="20"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            ImageSource="sol.png"
+                            VerticalOptions="Center"
+                            WidthRequest="80" />
+                        <Button
+                            Margin="15,0,0,0"
+                            BackgroundColor="LightSalmon"
+                            CornerRadius="20"
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            ImageSource="hoja.png"
+                            VerticalOptions="Center"
+                            WidthRequest="80" />
+                    </HorizontalStackLayout>
+
+                    <Entry
+                        AbsoluteLayout.LayoutBounds="740,10"
+                        HorizontalTextAlignment="Center"
+                        Placeholder="YYYY-SEASON"
+                        WidthRequest="150" />
+
+                    <Button
+                        AbsoluteLayout.LayoutBounds="865,-10"
+                        CornerRadius="50"
+                        ToolTipProperties.Text="Like 2003-WINTER/SPRING/SUMMER/AUTUMN" />
+
+                    <Button AbsoluteLayout.LayoutBounds="920,10" WidthRequest="65" />
+
+                    <HorizontalStackLayout
+                        Margin="5"
+                        Padding="5"
+                        AbsoluteLayout.LayoutBounds="0,60">
+                        <CollectionView
+                            HeightRequest="162"
+                            ItemsSource="{Binding PaginaS.Data}"
+                            SelectedItem="{Binding Anime}"
+                            SelectionChangedCommand="{Binding ShowAnimeMangaMopupCommand}"
+                            SelectionChangedCommandParameter="{Binding Anime.Id}"
+                            SelectionMode="Single"
+                            WidthRequest="860">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout
+                                    HorizontalItemSpacing="5"
+                                    Orientation="Vertical"
+                                    Span="8"
+                                    VerticalItemSpacing="5" />
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:Name="trend" x:DataType="models:AnimeModel">
+                                    <Border>
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="12" />
+                                        </Border.StrokeShape>
+
+                                        <VerticalStackLayout
+                                            HeightRequest="150"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            WidthRequest="60">
+                                            <Image
+                                                HeightRequest="120"
+                                                Source="{Binding Imagen}"
+                                                WidthRequest="120" />
+                                            <Label
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Title}"
+                                                VerticalOptions="Center" />
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Button
+                            Margin="20,0"
+                            HeightRequest="152"
+                            HorizontalOptions="Center"
+                            Text="&gt;"
+                            VerticalOptions="Center"
+                            WidthRequest="100" />
+                    </HorizontalStackLayout>
+
+                    <Label
+                        Margin="20,0"
+                        AbsoluteLayout.LayoutBounds="0,250"
+                        FontSize="Title"
+                        Text="Top anime" />
+
+                    <HorizontalStackLayout
+                        Margin="5"
+                        Padding="5"
+                        AbsoluteLayout.LayoutBounds="0,280">
+                        <CollectionView
+                            HeightRequest="162"
+                            ItemsSource="{Binding PaginaTopAnime.Data}"
+                            SelectedItem="{Binding Anime3}"
+                            SelectionChangedCommand="{Binding ShowAnimeMangaMopupCommand}"
+                            SelectionChangedCommandParameter="{Binding Anime3.Id}"
+                            SelectionMode="Single"
+                            WidthRequest="360">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout
+                                    HorizontalItemSpacing="5"
+                                    Orientation="Vertical"
+                                    Span="3"
+                                    VerticalItemSpacing="5" />
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:MovieModel">
+                                    <Border>
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="12" />
+                                        </Border.StrokeShape>
+
+                                        <VerticalStackLayout
+                                            HeightRequest="150"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            WidthRequest="60">
+                                            <Image HeightRequest="110" Source="{Binding Imagen}" />
+
+                                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                                <Label
+                                                    HorizontalOptions="Center"
+                                                    Text="{Binding Title}"
+                                                    VerticalOptions="Center" />
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Button
+                            Margin="20,0"
+                            HeightRequest="152"
+                            HorizontalOptions="Center"
+                            Text="&gt;"
+                            VerticalOptions="Center"
+                            WidthRequest="100" />
+                    </HorizontalStackLayout>
+
+                    <Label
+                        Margin="20,0"
+                        AbsoluteLayout.LayoutBounds="500,250"
+                        FontSize="Title"
+                        Text="Top manga" />
+
+                    <HorizontalStackLayout
+                        Margin="5"
+                        Padding="5"
+                        AbsoluteLayout.LayoutBounds="500,280">
+                        <CollectionView
+                            HeightRequest="162"
+                            ItemsSource="{Binding PaginaTopManga.Data}"
+                            SelectedItem="{Binding Anime4}"
+                            SelectionChangedCommand="{Binding ShowAnimeMangaMopupCommand}"
+                            SelectionChangedCommandParameter="{Binding Anime4.Id}"
+                            SelectionMode="Single"
+                            WidthRequest="360">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout
+                                    HorizontalItemSpacing="5"
+                                    Orientation="Vertical"
+                                    Span="3"
+                                    VerticalItemSpacing="5" />
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:MovieModel">
+                                    <Border>
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="12" />
+                                        </Border.StrokeShape>
+
+                                        <VerticalStackLayout
+                                            HeightRequest="150"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            WidthRequest="60">
+                                            <Image HeightRequest="110" Source="{Binding Imagen}" />
+
+                                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                                <Label
+                                                    HorizontalOptions="Center"
+                                                    Text="{Binding Title}"
+                                                    VerticalOptions="Center" />
+                                            </HorizontalStackLayout>
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Button
+                            Margin="20,0"
+                            HeightRequest="152"
+                            HorizontalOptions="Center"
+                            Text="&gt;"
+                            VerticalOptions="Center"
+                            WidthRequest="100" />
+                    </HorizontalStackLayout>
+                </AbsoluteLayout>
+            </VerticalStackLayout>
+        </Frame>
+    </AbsoluteLayout>
 </ContentPage>

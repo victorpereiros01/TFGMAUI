@@ -44,17 +44,23 @@ namespace TFGMaui.Utils
                 : ConvertFromSystemDrawingColor(System.Drawing.Color.White);
         }
 
-        /// <summary>
-        /// Obtiene los primeros n elementos de la lista
-        /// </summary>
-        /// <param name="results"></param>
-        /// <param name="v2"></param>
-        /// <returns></returns>
-        public static List<MovieModel> GetNelements(List<MovieModel> results, int v2)
+        public static List<AnimeModel> GetNelementsAM(List<AnimeModel> results, int v)
+        {
+            List<AnimeModel> list = [];
+
+            for (int i = 0; i < v; i++)
+            {
+                list.Add(results[i]);
+            }
+
+            return list;
+        }
+
+        internal static List<MovieModel> GetNelementsM(List<MovieModel> results, int v)
         {
             List<MovieModel> list = [];
 
-            for (int i = 0; i < v2; i++)
+            for (int i = 0; i < v; i++)
             {
                 list.Add(results[i]);
             }

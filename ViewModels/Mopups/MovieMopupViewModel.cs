@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Mopups.Services;
-using System.Collections.ObjectModel;
 using TFGMaui.Models;
 using TFGMaui.Repositories;
 using TFGMaui.Services;

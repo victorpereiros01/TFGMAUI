@@ -47,7 +47,7 @@
                     HorizontalOptions="Center"
                     VerticalOptions="Center">
                     <Button
-                        Command="{Binding NavegarCommand}"
+                        Command="{Binding NavegarMCommand}"
                         CommandParameter="MoviesPage"
                         HeightRequest="150"
                         HorizontalOptions="Center"

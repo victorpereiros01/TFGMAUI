@@ -5,37 +5,37 @@ namespace TFGMaui.Models
     public class AnimeModel : HobbieModel
     {
         [JsonProperty("mal_id")]
-        public int Id { get; set; } // v
+        public string Id { get; set; } // v
 
         public Imagen Images { get; set; }  // v
 
-        public string Title { get; set; }   // v
+        public string? Title { get; set; }   // v
 
-        public string Type { get; set; }    // v
+        public string? Type { get; set; }    // v
 
-        public int Episodes { get; set; }   // v
+        public int? Episodes { get; set; }   // v
 
-        public string Status { get; set; }  // v
+        public string? Status { get; set; }  // v
 
-        public AiredIn Aired { get; set; } // v
+        public AiredIn? Aired { get; set; } // v
 
-        public int Year { get; set; }   // v
+        public int? Year { get; set; }   // v
 
-        public string Rating { get; set; }  // v
+        public string? Rating { get; set; }  // v
 
-        public string Duration { get; set; }    // v
+        public string? Duration { get; set; }    // v
 
-        public List<Parameters> Studios { get; set; } // v
+        public List<Parameters>? Studios { get; set; } // v
 
-        public List<Parameters> Genres { get; set; } // v
+        public List<Parameters>? Genres { get; set; } // v
 
-        public List<Parameters> Demographics { get; set; }   // v
+        public List<Parameters>? Demographics { get; set; }   // v
 
-        public string Synopsis { get; set; }    // v
+        public string? Synopsis { get; set; }    // v
 
-        public string Rank { get; set; }    // v
+        public string? Rank { get; set; }    // v
 
-        public double Score { get; set; }   // v
+        public double? Score { get; set; }   // v
     }
 
     public class AnimeData

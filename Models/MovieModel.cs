@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.ObjectModel;
 
 namespace TFGMaui.Models
 {

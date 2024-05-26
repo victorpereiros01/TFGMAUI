@@ -1,6 +1,6 @@
-﻿using Azure;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RestSharp;
+using System.Reflection;
 using TFGMaui.Models;
 
 namespace TFGMaui.Services
@@ -20,11 +20,15 @@ namespace TFGMaui.Services
             var client = new RestClient(requestModel.Url);
             var request = new RestRequest(requestModel.Endpoint);
             request.AddHeaders(requestModel.Headers);
-            foreach (var item in requestModel.Parameters)
+
+            if (requestModel.Parameters is not null)
             {
-                if (!requestModel.Parameters.TryGetValue(item.Key, out var value))
-                    continue;
-                request.AddParameter(item.Key, value);
+                foreach (var item in requestModel.Parameters)
+                {
+                    if (!requestModel.Parameters.TryGetValue(item.Key, out var value))
+                        continue;
+                    request.AddParameter(item.Key, value);
+                }
             }
 
             // Ejecuta la request y si da error lanza una excepcion
@@ -35,7 +39,17 @@ namespace TFGMaui.Services
                 throw new Exception("Request incorrecta");
             }
 
-            return JsonConvert.DeserializeObject<T>(response.Content!)!;
+            var model = JsonConvert.DeserializeObject<T>(response.Content!)!;
+
+            foreach (PropertyInfo property in model.GetType().GetProperties())
+            {
+                if (property.PropertyType == typeof(string) && property.GetValue(model) == null)
+                {
+                    property.SetValue(model, "no data");
+                }
+            }
+
+            return model;
         }
     }
 }

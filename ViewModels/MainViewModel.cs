@@ -2,12 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
-using Newtonsoft.Json;
-using RestSharp;
-using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Security.Cryptography;
-using System.Text;
 using TFGMaui.Models;
 using TFGMaui.Services;
 using TFGMaui.Utils;
@@ -26,6 +21,12 @@ namespace TFGMaui.ViewModels
 
         [ObservableProperty]
         private Page paginaT;
+
+        [ObservableProperty]
+        private PageAM paginaTopAnime, paginaTopManga;
+
+        [ObservableProperty]
+        private PageAM paginaS;
 
         [ObservableProperty]
         private int hobbieWidth;
@@ -49,6 +50,39 @@ namespace TFGMaui.ViewModels
             HobbieWidth = 1140 / hobbieC - 20;
 
             await GetTrending("day");
+            await GetSeasonAnimes();
+            await GetTopAM();
+        }
+
+        private async Task GetTopAM()
+        {
+            var requestPagina = new HttpRequestModel(url: IConstantes.BaseAnimeManga,
+                endpoint: $"top/manga",
+                parameters: null,
+                headers: new Dictionary<string, string> { { "Accept", "application/json" } });
+
+            var pagtrend = (PageAM)await HttpService.ExecuteRequestAsync<PageAM>(requestPagina); // v
+            pagtrend.Data = MiscellaneousUtils.GetNelementsAM(pagtrend.Data, 3);
+            foreach (var item in pagtrend.Data)
+            {
+                item.Imagen = item.Images.Jpg.Image_url;
+            }
+
+            PaginaTopManga = pagtrend;
+
+            var requestPagina2 = new HttpRequestModel(url: IConstantes.BaseAnimeManga,
+                endpoint: $"top/anime",
+                parameters: null,
+                headers: new Dictionary<string, string> { { "Accept", "application/json" } });
+
+            var pagtrend2 = (PageAM)await HttpService.ExecuteRequestAsync<PageAM>(requestPagina2); // v
+            pagtrend2.Data = MiscellaneousUtils.GetNelementsAM(pagtrend2.Data, 3);
+            foreach (var item in pagtrend2.Data)
+            {
+                item.Imagen = item.Images.Jpg.Image_url;
+            }
+
+            PaginaTopAnime = pagtrend2;
         }
 
         /// <summary>
@@ -67,10 +101,40 @@ namespace TFGMaui.ViewModels
             {
                 var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina);
 
-                pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 6);
+                pagtrend.Results = MiscellaneousUtils.GetNelementsM(pagtrend.Results, 6);
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
                 PaginaT = pagtrend;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+            }
+        }
+
+        /// <summary>
+        /// Obtiene las peliculas trending de moviedb
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public async Task GetSeasonAnimes()
+        {
+            var requestPagina = new HttpRequestModel(url: IConstantes.BaseAnimeManga,
+                endpoint: $"seasons/now",
+                parameters: new Dictionary<string, string> { /*{ "filter", "tv" },*/ { "page", 1.ToString() } },
+                headers: new Dictionary<string, string> { { "Accept", "application/json" } });
+
+            try
+            {
+                var pagseason = (PageAM)await HttpService.ExecuteRequestAsync<PageAM>(requestPagina);
+
+                pagseason.Data = MiscellaneousUtils.GetNelementsAM(pagseason.Data, 8);
+                foreach (var item in pagseason.Data)
+                {
+                    item.Imagen = item.Images.Jpg.Image_url;
+                }
+
+                PaginaS = pagseason;
             }
             catch (Exception e)
             {
@@ -106,7 +170,10 @@ namespace TFGMaui.ViewModels
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
                 ["UsuarioActivo"] = UsuarioActivo,
-                ["PaginaT"] = PaginaT
+                ["PaginaT"] = PaginaT,
+                ["PaginaTopAnime"] = PaginaTopAnime,
+                ["PaginaS"] = PaginaS,
+                ["PaginaTopManga"] = PaginaTopManga
             });
         }
 

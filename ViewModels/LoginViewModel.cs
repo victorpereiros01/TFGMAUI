@@ -20,9 +20,13 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private bool isPassword;
 
+        [ObservableProperty]
+        private bool isRememberMe;
+
         public LoginViewModel()
         {
             IsPassword = true;
+            CheckStoredCredentials();
 
             ColorAcc = Color.Parse(new UISettings().GetColorValue(UIColorType.Accent).ToString());
             TxColor = MiscellaneousUtils.ColorIsDarkOrLight(ColorAcc);
@@ -30,7 +34,7 @@ namespace TFGMaui.ViewModels
             ColorAccCom = ColorAcc.GetComplementary();
             TxColorCom = MiscellaneousUtils.ColorIsDarkOrLight(colorAccCom);
 
-            UsuarioActivo = new() { Username = "@admin", Password = "admin" };
+            UsuarioActivo = new();
         }
 
         [RelayCommand]
@@ -75,10 +79,14 @@ namespace TFGMaui.ViewModels
             {
                 UsuarioActivo = new AuthRepository().Login(UsuarioActivo.Username, UsuarioActivo.Password)!;
 
-                if (UsuarioActivo == null)
+                if (UsuarioActivo is null)
                 {
                     return;
                 }
+
+                await SecureStorage.SetAsync("credentialsStored", IsRememberMe.ToString());
+                await SecureStorage.SetAsync("username", IsRememberMe ? UsuarioActivo.Username : " ");
+                await SecureStorage.SetAsync("password", IsRememberMe ? UsuarioActivo.Password : " ");
 
                 await Navegar("MainPage");
                 await Application.Current.MainPage.DisplayAlert("Saludos", "Bienvenid@ " + UsuarioActivo.Username, "Aceptar");
@@ -86,22 +94,33 @@ namespace TFGMaui.ViewModels
             catch { }
         }
 
+        private async void CheckStoredCredentials()
+        {
+            if (!(IsRememberMe = await SecureStorage.GetAsync("credentialsStored") == bool.TrueString))
+            {
+                return;
+            }
+
+            string username = await SecureStorage.GetAsync("username");
+            string password = await SecureStorage.GetAsync("password");
+
+            UsuarioActivo = new() { Username = username, Password = password };
+
+            await Login();
+        }
+
+        [RelayCommand]
+        public async Task ChangeRemember()
+        {
+            IsRememberMe = !IsRememberMe;
+        }
+
         [RelayCommand]
         public async Task LoginGuest()
         {
-            try
-            {
-                UsuarioActivo = new AuthRepository().Login(UsuarioActivo.Username, UsuarioActivo.Password)!;
+            UsuarioActivo = new() { Username = "admin", Password = "admin" };
 
-                if (UsuarioActivo == null)
-                {
-                    return;
-                }
-
-                await Navegar("MainPage");
-                await Application.Current.MainPage.DisplayAlert("Saludos", "Bienvenid@ " + UsuarioActivo.Username, "Aceptar");
-            }
-            catch { }
+            await Login();
         }
 
         [RelayCommand]

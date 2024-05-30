@@ -38,9 +38,13 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private bool isSearchFocus;
 
+        [ObservableProperty]
+        private bool isSearchSeasonFocus;
+
         public AnimeMangaViewModel()
         {
             IsSearchFocus = false;
+            IsSearchSeasonFocus = false;
             Anime = new();
             Anime2 = new();
             Anime3 = new();
@@ -95,6 +99,18 @@ namespace TFGMaui.ViewModels
         public async Task Hide()
         {
             IsSearchFocus = false;
+        }
+
+        [RelayCommand]
+        public async Task ShowSeasonTool()
+        {
+            IsSearchSeasonFocus = true;
+        }
+
+        [RelayCommand]
+        public async Task HideSeasonTool()
+        {
+            IsSearchSeasonFocus = false;
         }
 
         [RelayCommand]

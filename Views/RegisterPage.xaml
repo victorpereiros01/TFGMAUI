@@ -31,6 +31,8 @@
             HorizontalOptions="Center"
             VerticalOptions="Center">
             <Frame
+                BorderColor="{AppThemeBinding Light=Black,
+                                              Dark=White}"
                 CornerRadius="30"
                 HorizontalOptions="Center"
                 IsVisible="{Binding FirstPageReg}"
@@ -188,6 +190,8 @@
             </Frame>
 
             <Frame
+                BorderColor="{AppThemeBinding Light=Black,
+                                              Dark=White}"
                 CornerRadius="30"
                 HorizontalOptions="Center"
                 IsVisible="{Binding FirstPageReg, Converter={toolkit:InvertedBoolConverter}}"

@@ -1,4 +1,6 @@
-﻿namespace TFGMaui.Models
+﻿using Newtonsoft.Json;
+
+namespace TFGMaui.Models
 {
     public class BookModel : HobbieModel
     {
@@ -27,9 +29,10 @@
 
         public int PrintedPageCount { get; set; }   // v
 
+        [JsonIgnore]
         public string Categories { get; set; }  // v
 
-        public int AverageRating { get; set; }  // v
+        public double AverageRating { get; set; }  // v
 
         public string MaturityRating { get; set; }  // v
 
@@ -38,6 +41,6 @@
 
     public class ImageLinks
     {
-        public string Medium;
+        public string Thumbnail;
     }
 }

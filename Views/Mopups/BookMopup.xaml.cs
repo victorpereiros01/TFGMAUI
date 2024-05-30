@@ -5,9 +5,9 @@ namespace TFGMaui.Views.Mopups;
 
 public partial class BookMopup : PopupPage
 {
-    public BookMopup(MovieMopupViewModel movieMopupViewModel)
+    public BookMopup(BookMopupViewModel bookMopupViewModel)
     {
         InitializeComponent();
-        BindingContext = movieMopupViewModel;
+        BindingContext = bookMopupViewModel;
     }
 }

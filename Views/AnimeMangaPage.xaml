@@ -62,7 +62,7 @@
                     <CollectionView
                         AbsoluteLayout.LayoutBounds="354,10"
                         BackgroundColor="White"
-                        HeightRequest="142"
+                        HeightRequest="285"
                         IsVisible="{Binding IsSearchFocus}"
                         ItemsSource="{Binding PaginaAux.Data}"
                         SelectedItem="{Binding Anime2}"
@@ -146,12 +146,18 @@
                         AbsoluteLayout.LayoutBounds="740,10"
                         HorizontalTextAlignment="Center"
                         Placeholder="YYYY-SEASON"
-                        WidthRequest="150" />
+                        WidthRequest="150">
+                        <Entry.Behaviors>
+                            <toolkit:EventToCommandBehavior Command="{Binding ShowSeasonToolCommand}" EventName="Focused" />
+                            <toolkit:EventToCommandBehavior Command="{Binding HideSeasonToolCommand}" EventName="Unfocused" />
+                        </Entry.Behaviors>
+                    </Entry>
 
                     <Button
                         AbsoluteLayout.LayoutBounds="865,-10"
                         CornerRadius="50"
-                        ToolTipProperties.Text="Like 2003-WINTER/SPRING/SUMMER/AUTUMN" />
+                        IsVisible="{Binding IsSearchSeasonFocus}"
+                        ToolTipProperties.Text="Like: 2003-WINTER/SPRING/SUMMER/AUTUMN" />
 
                     <Button AbsoluteLayout.LayoutBounds="920,10" WidthRequest="65" />
 

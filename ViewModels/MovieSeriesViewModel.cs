@@ -13,7 +13,7 @@ using TFGMaui.Services;
 using TFGMaui.Utils;
 using TFGMaui.ViewModels.Mopup;
 using TFGMaui.Views.Mopups;
-using Page = TFGMaui.Models.Page;
+using PageM = TFGMaui.Models.PageM;
 
 namespace TFGMaui.ViewModels
 {
@@ -25,7 +25,7 @@ namespace TFGMaui.ViewModels
         private UsuarioModel usuarioActivo;
 
         [ObservableProperty]
-        private Page paginaT, paginaPelisTop;
+        private PageM paginaT, paginaPelisTop;
 
         private MovieMopup MovieMopup;
         private MovieMopupViewModel MovieMopupViewModel;
@@ -117,15 +117,15 @@ namespace TFGMaui.ViewModels
 
             try
             {
-                var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina);
+                var pagtrend = (PageM)await HttpService.ExecuteRequestAsync<PageM>(requestPagina);
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelementsM(pagtrend.Results, 8);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
                 }
                 else
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelementsM(pagtrend.Results, 6);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 6);
                 }
 
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
@@ -151,11 +151,11 @@ namespace TFGMaui.ViewModels
 
             try
             {
-                var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina);
+                var pagtrend = (PageM)await HttpService.ExecuteRequestAsync<PageM>(requestPagina);
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelementsM(pagtrend.Results, 8);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
                 }
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 

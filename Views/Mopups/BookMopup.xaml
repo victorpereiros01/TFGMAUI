@@ -33,17 +33,17 @@
         <HorizontalStackLayout Margin="10">
             <Label
                 HorizontalOptions="Start"
-                Text="{Binding Movie.Title}"
+                Text="{Binding Book.VolumeInfo.Title}"
                 VerticalOptions="Center" />
             <Label
                 Margin="5,0,0,0"
                 HorizontalOptions="Center"
-                Text="{Binding Movie.Vote_Average}"
+                Text="{Binding Book.VolumeInfo.AverageRating}"
                 VerticalOptions="Center" />
         </HorizontalStackLayout>
         <Label
             HorizontalOptions="Center"
-            Text="{Binding Movie.Homepage}"
+            Text="{Binding Book.VolumeInfo.Publisher}"
             VerticalOptions="Center" />
 
         <Editor
@@ -51,7 +51,7 @@
             HorizontalOptions="Start"
             IsEnabled="{Binding IsVisibleEditor}"
             IsReadOnly="True"
-            Text="{Binding Movie.OverView}"
+            Text="{Binding Book.VolumeInfo.Description}"
             VerticalOptions="Center" />
 
         <Button
@@ -68,7 +68,7 @@
                 BackgroundColor="Red"
                 HeightRequest="150"
                 HorizontalOptions="Center"
-                Source="{Binding Movie.Imagen}"
+                Source="{Binding Book.Imagen}"
                 VerticalOptions="Center"
                 WidthRequest="100" />
 

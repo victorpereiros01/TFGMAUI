@@ -6,7 +6,7 @@ using TFGMaui.Services;
 using TFGMaui.ViewModels.Mopup;
 using TFGMaui.Views.Mopups;
 using static TFGMaui.Utils.SortByExtensionsUtils;
-using Page = TFGMaui.Models.Page;
+using PageM = TFGMaui.Models.PageM;
 
 namespace TFGMaui.ViewModels
 {
@@ -21,7 +21,7 @@ namespace TFGMaui.ViewModels
         private int selectedPage, ultimoNumero;
 
         [ObservableProperty]
-        private Page paginaPelis;
+        private PageM paginaPelis;
 
         private readonly MovieMopup MovieMopup;
         private readonly MovieMopupViewModel MovieMopupViewModel;
@@ -71,7 +71,7 @@ namespace TFGMaui.ViewModels
                 parameters: new Dictionary<string, string> { { "query", busqueda }, { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
-                var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+                var pagtrend = (PageM)await HttpService.ExecuteRequestAsync<PageM>(requestPagina); // v
 
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
@@ -101,7 +101,7 @@ namespace TFGMaui.ViewModels
                 },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } }); ;
 
-                var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+                var pagtrend = (PageM)await HttpService.ExecuteRequestAsync<PageM>(requestPagina); // v
 
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
@@ -124,7 +124,7 @@ namespace TFGMaui.ViewModels
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", SelectedPage.ToString() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
-                var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+                var pagtrend = (PageM)await HttpService.ExecuteRequestAsync<PageM>(requestPagina); // v
 
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 

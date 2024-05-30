@@ -84,13 +84,13 @@ namespace TFGMaui.Repositories
             var user = new UsuarioModel
             {
                 Id = dr.GetInt32(0),
-                Username = dr.GetString(1),
-                Email = dr.GetString(2),
+                Username = dr.GetString(1).Trim(),
+                Email = dr.GetString(2).Trim(),
                 Avatar = FileUtils.GetSource(dr.GetString(3)),
-                Password = dr.GetString(4),
+                Password = dr.GetString(4).Trim(),
                 Hobbies = [dr.GetBoolean(5), dr.GetBoolean(6), dr.GetBoolean(7), dr.GetBoolean(8)],
                 Adulto = dr.GetBoolean(9),
-                Language = dr.GetString(10)
+                Language = dr.GetString(10).Trim()
             };
 
             return user;

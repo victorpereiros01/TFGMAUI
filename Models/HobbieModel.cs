@@ -2,18 +2,26 @@
 
 namespace TFGMaui.Models
 {
-    internal class Page
+    internal class PageM
     {
         public int PageC { get; set; }
-        public List<MovieModel> Results { get; set; }
         public int Total_pages { get; set; }
         public int Total_results { get; set; }
+        public List<MovieModel> Results { get; set; }
     }
 
     internal class PageAM
     {
         public Pagination Pagination { get; set; }
         public List<AnimeModel> Data { get; set; }
+    }
+
+    internal class PageB
+    {
+        public string Kind { get; set; }
+        public int PageNumber { get; set; }
+        public int TotalItems { get; set; }
+        public List<BookModel> Items { get; set; }
     }
 
     internal class Pagination
@@ -33,7 +41,9 @@ namespace TFGMaui.Models
     internal class Items
     {
         public int Count { get; set; }
+
         public int Total { get; set; }
+
         [JsonProperty("per_page")]
         public int PerPage { get; set; }
     }

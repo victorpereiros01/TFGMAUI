@@ -10,7 +10,7 @@ using TFGMaui.Services;
 using TFGMaui.Utils;
 using TFGMaui.ViewModels.Mopup;
 using TFGMaui.Views.Mopups;
-using Page = TFGMaui.Models.Page;
+using PageM = TFGMaui.Models.PageM;
 
 namespace TFGMaui.ViewModels
 {
@@ -29,12 +29,12 @@ namespace TFGMaui.ViewModels
         private MovieModel movie, movie2, movie3;
 
         [ObservableProperty]
-        private Page paginaT;
+        private PageM paginaT;
         [ObservableProperty]
-        private Page paginaPelisTop;
+        private PageM paginaPelisTop;
 
         [ObservableProperty]
-        private Page paginaAux;
+        private PageM paginaAux;
 
         private MovieMopup MovieMopup;
         private MovieMopupViewModel MovieMopupViewModel;
@@ -134,11 +134,11 @@ namespace TFGMaui.ViewModels
 
             try
             {
-                var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina);
+                var pagtrend = (PageM)await HttpService.ExecuteRequestAsync<PageM>(requestPagina);
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelementsM(pagtrend.Results, 8);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
                 }
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
@@ -168,7 +168,7 @@ namespace TFGMaui.ViewModels
                 parameters: new Dictionary<string, string> { { "query", busqueda }, { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
-            var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina); // v
+            var pagtrend = (PageM)await HttpService.ExecuteRequestAsync<PageM>(requestPagina); // v
 
             pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
@@ -189,11 +189,11 @@ namespace TFGMaui.ViewModels
 
             try
             {
-                var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina);
+                var pagtrend = (PageM)await HttpService.ExecuteRequestAsync<PageM>(requestPagina);
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelementsM(pagtrend.Results, 8);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
                 }
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 

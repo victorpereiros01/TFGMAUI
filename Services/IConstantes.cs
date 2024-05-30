@@ -2,24 +2,29 @@
 {
     interface IConstantes
     {
-        // Url base a las que se le añaden las rutas a las que accederá
-        public const string BaseMarvel = "https://gateway.marvel.com:443/v1/public";
-        public const string BaseBooks = "https://www.googleapis.com/books/v1";
-        public const string BaseAnimeManga = "https://api.jikan.moe/v4";
-
         // Conexion para SQL Server
         public const string ConnectionString = "Data Source=DESKTOP-5UTJUQ6;Initial Catalog=APIHobbies;Integrated Security=True;TrustServerCertificate=True";
+
+        // Url para libros
+        public const string BaseBooks = "https://www.googleapis.com/books/v1";
+        public const string ApiKeyBooks = "AIzaSyDrKFnqjlrj1ATuYXsclhGxaCRpyuY5OH0";
+
+        // Url para anime y manga
+        public const string BaseAnimeManga = "https://api.jikan.moe/v4";
 
         // Constantes para la api de MovieDB
         public const string BaseMovieDb = "https://api.themoviedb.org/3";
         public const string MovieDB_Bearer = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MGFmYzNlODc1NTgzMDM2YTlhOTNjMTVjMzRhYWU2ZCIsInN1YiI6IjY1ZjgxYTE2MjQyZjk0MDE2NGNjZTM2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uEBiF1avCHP0UeZaSQuvltxWLSN93rEYf9E2mO2mJz8";
         public const string MovieDB_ApiKey = "40afc3e875583036a9a93c15c34aae6d";
 
-        // Constantes para la api de marvel comics
-        public static string Ts { get; set; }
-        public const string PrivateMarvelKey = "3a49aacc1ca60cd874e846c9efe9572a7d7254be";
-        public const string PublicMarvelKey = "7a0f91017a8b64c6abced551029b78ee";
-        public static string Hash { get; set; }
-        public static string MarvelPage => $"{BaseMarvel}?ts={Ts}&apikey={PublicMarvelKey}&hash={Hash}";  // Digest md5 ts+privateKey+publicKey
+        // Constantes para los videojuegos
+        public const string BaseGames = "https://api.igdb.com/v4/games";
+
+        // Con estas tres hay que hacer una peticion POST a https://id.twitch.tv/oauth2/token y pasarle los tres parametros para obtener el bearer token
+        public const string client_id = "uq8mxxgqhe22im2goshgjzcqar9kin";
+        public const string client_secret = "dpayt5skeasu7xt9uuitz0nempqpsb";
+        public const string grant_type = "client_credentials";
+
+        // Para hacer una request hacer POST a BaseGames y pasarle como header client_id como Client-ID y el token como Authorization Bearer loquesea
     }
 }

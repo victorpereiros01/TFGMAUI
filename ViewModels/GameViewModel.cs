@@ -5,7 +5,7 @@ using TFGMaui.Models;
 using TFGMaui.Services;
 using TFGMaui.Views.Mopups;
 using static TFGMaui.Utils.SortByExtensionsUtils;
-using Page = TFGMaui.Models.Page;
+using Page = TFGMaui.Models.PageM;
 
 namespace TFGMaui.ViewModels
 {

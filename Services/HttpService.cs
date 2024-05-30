@@ -41,6 +41,11 @@ namespace TFGMaui.Services
 
             var model = JsonConvert.DeserializeObject<T>(response.Content!)!;
 
+            if (!(model.GetType() == typeof(BookModel)))
+            {
+                return model;
+            }
+
             foreach (PropertyInfo property in model.GetType().GetProperties())
             {
                 if (property.PropertyType == typeof(string) && property.GetValue(model) == null)

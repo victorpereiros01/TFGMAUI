@@ -11,5 +11,129 @@
     BackgroundImageSource="fondo.jpg"
     BindingContext="{viewmodels:BookViewModel}">
 
-    <VerticalStackLayout />
+    <AbsoluteLayout
+        HeightRequest="800"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        WidthRequest="1200">
+        <Button
+            AbsoluteLayout.LayoutBounds="1095,10"
+            BackgroundColor="Beige"
+            Command="{Binding MinimizeAppCommand}" />
+
+        <Button
+            AbsoluteLayout.LayoutBounds="1145,10"
+            BackgroundColor="Red"
+            Command="{Binding CloseAppCommand}" />
+        <Frame AbsoluteLayout.LayoutBounds="75,90,1050,650" CornerRadius="10">
+            <VerticalStackLayout>
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding HideCommand}" NumberOfTapsRequired="2" />
+                </VerticalStackLayout.GestureRecognizers>
+
+                <Button
+                    BackgroundColor="Red"
+                    Command="{Binding NavegarCommand}"
+                    CommandParameter="MainPage"
+                    FontSize="Large"
+                    HeightRequest="80"
+                    Text="Hobbyer"
+                    ToolTipProperties.Text="Go to homepage"
+                    WidthRequest="340" />
+
+                <SearchBar
+                    x:Name="tx_filtro"
+                    Margin="10"
+                    CancelButtonColor="Red"
+                    IsTextPredictionEnabled="True"
+                    SearchCommand="{Binding NavegarSearchCommand}"
+                    WidthRequest="300">
+                    <SearchBar.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            Command="{Binding GetSearchCommand}"
+                            CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
+                            EventName="TextChanged" />
+                        <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
+                    </SearchBar.Behaviors>
+                </SearchBar>
+
+                <AbsoluteLayout>
+                    <!--  Parametros del LayoutBounds: ejeX, ejeY, ancho y alto del rectangulo. Si pones 0,0 en los ejes lo situa en la esquina superior izquierda.  -->
+                    <CollectionView
+                        AbsoluteLayout.LayoutBounds="354,10"
+                        BackgroundColor="White"
+                        HeightRequest="285"
+                        IsVisible="{Binding IsSearchFocus}"
+                        ItemsSource="{Binding PaginaAux.Items}"
+                        SelectedItem="{Binding Book2}"
+                        SelectionChangedCommand="{Binding ShowBookMopupCommand}"
+                        SelectionChangedCommandParameter="{Binding Book2.Id}"
+                        SelectionMode="Single"
+                        WidthRequest="300"
+                        ZIndex="1">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:Name="aux" x:DataType="models:BookModel">
+                                <Border>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="12" />
+                                    </Border.StrokeShape>
+                                    <HorizontalStackLayout Padding="10">
+                                        <Image
+                                            HeightRequest="120"
+                                            Source="{Binding Imagen}"
+                                            WidthRequest="120" />
+                                        <Label
+                                            Margin="10,0,0,0"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding VolumeInfo.Title}"
+                                            VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Button
+                        AbsoluteLayout.LayoutBounds="340,10"
+                        HeightRequest="100"
+                        WidthRequest="320" />
+                    <Button
+                        AbsoluteLayout.LayoutBounds="0,10"
+                        HeightRequest="100"
+                        WidthRequest="320" />
+
+                    <Button
+                        AbsoluteLayout.LayoutBounds="680,10"
+                        HeightRequest="100"
+                        WidthRequest="320" />
+                    <Button
+                        AbsoluteLayout.LayoutBounds="0,140"
+                        HeightRequest="100"
+                        WidthRequest="320" />
+                    <Button
+                        AbsoluteLayout.LayoutBounds="340,140"
+                        HeightRequest="100"
+                        WidthRequest="320" />
+                    <Button
+                        AbsoluteLayout.LayoutBounds="680,140"
+                        HeightRequest="100"
+                        WidthRequest="320" />
+
+                    <Button
+                        AbsoluteLayout.LayoutBounds="0,280"
+                        HeightRequest="100"
+                        WidthRequest="320" />
+                    <Button
+                        AbsoluteLayout.LayoutBounds="340,280"
+                        HeightRequest="100"
+                        WidthRequest="320" />
+                    <Button
+                        AbsoluteLayout.LayoutBounds="680,280"
+                        HeightRequest="100"
+                        WidthRequest="320" />
+                </AbsoluteLayout>
+            </VerticalStackLayout>
+        </Frame>
+    </AbsoluteLayout>
 </ContentPage>

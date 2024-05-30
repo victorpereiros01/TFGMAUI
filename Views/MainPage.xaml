@@ -70,7 +70,7 @@
                     Grid.Row="1"
                     Grid.Column="2"
                     Grid.ColumnSpan="3"
-                    Margin="20"
+                    Margin="10,20"
                     Padding="50,15"
                     BackgroundColor="MediumPurple"
                     FontSize="Subtitle"
@@ -135,6 +135,7 @@
                                 Offset="10,10" />
                         </Button.Shadow>
                     </Button>
+
                     <Button
                         Margin="10"
                         Command="{Binding NavegarCommand}"
@@ -149,6 +150,7 @@
                                 Offset="10,10" />
                         </Button.Shadow>
                     </Button>
+
                     <Button
                         Margin="10"
                         Command="{Binding NavegarCommand}"
@@ -163,6 +165,7 @@
                                 Offset="10,10" />
                         </Button.Shadow>
                     </Button>
+
                     <Button
                         Margin="10"
                         Command="{Binding NavegarCommand}"

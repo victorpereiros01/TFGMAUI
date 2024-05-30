@@ -6,7 +6,7 @@ using System.Globalization;
 using TFGMaui.Models;
 using TFGMaui.Services;
 using TFGMaui.Utils;
-using Page = TFGMaui.Models.Page;
+using PageM = TFGMaui.Models.PageM;
 
 namespace TFGMaui.ViewModels
 {
@@ -20,7 +20,7 @@ namespace TFGMaui.ViewModels
         private string saludos;
 
         [ObservableProperty]
-        private Page paginaT;
+        private PageM paginaTrendMovSerie;
 
         [ObservableProperty]
         private PageAM paginaTopAnime, paginaTopManga;
@@ -62,7 +62,7 @@ namespace TFGMaui.ViewModels
                 headers: new Dictionary<string, string> { { "Accept", "application/json" } });
 
             var pagtrend = (PageAM)await HttpService.ExecuteRequestAsync<PageAM>(requestPagina); // v
-            pagtrend.Data = MiscellaneousUtils.GetNelementsAM(pagtrend.Data, 3);
+            pagtrend.Data = MiscellaneousUtils.GetNelements(pagtrend.Data, 3);
             foreach (var item in pagtrend.Data)
             {
                 item.Imagen = item.Images.Jpg.Image_url;
@@ -76,7 +76,7 @@ namespace TFGMaui.ViewModels
                 headers: new Dictionary<string, string> { { "Accept", "application/json" } });
 
             var pagtrend2 = (PageAM)await HttpService.ExecuteRequestAsync<PageAM>(requestPagina2); // v
-            pagtrend2.Data = MiscellaneousUtils.GetNelementsAM(pagtrend2.Data, 3);
+            pagtrend2.Data = MiscellaneousUtils.GetNelements(pagtrend2.Data, 3);
             foreach (var item in pagtrend2.Data)
             {
                 item.Imagen = item.Images.Jpg.Image_url;
@@ -99,12 +99,12 @@ namespace TFGMaui.ViewModels
 
             try
             {
-                var pagtrend = (Page)await HttpService.ExecuteRequestAsync<Page>(requestPagina);
+                var pagtrend = (PageM)await HttpService.ExecuteRequestAsync<PageM>(requestPagina);
 
-                pagtrend.Results = MiscellaneousUtils.GetNelementsM(pagtrend.Results, 6);
+                pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 6);
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
 
-                PaginaT = pagtrend;
+                PaginaTrendMovSerie = pagtrend;
             }
             catch (Exception e)
             {
@@ -128,7 +128,7 @@ namespace TFGMaui.ViewModels
             {
                 var pagseason = (PageAM)await HttpService.ExecuteRequestAsync<PageAM>(requestPagina);
 
-                pagseason.Data = MiscellaneousUtils.GetNelementsAM(pagseason.Data, 8);
+                pagseason.Data = MiscellaneousUtils.GetNelements(pagseason.Data, 8);
                 foreach (var item in pagseason.Data)
                 {
                     item.Imagen = item.Images.Jpg.Image_url;
@@ -170,7 +170,7 @@ namespace TFGMaui.ViewModels
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
                 ["UsuarioActivo"] = UsuarioActivo,
-                ["PaginaT"] = PaginaT,
+                ["PaginaT"] = PaginaTrendMovSerie,
                 ["PaginaTopAnime"] = PaginaTopAnime,
                 ["PaginaS"] = PaginaS,
                 ["PaginaTopManga"] = PaginaTopManga

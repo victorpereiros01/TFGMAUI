@@ -25,10 +25,14 @@
             Command="{Binding CloseAppCommand}" />
 
         <VerticalStackLayout
-            AbsoluteLayout.LayoutBounds="350,100,500,600"
+            AbsoluteLayout.LayoutBounds="350,75,500,650"
             HorizontalOptions="Center"
             VerticalOptions="Center">
-            <Frame CornerRadius="30" WidthRequest="500">
+            <Frame
+                BorderColor="{AppThemeBinding Light=Black,
+                                              Dark=White}"
+                CornerRadius="30"
+                WidthRequest="500">
                 <Frame.Shadow>
                     <Shadow
                         Brush="Black"
@@ -47,7 +51,7 @@
                 <Grid
                     ColumnDefinitions="*,200,200,*"
                     HorizontalOptions="Center"
-                    RowDefinitions="*,80,40,65,65,70,50,*"
+                    RowDefinitions="*,80,40,65,65,70,60,40,*"
                     VerticalOptions="Center">
                     <Label
                         Grid.Row="1"
@@ -107,6 +111,24 @@
                             ImageSource="fondo.jpg" />
                     </AbsoluteLayout>
 
+                    <HorizontalStackLayout
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Margin="10"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <CheckBox IsChecked="{Binding IsRememberMe}" VerticalOptions="Center" />
+                        <Label
+                            Text="Keep me signed in"
+                            TextColor="DarkGray"
+                            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ChangeRememberCommand}" NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+
                     <Button
                         Grid.Row="5"
                         Grid.Column="1"
@@ -118,34 +140,39 @@
                         TextColor="{Binding TxColor}"
                         WidthRequest="400" />
 
-                    <Label
-                        Grid.Row="6"
+                    <HorizontalStackLayout
+                        Grid.Row="7"
                         Grid.Column="1"
-                        HorizontalOptions="End"
-                        Text="¿Haven´t registered yet?"
-                        TextColor="DarkGray"
-                        VerticalOptions="CenterAndExpand">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
-                        </Label.GestureRecognizers>
-                    </Label>
+                        Grid.ColumnSpan="2"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Label
+                            Margin="0,0,5,0"
+                            HorizontalOptions="End"
+                            Text="¿Haven´t registered yet?"
+                            TextColor="DarkGray"
+                            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
+                            </Label.GestureRecognizers>
+                        </Label>
 
-                    <Label
-                        Grid.Row="6"
-                        Grid.Column="2"
-                        Margin="10,0"
-                        HorizontalOptions="Start"
-                        Text="Create an account"
-                        VerticalOptions="CenterAndExpand">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
-                        </Label.GestureRecognizers>
-                    </Label>
+                        <Label
+                            Margin="5,0,0,0"
+                            Text="Create an account"
+                            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
                 </Grid>
             </Frame>
 
             <Frame
                 Margin="0,10,0,0"
+                BorderColor="{AppThemeBinding Light=Black,
+                                              Dark=White}"
                 CornerRadius="30"
                 HeightRequest="120"
                 WidthRequest="500">

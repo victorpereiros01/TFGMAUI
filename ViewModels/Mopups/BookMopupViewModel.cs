@@ -11,26 +11,22 @@ namespace TFGMaui.ViewModels.Mopup
     public partial class BookMopupViewModel : ObservableObject
     {
         [ObservableProperty]
-        private MovieModel movie;
+        private BookModel book;
 
         private int UserId;
 
         [ObservableProperty]
         private bool isVisibleEditor;
 
-        [ObservableProperty]
-        private string lang;
-
         public BookMopupViewModel()
         {
             IsVisibleEditor = false;
         }
 
-        public void SendHobbieById(string id, int userId, string lang)
+        public void SendHobbieById(string id, int userId)
         {
             UserId = userId;
-            Lang = lang;
-            Movie = new()
+            Book = new()
             {
                 Id = id
             };
@@ -56,20 +52,25 @@ namespace TFGMaui.ViewModels.Mopup
         /// <returns></returns>
         public async Task GetMovieDetails()
         {
-            var requestPelicula = new HttpRequestModel(url: IConstantes.BaseMovieDb,
-                endpoint: $"movie/{Movie.Id}",
-                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", Lang.Trim() } },
-                headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
+            var requestPelicula = new HttpRequestModel(url: IConstantes.BaseBooks,
+                endpoint: $"volumes/{Book.Id}",
+                parameters: new Dictionary<string, string> { { "key", IConstantes.ApiKeyBooks } },
+                headers: new Dictionary<string, string> { { "Accept", "application/json" } });
 
-            var m = (MovieModel)await HttpService.ExecuteRequestAsync<MovieModel>(requestPelicula); // v
-            m.Imagen = "https://image.tmdb.org/t/p/original" + m.Imagen;
-            Movie = m;
+            var m = (BookModel)await HttpService.ExecuteRequestAsync<BookModel>(requestPelicula); // v
+
+            if (m.VolumeInfo.ImageLinks is not null && m.VolumeInfo.ImageLinks.Thumbnail is not null)
+            {
+                m.Imagen = m.VolumeInfo.ImageLinks.Thumbnail;
+            }
+
+            Book = m;
         }
 
         [RelayCommand]
         public async Task AddHobbie(string type)
         {
-            if (new HobbieRepository().AddHobbie(type, UserId, Movie.GetType().ToString(), Movie.Id))
+            if (new HobbieRepository().AddHobbie(type, UserId, Book.GetType().ToString(), Book.Id))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie añadido satisfactoriamente", "Aceptar");
             }
@@ -78,7 +79,7 @@ namespace TFGMaui.ViewModels.Mopup
         [RelayCommand]
         public async Task RemoveHobbie(string type)
         {
-            if (new HobbieRepository().RemoveHobbie(type, UserId, Movie.GetType().ToString(), Movie.Id))
+            if (new HobbieRepository().RemoveHobbie(type, UserId, Book.GetType().ToString(), Book.Id))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie borrado satisfactoriamente", "Aceptar");
             }

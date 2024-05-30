@@ -44,21 +44,9 @@ namespace TFGMaui.Utils
                 : ConvertFromSystemDrawingColor(System.Drawing.Color.White);
         }
 
-        public static List<AnimeModel> GetNelementsAM(List<AnimeModel> results, int v)
+        public static List<T> GetNelements<T>(List<T> results, int v)
         {
-            List<AnimeModel> list = [];
-
-            for (int i = 0; i < v; i++)
-            {
-                list.Add(results[i]);
-            }
-
-            return list;
-        }
-
-        internal static List<MovieModel> GetNelementsM(List<MovieModel> results, int v)
-        {
-            List<MovieModel> list = [];
+            List<T> list = [];
 
             for (int i = 0; i < v; i++)
             {

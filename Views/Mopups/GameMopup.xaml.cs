@@ -6,9 +6,9 @@ namespace TFGMaui.Views.Mopups;
 
 public partial class GameMopup : PopupPage
 {
-    public GameMopup(MovieMopupViewModel movieMopupViewModel)
+    public GameMopup(GameMopupViewModel gameMopupViewModel)
     {
         InitializeComponent();
-        BindingContext = movieMopupViewModel;
+        BindingContext = gameMopupViewModel;
     }
 }

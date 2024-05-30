@@ -9,6 +9,7 @@ using Windows.UI.ViewManagement;
 namespace TFGMaui.ViewModels
 {
     [QueryProperty("UsuarioActivo", "UsuarioActivo")]
+    [QueryProperty("IsRememberMe", "IsRememberMe")]
     internal partial class LoginViewModel : ObservableObject
     {
         [ObservableProperty]

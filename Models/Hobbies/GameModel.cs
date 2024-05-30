@@ -1,12 +1,14 @@
-﻿namespace TFGMaui.Models
+﻿using Newtonsoft.Json;
+
+namespace TFGMaui.Models
 {
     public class GameModel : HobbieModel
     {
-        public int Id { get; set; } //
+        public string Id { get; set; } //
 
         public List<int> AgeRatings { get; set; }   //
 
-        public double Aggregated_Rating { get; set; }   //
+        public double AggregatedRating { get; set; }   //
 
         public double Rating { get; set; }  //
 
@@ -49,5 +51,28 @@
         public List<int> Collections { get; set; }      //
 
         public List<int> Artworks { get; set; } //
+    }
+
+    public class BearerModel
+    {
+        [JsonProperty("expires_in")]
+        public int ExpiresIn { get; set; }
+
+        [JsonProperty("access_token")]
+        public string AccessToken { get; set; }
+
+        [JsonProperty("token_type")]
+        public string TokenType { get; set; }
+    }
+
+    public class CoverModel
+    {
+        public int Id { get; set; }
+
+        public int Height { get; set; }
+
+        public int Width { get; set; }
+
+        public string Url { get; set; }
     }
 }

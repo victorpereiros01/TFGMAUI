@@ -16,10 +16,16 @@ namespace TFGMaui.Services
         /// <exception cref="Exception"></exception>
         public static async Task<object> ExecuteRequestAsync<T>(HttpRequestModel requestModel)
         {
+            RestResponse response = null;
+
             // Establece la pagina, la extension, los encabezados y los parametros
             var client = new RestClient(requestModel.Url);
             var request = new RestRequest(requestModel.Endpoint);
-            request.AddHeaders(requestModel.Headers);
+
+            if (requestModel.Headers is not null)
+            {
+                request.AddHeaders(requestModel.Headers);
+            }
 
             if (requestModel.Parameters is not null)
             {
@@ -31,8 +37,15 @@ namespace TFGMaui.Services
                 }
             }
 
-            // Ejecuta la request y si da error lanza una excepcion
-            var response = await client.ExecuteGetAsync(request);
+            if (requestModel.Body is not null)
+            {
+                request.AddBody(requestModel.Body);
+                response = await client.ExecutePostAsync(request);
+            }
+            else
+            {
+                response = await client.ExecuteGetAsync(request);
+            }
 
             if (!response.IsSuccessful)
             {

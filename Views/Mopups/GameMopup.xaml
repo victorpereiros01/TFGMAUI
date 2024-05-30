@@ -7,7 +7,7 @@
     xmlns:mopupsanim="clr-namespace:Mopups.Animations;assembly=Mopups"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodels="clr-namespace:TFGMaui.ViewModels.Mopup"
-    x:DataType="viewmodels:MovieMopupViewModel"
+    x:DataType="viewmodels:GameMopupViewModel"
     CloseWhenBackgroundIsClicked="False">
 
     <mopups:PopupPage.Animation>
@@ -33,17 +33,17 @@
         <HorizontalStackLayout Margin="10">
             <Label
                 HorizontalOptions="Start"
-                Text="{Binding Movie.Title}"
+                Text="{Binding Game.Name}"
                 VerticalOptions="Center" />
             <Label
                 Margin="5,0,0,0"
                 HorizontalOptions="Center"
-                Text="{Binding Movie.Vote_Average}"
+                Text="{Binding Game.Rating}"
                 VerticalOptions="Center" />
         </HorizontalStackLayout>
         <Label
             HorizontalOptions="Center"
-            Text="{Binding Movie.Homepage}"
+            Text="{Binding Game.Id}"
             VerticalOptions="Center" />
 
         <Editor
@@ -51,7 +51,7 @@
             HorizontalOptions="Start"
             IsEnabled="{Binding IsVisibleEditor}"
             IsReadOnly="True"
-            Text="{Binding Movie.OverView}"
+            Text="{Binding Game.Summary}"
             VerticalOptions="Center" />
 
         <Button
@@ -68,7 +68,7 @@
                 BackgroundColor="Red"
                 HeightRequest="150"
                 HorizontalOptions="Center"
-                Source="{Binding Movie.Imagen}"
+                Source="{Binding Game.Imagen}"
                 VerticalOptions="Center"
                 WidthRequest="100" />
 

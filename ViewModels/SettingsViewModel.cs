@@ -148,7 +148,8 @@ namespace TFGMaui.ViewModels
         {
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
-                ["UsuarioActivo"] = new UsuarioModel()
+                ["UsuarioActivo"] = new UsuarioModel(),
+                ["IsRememberMe"] = false
             });
         }
 

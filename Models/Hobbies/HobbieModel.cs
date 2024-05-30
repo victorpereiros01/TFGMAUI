@@ -24,6 +24,13 @@ namespace TFGMaui.Models
         public List<BookModel> Items { get; set; }
     }
 
+    internal class PageG
+    {
+        public int Total { get; set; }
+        public int Pages { get; set; }
+        public List<GameModel> Items { get; set; }
+    }
+
     internal class Pagination
     {
         [JsonProperty("last_visible_page")]

@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Mopups.Services;
-using System.Collections.ObjectModel;
 using TFGMaui.Models;
 using TFGMaui.Repositories;
 using TFGMaui.Services;
@@ -11,31 +10,31 @@ namespace TFGMaui.ViewModels.Mopup
     public partial class GameMopupViewModel : ObservableObject
     {
         [ObservableProperty]
-        private MovieModel movie;
+        private GameModel game;
 
         private int UserId;
 
         [ObservableProperty]
         private bool isVisibleEditor;
 
-        [ObservableProperty]
-        private string lang;
+        public string Bearer { get; set; }
 
         public GameMopupViewModel()
         {
             IsVisibleEditor = false;
         }
 
-        public void SendHobbieById(string id, int userId, string lang)
+        public void SendHobbieById(string id, int userId, string bearer)
         {
+            Bearer = bearer;
             UserId = userId;
-            Lang = lang;
-            Movie = new()
+            Game = new()
             {
                 Id = id
             };
-            _ = GetMovieDetails();
+            _ = GetGameDetails();
         }
+
 
         [RelayCommand]
         public async Task CambiarEditor()
@@ -54,22 +53,74 @@ namespace TFGMaui.ViewModels.Mopup
         /// Obtiene los detalles de la pelicula
         /// </summary>
         /// <returns></returns>
-        public async Task GetMovieDetails()
+        public async Task GetGameDetails()
         {
-            var requestPelicula = new HttpRequestModel(url: IConstantes.BaseMovieDb,
-                endpoint: $"movie/{Movie.Id}",
-                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", Lang.Trim() } },
-                headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
+            var requestPagina = new HttpRequestModel(url: IConstantes.BaseGames,
+            endpoint: $"games",
+            parameters: null,
+                headers: new Dictionary<string, string> { { "Client-ID", IConstantes.client_id }, { "Authorization", $"Bearer {Bearer}" }, { "Accept", "application/json" } },
+                body: $"""
+                fields *;
+                limit 1;
+                where id = {Game.Id};
+                """);
 
-            var m = (MovieModel)await HttpService.ExecuteRequestAsync<MovieModel>(requestPelicula); // v
-            m.Imagen = "https://image.tmdb.org/t/p/original" + m.Imagen;
-            Movie = m;
+            try
+            {
+                var listTrend = (List<GameModel>)await HttpService.ExecuteRequestAsync<List<GameModel>>(requestPagina);
+
+                var g = listTrend[0];
+                g.Imagen = await GetImage(g.Cover);
+                Game = g;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+            }
+        }
+
+
+        private async Task<string> GetImage(int cover)
+        {
+            var requestPagina = new HttpRequestModel(url: "https://api.igdb.com/v4/covers",
+                endpoint: "",
+                parameters: null,
+                headers: new Dictionary<string, string> { { "Client-ID", IConstantes.client_id }, { "Authorization", $"Bearer {Bearer}" }, { "Accept", "application/json" } },
+                body: $"""
+                fields *;
+                where id={cover};
+                """);
+
+            try
+            {
+                var images = (List<CoverModel>)await HttpService.ExecuteRequestAsync<List<CoverModel>>(requestPagina);
+
+                var split = images.First().Url.Split("/");
+                split[6] = "t_cover_big_2x";
+                var duplicado = "https:/";
+
+                for (int i = 0; i < split.Length; i++)
+                {
+                    if (i > 1)
+                    {
+                        duplicado += "/" + split[i];
+                    }
+                }
+
+                return duplicado;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+            }
+
+            return null;
         }
 
         [RelayCommand]
         public async Task AddHobbie(string type)
         {
-            if (new HobbieRepository().AddHobbie(type, UserId, Movie.GetType().ToString(), Movie.Id))
+            if (new HobbieRepository().AddHobbie(type, UserId, Game.GetType().ToString(), Game.Id))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie añadido satisfactoriamente", "Aceptar");
             }
@@ -78,7 +129,7 @@ namespace TFGMaui.ViewModels.Mopup
         [RelayCommand]
         public async Task RemoveHobbie(string type)
         {
-            if (new HobbieRepository().RemoveHobbie(type, UserId, Movie.GetType().ToString(), Movie.Id))
+            if (new HobbieRepository().RemoveHobbie(type, UserId, Game.GetType().ToString(), Game.Id))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie borrado satisfactoriamente", "Aceptar");
             }

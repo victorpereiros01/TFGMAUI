@@ -100,6 +100,7 @@
                             Opacity=".8"
                             Placeholder="Password"
                             PlaceholderColor="DimGray"
+                            ReturnCommand="{Binding LoginCommand}"
                             Text="{Binding UsuarioActivo.Password}"
                             VerticalOptions="Center"
                             WidthRequest="400" />
@@ -151,20 +152,16 @@
                             HorizontalOptions="End"
                             Text="¿Haven´t registered yet?"
                             TextColor="DarkGray"
-                            VerticalOptions="Center">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
-                            </Label.GestureRecognizers>
-                        </Label>
+                            VerticalOptions="Center" />
 
                         <Label
                             Margin="5,0,0,0"
                             Text="Create an account"
-                            VerticalOptions="Center">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
-                            </Label.GestureRecognizers>
-                        </Label>
+                            VerticalOptions="Center" />
+
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavegarCommand}" CommandParameter="RegisterPage" />
+                        </HorizontalStackLayout.GestureRecognizers>
                     </HorizontalStackLayout>
                 </Grid>
             </Frame>

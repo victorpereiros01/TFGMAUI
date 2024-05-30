@@ -2,11 +2,13 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
+using Newtonsoft.Json.Converters;
 using System.Globalization;
 using TFGMaui.Models;
 using TFGMaui.Services;
 using TFGMaui.Utils;
-using PageM = TFGMaui.Models.PageM;
+using static System.Net.WebRequestMethods;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace TFGMaui.ViewModels
 {
@@ -29,7 +31,12 @@ namespace TFGMaui.ViewModels
         private PageAM paginaS;
 
         [ObservableProperty]
+        private PageG paginaTopG, paginaTrendG;
+
+        [ObservableProperty]
         private int hobbieWidth;
+
+        public string Bearer { get; set; }
 
         /// <summary>
         /// Inicializa los saludos, con el dia en formato dia de la semana, numero y mes. Y obtiene las listas de trending y top
@@ -37,6 +44,7 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task InitializeComponents()
         {
+            GetBearerG();
             Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).ToString("dddd, d MMM", CultureInfo.InvariantCulture);
 
             var hobbieC = 0;
@@ -50,12 +58,166 @@ namespace TFGMaui.ViewModels
             HobbieWidth = 1140 / hobbieC - 20;
 
             await GetTrending("day");
-            await GetSeasonAnimes();
             await GetTopAM();
+
+            await GetTrendG();
+            await GetTopG();
+        }
+
+        private async void GetBearerG()
+        {
+            var requestPagina = new HttpRequestModel(url: "https://id.twitch.tv/oauth2/token",
+                endpoint: "",
+                parameters: new Dictionary<string, string> { { "client_id", IConstantes.client_id }, { "client_secret", IConstantes.client_secret }, { "grant_type", "client_credentials" } },
+                headers: null, body: "");
+
+            try
+            {
+                var b = (BearerModel)await HttpService.ExecuteRequestAsync<BearerModel>(requestPagina);
+                Bearer = b.AccessToken;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+            }
+        }
+
+        /// <summary>
+        /// Obtiene las peliculas trending de moviedb
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public async Task GetTrendG()
+        {
+            long start_date = new DateTimeOffset(new DateTime(2024, 1, 1)).ToUnixTimeSeconds();
+            var rand = new Random().Next(5, 30);
+
+            var requestPagina = new HttpRequestModel(url: IConstantes.BaseGames,
+                endpoint: $"games",
+                parameters: null,
+                headers: new Dictionary<string, string> { { "Client-ID", IConstantes.client_id }, { "Authorization", $"Bearer {Bearer}" }, { "Accept", "application/json" } },
+                body: $"""
+                fields id, name, first_release_date, rating, rating_count,cover;
+                sort popularity desc;
+                where first_release_date >= {start_date} & rating_count > {rand};
+                limit 8;
+                """);
+
+            try
+            {
+                var listTrend = (List<GameModel>)await HttpService.ExecuteRequestAsync<List<GameModel>>(requestPagina);
+                foreach (var item in listTrend)
+                {
+                    item.Imagen = await GetImage(item.Cover);
+                }
+
+                PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) };
+
+                PaginaTrendG = pageG;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+            }
+        }
+
+        private async Task<string> GetImage(int cover)
+        {
+            var requestPagina = new HttpRequestModel(url: "https://api.igdb.com/v4/covers",
+                endpoint: "",
+                parameters: null,
+                headers: new Dictionary<string, string> { { "Client-ID", IConstantes.client_id }, { "Authorization", $"Bearer {Bearer}" }, { "Accept", "application/json" } },
+                body: $"""
+                fields *;
+                where id={cover};
+                """);
+
+            try
+            {
+                var images = (List<CoverModel>)await HttpService.ExecuteRequestAsync<List<CoverModel>>(requestPagina);
+
+                var split = images[0].Url.Split("/");
+                split[6] = "t_cover_big_2x";
+                var duplicado = "https:/";
+
+                for (int i = 0; i < split.Length; i++)
+                {
+                    if (i > 1)
+                    {
+                        duplicado += "/" + split[i];
+                    }
+                }
+
+                return duplicado;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Obtiene las peliculas trending de moviedb
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public async Task GetTopG()
+        {
+            var requestPagina = new HttpRequestModel(url: IConstantes.BaseGames,
+                endpoint: $"games",
+                parameters: null,
+                headers: new Dictionary<string, string> { { "Client-ID", IConstantes.client_id }, { "Authorization", $"Bearer {Bearer}" }, { "Accept", "application/json" } },
+                body: """
+                fields id, cover, name, rating, rating_count;
+                sort rating desc;
+                where rating_count > 200 & rating != null & rating_count != null;
+                limit 8;
+                """);
+
+            try
+            {
+                var listTrend = (List<GameModel>)await HttpService.ExecuteRequestAsync<List<GameModel>>(requestPagina);
+                foreach (var item in listTrend)
+                {
+                    item.Imagen = await GetImage(item.Cover);
+                }
+
+                PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) };
+
+                PaginaTopG = pageG;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+            }
         }
 
         private async Task GetTopAM()
         {
+            var requestPaginas = new HttpRequestModel(url: IConstantes.BaseAnimeManga,
+                endpoint: $"seasons/now",
+                parameters: new Dictionary<string, string> { /*{ "filter", "tv" },*/ { "page", 1.ToString() } },
+                headers: new Dictionary<string, string> { { "Accept", "application/json" } });
+
+            try
+            {
+                var pagseason = (PageAM)await HttpService.ExecuteRequestAsync<PageAM>(requestPaginas);
+
+                pagseason.Data = MiscellaneousUtils.GetNelements(pagseason.Data, 8);
+                foreach (var item in pagseason.Data)
+                {
+                    item.Imagen = item.Images.Jpg.Image_url;
+                }
+
+                PaginaS = pagseason;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+            }
+
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseAnimeManga,
                 endpoint: $"top/manga",
                 parameters: null,
@@ -112,36 +274,6 @@ namespace TFGMaui.ViewModels
             }
         }
 
-        /// <summary>
-        /// Obtiene las peliculas trending de moviedb
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public async Task GetSeasonAnimes()
-        {
-            var requestPagina = new HttpRequestModel(url: IConstantes.BaseAnimeManga,
-                endpoint: $"seasons/now",
-                parameters: new Dictionary<string, string> { /*{ "filter", "tv" },*/ { "page", 1.ToString() } },
-                headers: new Dictionary<string, string> { { "Accept", "application/json" } });
-
-            try
-            {
-                var pagseason = (PageAM)await HttpService.ExecuteRequestAsync<PageAM>(requestPagina);
-
-                pagseason.Data = MiscellaneousUtils.GetNelements(pagseason.Data, 8);
-                foreach (var item in pagseason.Data)
-                {
-                    item.Imagen = item.Images.Jpg.Image_url;
-                }
-
-                PaginaS = pagseason;
-            }
-            catch (Exception e)
-            {
-                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
-            }
-        }
-
         [RelayCommand]
         public async Task MinimizeApp()
         {
@@ -174,6 +306,17 @@ namespace TFGMaui.ViewModels
                 ["PaginaTopAnime"] = PaginaTopAnime,
                 ["PaginaS"] = PaginaS,
                 ["PaginaTopManga"] = PaginaTopManga
+            });
+        }
+
+        [RelayCommand]
+        public async Task NavegarG(string pagina)
+        {
+            await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
+            {
+                ["UsuarioActivo"] = UsuarioActivo,
+                ["PaginaTopG"] = PaginaTopG,
+                ["PaginaTrendG"] = PaginaTrendG,
             });
         }
 

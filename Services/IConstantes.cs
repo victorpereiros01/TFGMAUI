@@ -18,7 +18,7 @@
         public const string MovieDB_ApiKey = "40afc3e875583036a9a93c15c34aae6d";
 
         // Constantes para los videojuegos
-        public const string BaseGames = "https://api.igdb.com/v4/games";
+        public const string BaseGames = "https://api.igdb.com/v4";
 
         // Con estas tres hay que hacer una peticion POST a https://id.twitch.tv/oauth2/token y pasarle los tres parametros para obtener el bearer token
         public const string client_id = "uq8mxxgqhe22im2goshgjzcqar9kin";

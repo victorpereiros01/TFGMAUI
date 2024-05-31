@@ -66,7 +66,7 @@
                         IsVisible="{Binding IsSearchFocus}"
                         ItemsSource="{Binding PaginaAux.Data}"
                         SelectedItem="{Binding Anime2}"
-                        SelectionChangedCommand="{Binding ShowAnimeMangaMopupCommand}"
+                        SelectionChangedCommand="{Binding ShowAnimeMopupCommand}"
                         SelectionChangedCommandParameter="{Binding Anime2.Id}"
                         SelectionMode="Single"
                         WidthRequest="300"
@@ -169,7 +169,7 @@
                             HeightRequest="162"
                             ItemsSource="{Binding PaginaS.Data}"
                             SelectedItem="{Binding Anime}"
-                            SelectionChangedCommand="{Binding ShowAnimeMangaMopupCommand}"
+                            SelectionChangedCommand="{Binding ShowAnimeMopupCommand}"
                             SelectionChangedCommandParameter="{Binding Anime.Id}"
                             SelectionMode="Single"
                             WidthRequest="860">
@@ -230,7 +230,7 @@
                             HeightRequest="162"
                             ItemsSource="{Binding PaginaTopAnime.Data}"
                             SelectedItem="{Binding Anime3}"
-                            SelectionChangedCommand="{Binding ShowAnimeMangaMopupCommand}"
+                            SelectionChangedCommand="{Binding ShowAnimeMopupCommand}"
                             SelectionChangedCommandParameter="{Binding Anime3.Id}"
                             SelectionMode="Single"
                             WidthRequest="360">
@@ -289,9 +289,9 @@
                         <CollectionView
                             HeightRequest="162"
                             ItemsSource="{Binding PaginaTopManga.Data}"
-                            SelectedItem="{Binding Anime4}"
-                            SelectionChangedCommand="{Binding ShowAnimeMangaMopupCommand}"
-                            SelectionChangedCommandParameter="{Binding Anime4.Id}"
+                            SelectedItem="{Binding Manga}"
+                            SelectionChangedCommand="{Binding ShowMangaMopupCommand}"
+                            SelectionChangedCommandParameter="{Binding Manga.Id}"
                             SelectionMode="Single"
                             WidthRequest="360">
                             <CollectionView.ItemsLayout>
@@ -303,7 +303,7 @@
                             </CollectionView.ItemsLayout>
 
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="models:MovieModel">
+                                <DataTemplate x:DataType="models:MangaModel">
                                     <Border>
                                         <Border.StrokeShape>
                                             <RoundRectangle CornerRadius="12" />

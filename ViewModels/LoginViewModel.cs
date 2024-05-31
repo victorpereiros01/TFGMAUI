@@ -5,6 +5,8 @@ using Microsoft.UI;
 using TFGMaui.Repositories;
 using TFGMaui.Utils;
 using Windows.UI.ViewManagement;
+using TFGMaui.Models;
+using TFGMaui.Services;
 
 namespace TFGMaui.ViewModels
 {
@@ -24,6 +26,9 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private bool isRememberMe;
 
+        [ObservableProperty]
+        private List<SavedHobbieModel> listFav, listSeen, listPend;
+
         public LoginViewModel()
         {
             IsPassword = true;
@@ -41,9 +46,21 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task Navegar(string pagina)
         {
+            if (pagina.Equals("MainPage"))
+            {
+                ListFav = new SavedHobbiesRepository().GetFavorites(UsuarioActivo.Id);
+
+                ListPend = new SavedHobbiesRepository().GetPending(UsuarioActivo.Id);
+
+                ListSeen = new SavedHobbiesRepository().GetSeen(UsuarioActivo.Id);
+            }
+
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
-                ["UsuarioActivo"] = UsuarioActivo
+                ["UsuarioActivo"] = UsuarioActivo,
+                ["ListFav"] = ListFav,
+                ["ListPend"] = ListPend,
+                ["ListSeen"] = ListSeen
             });
         }
 

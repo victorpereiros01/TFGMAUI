@@ -1,10 +1,13 @@
-﻿namespace TFGMaui.Models
+﻿using Newtonsoft.Json;
+
+namespace TFGMaui.Models
 {
     public class MangaModel : HobbieModel
     {
-        public int Mal_id { get; set; } // -
+        [JsonProperty("mal_id")]
+        public string Id { get; set; } // -
 
-        public new Imagen Imagen { get; set; }  // -
+        public new Imagen Images { get; set; }  // -
 
         public string Title { get; set; }   // -
 
@@ -16,8 +19,10 @@
 
         public AiredIn Aired { get; set; }  // -
 
+        [JsonIgnore]
         public int Chapters { get; set; }   // -
 
+        [JsonIgnore]
         public int Volumes { get; set; }    // -
 
         public List<Parameters> Authors { get; set; }
@@ -29,5 +34,10 @@
         public double Score { get; set; }   // -
 
         public string Synopsis { get; set; }    // -
+    }
+
+    public class MangaData
+    {
+        public MangaModel Data { get; set; }
     }
 }

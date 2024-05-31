@@ -2,6 +2,19 @@
 
 namespace TFGMaui.Models
 {
+    public class HobbieModel
+    {
+        public string Id { get; set; }
+
+        public string Title { get; set; }
+
+        public string Imagen { get; set; }
+
+        public bool IsChecked { get; set; }
+
+        public string HobbieType { get; set; }
+    }
+
     internal class PageM
     {
         public int PageC { get; set; }
@@ -18,10 +31,16 @@ namespace TFGMaui.Models
         public List<SerieModel> Results { get; set; }
     }
 
-    internal class PageAM
+    internal class PageA
     {
         public Pagination Pagination { get; set; }
         public List<AnimeModel> Data { get; set; }
+    }
+
+    internal class PageMa
+    {
+        public Pagination Pagination { get; set; }
+        public List<MangaModel> Data { get; set; }
     }
 
     internal class PageB
@@ -61,14 +80,5 @@ namespace TFGMaui.Models
 
         [JsonProperty("per_page")]
         public int PerPage { get; set; }
-    }
-
-    public class HobbieModel
-    {
-        public string Imagen { get; set; }
-
-        public bool IsChecked { get; set; }
-
-        public string NombreHobbie { get; set; }
     }
 }

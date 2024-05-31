@@ -11,30 +11,26 @@ namespace TFGMaui.ViewModels.Mopup
     public partial class MangaMopupViewModel : ObservableObject
     {
         [ObservableProperty]
-        private MovieModel movie;
+        private MangaModel manga;
 
         private int UserId;
 
         [ObservableProperty]
         private bool isVisibleEditor;
 
-        [ObservableProperty]
-        private string lang;
-
         public MangaMopupViewModel()
         {
             IsVisibleEditor = false;
         }
 
-        public void SendHobbieById(string id, int userId, string lang)
+        public void SendHobbieById(string id, int userId)
         {
             UserId = userId;
-            Lang = lang;
-            Movie = new()
+            Manga = new()
             {
                 Id = id
             };
-            _ = GetMovieDetails();
+            _ = GetMangaDetails();
         }
 
         [RelayCommand]
@@ -54,22 +50,23 @@ namespace TFGMaui.ViewModels.Mopup
         /// Obtiene los detalles de la pelicula
         /// </summary>
         /// <returns></returns>
-        public async Task GetMovieDetails()
+        public async Task GetMangaDetails()
         {
-            var requestPelicula = new HttpRequestModel(url: IConstantes.BaseMovieDb,
-                endpoint: $"movie/{Movie.Id}",
-                parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", Lang.Trim() } },
-                headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
+            var requestPelicula = new HttpRequestModel(url: IConstantes.BaseAnimeManga,
+                 endpoint: $"manga/{Manga.Id}/full",
+                 parameters: null,
+                 headers: new Dictionary<string, string> { { "Accept", "application/json" } });
 
-            var m = (MovieModel)await HttpService.ExecuteRequestAsync<MovieModel>(requestPelicula); // v
-            m.Imagen = "https://image.tmdb.org/t/p/original" + m.Imagen;
-            Movie = m;
+            var m = (MangaData)await HttpService.ExecuteRequestAsync<MangaData>(requestPelicula); // v
+            m.Data.Imagen = m.Data.Images.Jpg.Image_url;
+
+            Manga = m.Data;
         }
 
         [RelayCommand]
         public async Task AddHobbie(string type)
         {
-            if (new HobbieRepository().AddHobbie(type, UserId, Movie.GetType().ToString(), Movie.Id))
+            if (new HobbieRepository().AddHobbie(type, UserId, "Manga", new HobbieModel() { Id = Manga.Id, Imagen = Manga.Imagen, Title = Manga.Title }))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie añadido satisfactoriamente", "Aceptar");
             }
@@ -78,7 +75,7 @@ namespace TFGMaui.ViewModels.Mopup
         [RelayCommand]
         public async Task RemoveHobbie(string type)
         {
-            if (new HobbieRepository().RemoveHobbie(type, UserId, Movie.GetType().ToString(), Movie.Id))
+            if (new HobbieRepository().RemoveHobbie(type, UserId, Manga.GetType().ToString(), Manga.Id))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie borrado satisfactoriamente", "Aceptar");
             }

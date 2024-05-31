@@ -26,7 +26,8 @@ namespace TFGMaui.Models
 
         public List<int> InvolvedCompanies { get; set; }    //
 
-        public string Name { get; set; }    //
+        [JsonProperty("name")]
+        public string Title { get; set; }    //
 
         public List<int> Platforms { get; set; }    //
 

@@ -65,7 +65,7 @@ namespace TFGMaui.ViewModels.Mopup
         [RelayCommand]
         public async Task AddHobbie(string type)
         {
-            if (new HobbieRepository().AddHobbie(type, UserId, Anime.GetType().ToString(), Anime.Id))
+            if (new HobbieRepository().AddHobbie(type, UserId, "Anime", new HobbieModel() { Id = Anime.Id, Imagen = Anime.Imagen, Title = Anime.Title }))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie añadido satisfactoriamente", "Aceptar");
             }

@@ -274,7 +274,7 @@
 
                                             <Label
                                                 HorizontalOptions="Center"
-                                                Text="{Binding NombreHobbie}"
+                                                Text="{Binding HobbieType}"
                                                 TextColor="White"
                                                 VerticalOptions="Center" />
                                         </HorizontalStackLayout>

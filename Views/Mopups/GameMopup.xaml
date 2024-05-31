@@ -33,7 +33,7 @@
         <HorizontalStackLayout Margin="10">
             <Label
                 HorizontalOptions="Start"
-                Text="{Binding Game.Name}"
+                Text="{Binding Game.Title}"
                 VerticalOptions="Center" />
             <Label
                 Margin="5,0,0,0"

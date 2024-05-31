@@ -29,6 +29,7 @@
             AbsoluteLayout.LayoutBounds="1145,10"
             BackgroundColor="Red"
             Command="{Binding CloseAppCommand}" />
+
         <Frame AbsoluteLayout.LayoutBounds="10,60,1180,730" CornerRadius="10">
             <Frame.Shadow>
                 <Shadow
@@ -43,11 +44,140 @@
                 HeightRequest="730"
                 RowDefinitions="80,100,300,220"
                 WidthRequest="1180">
-                <CarouselView
+
+                <VerticalStackLayout
                     Grid.Row="0"
                     Grid.RowSpan="3"
                     Grid.Column="0"
-                    BackgroundColor="LightYellow" />
+                    Padding="10"
+                    BackgroundColor="LightYellow">
+                    <CarouselView
+                        CurrentItem="{Binding SavF}"
+                        EmptyView="Add hobbies to favorites"
+                        HorizontalOptions="Center"
+                        IndicatorView="indicator"
+                        ItemsSource="{Binding ListFav}"
+                        Loop="True"
+                        VerticalOptions="Center">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate x:Name="fav" x:DataType="models:SavedHobbieModel">
+                                <Frame
+                                    CornerRadius="10"
+                                    HeightRequest="445"
+                                    WidthRequest="350">
+                                    <VerticalStackLayout>
+                                        <Image
+                                            Aspect="AspectFill"
+                                            HeightRequest="400"
+                                            Source="{Binding Imagen}" />
+
+                                        <Label
+                                            Margin="10,0,0,0"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Title}"
+                                            VerticalOptions="Center" />
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+
+                    <IndicatorView
+                        x:Name="indicator"
+                        Margin="8"
+                        CascadeInputTransparent="True"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    Padding="0,10"
+                    BackgroundColor="LightCyan">
+                    <CollectionView
+                        EmptyView="Add hobbies to pending"
+                        HeightRequest="380"
+                        HorizontalOptions="Center"
+                        ItemsSource="{Binding ListPend}"
+                        SelectedItem="{Binding SavP}"
+                        SelectionMode="Single"
+                        VerticalOptions="Center"
+                        WidthRequest="340">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout
+                                HorizontalItemSpacing="10"
+                                Orientation="Vertical"
+                                Span="2"
+                                VerticalItemSpacing="10" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:Name="pend" x:DataType="models:SavedHobbieModel">
+                                <Frame CornerRadius="10">
+                                    <VerticalStackLayout
+                                        HeightRequest="130"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        WidthRequest="150">
+                                        <Image HeightRequest="110" Source="{Binding Imagen}" />
+
+                                        <Label
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Title}"
+                                            VerticalOptions="Center" />
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="3"
+                    BackgroundColor="LightGreen">
+                    <CarouselView
+                        CurrentItem="{Binding SavS}"
+                        EmptyView="Add hobbies to seen"
+                        HorizontalOptions="Center"
+                        IndicatorView="indicator2"
+                        ItemsSource="{Binding ListSeen}"
+                        Loop="True"
+                        VerticalOptions="Center">
+
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate x:Name="seen" x:DataType="models:SavedHobbieModel">
+                                <Frame
+                                    CornerRadius="10"
+                                    HeightRequest="270"
+                                    WidthRequest="350">
+                                    <VerticalStackLayout>
+                                        <Image
+                                            Aspect="AspectFill"
+                                            HeightRequest="250"
+                                            Source="{Binding Imagen}" />
+
+                                        <Label
+                                            Margin="10,0,0,0"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Title}"
+                                            VerticalOptions="Center" />
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+
+                    <IndicatorView
+                        x:Name="indicator2"
+                        Margin="8"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </VerticalStackLayout>
+
                 <Button
                     Grid.Row="0"
                     Grid.Column="1"
@@ -66,6 +196,7 @@
                         <PointerGestureRecognizer PointerEnteredCommand="{Binding BtnEnteredCommand}" />
                     </Button.GestureRecognizers>
                 </Button>
+
                 <Label
                     Grid.Row="1"
                     Grid.Column="2"
@@ -105,17 +236,6 @@
                     HorizontalOptions="End"
                     Text="A"
                     WidthRequest="70" />
-
-                <CarouselView
-                    Grid.Row="1"
-                    Grid.RowSpan="2"
-                    Grid.Column="1"
-                    BackgroundColor="LightCyan" />
-                <CarouselView
-                    Grid.Row="2"
-                    Grid.Column="2"
-                    Grid.ColumnSpan="3"
-                    BackgroundColor="LightGreen" />
 
                 <HorizontalStackLayout
                     Grid.Row="3"
@@ -184,4 +304,5 @@
             </Grid>
         </Frame>
     </AbsoluteLayout>
+
 </ContentPage>

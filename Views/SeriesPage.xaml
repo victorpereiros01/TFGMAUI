@@ -88,7 +88,7 @@
                                         <Label
                                             Margin="10,0,0,0"
                                             HorizontalOptions="Center"
-                                            Text="{Binding Name}"
+                                            Text="{Binding Title}"
                                             VerticalOptions="Center" />
                                     </HorizontalStackLayout>
                                 </Border>
@@ -165,7 +165,7 @@
                                             <HorizontalStackLayout>
                                                 <Label
                                                     HorizontalOptions="Center"
-                                                    Text="{Binding Name}"
+                                                    Text="{Binding Title}"
                                                     VerticalOptions="Center" />
                                             </HorizontalStackLayout>
                                         </VerticalStackLayout>
@@ -227,7 +227,7 @@
                                             <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                                 <Label
                                                     HorizontalOptions="Center"
-                                                    Text="{Binding Name}"
+                                                    Text="{Binding Title}"
                                                     VerticalOptions="Center" />
                                             </HorizontalStackLayout>
                                         </VerticalStackLayout>

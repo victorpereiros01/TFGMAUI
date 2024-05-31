@@ -21,19 +21,28 @@ namespace TFGMaui.ViewModels
         private UsuarioModel usuarioActivo;
 
         [ObservableProperty]
-        private PageAM paginaS;
+        private PageA paginaS;
 
         [ObservableProperty]
-        private PageAM paginaTopAnime, paginaTopManga;
+        private PageA paginaTopAnime;
 
         [ObservableProperty]
-        private PageAM paginaAux;
+        private PageMa paginaTopManga;
 
         [ObservableProperty]
-        private AnimeModel anime, anime2, anime3, anime4;
+        private PageA paginaAux;
+
+        [ObservableProperty]
+        private AnimeModel anime, anime2, anime3;
+
+        [ObservableProperty]
+        private MangaModel manga;
 
         private AnimeMopup AnimeMopup;
         private AnimeMopupViewModel AnimeMopupViewModel;
+
+        private MangaMopup MangaMopup;
+        private MangaMopupViewModel MangaMopupViewModel;
 
         [ObservableProperty]
         private bool isSearchFocus;
@@ -48,11 +57,14 @@ namespace TFGMaui.ViewModels
             Anime = new();
             Anime2 = new();
             Anime3 = new();
-            Anime4 = new();
+            Manga = new();
 
             // Inicializa lo requerido para el mopup
-            AnimeMopupViewModel = new AnimeMopupViewModel();
+            AnimeMopupViewModel = new();
             AnimeMopup = new AnimeMopup(AnimeMopupViewModel);
+
+            MangaMopupViewModel = new();
+            MangaMopup = new(MangaMopupViewModel);
         }
 
         /// <summary>
@@ -60,10 +72,22 @@ namespace TFGMaui.ViewModels
         /// </summary>
         /// <param name="id">Id de la pelicula seleccionada</param>
         [RelayCommand]
-        public async Task ShowAnimeMangaMopup(string id)
+        public async Task ShowAnimeMopup(string id)
         {
             AnimeMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
             await MopupService.Instance.PushAsync(AnimeMopup);
+            //await Hide();
+        }
+
+        /// <summary>
+        /// Abre el mopup
+        /// </summary>
+        /// <param name="id">Id de la pelicula seleccionada</param>
+        [RelayCommand]
+        public async Task ShowMangaMopup(string id)
+        {
+            MangaMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
+            await MopupService.Instance.PushAsync(MangaMopup);
             //await Hide();
         }
 
@@ -85,7 +109,7 @@ namespace TFGMaui.ViewModels
                 parameters: new Dictionary<string, string> { { "q", busqueda } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" } });
 
-            var pagtrend = (PageAM)await HttpService.ExecuteRequestAsync<PageAM>(requestPagina); // v
+            var pagtrend = (PageA)await HttpService.ExecuteRequestAsync<PageA>(requestPagina); // v
             foreach (var item in pagtrend.Data)
             {
                 item.Imagen = item.Images.Jpg.Image_url;

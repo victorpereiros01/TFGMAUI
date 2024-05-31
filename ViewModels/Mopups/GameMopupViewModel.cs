@@ -79,7 +79,6 @@ namespace TFGMaui.ViewModels.Mopup
             }
         }
 
-
         private async Task<string> GetImage(int cover)
         {
             var requestPagina = new HttpRequestModel(url: "https://api.igdb.com/v4/covers",
@@ -120,7 +119,7 @@ namespace TFGMaui.ViewModels.Mopup
         [RelayCommand]
         public async Task AddHobbie(string type)
         {
-            if (new HobbieRepository().AddHobbie(type, UserId, Game.GetType().ToString(), Game.Id))
+            if (new HobbieRepository().AddHobbie(type, UserId, "Game", new HobbieModel() { Id = Game.Id, Imagen = Game.Imagen, Title = Game.Title }))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie añadido satisfactoriamente", "Aceptar");
             }

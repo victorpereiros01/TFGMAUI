@@ -4,12 +4,16 @@ using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using System.Globalization;
 using TFGMaui.Models;
+using TFGMaui.Repositories;
 using TFGMaui.Services;
 using TFGMaui.Utils;
 
 namespace TFGMaui.ViewModels
 {
     [QueryProperty("UsuarioActivo", "UsuarioActivo")]
+    [QueryProperty("ListFav", "ListFav")]
+    [QueryProperty("ListSeen", "ListSeen")]
+    [QueryProperty("ListPend", "ListPend")]
     internal partial class MainViewModel : ObservableObject
     {
         [ObservableProperty]
@@ -22,13 +26,22 @@ namespace TFGMaui.ViewModels
         private PageM paginaTrendMovSerie;
 
         [ObservableProperty]
-        private PageAM paginaTopAnime, paginaTopManga;
+        private PageA paginaTopAnime;
 
         [ObservableProperty]
-        private PageAM paginaS;
+        private PageMa paginaTopManga;
+
+        [ObservableProperty]
+        private PageA paginaS;
 
         [ObservableProperty]
         private PageG paginaTopG, paginaTrendG;
+
+        [ObservableProperty]
+        private List<SavedHobbieModel> listFav, listSeen, listPend;
+
+        [ObservableProperty]
+        private SavedHobbieModel savF, savP, savS;
 
         [ObservableProperty]
         private int hobbieWidth;
@@ -41,7 +54,7 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task InitializeComponents()
         {
-            GetBearerG();
+            Bearer = await GetBearerG();
             Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).ToString("dddd, d MMM", CultureInfo.InvariantCulture);
 
             var hobbieC = 0;
@@ -54,6 +67,10 @@ namespace TFGMaui.ViewModels
             }
             HobbieWidth = 1140 / hobbieC - 20;
 
+            SavF = new();
+            SavP = new();
+            SavS = new();
+
             await GetTrending("day");
             await GetTopAM();
 
@@ -61,7 +78,7 @@ namespace TFGMaui.ViewModels
             await GetTopG();
         }
 
-        private async void GetBearerG()
+        private async Task<string> GetBearerG()
         {
             var requestPagina = new HttpRequestModel(url: "https://id.twitch.tv/oauth2/token",
                 endpoint: "",
@@ -71,12 +88,14 @@ namespace TFGMaui.ViewModels
             try
             {
                 var b = (BearerModel)await HttpService.ExecuteRequestAsync<BearerModel>(requestPagina);
-                Bearer = b.AccessToken;
+                return b.AccessToken;
             }
             catch (Exception e)
             {
                 await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
             }
+
+            return null;
         }
 
         /// <summary>
@@ -200,7 +219,7 @@ namespace TFGMaui.ViewModels
 
             try
             {
-                var pagseason = (PageAM)await HttpService.ExecuteRequestAsync<PageAM>(requestPaginas);
+                var pagseason = (PageA)await HttpService.ExecuteRequestAsync<PageA>(requestPaginas);
 
                 pagseason.Data = MiscellaneousUtils.GetNelements(pagseason.Data, 8);
                 foreach (var item in pagseason.Data)
@@ -220,7 +239,7 @@ namespace TFGMaui.ViewModels
                 parameters: null,
                 headers: new Dictionary<string, string> { { "Accept", "application/json" } });
 
-            var pagtrend = (PageAM)await HttpService.ExecuteRequestAsync<PageAM>(requestPagina); // v
+            var pagtrend = (PageMa)await HttpService.ExecuteRequestAsync<PageMa>(requestPagina); // v
             pagtrend.Data = MiscellaneousUtils.GetNelements(pagtrend.Data, 3);
             foreach (var item in pagtrend.Data)
             {
@@ -234,7 +253,7 @@ namespace TFGMaui.ViewModels
                 parameters: null,
                 headers: new Dictionary<string, string> { { "Accept", "application/json" } });
 
-            var pagtrend2 = (PageAM)await HttpService.ExecuteRequestAsync<PageAM>(requestPagina2); // v
+            var pagtrend2 = (PageA)await HttpService.ExecuteRequestAsync<PageA>(requestPagina2); // v
             pagtrend2.Data = MiscellaneousUtils.GetNelements(pagtrend2.Data, 3);
             foreach (var item in pagtrend2.Data)
             {

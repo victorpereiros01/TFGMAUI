@@ -1,6 +1,6 @@
 ﻿namespace TFGMaui.ViewModels
 {
-    internal class UsuarioModel
+    public class UsuarioModel
     {
         public int Id { get; set; }
 

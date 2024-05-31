@@ -33,7 +33,7 @@
         <HorizontalStackLayout Margin="10">
             <Label
                 HorizontalOptions="Start"
-                Text="{Binding Serie.Name}"
+                Text="{Binding Serie.Title}"
                 VerticalOptions="Center" />
             <Label
                 Margin="5,0,0,0"

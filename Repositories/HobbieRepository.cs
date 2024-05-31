@@ -17,7 +17,7 @@ namespace TFGMaui.Repositories
         /// <param name="hobbieType">Tipo de hobbie</param>
         /// <param name="value">Valor del id del hobbie</param>
         /// <returns></returns>
-        public bool AddHobbie(string addType, int idUser, string hobbieType, string value)
+        public bool AddHobbie(string addType, int idUser, string type, HobbieModel h)
         {
             var letra = addType.ToArray()[0];
 
@@ -26,9 +26,11 @@ namespace TFGMaui.Repositories
             AddCmdParameters(
                 new()
                 {
-                    { "@HobbieType", hobbieType },
-                    { "@Value", value },
-                    { "@IdUser", idUser }
+                    { "@HobbieType", type },
+                    { "@Value", h.Id },
+                    { "@IdUser", idUser },
+                    { "@Imagen", h.Imagen },
+                    { "@Title", h.Title }
                 }
             );
 
@@ -40,7 +42,7 @@ namespace TFGMaui.Repositories
             }
 
             // Segunda query
-            SetCmdQuery($"INSERT into {addType}Hobbies(HobbieType, Value, IdUser{letra}) VALUES(@HobbieType, @Value, @IdUser)");
+            SetCmdQuery($"INSERT into {addType}Hobbies(HobbieType, Value, IdUser{letra}, Imagen, Title) VALUES(@HobbieType, @Value, @IdUser, @Imagen, @Title)");
 
             Oconexion.Close();
             Oconexion.Open();

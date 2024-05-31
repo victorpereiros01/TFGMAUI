@@ -82,10 +82,10 @@ namespace TFGMaui.ViewModels
         {
             Items =
             [
-                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[0], NombreHobbie = "Cinema" },
-                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[1], NombreHobbie = "Manganime" },
-                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[2], NombreHobbie = "Games" },
-                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[3], NombreHobbie = "Books & comics" }
+                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[0], HobbieType = "Cinema" },
+                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[1], HobbieType = "Manganime" },
+                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[2], HobbieType = "Games" },
+                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[3], HobbieType = "Books & comics" }
             ];
 
             Avatar = UsuarioActivo.Avatar;

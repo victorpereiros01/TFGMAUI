@@ -22,7 +22,8 @@ namespace TFGMaui.Models
 
         public bool InProduction { get; set; }
 
-        public string Name { get; set; }
+        [JsonProperty("name")]
+        public string Title { get; set; }
 
         public List<string> OriginCountry { get; set; }
 

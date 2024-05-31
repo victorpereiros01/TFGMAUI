@@ -2,13 +2,10 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
-using Newtonsoft.Json.Converters;
 using System.Globalization;
 using TFGMaui.Models;
 using TFGMaui.Services;
 using TFGMaui.Utils;
-using static System.Net.WebRequestMethods;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace TFGMaui.ViewModels
 {

@@ -11,7 +11,7 @@ namespace TFGMaui.ViewModels.Mopup
     public partial class SerieMopupViewModel : ObservableObject
     {
         [ObservableProperty]
-        private MovieModel movie;
+        private SerieModel serie;
 
         private int UserId;
 
@@ -30,7 +30,7 @@ namespace TFGMaui.ViewModels.Mopup
         {
             UserId = userId;
             Lang = lang;
-            Movie = new()
+            Serie = new()
             {
                 Id = id
             };
@@ -57,19 +57,19 @@ namespace TFGMaui.ViewModels.Mopup
         public async Task GetMovieDetails()
         {
             var requestPelicula = new HttpRequestModel(url: IConstantes.BaseMovieDb,
-                endpoint: $"movie/{Movie.Id}",
+                endpoint: $"tv/{Serie.Id}",
                 parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", Lang.Trim() } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
 
-            var m = (MovieModel)await HttpService.ExecuteRequestAsync<MovieModel>(requestPelicula); // v
+            var m = (SerieModel)await HttpService.ExecuteRequestAsync<SerieModel>(requestPelicula); // v
             m.Imagen = "https://image.tmdb.org/t/p/original" + m.Imagen;
-            Movie = m;
+            Serie = m;
         }
 
         [RelayCommand]
         public async Task AddHobbie(string type)
         {
-            if (new HobbieRepository().AddHobbie(type, UserId, Movie.GetType().ToString(), Movie.Id))
+            if (new HobbieRepository().AddHobbie(type, UserId, Serie.GetType().ToString(), Serie.Id))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie añadido satisfactoriamente", "Aceptar");
             }
@@ -78,7 +78,7 @@ namespace TFGMaui.ViewModels.Mopup
         [RelayCommand]
         public async Task RemoveHobbie(string type)
         {
-            if (new HobbieRepository().RemoveHobbie(type, UserId, Movie.GetType().ToString(), Movie.Id))
+            if (new HobbieRepository().RemoveHobbie(type, UserId, Serie.GetType().ToString(), Serie.Id))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie borrado satisfactoriamente", "Aceptar");
             }

@@ -7,9 +7,9 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodels="clr-namespace:TFGMaui.ViewModels"
     x:Name="mdb_page"
-    x:DataType="viewmodels:MoviesViewModel"
+    x:DataType="viewmodels:MovieViewModel"
     BackgroundImageSource="fondo.jpg"
-    BindingContext="{viewmodels:MoviesViewModel}">
+    BindingContext="{viewmodels:MovieViewModel}">
 
     <AbsoluteLayout
         HeightRequest="800"

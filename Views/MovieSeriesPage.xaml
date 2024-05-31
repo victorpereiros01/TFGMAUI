@@ -7,9 +7,9 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodels="clr-namespace:TFGMaui.ViewModels"
     x:Name="mdb_page"
-    x:DataType="viewmodels:MovieSeriesViewModel"
+    x:DataType="viewmodels:MovieSerieViewModel"
     BackgroundImageSource="fondo.jpg"
-    BindingContext="{viewmodels:MovieSeriesViewModel}">
+    BindingContext="{viewmodels:MovieSerieViewModel}">
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding InitializeComponentsCommand}" EventName="Loaded" />
@@ -64,7 +64,7 @@
                     </Button>
                     <Button
                         Margin="50,0,0,0"
-                        Command="{Binding NavegarCommand}"
+                        Command="{Binding NavegarSCommand}"
                         CommandParameter="SeriesPage"
                         HeightRequest="150"
                         HorizontalOptions="Center"

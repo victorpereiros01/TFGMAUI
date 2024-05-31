@@ -10,6 +10,14 @@ namespace TFGMaui.Models
         public List<MovieModel> Results { get; set; }
     }
 
+    internal class PageS
+    {
+        public int PageC { get; set; }
+        public int Total_pages { get; set; }
+        public int Total_results { get; set; }
+        public List<SerieModel> Results { get; set; }
+    }
+
     internal class PageAM
     {
         public Pagination Pagination { get; set; }

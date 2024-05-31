@@ -355,12 +355,8 @@
                 VerticalOptions="Center" />
             <Switch
                 Margin="0,0,-110,0"
-                HorizontalOptions="Center"
                 IsEnabled="False"
-                IsToggled="{Binding Adulto}"
-                OnColor="DimGrey"
-                ThumbColor="Red"
-                VerticalOptions="Center" />
+                IsToggled="{Binding Adulto}" />
             <Button
                 Command="{Binding EnableParentalModeCommand}"
                 HorizontalOptions="Center"

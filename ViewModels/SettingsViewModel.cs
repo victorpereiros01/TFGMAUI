@@ -1,15 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using System.Data;
-using Azure;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.Data.SqlClient;
-using Mopups.PreBaked.PopupPages.SingleResponse;
-using Mopups.PreBaked.Services;
-using RestSharp;
 using TFGMaui.Models;
 using TFGMaui.Repositories;
-using TFGMaui.Services;
 using TFGMaui.Utils;
 
 namespace TFGMaui.ViewModels

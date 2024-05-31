@@ -42,6 +42,9 @@ namespace TFGMaui.Models
         public List<WatchProvider> FilmProviders { get; set; }  // plataformas
 
         public Credits FilmCredits { get; set; }    // actores
+
+        [JsonProperty("media_type")]
+        public string MediaType { get; set; }
     }
 
     public class GenreM

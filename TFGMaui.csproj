@@ -97,8 +97,8 @@
 		<Compile Update="Views\Mopups\GameMopup.xaml.cs">
 			<DependentUpon>GameMopup.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="Views\Mopups\SeriePopup.xaml.cs">
-			<DependentUpon>SeriePopup.xaml</DependentUpon>
+		<Compile Update="Views\Mopups\SerieMopup.xaml.cs">
+			<DependentUpon>SerieMopup.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="Views\MoviesPage.xaml.cs">
 			<DependentUpon>MoviesPage.xaml</DependentUpon>
@@ -127,7 +127,7 @@
 		<MauiXaml Update="Views\Mopups\GameMopup.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="Views\Mopups\SeriePopup.xaml">
+		<MauiXaml Update="Views\Mopups\SerieMopup.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="Views\MoviesPage.xaml">

@@ -5,9 +5,9 @@ namespace TFGMaui.Views.Mopups;
 
 public partial class SerieMopup : PopupPage
 {
-    public SerieMopup(MovieMopupViewModel movieMopupViewModel)
+    public SerieMopup(SerieMopupViewModel serieMopupViewModel)
     {
         InitializeComponent();
-        BindingContext = movieMopupViewModel;
+        BindingContext = serieMopupViewModel;
     }
 }

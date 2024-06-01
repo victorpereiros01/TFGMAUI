@@ -88,9 +88,24 @@ namespace TFGMaui.ViewModels
 
             foreach (var item in pagtrend.Items)
             {
-                if (item.VolumeInfo.ImageLinks is not null && item.VolumeInfo.ImageLinks.Thumbnail is not null)
+                if (item.VolumeInfo.ImageLinks is not null)
                 {
-                    item.Imagen = item.VolumeInfo.ImageLinks.Thumbnail;
+                    if (item.VolumeInfo.ImageLinks.Large is not null)
+                    {
+                        item.Imagen = item.VolumeInfo.ImageLinks.Large;
+                    }
+                    else if (item.VolumeInfo.ImageLinks.Medium is not null)
+                    {
+                        item.Imagen = item.VolumeInfo.ImageLinks.Medium;
+                    }
+                    else if (item.VolumeInfo.ImageLinks.Small is not null)
+                    {
+                        item.Imagen = item.VolumeInfo.ImageLinks.Small;
+                    }
+                    else if (item.VolumeInfo.ImageLinks.Thumbnail is not null)
+                    {
+                        item.Imagen = item.VolumeInfo.ImageLinks.Thumbnail;
+                    }
                 }
             }
 

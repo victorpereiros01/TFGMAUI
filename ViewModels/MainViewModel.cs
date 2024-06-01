@@ -12,8 +12,8 @@ namespace TFGMaui.ViewModels
 {
     [QueryProperty("UsuarioActivo", "UsuarioActivo")]
     [QueryProperty("ListFav", "ListFav")]
-    [QueryProperty("ListSeen", "ListSeen")]
-    [QueryProperty("ListPend", "ListPend")]
+    //[QueryProperty("ListSeen", "ListSeen")]
+    //[QueryProperty("ListPend", "ListPend")]
     internal partial class MainViewModel : ObservableObject
     {
         [ObservableProperty]
@@ -54,6 +54,12 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task InitializeComponents()
         {
+            ListFav = new SavedHobbiesRepository().GetFavorites(UsuarioActivo.Id);
+
+            ListPend = new SavedHobbiesRepository().GetPending(UsuarioActivo.Id);
+
+            ListSeen = new SavedHobbiesRepository().GetSeen(UsuarioActivo.Id);
+
             Bearer = await GetBearerG();
             Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).ToString("dddd, d MMM", CultureInfo.InvariantCulture);
 

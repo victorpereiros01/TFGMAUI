@@ -59,9 +59,24 @@ namespace TFGMaui.ViewModels.Mopup
 
             var m = (BookModel)await HttpService.ExecuteRequestAsync<BookModel>(requestPelicula); // v
 
-            if (m.VolumeInfo.ImageLinks is not null && m.VolumeInfo.ImageLinks.Thumbnail is not null)
+            if (m.VolumeInfo.ImageLinks is not null)
             {
-                m.Imagen = m.VolumeInfo.ImageLinks.Thumbnail;
+                if (m.VolumeInfo.ImageLinks.Large is not null)
+                {
+                    m.Imagen = m.VolumeInfo.ImageLinks.Large;
+                }
+                else if (m.VolumeInfo.ImageLinks.Medium is not null)
+                {
+                    m.Imagen = m.VolumeInfo.ImageLinks.Medium;
+                }
+                else if (m.VolumeInfo.ImageLinks.Small is not null)
+                {
+                    m.Imagen = m.VolumeInfo.ImageLinks.Small;
+                }
+                else if (m.VolumeInfo.ImageLinks.Thumbnail is not null)
+                {
+                    m.Imagen = m.VolumeInfo.ImageLinks.Thumbnail;
+                }
             }
 
             Book = m;

@@ -41,6 +41,12 @@ namespace TFGMaui.Models
 
     public class ImageLinks
     {
-        public string Thumbnail;
+        public string Large { get; set; }
+
+        public string Medium { get; set; }
+
+        public string Small { get; set; }
+
+        public string Thumbnail { get; set; }
     }
 }

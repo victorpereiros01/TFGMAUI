@@ -1,14 +1,12 @@
-﻿namespace TFGMaui.Models
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace TFGMaui.Models
 {
     public class SavedHobbieModel
     {
-        public int IdAdded { get; set; }
-
         public string HobbieType { get; set; }
 
         public string Value { get; set; }
-
-        public int IdUser { get; set; }
 
         public string Imagen { get; set; }
 

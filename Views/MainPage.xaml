@@ -49,8 +49,7 @@
                     Grid.Row="0"
                     Grid.RowSpan="3"
                     Grid.Column="0"
-                    Padding="10"
-                    BackgroundColor="LightYellow">
+                    Padding="10">
                     <CarouselView
                         CurrentItem="{Binding SavF}"
                         EmptyView="Add hobbies to favorites"
@@ -58,22 +57,25 @@
                         IndicatorView="indicator"
                         ItemsSource="{Binding ListFav}"
                         Loop="True"
-                        VerticalOptions="Center">
+                        VerticalOptions="Center"
+                        WidthRequest="380">
                         <CarouselView.ItemTemplate>
                             <DataTemplate x:Name="fav" x:DataType="models:SavedHobbieModel">
                                 <Frame
+                                    BackgroundColor="White"
                                     CornerRadius="10"
                                     HeightRequest="445"
-                                    WidthRequest="350">
+                                    WidthRequest="380">
                                     <VerticalStackLayout>
                                         <Image
                                             Aspect="AspectFill"
-                                            HeightRequest="400"
+                                            HeightRequest="360"
                                             Source="{Binding Imagen}" />
 
                                         <Label
-                                            Margin="10,0,0,0"
+                                            Margin="0,4,0,0"
                                             HorizontalOptions="Center"
+                                            HorizontalTextAlignment="Center"
                                             Text="{Binding Title}"
                                             VerticalOptions="Center" />
                                     </VerticalStackLayout>
@@ -95,7 +97,7 @@
                     Grid.RowSpan="2"
                     Grid.Column="1"
                     Padding="0,10"
-                    BackgroundColor="LightCyan">
+                    BackgroundColor="White">
                     <CollectionView
                         EmptyView="Add hobbies to pending"
                         HeightRequest="380"
@@ -120,8 +122,11 @@
                                         HeightRequest="130"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center"
-                                        WidthRequest="150">
-                                        <Image HeightRequest="110" Source="{Binding Imagen}" />
+                                        WidthRequest="140">
+                                        <Image
+                                            Aspect="AspectFill"
+                                            HeightRequest="110"
+                                            Source="{Binding Imagen}" />
 
                                         <Label
                                             HorizontalOptions="Center"
@@ -138,11 +143,13 @@
                     Grid.Row="2"
                     Grid.Column="2"
                     Grid.ColumnSpan="3"
-                    BackgroundColor="LightGreen">
+                    BackgroundColor="White"
+                    HorizontalOptions="Start"
+                    ZIndex="1">
                     <CarouselView
                         CurrentItem="{Binding SavS}"
                         EmptyView="Add hobbies to seen"
-                        HorizontalOptions="Center"
+                        HorizontalOptions="Start"
                         IndicatorView="indicator2"
                         ItemsSource="{Binding ListSeen}"
                         Loop="True"
@@ -153,15 +160,16 @@
                                 <Frame
                                     CornerRadius="10"
                                     HeightRequest="270"
-                                    WidthRequest="350">
+                                    HorizontalOptions="Start"
+                                    WidthRequest="360">
                                     <VerticalStackLayout>
                                         <Image
                                             Aspect="AspectFill"
-                                            HeightRequest="250"
+                                            HeightRequest="210"
                                             Source="{Binding Imagen}" />
 
                                         <Label
-                                            Margin="10,0,0,0"
+                                            Margin="0,4,0,0"
                                             HorizontalOptions="Center"
                                             Text="{Binding Title}"
                                             VerticalOptions="Center" />
@@ -184,7 +192,7 @@
                     BackgroundColor="Red"
                     FontSize="Large"
                     Text="Hobbyer"
-                    ToolTipProperties.Text="Go to homepage">
+                    ToolTipProperties.Text="Homepage">
                     <!--<Button.Background>
                         <RadialGradientBrush>
                             <GradientStop Offset="0.7" Color="Black" />
@@ -196,6 +204,15 @@
                         <PointerGestureRecognizer PointerEnteredCommand="{Binding BtnEnteredCommand}" />
                     </Button.GestureRecognizers>
                 </Button>
+
+                <StackLayout
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="3"
+                    BackgroundColor="White"
+                    HorizontalOptions="Start"
+                    WidthRequest="420" />
 
                 <Label
                     Grid.Row="1"

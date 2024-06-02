@@ -133,11 +133,7 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:Name="trend" x:DataType="models:MovieModel">
-                            <Border>
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="12" />
-                                </Border.StrokeShape>
-
+                            <Frame CornerRadius="10">
                                 <VerticalStackLayout
                                     HeightRequest="250"
                                     HorizontalOptions="Center"
@@ -155,7 +151,7 @@
                                             VerticalOptions="Center" />
                                     </HorizontalStackLayout>
                                 </VerticalStackLayout>
-                            </Border>
+                            </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

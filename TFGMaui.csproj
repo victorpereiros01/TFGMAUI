@@ -63,6 +63,7 @@
 		<None Remove="Resources\Images\flor.png" />
 		<None Remove="Resources\Images\fondo.jpg" />
 		<None Remove="Resources\Images\hoja.png" />
+		<None Remove="Resources\Images\settings.png" />
 		<None Remove="Resources\Images\sol.png" />
 		<None Remove="Resources\Images\user.png" />
 	</ItemGroup>

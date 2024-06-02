@@ -55,10 +55,8 @@ namespace TFGMaui.ViewModels
         public async Task InitializeComponents()
         {
             ListFav = new SavedHobbiesRepository().GetFavorites(UsuarioActivo.Id);
-
-            ListPend = new SavedHobbiesRepository().GetPending(UsuarioActivo.Id);
-
             ListSeen = new SavedHobbiesRepository().GetSeen(UsuarioActivo.Id);
+            ListPend = new SavedHobbiesRepository().GetPending(UsuarioActivo.Id);
 
             Bearer = await GetBearerG();
             Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).ToString("dddd, d MMM", CultureInfo.InvariantCulture);
@@ -73,7 +71,7 @@ namespace TFGMaui.ViewModels
             }
             HobbieWidth = 1140 / hobbieC - 20;
 
-            SavF = new();
+            SavF = ListFav[0];
             SavP = new();
             SavS = new();
 

@@ -29,6 +29,19 @@ namespace TFGMaui.Utils
             return new Color(red, green, blue, alpha);
         }
 
+        public static Color GetColorHobbie(string hType)
+        {
+            return hType switch
+            {
+                "Movie" => ConvertFromSystemDrawingColor(System.Drawing.Color.Blue),
+                "Serie" => ConvertFromSystemDrawingColor(System.Drawing.Color.Green),
+                "Manga" => ConvertFromSystemDrawingColor(System.Drawing.Color.Red),
+                "Anime" => ConvertFromSystemDrawingColor(System.Drawing.Color.Orange),
+                "Game" => ConvertFromSystemDrawingColor(System.Drawing.Color.Purple),
+                "Book" => ConvertFromSystemDrawingColor(System.Drawing.Color.Yellow)
+            };
+        }
+
         /// <summary>
         /// Return a color that is eye-good looking with the color passed as parameter
         /// </summary>

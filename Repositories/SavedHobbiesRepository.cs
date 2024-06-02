@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
 using TFGMaui.Models;
+using TFGMaui.Utils;
 
 namespace TFGMaui.Repositories
 {
@@ -26,6 +27,7 @@ namespace TFGMaui.Repositories
                 listHobbies.Add(new SavedHobbieModel()
                 {
                     HobbieType = dr.GetString(0),
+                    Color = MiscellaneousUtils.GetColorHobbie(dr.GetString(0)),
                     Value = dr.GetString(1),
                     Imagen = dr.GetString(2),
                     Title = dr.GetString(3)
@@ -52,6 +54,7 @@ namespace TFGMaui.Repositories
                 listHobbies.Add(new SavedHobbieModel()
                 {
                     HobbieType = dr.GetString(0),
+                    Color = MiscellaneousUtils.GetColorHobbie(dr.GetString(0)),
                     Value = dr.GetString(1),
                     Imagen = dr.GetString(2),
                     Title = dr.GetString(3)
@@ -78,6 +81,7 @@ namespace TFGMaui.Repositories
                 listHobbies.Add(new SavedHobbieModel()
                 {
                     HobbieType = dr.GetString(0),
+                    Color = MiscellaneousUtils.GetColorHobbie(dr.GetString(0)),
                     Value = dr.GetString(1),
                     Imagen = dr.GetString(2),
                     Title = dr.GetString(3)

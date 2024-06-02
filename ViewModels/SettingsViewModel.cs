@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.UI;
+using Microsoft.UI.Windowing;
 using TFGMaui.Models;
 using TFGMaui.Repositories;
 using TFGMaui.Utils;
@@ -60,6 +62,28 @@ namespace TFGMaui.ViewModels
                 new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "Portuguese", Utf8= "pt"},
                 new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "Japanese", Utf8= "ja"}
             ];
+        }
+
+        [RelayCommand]
+        public async Task MinimizeApp()
+        {
+#if WINDOWS
+            var nativeWindow = App.Current.Windows.First().Handler.PlatformView;
+            IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
+
+            AppWindow appWindow = AppWindow.GetFromWindowId(Win32Interop.GetWindowIdFromWindow(windowHandle));
+
+            if (appWindow.Presenter is OverlappedPresenter p)
+            {
+                p.Minimize();
+            }
+#endif
+        }
+
+        [RelayCommand]
+        public async Task CloseApp()
+        {
+            Application.Current.Quit();
         }
 
         [RelayCommand]

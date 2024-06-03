@@ -59,12 +59,26 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Remove="Resources\Images\arrow.png" />
 		<None Remove="Resources\Images\copo.png" />
+		<None Remove="Resources\Images\english.png" />
 		<None Remove="Resources\Images\flor.png" />
 		<None Remove="Resources\Images\fondo.jpg" />
+		<None Remove="Resources\Images\german.png" />
+		<None Remove="Resources\Images\heart.png" />
 		<None Remove="Resources\Images\hoja.png" />
+		<None Remove="Resources\Images\italy.png" />
+		<None Remove="Resources\Images\japanese.png" />
+		<None Remove="Resources\Images\not_heart.png" />
+		<None Remove="Resources\Images\not_ojo.png" />
+		<None Remove="Resources\Images\not_pending.png" />
+		<None Remove="Resources\Images\ocultar.png" />
+		<None Remove="Resources\Images\ojo.png" />
+		<None Remove="Resources\Images\pending.png" />
+		<None Remove="Resources\Images\portuguese.png" />
 		<None Remove="Resources\Images\settings.png" />
 		<None Remove="Resources\Images\sol.png" />
+		<None Remove="Resources\Images\spanish.png" />
 		<None Remove="Resources\Images\user.png" />
 	</ItemGroup>
 

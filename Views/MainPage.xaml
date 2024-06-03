@@ -30,19 +30,14 @@
             BackgroundColor="Red"
             Command="{Binding CloseAppCommand}" />
 
-        <Frame AbsoluteLayout.LayoutBounds="10,60,1180,730" CornerRadius="20">
-            <Frame.Shadow>
-                <Shadow
-                    Brush="Black"
-                    Opacity=".5"
-                    Radius="12"
-                    Offset="10,10" />
-            </Frame.Shadow>
-
+        <Frame
+            AbsoluteLayout.LayoutBounds="10,60,1180,730"
+            BackgroundColor="#EEEEEE"
+            CornerRadius="20">
             <Grid
                 ColumnDefinitions="400,340,80,240,80"
                 HeightRequest="730"
-                RowDefinitions="80,100,380,140"
+                RowDefinitions="80,100,370,150"
                 WidthRequest="1180">
 
                 <VerticalStackLayout
@@ -51,23 +46,48 @@
                     Grid.Column="0"
                     Padding="10"
                     WidthRequest="380">
+                    <Frame
+                        Margin="0,0,0,20"
+                        BackgroundColor="#EEEEEE"
+                        WidthRequest="385">
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Image
+                                Margin="10,0"
+                                HeightRequest="20"
+                                Source="heart.png" />
+
+                            <Label
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="Favorite hobbies"
+                                VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Frame>
+
+                    <IndicatorView
+                        x:Name="indicator"
+                        Margin="0,-5,0,8"
+                        CascadeInputTransparent="True"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
                     <CarouselView
                         CurrentItem="{Binding SavF}"
                         EmptyView="Add hobbies to favorites"
-                        HeightRequest="510"
+                        HeightRequest="430"
                         HorizontalOptions="Center"
                         IndicatorView="indicator"
-                        IsSwipeEnabled="False"
                         ItemsSource="{Binding ListFav}"
                         Loop="True"
                         VerticalOptions="Center"
-                        WidthRequest="380">
+                        WidthRequest="385">
                         <CarouselView.ItemTemplate>
                             <DataTemplate x:Name="fav" x:DataType="models:SavedHobbieModel">
-                                <Frame BackgroundColor="White" CornerRadius="10">
+                                <Frame CornerRadius="10">
                                     <Frame.Background>
                                         <LinearGradientBrush EndPoint="0,1">
-                                            <GradientStop Offset="0.9" Color="White" />
+                                            <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                            <GradientStop Offset="0.6" Color="DimGray" />
                                             <GradientStop Offset="0" Color="{Binding Color}" />
                                         </LinearGradientBrush>
                                     </Frame.Background>
@@ -75,11 +95,11 @@
                                     <VerticalStackLayout>
                                         <Image
                                             Aspect="AspectFill"
-                                            HeightRequest="425"
+                                            HeightRequest="350"
                                             Source="{Binding Imagen}" />
 
                                         <Label
-                                            Margin="5"
+                                            Margin="0,2,0,0"
                                             FontAttributes="Bold"
                                             HorizontalOptions="Center"
                                             HorizontalTextAlignment="Center"
@@ -89,27 +109,42 @@
                                 </Frame>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>
-                    </CarouselView>
 
-                    <IndicatorView
-                        x:Name="indicator"
-                        Margin="8"
-                        CascadeInputTransparent="True"
-                        HorizontalOptions="Center"
-                        IndicatorSize="20"
-                        VerticalOptions="Center" />
+                        <CarouselView.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding ShowMovieFMopupCommand}"
+                                CommandParameter="{Binding SavF.Value}"
+                                NumberOfTapsRequired="2" />
+                        </CarouselView.GestureRecognizers>
+                    </CarouselView>
                 </VerticalStackLayout>
 
-                <VerticalStackLayout
+                <Frame
                     Grid.Row="1"
-                    Grid.RowSpan="2"
                     Grid.Column="1"
-                    Margin="0,10,0,0"
-                    BackgroundColor="White"
+                    Margin="20"
+                    BackgroundColor="#EEEEEE"
+                    WidthRequest="320"
+                    ZIndex="1">
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image Margin="10,0" Source="not_heart.png" />
+
+                        <Label
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                            Text="Pending hobbies"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Frame>
+
+                <VerticalStackLayout
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="0,-10,0,0"
                     ZIndex="1">
                     <CollectionView
                         EmptyView="Add hobbies to pending"
-                        HeightRequest="470"
+                        HeightRequest="362"
                         HorizontalOptions="Center"
                         ItemsSource="{Binding ListPend}"
                         SelectedItem="{Binding SavP}"
@@ -129,19 +164,20 @@
                             <DataTemplate x:Name="pend" x:DataType="models:SavedHobbieModel">
                                 <Frame
                                     CornerRadius="10"
-                                    HeightRequest="220"
+                                    HeightRequest="169"
                                     HorizontalOptions="Start"
                                     WidthRequest="150">
                                     <Frame.Background>
                                         <LinearGradientBrush EndPoint="0,1">
-                                            <GradientStop Offset="0.9" Color="White" />
+                                            <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                            <GradientStop Offset="0.6" Color="DimGray" />
                                             <GradientStop Offset="0" Color="{Binding Color}" />
                                         </LinearGradientBrush>
                                     </Frame.Background>
 
                                     <VerticalStackLayout>
                                         <Image
-                                            Aspect="AspectFill"
+                                            Aspect="AspectFit"
                                             HeightRequest="140"
                                             Source="{Binding Imagen}" />
 
@@ -155,6 +191,13 @@
                                 </Frame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
+
+                        <CollectionView.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding ShowMoviePMopupCommand}"
+                                CommandParameter="{Binding SavP.Value}"
+                                NumberOfTapsRequired="2" />
+                        </CollectionView.GestureRecognizers>
                     </CollectionView>
                 </VerticalStackLayout>
 
@@ -163,11 +206,30 @@
                     Grid.Column="2"
                     Grid.ColumnSpan="3"
                     ZIndex="1">
+                    <Frame
+                        Margin="0,0,0,15"
+                        BackgroundColor="#EEEEEE"
+                        WidthRequest="380">
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Image
+                                Margin="10,0"
+                                HeightRequest="20"
+                                Source="ojo.png" />
+
+                            <Label
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="Seen hobbies"
+                                VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Frame>
+
                     <CollectionView
                         EmptyView="Add hobbies to seen"
-                        HeightRequest="380"
+                        HeightRequest="275"
                         HorizontalOptions="Center"
                         ItemsSource="{Binding ListSeen}"
+                        SelectedItem="{Binding SavS}"
                         VerticalOptions="Center"
                         VerticalScrollBarVisibility="Never"
                         WidthRequest="390">
@@ -181,24 +243,22 @@
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:Name="seen" x:DataType="models:SavedHobbieModel">
-                                <Frame
-                                    CornerRadius="10"
-                                    HeightRequest="370"
-                                    WidthRequest="185">
+                                <Frame HeightRequest="270">
                                     <Frame.Background>
                                         <LinearGradientBrush EndPoint="0,1">
-                                            <GradientStop Offset="0.9" Color="White" />
+                                            <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                            <GradientStop Offset="0.6" Color="DimGray" />
                                             <GradientStop Offset="0" Color="{Binding Color}" />
                                         </LinearGradientBrush>
                                     </Frame.Background>
 
                                     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                         <Image
-                                            Aspect="Fill"
-                                            HeightRequest="280"
+                                            Aspect="AspectFit"
+                                            HeightRequest="200"
                                             Source="{Binding Imagen}" />
                                         <Label
-                                            Margin="0,4,0,0"
+                                            Margin="0,6,0,0"
                                             FontAttributes="Bold"
                                             HorizontalOptions="Center"
                                             Text="{Binding Title}"
@@ -207,6 +267,13 @@
                                 </Frame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
+
+                        <CollectionView.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding ShowMovieSMopupCommand}"
+                                CommandParameter="{Binding SavS.Value}"
+                                NumberOfTapsRequired="2" />
+                        </CollectionView.GestureRecognizers>
                     </CollectionView>
                 </VerticalStackLayout>
 
@@ -214,17 +281,12 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     BackgroundColor="Red"
+                    Command="{Binding NavegarCommand}"
+                    CommandParameter="MainPage"
                     FontSize="Large"
                     Text="Hobbyer"
                     ToolTipProperties.Text="Homepage"
                     ZIndex="1">
-                    <!--<Button.Background>
-                        <RadialGradientBrush>
-                            <GradientStop Offset="0.7" Color="Black" />
-                            <GradientStop Offset="0" Color="Transparent" />
-                        </RadialGradientBrush>
-                    </Button.Background>-->
-
                     <Button.GestureRecognizers>
                         <PointerGestureRecognizer PointerEnteredCommand="{Binding BtnEnteredCommand}" />
                     </Button.GestureRecognizers>
@@ -235,8 +297,8 @@
                     Grid.RowSpan="3"
                     Grid.Column="1"
                     Grid.ColumnSpan="4"
-                    Margin="-9"
-                    BackgroundColor="White"
+                    Margin="-6"
+                    BackgroundColor="#EEEEEE"
                     HorizontalOptions="Start"
                     WidthRequest="770" />
 
@@ -245,14 +307,16 @@
                     Grid.Column="2"
                     Grid.ColumnSpan="3"
                     Margin="10,20"
-                    Padding="50,15">
-                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    Padding="50,15"
+                    BackgroundColor="#EEEEEE">
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                         <Label
                             FontSize="Subtitle"
                             HorizontalOptions="Center"
                             Text="{Binding Saludos}"
                             VerticalOptions="Center" />
-                    </VerticalStackLayout>
+                        <Image Source="{Binding Season}" />
+                    </HorizontalStackLayout>
                 </Frame>
 
                 <Border
@@ -276,7 +340,8 @@
                     Grid.Row="0"
                     Grid.Column="3"
                     Margin="10"
-                    Padding="50,15">
+                    Padding="50,15"
+                    BackgroundColor="#EEEEEE">
                     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                         <Label
                             FontSize="Title"
@@ -290,11 +355,13 @@
                 <Button
                     Grid.Row="0"
                     Grid.Column="4"
-                    Background="DimGray"
+                    BackgroundColor="DimGray"
+                    BorderColor="Black"
                     Command="{Binding NavegarCommand}"
                     CommandParameter="SettingsPage"
-                    HeightRequest="60" WidthRequest="70"
-                    ImageSource="settings.png" />
+                    HeightRequest="60"
+                    ImageSource="settings.png"
+                    WidthRequest="70" />
 
                 <HorizontalStackLayout
                     Grid.Row="3"
@@ -314,63 +381,27 @@
                                 <GradientStop Offset="0" Color="Blue" />
                             </LinearGradientBrush>
                         </Button.Background>
-
-                        <Button.Shadow>
-                            <Shadow
-                                Brush="Black"
-                                Opacity=".5"
-                                Radius="12"
-                                Offset="10,10" />
-                        </Button.Shadow>
                     </Button>
 
                     <Button
                         Margin="10"
+                        BackgroundColor="Purple"
                         Command="{Binding NavegarGCommand}"
                         CommandParameter="GamesPage"
                         FontSize="Subtitle"
                         Text="Games"
                         TextColor="Black"
-                        WidthRequest="{Binding HobbieWidth}">
-                        <Button.Background>
-                            <LinearGradientBrush EndPoint="1,0">
-                                <GradientStop Offset="0.9" Color="Purple" />
-                                <GradientStop Offset="0" Color="MediumPurple" />
-                            </LinearGradientBrush>
-                        </Button.Background>
-
-                        <Button.Shadow>
-                            <Shadow
-                                Brush="Black"
-                                Opacity=".5"
-                                Radius="12"
-                                Offset="10,10" />
-                        </Button.Shadow>
-                    </Button>
+                        WidthRequest="{Binding HobbieWidth}" />
 
                     <Button
                         Margin="10"
+                        BackgroundColor="Yellow"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="BooksPage"
                         FontSize="Subtitle"
                         Text="Books"
                         TextColor="Black"
-                        WidthRequest="{Binding HobbieWidth}">
-                        <Button.Background>
-                            <LinearGradientBrush EndPoint="1,0">
-                                <GradientStop Offset="0.9" Color="Yellow" />
-                                <GradientStop Offset="0" Color="LightYellow" />
-                            </LinearGradientBrush>
-                        </Button.Background>
-
-                        <Button.Shadow>
-                            <Shadow
-                                Brush="Black"
-                                Opacity=".5"
-                                Radius="12"
-                                Offset="10,10" />
-                        </Button.Shadow>
-                    </Button>
+                        WidthRequest="{Binding HobbieWidth}" />
 
                     <Button
                         Margin="10"
@@ -386,18 +417,9 @@
                                 <GradientStop Offset="0" Color="Orange" />
                             </LinearGradientBrush>
                         </Button.Background>
-
-                        <Button.Shadow>
-                            <Shadow
-                                Brush="Black"
-                                Opacity=".5"
-                                Radius="12"
-                                Offset="10,10" />
-                        </Button.Shadow>
                     </Button>
                 </HorizontalStackLayout>
             </Grid>
         </Frame>
     </AbsoluteLayout>
-
 </ContentPage>

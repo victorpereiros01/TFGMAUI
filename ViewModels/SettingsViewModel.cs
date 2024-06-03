@@ -32,7 +32,7 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private bool isDark;
         [ObservableProperty]
-        private string color;
+        private string colorStr;
 
         [ObservableProperty]
         private string nuevaPass;
@@ -53,14 +53,14 @@ namespace TFGMaui.ViewModels
 
         public SettingsViewModel()
         {
-            Color = "Oscuro"; IsDark = true;
+            ColorStr = "Oscuro"; IsDark = true;
             Languages = [
-                new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "Spanish", Utf8= "es-ES"},
-                new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "English", Utf8= "en-US"},
-                new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "German", Utf8= "de"},
-                new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "Italian", Utf8= "it"},
-                new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "Portuguese", Utf8= "pt"},
-                new LanguageModel() { Imagen= ImageSource.FromFile("user.png"), Value= "Japanese", Utf8= "ja"}
+                new LanguageModel() { Imagen= ImageSource.FromFile("spanish.png"), Value= "Spanish", Utf8= "es-ES"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("english.png"), Value= "English", Utf8= "en-US"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("german.png"), Value= "German", Utf8= "de"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("italy.png"), Value= "Italian", Utf8= "it"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("portuguese.png"), Value= "Portuguese", Utf8= "pt"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("japanese.png"), Value= "Japanese", Utf8= "ja"}
             ];
         }
 
@@ -109,7 +109,7 @@ namespace TFGMaui.ViewModels
                 new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[0], HobbieType = "Cinema" },
                 new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[1], HobbieType = "Manganime" },
                 new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[2], HobbieType = "Games" },
-                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[3], HobbieType = "Books & comics" }
+                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[3], HobbieType = "Books" }
             ];
 
             Avatar = UsuarioActivo.Avatar;
@@ -133,7 +133,7 @@ namespace TFGMaui.ViewModels
                 return;
             }
 
-            base64 = f.FileBase64;
+            Base64 = f.FileBase64;
             Avatar = f.ImageSource;
             UsuarioActivo.Avatar = Avatar;
         }
@@ -220,13 +220,13 @@ namespace TFGMaui.ViewModels
         {
             if (IsDark)
             {
-                Color = "Claro";
+                ColorStr = "Claro";
                 IsDark = false;
                 Application.Current.UserAppTheme = AppTheme.Dark;
             }
             else
             {
-                Color = "Oscuro";
+                ColorStr = "Oscuro";
                 IsDark = true;
                 Application.Current.UserAppTheme = AppTheme.Light;
             }
@@ -239,6 +239,11 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ChangeUsername()
         {
+            if (Pass is null)
+            {
+                return;
+            }
+
             if (!Pass.Equals(UsuarioActivo.Password.Trim()))
             {
                 return;

@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace TFGMaui.Models
+﻿namespace TFGMaui.Models
 {
     public class SavedHobbieModel
     {

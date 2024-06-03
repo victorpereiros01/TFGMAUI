@@ -5,8 +5,6 @@ using Microsoft.UI;
 using TFGMaui.Repositories;
 using TFGMaui.Utils;
 using Windows.UI.ViewManagement;
-using TFGMaui.Models;
-using TFGMaui.Services;
 
 namespace TFGMaui.ViewModels
 {
@@ -28,6 +26,7 @@ namespace TFGMaui.ViewModels
 
         public LoginViewModel()
         {
+            UsuarioActivo = new();
             IsPassword = true;
             CheckStoredCredentials();
 
@@ -37,7 +36,6 @@ namespace TFGMaui.ViewModels
             ColorAccCom = ColorAcc.GetComplementary();
             TxColorCom = MiscellaneousUtils.ColorIsDarkOrLight(colorAccCom);
 
-            UsuarioActivo = new();
         }
 
         [RelayCommand]
@@ -94,7 +92,7 @@ namespace TFGMaui.ViewModels
                 await Navegar("MainPage");
                 await Application.Current.MainPage.DisplayAlert("Saludos", "Bienvenid@ " + UsuarioActivo.Username, "Aceptar");
             }
-            catch { }
+            catch (Exception e) { await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar"); }
         }
 
         private async void CheckStoredCredentials()

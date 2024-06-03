@@ -325,9 +325,11 @@ namespace TFGMaui.ViewModels
                 foreach (var item in listTrend)
                 {
                     item.Imagen = await GetImage(item.Cover);
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Game");
                 }
 
-                PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) };
+                PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) }; pageG.Items = MiscellaneousUtils.GetNelements(pageG.Items, 5);
+
 
                 PaginaTrendG = pageG;
             }
@@ -388,7 +390,7 @@ namespace TFGMaui.ViewModels
                 body: """
                 fields id, cover, name, rating, rating_count;
                 sort rating desc;
-                where rating_count > 200 & rating != null & rating_count != null;
+                where rating_count > 200 & rating != null & rating_count != null & version_parent = null;
                 limit 8;
                 """);
 
@@ -398,13 +400,11 @@ namespace TFGMaui.ViewModels
                 foreach (var item in listTrend)
                 {
                     item.Imagen = await GetImage(item.Cover);
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Game");
                 }
 
                 PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) };
-                foreach (var item in pageG.Items)
-                {
-                    item.Color = MiscellaneousUtils.GetColorHobbie("Game");
-                }
+                pageG.Items = MiscellaneousUtils.GetNelements(pageG.Items, 5);
 
                 PaginaTopG = pageG;
             }
@@ -428,7 +428,7 @@ namespace TFGMaui.ViewModels
                 pagseason.Data = MiscellaneousUtils.GetNelements(pagseason.Data, 8);
                 foreach (var item in pagseason.Data)
                 {
-                    item.Imagen = item.Images.Jpg.Image_url; 
+                    item.Imagen = item.Images.Jpg.Image_url;
                     item.Color = MiscellaneousUtils.GetColorHobbie("Anime");
                 }
 

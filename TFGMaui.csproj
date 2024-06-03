@@ -77,6 +77,7 @@
 		<None Remove="Resources\Images\ojo.png" />
 		<None Remove="Resources\Images\pending.png" />
 		<None Remove="Resources\Images\portuguese.png" />
+		<None Remove="Resources\Images\reload.png" />
 		<None Remove="Resources\Images\settings.png" />
 		<None Remove="Resources\Images\sol.png" />
 		<None Remove="Resources\Images\spanish.png" />

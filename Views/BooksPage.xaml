@@ -31,38 +31,52 @@
                     <TapGestureRecognizer Command="{Binding HideCommand}" NumberOfTapsRequired="2" />
                 </VerticalStackLayout.GestureRecognizers>
 
-                <Button
-                    BackgroundColor="Red"
-                    Command="{Binding NavegarCommand}"
-                    CommandParameter="MainPage"
-                    FontSize="Large"
-                    HeightRequest="80"
-                    Text="Hobbyer"
-                    ToolTipProperties.Text="Go to homepage"
-                    WidthRequest="340" />
-
-                <SearchBar
-                    x:Name="tx_filtro"
-                    Margin="10"
-                    CancelButtonColor="Red"
-                    IsTextPredictionEnabled="True"
-                    SearchCommand="{Binding NavegarSearchCommand}"
-                    WidthRequest="300">
-                    <SearchBar.Behaviors>
-                        <toolkit:EventToCommandBehavior
-                            Command="{Binding GetSearchCommand}"
-                            CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
-                            EventName="TextChanged" />
-                        <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
-                    </SearchBar.Behaviors>
-                </SearchBar>
-
                 <AbsoluteLayout>
-                    <!--  Parametros del LayoutBounds: ejeX, ejeY, ancho y alto del rectangulo. Si pones 0,0 en los ejes lo situa en la esquina superior izquierda.  -->
+                    <Button
+                        AbsoluteLayout.LayoutBounds="10,0"
+                        HeightRequest="80"
+                        Text="Libros"
+                        WidthRequest="300" />
+
+                    <!--  Home  -->
+                    <Button
+                        AbsoluteLayout.LayoutBounds="335,0"
+                        BackgroundColor="Red"
+                        Command="{Binding NavegarCommand}"
+                        CommandParameter="MainPage"
+                        FontSize="65"
+                        HeightRequest="80"
+                        Text="HOBBYER"
+                        ToolTipProperties.Text="Go to homepage"
+                        WidthRequest="340" />
+
+                    <!--  Buscador  -->
+                    <Label
+                        AbsoluteLayout.LayoutBounds="700,0"
+                        FontSize="25"
+                        HorizontalOptions="Center"
+                        Text="Buscar libros" />
+                    <SearchBar
+                        x:Name="tx_filtro"
+                        Margin="10"
+                        AbsoluteLayout.LayoutBounds="690,25"
+                        CancelButtonColor="Red"
+                        IsTextPredictionEnabled="True"
+                        SearchCommand="{Binding NavegarSearchCommand}"
+                        WidthRequest="300">
+                        <SearchBar.Behaviors>
+                            <toolkit:EventToCommandBehavior
+                                Command="{Binding GetSearchCommand}"
+                                CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
+                                EventName="TextChanged" />
+                            <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
+                        </SearchBar.Behaviors>
+                    </SearchBar>
+
                     <CollectionView
-                        AbsoluteLayout.LayoutBounds="354,10"
+                        AbsoluteLayout.LayoutBounds="700,80"
                         BackgroundColor="White"
-                        HeightRequest="285"
+                        HeightRequest="328"
                         IsVisible="{Binding IsSearchFocus}"
                         ItemsSource="{Binding PaginaAux.Items}"
                         SelectedItem="{Binding Book2}"
@@ -73,20 +87,22 @@
                         ZIndex="1">
 
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:Name="aux" x:DataType="models:BookModel">
+                            <DataTemplate x:Name="aux" x:DataType="models:MovieModel">
                                 <Border>
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="12" />
                                     </Border.StrokeShape>
                                     <HorizontalStackLayout Padding="10">
                                         <Image
-                                            HeightRequest="120"
+                                            Aspect="AspectFill"
+                                            HeightRequest="60"
                                             Source="{Binding Imagen}"
-                                            WidthRequest="120" />
+                                            WidthRequest="50" />
+
                                         <Label
                                             Margin="10,0,0,0"
                                             HorizontalOptions="Center"
-                                            Text="{Binding VolumeInfo.Title}"
+                                            Text="{Binding Title}"
                                             VerticalOptions="Center" />
                                     </HorizontalStackLayout>
                                 </Border>
@@ -95,43 +111,43 @@
                     </CollectionView>
 
                     <Button
-                        AbsoluteLayout.LayoutBounds="340,10"
-                        HeightRequest="100"
-                        WidthRequest="320" />
+                        AbsoluteLayout.LayoutBounds="350,120"
+                        HeightRequest="140"
+                        WidthRequest="310" />
                     <Button
-                        AbsoluteLayout.LayoutBounds="0,10"
-                        HeightRequest="100"
-                        WidthRequest="320" />
+                        AbsoluteLayout.LayoutBounds="10,120"
+                        HeightRequest="140"
+                        WidthRequest="310" />
 
                     <Button
-                        AbsoluteLayout.LayoutBounds="680,10"
-                        HeightRequest="100"
-                        WidthRequest="320" />
+                        AbsoluteLayout.LayoutBounds="690,120"
+                        HeightRequest="140"
+                        WidthRequest="310" />
                     <Button
-                        AbsoluteLayout.LayoutBounds="0,140"
-                        HeightRequest="100"
-                        WidthRequest="320" />
+                        AbsoluteLayout.LayoutBounds="10,290"
+                        HeightRequest="140"
+                        WidthRequest="310" />
                     <Button
-                        AbsoluteLayout.LayoutBounds="340,140"
-                        HeightRequest="100"
-                        WidthRequest="320" />
+                        AbsoluteLayout.LayoutBounds="350,290"
+                        HeightRequest="140"
+                        WidthRequest="310" />
                     <Button
-                        AbsoluteLayout.LayoutBounds="680,140"
-                        HeightRequest="100"
-                        WidthRequest="320" />
+                        AbsoluteLayout.LayoutBounds="690,290"
+                        HeightRequest="140"
+                        WidthRequest="310" />
 
                     <Button
-                        AbsoluteLayout.LayoutBounds="0,280"
-                        HeightRequest="100"
-                        WidthRequest="320" />
+                        AbsoluteLayout.LayoutBounds="10,460"
+                        HeightRequest="140"
+                        WidthRequest="310" />
                     <Button
-                        AbsoluteLayout.LayoutBounds="340,280"
-                        HeightRequest="100"
-                        WidthRequest="320" />
+                        AbsoluteLayout.LayoutBounds="350,460"
+                        HeightRequest="140"
+                        WidthRequest="310" />
                     <Button
-                        AbsoluteLayout.LayoutBounds="680,280"
-                        HeightRequest="100"
-                        WidthRequest="320" />
+                        AbsoluteLayout.LayoutBounds="690,460"
+                        HeightRequest="140"
+                        WidthRequest="310" />
                 </AbsoluteLayout>
             </VerticalStackLayout>
         </Frame>

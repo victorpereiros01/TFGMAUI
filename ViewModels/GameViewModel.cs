@@ -6,6 +6,7 @@ using Microsoft.UI.Windowing;
 using Mopups.Services;
 using TFGMaui.Models;
 using TFGMaui.Services;
+using TFGMaui.Utils;
 using TFGMaui.ViewModels.Mopup;
 using TFGMaui.Views.Mopups;
 
@@ -26,7 +27,7 @@ namespace TFGMaui.ViewModels
         private GameMopupViewModel GameMopupViewModel;
 
         [ObservableProperty]
-        private PageM paginaAux;
+        private PageG paginaAux;
 
         [ObservableProperty]
         private bool isSearchFocus;
@@ -96,6 +97,48 @@ namespace TFGMaui.ViewModels
         }
 
         /// <summary>
+        /// Obtiene las peliculas trending de moviedb
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        [RelayCommand]
+        public async Task GetTrendG()
+        {
+            long start_date = new DateTimeOffset(new DateTime(2024, 1, 1)).ToUnixTimeSeconds();
+            var rand = new Random().Next(5, 30);
+
+            var requestPagina = new HttpRequestModel(url: IConstantes.BaseGames,
+                endpoint: $"games",
+                parameters: null,
+                headers: new Dictionary<string, string> { { "Client-ID", IConstantes.client_id }, { "Authorization", $"Bearer {Bearer}" }, { "Accept", "application/json" } },
+                body: $"""
+                fields id, name, first_release_date, rating, rating_count,cover;
+                sort popularity desc;
+                where first_release_date >= {start_date} & rating_count > {rand};
+                limit 8;
+                """);
+
+            try
+            {
+                var listTrend = (List<GameModel>)await HttpService.ExecuteRequestAsync<List<GameModel>>(requestPagina);
+                foreach (var item in listTrend)
+                {
+                    item.Imagen = await GetImage(item.Cover);
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Game");
+                }
+
+                PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) }; pageG.Items = MiscellaneousUtils.GetNelements(pageG.Items, 5);
+
+
+                PaginaTrendG = pageG;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+            }
+        }
+
+        /// <summary>
         /// Busca las peliculas que coincidan con un termino
         /// </summary>
         /// <returns></returns>
@@ -111,19 +154,67 @@ namespace TFGMaui.ViewModels
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseGames,
                 endpoint: $"games",
                 parameters: null,
-                headers: new Dictionary<string, string> { { "Client-ID", IConstantes.client_id }, { "Authorization", $"Bearer jxq1u2drybuywugxmjqzauigzrbcim" }, { "Accept", "application/json" } },
-                body: """
+                headers: new Dictionary<string, string> { { "Client-ID", IConstantes.client_id }, { "Authorization", $"Bearer {Bearer}" }, { "Accept", "application/json" } },
+                body: $"""
                 fields *;
-                sort popularity desc;
-                limit 8;
+                search "{busqueda}";           
                 """);
 
-            var pagtrend = (PageM)await HttpService.ExecuteRequestAsync<PageM>(requestPagina); // v
+            try
+            {
+                var listTrend = (List<GameModel>)await HttpService.ExecuteRequestAsync<List<GameModel>>(requestPagina);
+                foreach (var item in listTrend)
+                {
+                    item.Imagen = await GetImage(item.Cover);
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Game");
+                }
 
-            pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) };
 
-            PaginaAux = pagtrend;
-            IsSearchFocus = true;
+                PaginaAux = pageG;
+                IsSearchFocus = true;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+            }
+        }
+
+        private async Task<string> GetImage(int cover)
+        {
+            var requestPagina = new HttpRequestModel(url: "https://api.igdb.com/v4/covers",
+                endpoint: "",
+                parameters: null,
+                headers: new Dictionary<string, string> { { "Client-ID", IConstantes.client_id }, { "Authorization", $"Bearer {Bearer}" }, { "Accept", "application/json" } },
+                body: $"""
+                fields *;
+                where id={cover};
+                """);
+
+            try
+            {
+                var images = (List<CoverModel>)await HttpService.ExecuteRequestAsync<List<CoverModel>>(requestPagina);
+
+                var split = images[0].Url.Split("/");
+                split[6] = "t_cover_big_2x";
+                var duplicado = "https:/";
+
+                for (int i = 0; i < split.Length; i++)
+                {
+                    if (i > 1)
+                    {
+                        duplicado += "/" + split[i];
+                    }
+                }
+
+                return duplicado;
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+            }
+
+            return null;
         }
 
         [RelayCommand]

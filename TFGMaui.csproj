@@ -67,6 +67,7 @@
 		<None Remove="Resources\Images\german.png" />
 		<None Remove="Resources\Images\heart.png" />
 		<None Remove="Resources\Images\hoja.png" />
+		<None Remove="Resources\Images\invert.png" />
 		<None Remove="Resources\Images\italy.png" />
 		<None Remove="Resources\Images\japanese.png" />
 		<None Remove="Resources\Images\not_heart.png" />

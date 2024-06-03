@@ -154,6 +154,13 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task Navegar(string pagina)
         {
+            if (pagina.Equals("LoginPage"))
+            {
+                await SecureStorage.SetAsync("credentialsStored", false.ToString());
+                await SecureStorage.SetAsync("username", " ");
+                await SecureStorage.SetAsync("password", " ");
+            }
+
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
                 ["UsuarioActivo"] = UsuarioActivo

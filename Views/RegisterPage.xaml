@@ -92,19 +92,29 @@
                         VerticalOptions="Center"
                         WidthRequest="400" />
 
-                    <Entry
+                    <AbsoluteLayout
                         Grid.Row="4"
                         Grid.Column="1"
-                        Grid.ColumnSpan="2"
-                        BackgroundColor="LightGray"
-                        HorizontalOptions="Center"
-                        HorizontalTextAlignment="Center"
-                        Opacity=".8"
-                        Placeholder="Email"
-                        PlaceholderColor="DimGray"
-                        Text="{Binding UsuarioReg.Email}"
-                        VerticalOptions="Center"
-                        WidthRequest="400" />
+                        Grid.ColumnSpan="2">
+                        <Entry
+                            AbsoluteLayout.LayoutBounds="0,0"
+                            BackgroundColor="LightGray"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Opacity=".8"
+                            Placeholder="Email"
+                            PlaceholderColor="DimGray"
+                            Text="{Binding UsuarioReg.Email}"
+                            VerticalOptions="Center"
+                            WidthRequest="400" />
+
+                        <Label
+                            AbsoluteLayout.LayoutBounds="330,12"
+                            FontAttributes="Italic"
+                            Text="Optional"
+                            TextColor="Navy"
+                            ZIndex="1" />
+                    </AbsoluteLayout>
 
                     <AbsoluteLayout
                         Grid.Row="5"

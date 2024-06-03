@@ -13,6 +13,8 @@ namespace TFGMaui.Models
         public bool IsChecked { get; set; }
 
         public string HobbieType { get; set; }
+
+        public Color Color { get; set; }
     }
 
     internal class PageM

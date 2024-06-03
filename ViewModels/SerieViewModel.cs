@@ -49,7 +49,7 @@ namespace TFGMaui.ViewModels
         {
             Type = "Day";
             IsDay = true;
-            ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.LightGoldenrodYellow);
+            ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Green);
 
             IsSearchFocus = false;
             Serie = new();
@@ -107,9 +107,13 @@ namespace TFGMaui.ViewModels
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 5);
                 }
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                foreach (var item in pagtrend.Results)
+                {
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Serie");
+                }
 
                 PaginaTS = pagtrend;
             }
@@ -147,6 +151,10 @@ namespace TFGMaui.ViewModels
             var pagtrend = (PageS)await HttpService.ExecuteRequestAsync<PageS>(requestPagina); // v
 
             pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+            foreach (var item in pagtrend.Results)
+            {
+                item.Color = MiscellaneousUtils.GetColorHobbie("Serie");
+            }
 
             PaginaAux = pagtrend;
             IsSearchFocus = true;
@@ -171,13 +179,13 @@ namespace TFGMaui.ViewModels
             {
                 Type = "Week";
                 IsDay = false;
-                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.RebeccaPurple);
+                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Green).GetComplementary();
             }
             else
             {
                 Type = "Day";
                 IsDay = true;
-                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.LightGoldenrodYellow);
+                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Green);
             }
 
             await GetTrending(Type.ToLower());

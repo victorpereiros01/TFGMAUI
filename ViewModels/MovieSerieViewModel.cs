@@ -47,7 +47,7 @@ namespace TFGMaui.ViewModels
         public MovieSerieViewModel()
         {
             IsDay = true;
-            ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.LightGoldenrodYellow);
+            ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Green);
 
             Movie = new();
 
@@ -97,13 +97,13 @@ namespace TFGMaui.ViewModels
             {
                 Type = "Week";
                 IsDay = false;
-                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.RebeccaPurple);
+                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Blue);
             }
             else
             {
                 Type = "Day";
                 IsDay = true;
-                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.LightGoldenrodYellow);
+                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Green);
             }
 
             await GetTrending(Type.ToLower(), false);
@@ -128,14 +128,18 @@ namespace TFGMaui.ViewModels
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 5);
                 }
                 else
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 6);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 14);
                 }
 
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                foreach (var item in pagtrend.Results)
+                {
+                    item.Color = MiscellaneousUtils.GetColorHobbie(item.MediaType.Equals("tv") ? "Serie" : "Movie");
+                }
 
                 PaginaT = pagtrend;
             }
@@ -161,9 +165,13 @@ namespace TFGMaui.ViewModels
             {
                 var pagtrend = (PageS)await HttpService.ExecuteRequestAsync<PageS>(requestPagina);
 
-                pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
+                pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 5);
 
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                foreach (var item in pagtrend.Results)
+                {
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Serie");
+                }
 
                 PaginaTS = pagtrend;
             }
@@ -190,9 +198,13 @@ namespace TFGMaui.ViewModels
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 5);
                 }
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                foreach (var item in pagtrend.Results)
+                {
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Movie");
+                }
 
                 PaginaPelisTop = pagtrend;
             }
@@ -220,9 +232,13 @@ namespace TFGMaui.ViewModels
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 5);
                 }
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                foreach (var item in pagtrend.Results)
+                {
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Serie");
+                }
 
                 PaginaSeriesTop = pagtrend;
             }
@@ -242,7 +258,8 @@ namespace TFGMaui.ViewModels
             {
                 ["UsuarioActivo"] = UsuarioActivo,
                 ["PaginaPelisTop"] = PaginaPelisTop,
-                ["PaginaT"] = PaginaT
+                ["PaginaT"] = PaginaT,
+                ["IsGuest"] = UsuarioActivo.Username.Equals("admin")
             });
         }
 
@@ -251,7 +268,8 @@ namespace TFGMaui.ViewModels
         {
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
-                ["UsuarioActivo"] = UsuarioActivo
+                ["UsuarioActivo"] = UsuarioActivo,
+                ["IsGuest"] = UsuarioActivo.Username.Equals("admin")
             });
         }
 
@@ -264,7 +282,8 @@ namespace TFGMaui.ViewModels
             {
                 ["UsuarioActivo"] = UsuarioActivo,
                 ["PaginaSeriesTop"] = PaginaSeriesTop,
-                ["PaginaTS"] = PaginaTS
+                ["PaginaTS"] = PaginaTS,
+                ["IsGuest"] = UsuarioActivo.Username.Equals("admin")
             });
         }
 

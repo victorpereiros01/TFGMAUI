@@ -35,7 +35,6 @@ namespace TFGMaui.ViewModels
 
             ColorAccCom = ColorAcc.GetComplementary();
             TxColorCom = MiscellaneousUtils.ColorIsDarkOrLight(colorAccCom);
-
         }
 
         [RelayCommand]
@@ -43,8 +42,11 @@ namespace TFGMaui.ViewModels
         {
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
-                ["UsuarioActivo"] = UsuarioActivo
+                ["UsuarioActivo"] = UsuarioActivo,
+                ["IsGuest"]= UsuarioActivo.Username.Equals("admin")
             });
+
+            UsuarioActivo = new();
         }
 
         [RelayCommand]

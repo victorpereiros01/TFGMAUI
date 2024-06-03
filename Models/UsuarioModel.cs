@@ -18,6 +18,8 @@
 
         public string Language { get; set; }
 
+        public bool Guest { get; set; }
+
         /// <summary>
         /// Si el usuario tiene los mismos nombre o correo y contraseña
         /// </summary>

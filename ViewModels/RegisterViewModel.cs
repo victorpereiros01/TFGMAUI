@@ -67,7 +67,6 @@ namespace TFGMaui.ViewModels
         public async Task Navegar(string pagina)
         {
             FirstPageReg = true;
-            UsuarioReg = new();
             RepContra = string.Empty;
 
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()

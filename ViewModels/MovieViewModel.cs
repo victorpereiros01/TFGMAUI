@@ -50,7 +50,7 @@ namespace TFGMaui.ViewModels
         {
             Type = "Day";
             IsDay = true;
-            ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.LightGoldenrodYellow);
+            ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Blue).GetComplementary();
 
             IsSearchFocus = false;
             Movie = new();
@@ -69,13 +69,13 @@ namespace TFGMaui.ViewModels
             {
                 Type = "Week";
                 IsDay = false;
-                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.RebeccaPurple);
+                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Blue);
             }
             else
             {
                 Type = "Day";
                 IsDay = true;
-                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.LightGoldenrodYellow);
+                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Blue).GetComplementary();
             }
 
             await GetTrending(Type.ToLower());
@@ -136,9 +136,12 @@ namespace TFGMaui.ViewModels
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 5);
                 }
-                pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen); foreach (var item in pagtrend.Results)
+                {
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Movie");
+                }
 
                 PaginaT = pagtrend;
             }
@@ -169,6 +172,10 @@ namespace TFGMaui.ViewModels
             var pagtrend = (PageM)await HttpService.ExecuteRequestAsync<PageM>(requestPagina); // v
 
             pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+            foreach (var item in pagtrend.Results)
+            {
+                item.Color = MiscellaneousUtils.GetColorHobbie("Movie");
+            }
 
             PaginaAux = pagtrend;
             IsSearchFocus = true;
@@ -191,9 +198,13 @@ namespace TFGMaui.ViewModels
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 8);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 5);
                 }
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                foreach (var item in pagtrend.Results)
+                {
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Movie");
+                }
 
                 PaginaPelisTop = pagtrend;
             }

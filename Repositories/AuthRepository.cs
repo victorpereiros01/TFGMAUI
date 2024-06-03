@@ -20,7 +20,7 @@ namespace TFGMaui.Repositories
         {
             SetCmdQuery("SELECT 1 FROM Users WHERE Username = @Username or Email = @Email");
 
-            AddCmdParameters(new() { { "@Username", user.Username }, { "@Email", user.Email } });
+            AddCmdParameters(new() { { "@Username", user.Username }, { "@Email", user.Email is null ? "" : user.Email } });
 
             Oconexion.Open();
 
@@ -89,7 +89,8 @@ namespace TFGMaui.Repositories
                 Password = dr.GetString(4).Trim(),
                 Hobbies = [dr.GetBoolean(5), dr.GetBoolean(6), dr.GetBoolean(7), dr.GetBoolean(8)],
                 Adulto = dr.GetBoolean(9),
-                Language = dr.GetString(10).Trim()
+                Language = dr.GetString(10).Trim(),
+                Guest = dr.GetString(1).Equals("admin")
             };
 
             return user;
@@ -97,7 +98,7 @@ namespace TFGMaui.Repositories
 
         public bool Registrar(UsuarioModel user)
         {
-            SetCmdQuery("INSERT INTO Users ([Username], [Email], [Password], [Hobbie1], [Hobbie2], [Hobbie3], [Hobbie4], [Adult], [Language]) \nVALUES (@Username, @Email, @Password, @Hobbie1, @Hobbie2, @Hobbie3, @Hobbie4, @Adulto, 'en-US')");
+            SetCmdQuery("INSERT INTO Users ([Username], [Email], [Password], [Hobbie1], [Hobbie2], [Hobbie3], [Hobbie4], [Adult], [Language], [Guest]) \nVALUES (@Username, @Email, @Password, @Hobbie1, @Hobbie2, @Hobbie3, @Hobbie4, @Adulto, 'en-US', @Guest)");
 
             AddCmdParameters(
                 new()
@@ -109,7 +110,8 @@ namespace TFGMaui.Repositories
                     { "@Hobbie3", user.Hobbies[2] },
                     { "@Hobbie4", user.Hobbies[3] },
                     { "@Adulto", true },
-                    { "@Email", user.Email }
+                    { "@Email", user.Email is null? " ": user.Email },
+                    { "@Guest", false }
                 }
             );
 

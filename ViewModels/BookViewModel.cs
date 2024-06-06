@@ -8,6 +8,7 @@ using TFGMaui.Models;
 using TFGMaui.Services;
 using TFGMaui.ViewModels.Mopup;
 using TFGMaui.Views.Mopups;
+using TFGMaui.Utils;
 
 namespace TFGMaui.ViewModels
 {
@@ -15,7 +16,7 @@ namespace TFGMaui.ViewModels
     internal partial class BookViewModel : ObservableObject
     {
         [ObservableProperty]
-        private PageB paginaAux;
+        private PageB paginaAux, paginaGenero;
 
         [ObservableProperty]
         private UsuarioModel usuarioActivo;
@@ -24,16 +25,19 @@ namespace TFGMaui.ViewModels
         private BookMopupViewModel BookMopupViewModel;
 
         [ObservableProperty]
-        private bool isSearchFocus;
+        private bool isSearchFocus, isGenero;
 
         [ObservableProperty]
-        private BookModel book, book2;
+        private BookModel book, book2, book3;
 
         public BookViewModel()
         {
             IsSearchFocus = false;
+            IsGenero = false;
+
             Book = new();
             Book2 = new();
+            Book3 = new();
 
             // Inicializa lo requerido para el mopup
             BookMopupViewModel = new();
@@ -59,6 +63,65 @@ namespace TFGMaui.ViewModels
             BookMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
             await MopupService.Instance.PushAsync(BookMopup);
             //await Hide();
+        }
+
+        [RelayCommand]
+        public async Task VolverGeneros()
+        {
+            IsGenero = !IsGenero;
+        }
+
+        [RelayCommand]
+        public async Task GetGenre(string busqueda)
+        {
+            if (busqueda.IsNullOrEmpty())
+            {
+                await Hide();
+                return;
+            }
+
+            var requestPagina = new HttpRequestModel(url: IConstantes.BaseBooks,
+                endpoint: $"volumes",
+                parameters: new Dictionary<string, string> { { "q", $"subject:\"{busqueda}\"" }, { "langRestrict", UsuarioActivo.Language.Split("-")[0] } },
+                headers: new Dictionary<string, string> { { "Accept", "application/json" } });
+
+            var pagtrend = (PageB)await HttpService.ExecuteRequestAsync<PageB>(requestPagina); // v
+
+            if (pagtrend.Items is null)
+            {
+                return;
+            }
+
+            foreach (var item in pagtrend.Items)
+            {
+                if (item.VolumeInfo.ImageLinks is null)
+                {
+                    return;
+                }
+
+                if (item.VolumeInfo.ImageLinks.Large is not null)
+                {
+                    item.Imagen = item.VolumeInfo.ImageLinks.Large;
+                }
+                else if (item.VolumeInfo.ImageLinks.Medium is not null)
+                {
+                    item.Imagen = item.VolumeInfo.ImageLinks.Medium;
+                }
+                else if (item.VolumeInfo.ImageLinks.Small is not null)
+                {
+                    item.Imagen = item.VolumeInfo.ImageLinks.Small;
+                }
+                else if (item.VolumeInfo.ImageLinks.Thumbnail is not null)
+                {
+                    item.Imagen = item.VolumeInfo.ImageLinks.Thumbnail;
+                }
+
+                item.Color = MiscellaneousUtils.GetColorHobbie("Book");
+            }
+
+            PaginaGenero = pagtrend;
+
+            await VolverGeneros();
         }
 
         /// <summary>

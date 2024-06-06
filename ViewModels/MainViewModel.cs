@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Mopups.Services;
@@ -96,9 +97,9 @@ namespace TFGMaui.ViewModels
             }
             HobbieWidth = 1140 / hobbieC - 20;
 
-            SavF = ListFav is null ? new() : ListFav[0];
-            SavS = ListSeen is null ? new() : ListSeen[0];
-            SavP = ListPend is null ? new() : ListPend[0];
+            SavF = ListFav.IsNullOrEmpty() ? new() : ListFav[0];
+            SavS = ListSeen.IsNullOrEmpty() ? new() : ListSeen[0];
+            SavP = ListPend.IsNullOrEmpty() ? new() : ListPend[0];
 
             await GetTrending("day");
             await GetTopAM();
@@ -228,6 +229,11 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ShowMovieSMopup(string id)
         {
+            if (id is null)
+            {
+                return;
+            }
+
             if (SavS.HobbieType.Equals("Movie"))
             {
                 MovieMopupViewModel MovieMopupViewModel = new();
@@ -316,7 +322,7 @@ namespace TFGMaui.ViewModels
                 fields id, name, first_release_date, rating, rating_count,cover;
                 sort popularity desc;
                 where first_release_date >= {start_date} & rating_count > {rand};
-                limit 8;
+                limit 20;
                 """);
 
             try
@@ -328,8 +334,7 @@ namespace TFGMaui.ViewModels
                     item.Color = MiscellaneousUtils.GetColorHobbie("Game");
                 }
 
-                PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) }; pageG.Items = MiscellaneousUtils.GetNelements(pageG.Items, 5);
-
+                PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) };
 
                 PaginaTrendG = pageG;
             }
@@ -391,7 +396,7 @@ namespace TFGMaui.ViewModels
                 fields id, cover, name, rating, rating_count;
                 sort rating desc;
                 where rating_count > 200 & rating != null & rating_count != null & version_parent = null;
-                limit 8;
+                limit 20;
                 """);
 
             try
@@ -404,7 +409,6 @@ namespace TFGMaui.ViewModels
                 }
 
                 PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) };
-                pageG.Items = MiscellaneousUtils.GetNelements(pageG.Items, 5);
 
                 PaginaTopG = pageG;
             }
@@ -445,7 +449,7 @@ namespace TFGMaui.ViewModels
                 headers: new Dictionary<string, string> { { "Accept", "application/json" } });
 
             var pagtrend = (PageMa)await HttpService.ExecuteRequestAsync<PageMa>(requestPagina); // v
-            pagtrend.Data = MiscellaneousUtils.GetNelements(pagtrend.Data, 3);
+
             foreach (var item in pagtrend.Data)
             {
                 item.Imagen = item.Images.Jpg.Image_url;
@@ -460,7 +464,7 @@ namespace TFGMaui.ViewModels
                 headers: new Dictionary<string, string> { { "Accept", "application/json" } });
 
             var pagtrend2 = (PageA)await HttpService.ExecuteRequestAsync<PageA>(requestPagina2); // v
-            pagtrend2.Data = MiscellaneousUtils.GetNelements(pagtrend2.Data, 3);
+
             foreach (var item in pagtrend2.Data)
             {
                 item.Imagen = item.Images.Jpg.Image_url;

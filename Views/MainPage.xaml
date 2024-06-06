@@ -39,10 +39,9 @@
                 <Grid
                     ColumnDefinitions="400,340,80,240,80"
                     HeightRequest="730"
-                    RowDefinitions="80,100,370,150"
+                    RowDefinitions="100,100,370,130"
                     WidthRequest="1180">
 
-                    <!--  Favoritos y su respectiva cabecera  -->
                     <VerticalStackLayout
                         Grid.Row="0"
                         Grid.RowSpan="3"
@@ -59,37 +58,37 @@
                             <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                 <Image
                                     Margin="10,0"
-                                    HeightRequest="40"
-                                    Source="heart.png" />
+                                    HeightRequest="30"
+                                    Source="pending.png" />
 
                                 <Label
                                     FontAttributes="Bold"
                                     HorizontalOptions="Center"
-                                    Text="Favorite hobbies"
+                                    Text="Pending hobbies"
                                     VerticalOptions="Center" />
                             </HorizontalStackLayout>
                         </Border>
 
                         <IndicatorView
                             x:Name="indicator"
-                            Margin="0,-5,0,8"
+                            Margin="5,-5,5,8"
                             CascadeInputTransparent="True"
                             HorizontalOptions="Center"
-                            IndicatorSize="18"
+                            IndicatorSize="35"
                             VerticalOptions="Center" />
 
                         <CarouselView
-                            CurrentItem="{Binding SavF}"
-                            EmptyView="Add hobbies to favorites"
+                            CurrentItem="{Binding SavP}"
+                            EmptyView="Add hobbies to pending"
                             HeightRequest="430"
                             HorizontalOptions="Center"
                             IndicatorView="indicator"
-                            ItemsSource="{Binding ListFav}"
+                            ItemsSource="{Binding ListPend}"
                             Loop="True"
                             VerticalOptions="Center"
                             WidthRequest="385">
                             <CarouselView.ItemTemplate>
-                                <DataTemplate x:Name="fav" x:DataType="models:SavedHobbieModel">
+                                <DataTemplate x:DataType="models:SavedHobbieModel">
                                     <Frame CornerRadius="10">
                                         <Frame.Background>
                                             <LinearGradientBrush EndPoint="0,1">
@@ -119,14 +118,13 @@
 
                             <CarouselView.GestureRecognizers>
                                 <TapGestureRecognizer
-                                    Command="{Binding ShowMovieFMopupCommand}"
-                                    CommandParameter="{Binding SavF.Value}"
+                                    Command="{Binding ShowMoviePMopupCommand}"
+                                    CommandParameter="{Binding SavP.Value}"
                                     NumberOfTapsRequired="2" />
                             </CarouselView.GestureRecognizers>
                         </CarouselView>
                     </VerticalStackLayout>
 
-                    <!--  Cabecera de pendientes  -->
                     <Border
                         Grid.Row="1"
                         Grid.Column="1"
@@ -141,29 +139,28 @@
                         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                             <Image
                                 Margin="10,0"
-                                HeightRequest="30"
-                                Source="pending.png" />
+                                HeightRequest="40"
+                                Source="heart.png" />
 
                             <Label
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center"
-                                Text="Pending hobbies"
+                                Text="Favorite hobbies"
                                 VerticalOptions="Center" />
                         </HorizontalStackLayout>
                     </Border>
 
-                    <!--  Pendientes  -->
                     <VerticalStackLayout
                         Grid.Row="2"
                         Grid.Column="1"
                         Margin="0,-10,0,0"
                         ZIndex="1">
                         <CollectionView
-                            EmptyView="Add hobbies to pending"
+                            EmptyView="Add hobbies to favorite"
                             HeightRequest="362"
                             HorizontalOptions="Center"
-                            ItemsSource="{Binding ListPend}"
-                            SelectedItem="{Binding SavP}"
+                            ItemsSource="{Binding ListFav}"
+                            SelectedItem="{Binding SavF}"
                             SelectionMode="Single"
                             VerticalOptions="Center"
                             VerticalScrollBarVisibility="Never"
@@ -177,7 +174,7 @@
                             </CollectionView.ItemsLayout>
 
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:Name="pend" x:DataType="models:SavedHobbieModel">
+                                <DataTemplate x:DataType="models:SavedHobbieModel">
                                     <Frame
                                         CornerRadius="10"
                                         HeightRequest="169"
@@ -210,14 +207,13 @@
 
                             <CollectionView.GestureRecognizers>
                                 <TapGestureRecognizer
-                                    Command="{Binding ShowMoviePMopupCommand}"
-                                    CommandParameter="{Binding SavP.Value}"
+                                    Command="{Binding ShowMovieFMopupCommand}"
+                                    CommandParameter="{Binding SavF.Value}"
                                     NumberOfTapsRequired="2" />
                             </CollectionView.GestureRecognizers>
                         </CollectionView>
                     </VerticalStackLayout>
 
-                    <!--  Vistos y su respectiva cabecera  -->
                     <VerticalStackLayout
                         Grid.Row="2"
                         Grid.Column="2"
@@ -264,7 +260,7 @@
                             </CollectionView.ItemsLayout>
 
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:Name="seen" x:DataType="models:SavedHobbieModel">
+                                <DataTemplate x:DataType="models:SavedHobbieModel">
                                     <Frame HeightRequest="270">
                                         <Frame.Background>
                                             <LinearGradientBrush EndPoint="0,1">
@@ -299,23 +295,16 @@
                         </CollectionView>
                     </VerticalStackLayout>
 
-                    <!--  Boton home  -->
                     <Button
                         Grid.Row="0"
                         Grid.Column="1"
-                        BackgroundColor="Red"
+                        BackgroundColor="#848484"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="MainPage"
-                        FontSize="65"
-                        Text="HOBBYER"
+                        ImageSource="titulomayus.png"
                         ToolTipProperties.Text="Homepage"
-                        ZIndex="1">
-                        <Button.GestureRecognizers>
-                            <PointerGestureRecognizer PointerEnteredCommand="{Binding BtnEnteredCommand}" />
-                        </Button.GestureRecognizers>
-                    </Button>
+                        ZIndex="1" />
 
-                    <!--  Auxiliar para que se queden bien colocadas las cosas  -->
                     <StackLayout
                         Grid.Row="0"
                         Grid.RowSpan="3"
@@ -326,7 +315,6 @@
                         HorizontalOptions="Start"
                         WidthRequest="770" />
 
-                    <!--  Cabecera de saludos  -->
                     <Border
                         Grid.Row="1"
                         Grid.Column="2"
@@ -348,7 +336,6 @@
                         </HorizontalStackLayout>
                     </Border>
 
-                    <!--  Avatar de usuario  -->
                     <Border
                         Grid.Row="0"
                         Grid.Column="2"
@@ -365,7 +352,6 @@
                             VerticalOptions="Center" />
                     </Border>
 
-                    <!--  Nombre de usuario  -->
                     <Border
                         Grid.Row="0"
                         Grid.Column="3"
@@ -384,7 +370,6 @@
                         </VerticalStackLayout>
                     </Border>
 
-                    <!--  Boton ajustes  -->
                     <Button
                         Grid.Row="0"
                         Grid.Column="4"
@@ -397,7 +382,6 @@
                         ImageSource="settings.png"
                         WidthRequest="65" />
 
-                    <!--  Botones de los menus, que se adapta  -->
                     <HorizontalStackLayout
                         Grid.Row="3"
                         Grid.Column="0"
@@ -481,7 +465,7 @@
                 <Grid
                     ColumnDefinitions="400,340,80,240,80"
                     HeightRequest="730"
-                    RowDefinitions="80,100,370,150"
+                    RowDefinitions="100,100,370,130"
                     WidthRequest="1180">
 
                     <!--  Favoritos cabecera  -->
@@ -573,17 +557,10 @@
                     <Button
                         Grid.Row="0"
                         Grid.Column="1"
-                        BackgroundColor="Red"
-                        Command="{Binding NavegarCommand}"
-                        CommandParameter="MainPage"
-                        FontSize="60"
-                        Text="HOBBYER"
+                        BackgroundColor="#848484"
+                        ImageSource="titulomayus.png"
                         ToolTipProperties.Text="Homepage"
-                        ZIndex="1">
-                        <Button.GestureRecognizers>
-                            <PointerGestureRecognizer PointerEnteredCommand="{Binding BtnEnteredCommand}" />
-                        </Button.GestureRecognizers>
-                    </Button>
+                        ZIndex="1" />
 
                     <!--  Cabecera de saludos  -->
                     <Border
@@ -665,17 +642,18 @@
                         Grid.ColumnSpan="5">
                         <Label
                             Margin="0,60,0,0"
-                            FontSize="50"
+                            FontSize="40"
                             HorizontalOptions="Center"
                             Text="Don´t u have an account?" />
                         <Button
-                            Margin="200,60"
+                            Margin="40"
                             Command="{Binding NavegarCommand}"
                             CommandParameter="RegisterPage"
-                            FontSize="45"
+                            FontSize="35"
                             HeightRequest="100"
                             Text="REGISTER"
-                            TextColor="Black" />
+                            TextColor="Black"
+                            WidthRequest="450" />
                     </VerticalStackLayout>
 
                     <!--  Botones de los menus, que se adapta  -->

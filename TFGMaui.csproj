@@ -60,13 +60,12 @@
 
 	<ItemGroup>
 		<None Remove="Resources\Images\arrow.png" />
-		<None Remove="Resources\Images\copo.png" />
 		<None Remove="Resources\Images\english.png" />
-		<None Remove="Resources\Images\flor.png" />
+		<None Remove="Resources\Images\fall.png" />
+		<None Remove="Resources\Images\flecha.png" />
 		<None Remove="Resources\Images\fondo.jpg" />
 		<None Remove="Resources\Images\german.png" />
 		<None Remove="Resources\Images\heart.png" />
-		<None Remove="Resources\Images\hoja.png" />
 		<None Remove="Resources\Images\invert.png" />
 		<None Remove="Resources\Images\italy.png" />
 		<None Remove="Resources\Images\japanese.png" />
@@ -77,11 +76,18 @@
 		<None Remove="Resources\Images\ojo.png" />
 		<None Remove="Resources\Images\pending.png" />
 		<None Remove="Resources\Images\portuguese.png" />
+		<None Remove="Resources\Images\question.png" />
 		<None Remove="Resources\Images\reload.png" />
 		<None Remove="Resources\Images\settings.png" />
-		<None Remove="Resources\Images\sol.png" />
 		<None Remove="Resources\Images\spanish.png" />
+		<None Remove="Resources\Images\spring.png" />
+		<None Remove="Resources\Images\summer.png" />
+		<None Remove="Resources\Images\titulo.png" />
+		<None Remove="Resources\Images\titulomayus.png" />
+		<None Remove="Resources\Images\titulomayuswhite.png" />
+		<None Remove="Resources\Images\titulowhite.png" />
 		<None Remove="Resources\Images\user.png" />
+		<None Remove="Resources\Images\winter.png" />
 	</ItemGroup>
 
 	<ItemGroup>

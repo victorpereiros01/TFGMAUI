@@ -31,6 +31,7 @@ namespace TFGMaui.Models
 
         public List<Parameters> Demographics { get; set; }   // -
 
+        [JsonIgnore]
         public double Score { get; set; }   // -
 
         public string Synopsis { get; set; }    // -

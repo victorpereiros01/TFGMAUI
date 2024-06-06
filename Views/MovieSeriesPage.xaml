@@ -47,14 +47,14 @@
 
                     <Button
                         Margin="30,0"
-                        BackgroundColor="Red"
+                        BackgroundColor="#848484"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="MainPage"
-                        FontSize="65"
                         HeightRequest="80"
-                        Text="HOBBYER"
-                        ToolTipProperties.Text="Go to homepage"
-                        WidthRequest="340" />
+                        ImageSource="titulo.png"
+                        ToolTipProperties.Text="Go to Homepage"
+                        WidthRequest="340"
+                        ZIndex="1" />
 
                     <Button
                         Command="{Binding NavegarSCommand}"

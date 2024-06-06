@@ -41,14 +41,14 @@
                     <!--  Home  -->
                     <Button
                         AbsoluteLayout.LayoutBounds="335,0"
-                        BackgroundColor="Red"
+                        BackgroundColor="#848484"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="MainPage"
-                        FontSize="65"
                         HeightRequest="80"
-                        Text="HOBBYER"
-                        ToolTipProperties.Text="Go to homepage"
-                        WidthRequest="340" />
+                        ImageSource="titulo.png"
+                        ToolTipProperties.Text="Go to Homepage"
+                        WidthRequest="340"
+                        ZIndex="1" />
 
                     <!--  Buscador  -->
                     <Label
@@ -119,75 +119,53 @@
                         FontAttributes="Bold"
                         FontSize="Title"
                         Text="Top" />
-                    <HorizontalStackLayout
-                        Margin="5"
-                        Padding="5"
-                        AbsoluteLayout.LayoutBounds="0,130">
-                        <Button
-                            Margin="0,0,20,0"
-                            Command="{Binding NavegarCommand}"
-                            FontSize="100"
-                            HeightRequest="172"
-                            HorizontalOptions="Center"
-                            Text="&lt;"
-                            VerticalOptions="Center"
-                            WidthRequest="125" />
 
-                        <CollectionView
-                            HeightRequest="182"
-                            ItemsSource="{Binding PaginaTopG.Items}"
-                            SelectedItem="{Binding Game3}"
-                            SelectionChangedCommand="{Binding ShowMovieMopupCommand}"
-                            SelectionChangedCommandParameter="{Binding Game3.Id}"
-                            SelectionMode="Single"
-                            WidthRequest="700">
-                            <CollectionView.ItemsLayout>
-                                <GridItemsLayout
-                                    HorizontalItemSpacing="5"
-                                    Orientation="Vertical"
-                                    Span="5"
-                                    VerticalItemSpacing="5" />
-                            </CollectionView.ItemsLayout>
+                    <CollectionView
+                        AbsoluteLayout.LayoutBounds="5,145"
+                        HeightRequest="202"
+                        HorizontalScrollBarVisibility="Always"
+                        ItemsSource="{Binding PaginaTopG.Items}"
+                        SelectedItem="{Binding Game3}"
+                        SelectionChangedCommand="{Binding ShowMovieMopupCommand}"
+                        SelectionChangedCommandParameter="{Binding Game3.Id}"
+                        SelectionMode="Single"
+                        WidthRequest="1000">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout
+                                HorizontalItemSpacing="5"
+                                Orientation="Horizontal"
+                                Span="1"
+                                VerticalItemSpacing="5" />
+                        </CollectionView.ItemsLayout>
 
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="models:MovieModel">
-                                    <Frame>
-                                        <Frame.Background>
-                                            <LinearGradientBrush EndPoint="0,1">
-                                                <GradientStop Offset="0.9" Color="#EEEEEE" />
-                                                <GradientStop Offset="0.6" Color="DimGray" />
-                                                <GradientStop Offset="0" Color="{Binding Color}" />
-                                            </LinearGradientBrush>
-                                        </Frame.Background>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:MovieModel">
+                                <Frame HeightRequest="192" WidthRequest="133">
+                                    <Frame.Background>
+                                        <LinearGradientBrush EndPoint="0,1">
+                                            <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                            <GradientStop Offset="0.6" Color="DimGray" />
+                                            <GradientStop Offset="0" Color="{Binding Color}" />
+                                        </LinearGradientBrush>
+                                    </Frame.Background>
 
-                                        <VerticalStackLayout
-                                            HeightRequest="130"
-                                            HorizontalOptions="Center"
-                                            VerticalOptions="Center">
-                                            <Image
-                                                Aspect="AspectFit"
-                                                HeightRequest="140"
-                                                Source="{Binding Imagen}" />
-                                        </VerticalStackLayout>
-                                    </Frame>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-
-                        <Button
-                            Margin="20,0"
-                            Command="{Binding NavegarCommand}"
-                            FontSize="100"
-                            HeightRequest="172"
-                            HorizontalOptions="Center"
-                            Text="&gt;"
-                            VerticalOptions="Center"
-                            WidthRequest="125" />
-                    </HorizontalStackLayout>
+                                    <VerticalStackLayout
+                                        HeightRequest="130"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center">
+                                        <Image
+                                            Aspect="AspectFit"
+                                            HeightRequest="140"
+                                            Source="{Binding Imagen}" />
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
                     <!--  Tendencias switch  -->
                     <HorizontalStackLayout
-                        AbsoluteLayout.LayoutBounds="0,340"
+                        AbsoluteLayout.LayoutBounds="0,360"
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
                         <Label
@@ -210,71 +188,48 @@
                     </HorizontalStackLayout>
 
                     <!--  Trending  -->
-                    <HorizontalStackLayout
-                        Margin="5"
-                        Padding="5"
-                        AbsoluteLayout.LayoutBounds="0,410">
-                        <Button
-                            Margin="0,0,20,0"
-                            Command="{Binding NavegarCommand}"
-                            FontSize="100"
-                            HeightRequest="172"
-                            HorizontalOptions="Center"
-                            Text="&lt;"
-                            VerticalOptions="Center"
-                            WidthRequest="125" />
+                    <CollectionView
+                        AbsoluteLayout.LayoutBounds="5,420"
+                        HeightRequest="182"
+                        HorizontalScrollBarVisibility="Always"
+                        ItemsSource="{Binding PaginaTrendG.Items}"
+                        SelectedItem="{Binding Game}"
+                        SelectionChangedCommand="{Binding ShowMovieMopupCommand}"
+                        SelectionChangedCommandParameter="{Binding Game.Id}"
+                        SelectionMode="Single"
+                        WidthRequest="1000">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout
+                                HorizontalItemSpacing="5"
+                                Orientation="Horizontal"
+                                Span="1"
+                                VerticalItemSpacing="5" />
+                        </CollectionView.ItemsLayout>
 
-                        <CollectionView
-                            HeightRequest="182"
-                            ItemsSource="{Binding PaginaTrendG.Items}"
-                            SelectedItem="{Binding Game}"
-                            SelectionChangedCommand="{Binding ShowMovieMopupCommand}"
-                            SelectionChangedCommandParameter="{Binding Game.Id}"
-                            SelectionMode="Single"
-                            WidthRequest="700">
-                            <CollectionView.ItemsLayout>
-                                <GridItemsLayout
-                                    HorizontalItemSpacing="5"
-                                    Orientation="Vertical"
-                                    Span="5"
-                                    VerticalItemSpacing="5" />
-                            </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:Name="trend" x:DataType="models:MovieModel">
+                                <Frame WidthRequest="133">
+                                    <Frame.Background>
+                                        <LinearGradientBrush EndPoint="0,1">
+                                            <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                            <GradientStop Offset="0.6" Color="DimGray" />
+                                            <GradientStop Offset="0" Color="{Binding Color}" />
+                                        </LinearGradientBrush>
+                                    </Frame.Background>
 
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:Name="trend" x:DataType="models:MovieModel">
-                                    <Frame>
-                                        <Frame.Background>
-                                            <LinearGradientBrush EndPoint="0,1">
-                                                <GradientStop Offset="0.9" Color="#EEEEEE" />
-                                                <GradientStop Offset="0.6" Color="DimGray" />
-                                                <GradientStop Offset="0" Color="{Binding Color}" />
-                                            </LinearGradientBrush>
-                                        </Frame.Background>
-
-                                        <VerticalStackLayout
-                                            HeightRequest="130"
-                                            HorizontalOptions="Center"
-                                            VerticalOptions="Center">
-                                            <Image
-                                                Aspect="AspectFit"
-                                                HeightRequest="140"
-                                                Source="{Binding Imagen}" />
-                                        </VerticalStackLayout>
-                                    </Frame>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-
-                        <Button
-                            Margin="20,0"
-                            Command="{Binding NavegarCommand}"
-                            FontSize="100"
-                            HeightRequest="172"
-                            HorizontalOptions="Center"
-                            Text="&gt;"
-                            VerticalOptions="Center"
-                            WidthRequest="125" />
-                    </HorizontalStackLayout>
+                                    <VerticalStackLayout
+                                        HeightRequest="130"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center">
+                                        <Image
+                                            Aspect="AspectFit"
+                                            HeightRequest="140"
+                                            Source="{Binding Imagen}" />
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </AbsoluteLayout>
             </VerticalStackLayout>
         </Frame>

@@ -43,7 +43,7 @@
         </HorizontalStackLayout>
         <Label
             HorizontalOptions="Center"
-            Text="{Binding Book.VolumeInfo.Publisher}"
+            Text="{Binding Book.VolumeInfo.Categories}"
             VerticalOptions="Center" />
 
         <Editor

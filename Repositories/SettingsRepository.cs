@@ -44,6 +44,24 @@ namespace TFGMaui.Repositories
             return true;
         }
 
+        public bool ChangeEmail(string nuevoEmail, UsuarioModel user)
+        {
+            SetCmdQuery("UPDATE [dbo].[Users] SET [Password] = @Email WHERE IdUser = @IdUser");
+
+            AddCmdParameters(new() { { "@IdUser", user.Id }, { "@Email", nuevoEmail } });
+
+            Cmd.CommandType = CommandType.Text;
+            Oconexion.Open();
+
+            // Check Error
+            if (Cmd.ExecuteNonQuery() == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public bool ChangeParentalMode(UsuarioModel user)
         {
             SetCmdQuery("UPDATE [dbo].[Users] SET [Adult] = @Adulto WHERE IdUser = @IdUser");

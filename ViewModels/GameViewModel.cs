@@ -115,7 +115,7 @@ namespace TFGMaui.ViewModels
                 fields id, name, first_release_date, rating, rating_count,cover;
                 sort popularity desc;
                 where first_release_date >= {start_date} & rating_count > {rand};
-                limit 8;
+                limit 20;
                 """);
 
             try

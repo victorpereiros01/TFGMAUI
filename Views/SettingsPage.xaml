@@ -53,7 +53,7 @@
                             VerticalOptions="Center" />
                     </VerticalStackLayout>
 
-                    <Frame Margin="0,10,0,10" BackgroundColor="#EEEEEE">
+                    <Frame Margin="0,5,0,5" BackgroundColor="#EEEEEE">
                         <HorizontalStackLayout>
                             <Label
                                 HorizontalOptions="Center"
@@ -75,7 +75,7 @@
                         </HorizontalStackLayout>
                     </Frame>
 
-                    <Frame Margin="10" BackgroundColor="#EEEEEE">
+                    <Frame Margin="10,5" BackgroundColor="#EEEEEE">
                         <HorizontalStackLayout>
                             <Label
                                 HorizontalOptions="Center"
@@ -106,7 +106,7 @@
                     <Button
                         Margin="10,0,0,0"
                         BackgroundColor="IndianRed"
-                        Command="{Binding LogOutCommand}"
+                        Command="{Binding NavegarCommand}"
                         CommandParameter="LoginPage"
                         HeightRequest="100"
                         HorizontalOptions="End"
@@ -115,7 +115,10 @@
                         WidthRequest="115" />
                 </HorizontalStackLayout>
 
-                <ScrollView Padding="15" HeightRequest="528">
+                <ScrollView
+                    Margin="0,10,0,0"
+                    Padding="15"
+                    HeightRequest="542">
                     <VerticalStackLayout>
                         <HorizontalStackLayout>
                             <!--  Expander para las creedenciales  -->
@@ -157,15 +160,6 @@
                                                 FontSize="Micro"
                                                 Text="Cambiar contraseña" />
 
-                                            <!--<Entry
-                                 Grid.Row="1"
-                                 Grid.Column="0"
-                                 Margin="0,10"
-                                 HorizontalOptions="Start"
-                                 Placeholder="Antigua contra"
-                                 Text="{Binding PassP}"
-                                 WidthRequest="200" />-->
-
                                             <Entry
                                                 Grid.Row="1"
                                                 Grid.Column="0"
@@ -175,15 +169,6 @@
                                                 Text="{Binding NuevaPass}"
                                                 WidthRequest="195" />
 
-                                            <!--<Entry
-                                 Grid.Row="2"
-                                 Grid.Column="0"
-                                 Margin="0,10"
-                                 HorizontalOptions="Start"
-                                 Placeholder="Rep nueva"
-                                 Text="{Binding NuevaPassRep}"
-                                 WidthRequest="200" />-->
-
                                             <Button
                                                 Grid.Row="2"
                                                 Grid.Column="0"
@@ -192,8 +177,6 @@
                                                 HorizontalOptions="Start"
                                                 Text="cambiar pass"
                                                 WidthRequest="195" />
-
-
 
                                             <Label
                                                 Grid.Row="0"
@@ -210,15 +193,6 @@
                                                 Text="{Binding NuevoNombre}"
                                                 WidthRequest="195" />
 
-                                            <!--<Entry
-                                 Grid.Row="2"
-                                 Grid.Column="2"
-                                 Margin="0,10"
-                                 HorizontalOptions="Start"
-                                 Placeholder="Contraseña"
-                                 Text="{Binding Pass}"
-                                 WidthRequest="175" />-->
-
                                             <Button
                                                 Grid.Row="2"
                                                 Grid.Column="2"
@@ -226,7 +200,7 @@
                                                 Command="{Binding ChangeUsernameCommand}"
                                                 HeightRequest="50"
                                                 HorizontalOptions="Start"
-                                                Text="cambiar username"
+                                                Text="Cambiar username"
                                                 WidthRequest="195" />
 
                                             <BoxView
@@ -246,26 +220,34 @@
                                                 FontSize="Micro"
                                                 Text="Cambiar email" />
 
+
+                                            <Label
+                                                Grid.Row="4"
+                                                Grid.Column="1"
+                                                Grid.ColumnSpan="2"
+                                                FontSize="Micro"
+                                                Text="Actual - &gt;&gt;" />
+
                                             <Label
                                                 Grid.Row="4"
                                                 Grid.Column="2"
                                                 FontSize="Micro"
-                                                Text="Actual: x" />
+                                                Text="{Binding UsuarioActivo.Email}" />
 
                                             <Entry
                                                 Grid.Row="5"
                                                 Grid.Column="0"
                                                 Margin="0,10"
                                                 HorizontalOptions="Start"
-                                                Placeholder="Contraseña"
-                                                Text="{Binding Pass}"
+                                                Placeholder="Nuevo email"
+                                                Text="{Binding NuevoEmail}"
                                                 WidthRequest="195" />
 
                                             <Button
                                                 Grid.Row="5"
                                                 Grid.Column="2"
                                                 Margin="0,10"
-                                                Command="{Binding ChangeUsernameCommand}"
+                                                Command="{Binding ChangeEmailCommand}"
                                                 HeightRequest="50"
                                                 HorizontalOptions="Start"
                                                 Text="cambiar email"

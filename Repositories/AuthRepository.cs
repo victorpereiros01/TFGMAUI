@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 using TFGMaui.Utils;
 using TFGMaui.ViewModels;
 
@@ -18,14 +19,28 @@ namespace TFGMaui.Repositories
         /// <returns></returns>
         public bool UserExists(UsuarioModel user)
         {
-            SetCmdQuery("SELECT 1 FROM Users WHERE Username = @Username or Email = @Email");
+            if (user.Email.IsNullOrEmpty() || user.Email.Equals(" "))
+            {
+                SetCmdQuery("SELECT 1 FROM Users WHERE Username = @Username or Email = @Email");
 
-            AddCmdParameters(new() { { "@Username", user.Username }, { "@Email", user.Email is null ? "" : user.Email } });
+                AddCmdParameters(new() { { "@Username", user.Username }, { "@Email", user.Email is null ? "" : user.Email } });
 
-            Oconexion.Open();
+                Oconexion.Open();
 
-            // Si devuelve null el usuario existe
-            return Cmd.ExecuteScalar() != null;
+                // Si devuelve null el usuario existe
+                return Cmd.ExecuteScalar() != null;
+            }
+            else
+            {
+                SetCmdQuery("SELECT 1 FROM Users WHERE Username = @Username");
+
+                AddCmdParameters(new() { { "@Username", user.Username }});
+
+                Oconexion.Open();
+
+                // Si devuelve null el usuario existe
+                return Cmd.ExecuteScalar() != null;
+            }
         }
 
         public bool SetImageDefault(string username)

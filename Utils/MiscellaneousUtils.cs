@@ -1,11 +1,4 @@
-﻿using Microsoft.VisualBasic.Devices;
-using System;
-using System.Drawing;
-using TFGMaui.Models;
-using TFGMaui.Services;
-using TFGMaui.ViewModels;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Color = Microsoft.Maui.Graphics.Color;
+﻿using Color = Microsoft.Maui.Graphics.Color;
 
 namespace TFGMaui.Utils
 {

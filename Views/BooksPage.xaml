@@ -11,145 +11,335 @@
     BackgroundImageSource="fondo.jpg"
     BindingContext="{viewmodels:BookViewModel}">
 
-    <AbsoluteLayout
-        HeightRequest="800"
-        HorizontalOptions="Center"
-        VerticalOptions="Center"
-        WidthRequest="1200">
-        <Button
-            AbsoluteLayout.LayoutBounds="1095,10"
-            BackgroundColor="Beige"
-            Command="{Binding MinimizeAppCommand}" />
+    <VerticalStackLayout>
+        <AbsoluteLayout
+            HeightRequest="800"
+            HorizontalOptions="Center"
+            IsVisible="{Binding IsGenero, Converter={toolkit:InvertedBoolConverter}}"
+            VerticalOptions="Center"
+            WidthRequest="1200">
+            <Button
+                AbsoluteLayout.LayoutBounds="1095,10"
+                BackgroundColor="Beige"
+                Command="{Binding MinimizeAppCommand}" />
 
-        <Button
-            AbsoluteLayout.LayoutBounds="1145,10"
-            BackgroundColor="Red"
-            Command="{Binding CloseAppCommand}" />
-        <Frame AbsoluteLayout.LayoutBounds="75,90,1050,650" CornerRadius="10">
-            <VerticalStackLayout>
-                <VerticalStackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding HideCommand}" NumberOfTapsRequired="2" />
-                </VerticalStackLayout.GestureRecognizers>
+            <Button
+                AbsoluteLayout.LayoutBounds="1145,10"
+                BackgroundColor="Red"
+                Command="{Binding CloseAppCommand}" />
+            <Frame AbsoluteLayout.LayoutBounds="75,90,1050,650" CornerRadius="10">
+                <VerticalStackLayout>
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding HideCommand}" NumberOfTapsRequired="2" />
+                    </VerticalStackLayout.GestureRecognizers>
 
-                <AbsoluteLayout>
-                    <Button
-                        AbsoluteLayout.LayoutBounds="10,0"
-                        HeightRequest="80"
-                        Text="Libros"
-                        WidthRequest="300" />
+                    <AbsoluteLayout>
+                        <Button
+                            AbsoluteLayout.LayoutBounds="10,0"
+                            HeightRequest="80"
+                            Text="Libros"
+                            WidthRequest="300" />
 
-                    <!--  Home  -->
-                    <Button
-                        AbsoluteLayout.LayoutBounds="335,0"
-                        BackgroundColor="Red"
-                        Command="{Binding NavegarCommand}"
-                        CommandParameter="MainPage"
-                        FontSize="65"
-                        HeightRequest="80"
-                        Text="HOBBYER"
-                        ToolTipProperties.Text="Go to homepage"
-                        WidthRequest="340" />
+                        <!--  Home  -->
+                        <Button
+                            AbsoluteLayout.LayoutBounds="335,0"
+                            BackgroundColor="#848484"
+                            Command="{Binding NavegarCommand}"
+                            CommandParameter="MainPage"
+                            HeightRequest="80"
+                            ImageSource="titulo.png"
+                            ToolTipProperties.Text="Go to Homepage"
+                            WidthRequest="340"
+                            ZIndex="1" />
 
-                    <!--  Buscador  -->
-                    <Label
-                        AbsoluteLayout.LayoutBounds="700,0"
-                        FontSize="25"
-                        HorizontalOptions="Center"
-                        Text="Buscar libros" />
-                    <SearchBar
-                        x:Name="tx_filtro"
-                        Margin="10"
-                        AbsoluteLayout.LayoutBounds="690,25"
-                        CancelButtonColor="Red"
-                        IsTextPredictionEnabled="True"
-                        SearchCommand="{Binding NavegarSearchCommand}"
-                        WidthRequest="300">
-                        <SearchBar.Behaviors>
-                            <toolkit:EventToCommandBehavior
-                                Command="{Binding GetSearchCommand}"
-                                CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
-                                EventName="TextChanged" />
-                            <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
-                        </SearchBar.Behaviors>
-                    </SearchBar>
+                        <!--  Buscador  -->
+                        <Label
+                            AbsoluteLayout.LayoutBounds="700,0"
+                            FontSize="25"
+                            HorizontalOptions="Center"
+                            Text="Buscar libros" />
+                        <SearchBar
+                            x:Name="tx_filtro"
+                            Margin="10"
+                            AbsoluteLayout.LayoutBounds="690,25"
+                            CancelButtonColor="Red"
+                            IsTextPredictionEnabled="True"
+                            SearchCommand="{Binding NavegarSearchCommand}"
+                            WidthRequest="300">
+                            <SearchBar.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    Command="{Binding GetSearchCommand}"
+                                    CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
+                                    EventName="TextChanged" />
+                                <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
+                            </SearchBar.Behaviors>
+                        </SearchBar>
 
-                    <CollectionView
-                        AbsoluteLayout.LayoutBounds="700,80"
-                        BackgroundColor="White"
-                        HeightRequest="328"
-                        IsVisible="{Binding IsSearchFocus}"
-                        ItemsSource="{Binding PaginaAux.Items}"
-                        SelectedItem="{Binding Book2}"
-                        SelectionChangedCommand="{Binding ShowBookMopupCommand}"
-                        SelectionChangedCommandParameter="{Binding Book2.Id}"
-                        SelectionMode="Single"
-                        WidthRequest="300"
-                        ZIndex="1">
+                        <CollectionView
+                            AbsoluteLayout.LayoutBounds="700,80"
+                            BackgroundColor="White"
+                            HeightRequest="328"
+                            IsVisible="{Binding IsSearchFocus}"
+                            ItemsSource="{Binding PaginaAux.Items}"
+                            SelectedItem="{Binding Book}"
+                            SelectionChangedCommand="{Binding ShowBookMopupCommand}"
+                            SelectionChangedCommandParameter="{Binding Book.Id}"
+                            SelectionMode="Single"
+                            WidthRequest="300"
+                            ZIndex="1">
 
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:Name="aux" x:DataType="models:MovieModel">
-                                <Border>
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="12" />
-                                    </Border.StrokeShape>
-                                    <HorizontalStackLayout Padding="10">
-                                        <Image
-                                            Aspect="AspectFill"
-                                            HeightRequest="60"
-                                            Source="{Binding Imagen}"
-                                            WidthRequest="50" />
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:Name="aux" x:DataType="models:MovieModel">
+                                    <Border>
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="12" />
+                                        </Border.StrokeShape>
+                                        <HorizontalStackLayout Padding="10">
+                                            <Image
+                                                Aspect="AspectFill"
+                                                HeightRequest="60"
+                                                Source="{Binding Imagen}"
+                                                WidthRequest="50" />
 
-                                        <Label
-                                            Margin="10,0,0,0"
-                                            HorizontalOptions="Center"
-                                            Text="{Binding Title}"
-                                            VerticalOptions="Center" />
-                                    </HorizontalStackLayout>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                                            <Label
+                                                Margin="10,0,0,0"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Title}"
+                                                VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
 
-                    <Button
-                        AbsoluteLayout.LayoutBounds="350,120"
-                        HeightRequest="140"
-                        WidthRequest="310" />
-                    <Button
-                        AbsoluteLayout.LayoutBounds="10,120"
-                        HeightRequest="140"
-                        WidthRequest="310" />
+                        <Button
+                            AbsoluteLayout.LayoutBounds="350,120"
+                            Command="{Binding GetGenreCommand}"
+                            CommandParameter="Children"
+                            HeightRequest="140"
+                            Text="Children"
+                            WidthRequest="310" />
+                        <Button
+                            AbsoluteLayout.LayoutBounds="10,120"
+                            Command="{Binding GetGenreCommand}"
+                            CommandParameter="Children"
+                            HeightRequest="140"
+                            Text="Non fiction"
+                            WidthRequest="310" />
 
-                    <Button
-                        AbsoluteLayout.LayoutBounds="690,120"
-                        HeightRequest="140"
-                        WidthRequest="310" />
-                    <Button
-                        AbsoluteLayout.LayoutBounds="10,290"
-                        HeightRequest="140"
-                        WidthRequest="310" />
-                    <Button
-                        AbsoluteLayout.LayoutBounds="350,290"
-                        HeightRequest="140"
-                        WidthRequest="310" />
-                    <Button
-                        AbsoluteLayout.LayoutBounds="690,290"
-                        HeightRequest="140"
-                        WidthRequest="310" />
+                        <Button
+                            AbsoluteLayout.LayoutBounds="690,120"
+                            Command="{Binding GetGenreCommand}"
+                            CommandParameter="Children"
+                            HeightRequest="140"
+                            Text="Young adult"
+                            WidthRequest="310" />
+                        <Button
+                            AbsoluteLayout.LayoutBounds="10,290"
+                            Command="{Binding GetGenreCommand}"
+                            CommandParameter="Children"
+                            HeightRequest="140"
+                            Text="Science fiction"
+                            WidthRequest="310" />
+                        <Button
+                            AbsoluteLayout.LayoutBounds="350,290"
+                            Command="{Binding GetGenreCommand}"
+                            CommandParameter="Children"
+                            HeightRequest="140"
+                            Text="Fantasy"
+                            WidthRequest="310" />
+                        <Button
+                            AbsoluteLayout.LayoutBounds="690,290"
+                            Command="{Binding GetGenreCommand}"
+                            CommandParameter="Children"
+                            HeightRequest="140"
+                            Text="Historical fiction"
+                            WidthRequest="310" />
 
-                    <Button
-                        AbsoluteLayout.LayoutBounds="10,460"
-                        HeightRequest="140"
-                        WidthRequest="310" />
-                    <Button
-                        AbsoluteLayout.LayoutBounds="350,460"
-                        HeightRequest="140"
-                        WidthRequest="310" />
-                    <Button
-                        AbsoluteLayout.LayoutBounds="690,460"
-                        HeightRequest="140"
-                        WidthRequest="310" />
-                </AbsoluteLayout>
-            </VerticalStackLayout>
-        </Frame>
-    </AbsoluteLayout>
+                        <Button
+                            AbsoluteLayout.LayoutBounds="10,460"
+                            Command="{Binding GetGenreCommand}"
+                            CommandParameter="Children"
+                            HeightRequest="140"
+                            Text="Detective/thriller"
+                            WidthRequest="310" />
+                        <Button
+                            AbsoluteLayout.LayoutBounds="350,460"
+                            Command="{Binding GetGenreCommand}"
+                            CommandParameter="Children"
+                            HeightRequest="140"
+                            Text="Romance"
+                            WidthRequest="310" />
+                        <Button
+                            AbsoluteLayout.LayoutBounds="690,460"
+                            Command="{Binding GetGenreCommand}"
+                            CommandParameter="Children"
+                            HeightRequest="140"
+                            Text="Horror"
+                            WidthRequest="310" />
+                    </AbsoluteLayout>
+                </VerticalStackLayout>
+            </Frame>
+        </AbsoluteLayout>
+
+        <AbsoluteLayout
+            HeightRequest="800"
+            HorizontalOptions="Center"
+            IsVisible="{Binding IsGenero}"
+            VerticalOptions="Center"
+            WidthRequest="1200">
+            <Button
+                AbsoluteLayout.LayoutBounds="1095,10"
+                BackgroundColor="Beige"
+                Command="{Binding MinimizeAppCommand}" />
+
+            <Button
+                AbsoluteLayout.LayoutBounds="1145,10"
+                BackgroundColor="Red"
+                Command="{Binding CloseAppCommand}" />
+            <Frame AbsoluteLayout.LayoutBounds="75,90,1050,650" CornerRadius="10">
+                <VerticalStackLayout>
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding HideCommand}" NumberOfTapsRequired="2" />
+                    </VerticalStackLayout.GestureRecognizers>
+
+                    <AbsoluteLayout>
+                        <Button
+                            AbsoluteLayout.LayoutBounds="10,0"
+                            Command="{Binding VolverGenerosCommand}"
+                            HeightRequest="80"
+                            Text="Libros"
+                            WidthRequest="300" />
+
+                        <!--  Home  -->
+                        <Button
+                            AbsoluteLayout.LayoutBounds="335,0"
+                            BackgroundColor="#848484"
+                            Command="{Binding NavegarCommand}"
+                            CommandParameter="MainPage"
+                            HeightRequest="80"
+                            ImageSource="titulo.png"
+                            ToolTipProperties.Text="Go to Homepage"
+                            WidthRequest="340"
+                            ZIndex="1" />
+
+                        <!--  Buscador  -->
+                        <Label
+                            AbsoluteLayout.LayoutBounds="700,0"
+                            FontSize="25"
+                            HorizontalOptions="Center"
+                            Text="Buscar libros" />
+                        <SearchBar
+                            x:Name="tx_filtro2"
+                            Margin="10"
+                            AbsoluteLayout.LayoutBounds="690,25"
+                            CancelButtonColor="Red"
+                            IsTextPredictionEnabled="True"
+                            SearchCommand="{Binding NavegarSearchCommand}"
+                            WidthRequest="300">
+                            <SearchBar.Behaviors>
+                                <toolkit:EventToCommandBehavior
+                                    Command="{Binding GetSearchCommand}"
+                                    CommandParameter="{Binding Source={x:Reference tx_filtro2}, Path=Text}"
+                                    EventName="TextChanged" />
+                                <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
+                            </SearchBar.Behaviors>
+                        </SearchBar>
+
+                        <CollectionView
+                            AbsoluteLayout.LayoutBounds="700,80"
+                            BackgroundColor="White"
+                            HeightRequest="328"
+                            IsVisible="{Binding IsSearchFocus}"
+                            ItemsSource="{Binding PaginaAux.Items}"
+                            SelectedItem="{Binding Book2}"
+                            SelectionChangedCommand="{Binding ShowBookMopupCommand}"
+                            SelectionChangedCommandParameter="{Binding Book2.Id}"
+                            SelectionMode="Single"
+                            WidthRequest="300"
+                            ZIndex="1">
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:Name="aux2" x:DataType="models:MovieModel">
+                                    <Border>
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="12" />
+                                        </Border.StrokeShape>
+                                        <HorizontalStackLayout Padding="10">
+                                            <Image
+                                                Aspect="AspectFill"
+                                                HeightRequest="60"
+                                                Source="{Binding Imagen}"
+                                                WidthRequest="50" />
+
+                                            <Label
+                                                Margin="10,0,0,0"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Title}"
+                                                VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <CollectionView
+                            AbsoluteLayout.LayoutBounds="5,100"
+                            HeightRequest="455"
+                            HorizontalOptions="Center"
+                            ItemsSource="{Binding PaginaGenero.Items}"
+                            SelectedItem="{Binding Book3}"
+                            SelectionChangedCommand="{Binding ShowBookMopupCommand}"
+                            SelectionChangedCommandParameter="{Binding Book3.Id}"
+                            SelectionMode="Single"
+                            VerticalOptions="Center"
+                            WidthRequest="1000">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout
+                                    HorizontalItemSpacing="5"
+                                    Orientation="Vertical"
+                                    Span="5"
+                                    VerticalItemSpacing="5" />
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:Name="gen" x:DataType="models:BookModel">
+                                    <Frame WidthRequest="190">
+                                        <Frame.Background>
+                                            <LinearGradientBrush EndPoint="0,1">
+                                                <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                                <GradientStop Offset="0.6" Color="DimGray" />
+                                                <GradientStop Offset="0" Color="{Binding Color}" />
+                                            </LinearGradientBrush>
+                                        </Frame.Background>
+
+                                        <VerticalStackLayout HeightRequest="170">
+                                            <Image
+                                                Aspect="AspectFit"
+                                                HeightRequest="170"
+                                                Source="{Binding Imagen}" />
+                                        </VerticalStackLayout>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </AbsoluteLayout>
+
+                    <HorizontalStackLayout AbsoluteLayout.LayoutBounds="10,600" HorizontalOptions="Center">
+                        <Button Command="{Binding}" Text="Primero" />
+                        <Button
+                            Margin="10,0"
+                            Command="{Binding}"
+                            Text="&lt;" />
+                        <Button Command="{Binding}" Text="&gt;" />
+                        <Button
+                            Margin="10,0"
+                            Command="{Binding}"
+                            Text="Ultimo" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+        </AbsoluteLayout>
+    </VerticalStackLayout>
+
 </ContentPage>

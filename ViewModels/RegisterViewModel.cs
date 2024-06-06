@@ -1,12 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using TFGMaui.Models;
 using TFGMaui.Repositories;
 using Windows.UI.ViewManagement;
 using TFGMaui.Utils;
 using Microsoft.UI.Windowing;
 using Microsoft.UI;
+using TFGMaui.ViewModels;
+using TFGMaui.Models;
 
 namespace TFGMaui.ViewModels
 {
@@ -104,6 +105,11 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task CambiarPagina()
         {
+            if (UsuarioReg is null)
+            {
+                return;
+            }
+
             // Esta en la primera pagina
             if (FirstPageReg)
             {

@@ -26,8 +26,6 @@ namespace TFGMaui.ViewModels
 
         [ObservableProperty]
         private string pass;
-        [ObservableProperty]
-        private string passP;
 
         [ObservableProperty]
         private bool isDark;
@@ -37,10 +35,9 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private string nuevaPass;
         [ObservableProperty]
-        private string nuevaPassRep;
-
-        [ObservableProperty]
         private string nuevoNombre;
+        [ObservableProperty]
+        private string nuevoEmail;
 
         [ObservableProperty]
         private ImageSource avatar;
@@ -135,7 +132,6 @@ namespace TFGMaui.ViewModels
 
             Base64 = f.FileBase64;
             Avatar = f.ImageSource;
-            UsuarioActivo.Avatar = Avatar;
         }
 
         /// <summary>
@@ -159,20 +155,12 @@ namespace TFGMaui.ViewModels
                 await SecureStorage.SetAsync("credentialsStored", false.ToString());
                 await SecureStorage.SetAsync("username", " ");
                 await SecureStorage.SetAsync("password", " ");
+                UsuarioActivo = new();
             }
 
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
-                ["UsuarioActivo"] = UsuarioActivo
-            });
-        }
-
-        [RelayCommand]
-        public async Task LogOut(string pagina)
-        {
-            await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
-            {
-                ["UsuarioActivo"] = new UsuarioModel(),
+                ["UsuarioActivo"] = UsuarioActivo,
                 ["IsRememberMe"] = false
             });
         }
@@ -184,12 +172,14 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ChangePass()
         {
-            if (!NuevaPass.Equals(NuevaPassRep))
+            Pass = await App.Current.MainPage.DisplayPromptAsync("Alerta", "Introduce tu contraseña");
+
+            if (Pass is null)
             {
                 return;
             }
 
-            if (!PassP.Equals(UsuarioActivo.Password.Trim()))
+            if (!Pass.Equals(UsuarioActivo.Password.Trim()))
             {
                 return;
             }
@@ -197,6 +187,31 @@ namespace TFGMaui.ViewModels
             if (new SettingsRepository().ChangePass(NuevaPass, UsuarioActivo))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Contraseña cambiada satisfactoriamente", "Aceptar");
+            }
+        }
+
+        /// <summary>
+        /// Si la contraseña es igual cambia la contraseña del usuario
+        /// </summary>
+        /// <returns></returns>
+        [RelayCommand]
+        public async Task ChangeEmail()
+        {
+            Pass = await App.Current.MainPage.DisplayPromptAsync("Alerta", "Introduce tu contraseña");
+
+            if (Pass is null)
+            {
+                return;
+            }
+
+            if (!Pass.Equals(UsuarioActivo.Password.Trim()))
+            {
+                return;
+            }
+
+            if (new SettingsRepository().ChangeEmail(NuevaPass, UsuarioActivo))
+            {
+                await App.Current.MainPage.DisplayAlert("Exito", "Email cambiado satisfactoriamente", "Aceptar");
             }
         }
 
@@ -246,6 +261,8 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ChangeUsername()
         {
+            Pass = await App.Current.MainPage.DisplayPromptAsync("Alerta", "Introduce tu contraseña");
+
             if (Pass is null)
             {
                 return;

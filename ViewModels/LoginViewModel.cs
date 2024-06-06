@@ -40,13 +40,20 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task Navegar(string pagina)
         {
+            if (pagina.Equals("RegisterPage"))
+            {
+                UsuarioActivo = new();
+            }
+            else if (pagina.Equals("MainPage"))
+            {
+                UsuarioActivo.Guest = UsuarioActivo.Username.Equals("admin");
+            }
+
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
                 ["UsuarioActivo"] = UsuarioActivo,
-                ["IsGuest"]= UsuarioActivo.Username.Equals("admin")
+                ["IsGuest"] = UsuarioActivo.Guest
             });
-
-            UsuarioActivo = new();
         }
 
         [RelayCommand]

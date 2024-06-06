@@ -38,7 +38,7 @@
             <Label
                 Margin="5,0,0,0"
                 HorizontalOptions="Center"
-                Text="{Binding Manga.Score}"
+                Text="{Binding Manga.Aired}"
                 VerticalOptions="Center" />
         </HorizontalStackLayout>
 

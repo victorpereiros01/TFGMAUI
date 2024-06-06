@@ -39,11 +39,18 @@
                     <Button
                         Command="{Binding NavegarMCommand}"
                         CommandParameter="MoviesPage"
+                        FontSize="30"
                         HeightRequest="80"
-                        HorizontalOptions="Center"
-                        Text="Movies"
-                        VerticalOptions="Center"
-                        WidthRequest="280" />
+                        Text="PELICULAS"
+                        TextColor="Black"
+                        WidthRequest="280">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="1" Color="#848484" />
+                                <GradientStop Offset="0" Color="#0020ff" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
 
                     <Button
                         Margin="30,0"
@@ -59,11 +66,18 @@
                     <Button
                         Command="{Binding NavegarSCommand}"
                         CommandParameter="SeriesPage"
+                        FontSize="30"
                         HeightRequest="80"
-                        HorizontalOptions="Center"
-                        Text="Series"
-                        VerticalOptions="Center"
-                        WidthRequest="280" />
+                        Text="SERIES"
+                        TextColor="Black"
+                        WidthRequest="280">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                <GradientStop Offset="1" Color="#35b176" />
+                                <GradientStop Offset="0" Color="#848484" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout
@@ -113,7 +127,7 @@
                 </HorizontalStackLayout>
 
                 <CollectionView
-                    HeightRequest="600"
+                    HeightRequest="385"
                     HorizontalOptions="Center"
                     ItemsSource="{Binding PaginaT.Results}"
                     SelectedItem="{Binding Movie}"
@@ -121,10 +135,10 @@
                     SelectionChangedCommandParameter="{Binding Movie.Id}"
                     SelectionMode="Single"
                     VerticalOptions="Center"
-                    WidthRequest="970">
+                    WidthRequest="968">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout
-                            HorizontalItemSpacing="5"
+                            HorizontalItemSpacing="6"
                             Orientation="Vertical"
                             Span="7"
                             VerticalItemSpacing="5" />
@@ -136,7 +150,7 @@
                                 <Frame.Background>
                                     <LinearGradientBrush EndPoint="0,1">
                                         <GradientStop Offset="0.9" Color="#EEEEEE" />
-                                        <GradientStop Offset="0.6" Color="DimGray" />
+                                        <GradientStop Offset="0.6" Color="#848484" />
                                         <GradientStop Offset="0" Color="{Binding Color}" />
                                     </LinearGradientBrush>
                                 </Frame.Background>

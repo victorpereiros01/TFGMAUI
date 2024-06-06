@@ -62,30 +62,29 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task InitializeComponents()
         {
-            //IsGuest = UsuarioActivo.Guest;
+            Saludos = "Ten un buen " + DateTime.Now.ToString("dddd, d MMM", CultureInfo.CurrentCulture);
 
             switch (DateTime.Now.Month)
             {
                 case 12 or 1 or 2:
-                    Season = ImageSource.FromFile("copo.png");
+                    Season = ImageSource.FromFile("winter.png");
                     break;
                 case 3 or 4 or 5:
-                    Season = ImageSource.FromFile("flor.png");
+                    Season = ImageSource.FromFile("spring.png");
                     break;
                 case 6 or 7 or 8:
-                    Season = ImageSource.FromFile("sol.png");
+                    Season = ImageSource.FromFile("summer.png");
                     break;
                 case 9 or 10 or 11:
-                    Season = ImageSource.FromFile("hoja.png");
+                    Season = ImageSource.FromFile("fall.png");
                     break;
             }
 
-            ListFav = new SavedHobbiesRepository().GetFavorites(UsuarioActivo.Id);
-            ListSeen = new SavedHobbiesRepository().GetSeen(UsuarioActivo.Id);
-            ListPend = new SavedHobbiesRepository().GetPending(UsuarioActivo.Id);
+            ListFav = new HobbieRepository().GetFavorites(UsuarioActivo.Id);
+            ListSeen = new HobbieRepository().GetSeen(UsuarioActivo.Id);
+            ListPend = new HobbieRepository().GetPending(UsuarioActivo.Id);
 
             Bearer = await GetBearerG();
-            Saludos = "Have a nice " + new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).ToString("dddd, d MMM", CultureInfo.InvariantCulture);
 
             var hobbieC = 0;
             foreach (var item in UsuarioActivo.Hobbies)
@@ -331,7 +330,8 @@ namespace TFGMaui.ViewModels
                 foreach (var item in listTrend)
                 {
                     item.Imagen = await GetImage(item.Cover);
-                    item.Color = MiscellaneousUtils.GetColorHobbie("Game");
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Game")[0];
+                    item.Color2 = MiscellaneousUtils.GetColorHobbie("Game")[1];
                 }
 
                 PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) };
@@ -405,7 +405,8 @@ namespace TFGMaui.ViewModels
                 foreach (var item in listTrend)
                 {
                     item.Imagen = await GetImage(item.Cover);
-                    item.Color = MiscellaneousUtils.GetColorHobbie("Game");
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Game")[0];
+                    item.Color2 = MiscellaneousUtils.GetColorHobbie("Game")[1];
                 }
 
                 PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) };
@@ -433,7 +434,8 @@ namespace TFGMaui.ViewModels
                 foreach (var item in pagseason.Data)
                 {
                     item.Imagen = item.Images.Jpg.Image_url;
-                    item.Color = MiscellaneousUtils.GetColorHobbie("Anime");
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Anime")[0];
+                    item.Color2 = MiscellaneousUtils.GetColorHobbie("Anime")[1];
                 }
 
                 PaginaS = pagseason;
@@ -453,7 +455,8 @@ namespace TFGMaui.ViewModels
             foreach (var item in pagtrend.Data)
             {
                 item.Imagen = item.Images.Jpg.Image_url;
-                item.Color = MiscellaneousUtils.GetColorHobbie("Manga");
+                item.Color = MiscellaneousUtils.GetColorHobbie("Manga")[0];
+                item.Color2 = MiscellaneousUtils.GetColorHobbie("Manga")[1];
             }
 
             PaginaTopManga = pagtrend;
@@ -468,7 +471,8 @@ namespace TFGMaui.ViewModels
             foreach (var item in pagtrend2.Data)
             {
                 item.Imagen = item.Images.Jpg.Image_url;
-                item.Color = MiscellaneousUtils.GetColorHobbie("Anime");
+                item.Color = MiscellaneousUtils.GetColorHobbie("Anime")[0];
+                item.Color2 = MiscellaneousUtils.GetColorHobbie("Anime")[1];
             }
 
             PaginaTopAnime = pagtrend2;
@@ -494,7 +498,8 @@ namespace TFGMaui.ViewModels
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
                 foreach (var item in pagtrend.Results)
                 {
-                    item.Color = MiscellaneousUtils.GetColorHobbie(item.MediaType.Equals("tv") ? "Serie" : "Movie");
+                    item.Color = MiscellaneousUtils.GetColorHobbie(item.MediaType.Equals("tv") ? "Serie" : "Movie")[0];
+                    item.Color2 = MiscellaneousUtils.GetColorHobbie(item.MediaType.Equals("tv") ? "Serie" : "Movie")[1];
                 }
 
                 PaginaTrendMovSerie = pagtrend;

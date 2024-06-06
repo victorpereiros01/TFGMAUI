@@ -141,9 +141,9 @@ namespace TFGMaui.Repositories
             return true;
         }
 
-        public static string HashPasswordSHA256(string password)
+        public static string HashPasswordSHA512(string password)
         {
-            byte[] data = SHA256.HashData(Encoding.UTF8.GetBytes(password));
+            byte[] data = SHA3_512.HashData(Encoding.UTF8.GetBytes(password));
 
             StringBuilder sBuilder = new();
 
@@ -157,7 +157,7 @@ namespace TFGMaui.Repositories
 
         public static bool VerifyPassword(string inputPassword, string storedHash)
         {
-            string hashOfInput = HashPasswordSHA256(inputPassword);
+            string hashOfInput = HashPasswordSHA512(inputPassword);
 
             return StringComparer.OrdinalIgnoreCase.Compare(hashOfInput, storedHash) == 0;
         }

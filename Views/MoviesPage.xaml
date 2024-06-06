@@ -34,9 +34,18 @@
                 <AbsoluteLayout>
                     <Button
                         AbsoluteLayout.LayoutBounds="10,0"
+                        FontSize="30"
                         HeightRequest="80"
-                        Text="Peliculas"
-                        WidthRequest="300" />
+                        Text="PELICULAS"
+                        TextColor="Black"
+                        WidthRequest="300">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="1" Color="#848484" />
+                                <GradientStop Offset="0" Color="#0020ff" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
 
                     <!--  Home  -->
                     <Button

@@ -124,7 +124,8 @@ namespace TFGMaui.ViewModels
                 foreach (var item in listTrend)
                 {
                     item.Imagen = await GetImage(item.Cover);
-                    item.Color = MiscellaneousUtils.GetColorHobbie("Game");
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Game")[0];
+                    item.Color2 = MiscellaneousUtils.GetColorHobbie("Game")[1];
                 }
 
                 PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) }; pageG.Items = MiscellaneousUtils.GetNelements(pageG.Items, 5);
@@ -166,7 +167,8 @@ namespace TFGMaui.ViewModels
                 foreach (var item in listTrend)
                 {
                     item.Imagen = await GetImage(item.Cover);
-                    item.Color = MiscellaneousUtils.GetColorHobbie("Game");
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Game")[0];
+                    item.Color2 = MiscellaneousUtils.GetColorHobbie("Game")[1];
                 }
 
                 PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) };

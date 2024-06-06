@@ -1,6 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Data;
 using TFGMaui.Models;
 using TFGMaui.Services;
+using TFGMaui.Utils;
 
 namespace TFGMaui.Repositories
 {
@@ -19,9 +21,7 @@ namespace TFGMaui.Repositories
         /// <returns></returns>
         public bool AddHobbie(string addType, int idUser, string type, HobbieModel h)
         {
-            var letra = addType.ToArray()[0];
-
-            SetCmdQuery($"SELECT 1 FROM {addType}Hobbies WHERE HobbieType = @HobbieType AND Value = @Value AND IdUser{letra} = @IdUser");
+            SetCmdQuery($"SELECT 1 FROM {addType}Hobbies WHERE HobbieType = @HobbieType AND Value = @Value AND IdUser{addType.ToArray()[0]} = @IdUser");
 
             AddCmdParameters(
                 new()
@@ -42,7 +42,7 @@ namespace TFGMaui.Repositories
             }
 
             // Segunda query
-            SetCmdQuery($"INSERT into {addType}Hobbies(HobbieType, Value, IdUser{letra}, Imagen, Title) VALUES(@HobbieType, @Value, @IdUser, @Imagen, @Title)");
+            SetCmdQuery($"INSERT into {addType}Hobbies(HobbieType, Value, IdUser{addType.ToArray()[0]}, Imagen, Title) VALUES(@HobbieType, @Value, @IdUser, @Imagen, @Title)");
 
             Oconexion.Close();
             Oconexion.Open();
@@ -57,9 +57,7 @@ namespace TFGMaui.Repositories
 
         public bool RemoveHobbie(string addType, int idUser, string hobbieType, string value)
         {
-            var letra = addType.ToArray()[0];
-
-            SetCmdQuery($"DELETE FROM {addType}Hobbies WHERE HobbieType = @HobbieType AND VALUE = @Value AND IdUser{letra} = @IdUser ");
+            SetCmdQuery($"DELETE FROM {addType}Hobbies WHERE HobbieType = @HobbieType AND VALUE = @Value AND IdUser{addType.ToArray()[0]} = @IdUser ");
 
             AddCmdParameters(
                 new()
@@ -78,6 +76,49 @@ namespace TFGMaui.Repositories
             }
 
             return true;
+        }
+
+        public List<SavedHobbieModel> GetHobbies(int idUser, string type)
+        {
+            List<SavedHobbieModel> listHobbies = [];
+
+            SetCmdQuery($"SELECT IdAdded, HobbieType, Value, Imagen, Title FROM {type}Hobbies WHERE IdUser{type.ToArray()[0]}=@IdUser ORDER by IdAdded DESC");
+
+            AddCmdParameters(new() { { "@IdUser", idUser } });
+
+            Cmd.CommandType = CommandType.Text;
+            Oconexion.Open();
+            using SqlDataReader dr = Cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                listHobbies.Add(new SavedHobbieModel()
+                {
+                    HobbieType = dr.GetString(1),
+                    Color = MiscellaneousUtils.GetColorHobbie(dr.GetString(1))[0],
+                    Color2 = MiscellaneousUtils.GetColorHobbie(dr.GetString(1))[1],
+                    Value = dr.GetString(2),
+                    Imagen = dr.GetString(3),
+                    Title = dr.GetString(4)
+                });
+            }
+
+            return listHobbies;
+        }
+
+        public List<SavedHobbieModel> GetFavorites(int idUser)
+        {
+            return GetHobbies(idUser, "Favorite");
+        }
+
+        public List<SavedHobbieModel> GetPending(int idUser)
+        {
+            return GetHobbies(idUser, "Pending");
+        }
+
+        public List<SavedHobbieModel> GetSeen(int idUser)
+        {
+            return GetHobbies(idUser, "Seen");
         }
     }
 }

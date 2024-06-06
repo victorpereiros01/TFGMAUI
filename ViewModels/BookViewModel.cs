@@ -116,7 +116,8 @@ namespace TFGMaui.ViewModels
                     item.Imagen = item.VolumeInfo.ImageLinks.Thumbnail;
                 }
 
-                item.Color = MiscellaneousUtils.GetColorHobbie("Book");
+                item.Color = MiscellaneousUtils.GetColorHobbie("Book")[0];
+                item.Color2 = MiscellaneousUtils.GetColorHobbie("Book")[1];
             }
 
             PaginaGenero = pagtrend;

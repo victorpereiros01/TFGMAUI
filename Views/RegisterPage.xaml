@@ -27,7 +27,7 @@
             Command="{Binding CloseAppCommand}" />
 
         <VerticalStackLayout
-            AbsoluteLayout.LayoutBounds="350,100,500,600"
+            AbsoluteLayout.LayoutBounds="350,75,500,650"
             HorizontalOptions="Center"
             VerticalOptions="Center">
             <Frame
@@ -56,7 +56,7 @@
                 <Grid
                     ColumnDefinitions="*,200,200,*"
                     HorizontalOptions="Center"
-                    RowDefinitions="*,80,40,65,65,65,65,70,50,*"
+                    RowDefinitions="*,80,40,65,65,65,65,65,70,50,*"
                     VerticalOptions="Center">
                     <Button
                         Grid.Row="1"
@@ -72,7 +72,7 @@
                         Grid.ColumnSpan="2"
                         FontSize="Small"
                         HorizontalOptions="Center"
-                        Text="Enter your data to sign up"
+                        Text="Introduce tus datos"
                         TextColor="White" />
 
                     <Entry
@@ -83,14 +83,28 @@
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
                         Opacity=".8"
-                        Placeholder="Username"
+                        Placeholder="Apodo"
                         PlaceholderColor="DimGray"
                         Text="{Binding UsuarioReg.Username}"
                         VerticalOptions="Center"
                         WidthRequest="400" />
 
-                    <AbsoluteLayout
+                    <Entry
                         Grid.Row="4"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="LightGray"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Opacity=".8"
+                        Placeholder="Nombre"
+                        PlaceholderColor="DimGray"
+                        Text="{Binding UsuarioReg.Name}"
+                        VerticalOptions="Center"
+                        WidthRequest="400" />
+
+                    <AbsoluteLayout
+                        Grid.Row="5"
                         Grid.Column="1"
                         Grid.ColumnSpan="2">
                         <Entry
@@ -114,7 +128,7 @@
                     </AbsoluteLayout>
 
                     <AbsoluteLayout
-                        Grid.Row="5"
+                        Grid.Row="6"
                         Grid.Column="1"
                         Grid.ColumnSpan="2">
                         <Entry
@@ -124,21 +138,21 @@
                             HorizontalTextAlignment="Center"
                             IsPassword="{Binding IsPassword}"
                             Opacity=".8"
-                            Placeholder="Password"
+                            Placeholder="Contraseña"
                             PlaceholderColor="DimGray"
                             Text="{Binding UsuarioReg.Password}"
                             VerticalOptions="Center"
                             WidthRequest="400" />
 
                         <Button
-                            AbsoluteLayout.LayoutBounds="360,10,25,25"
+                            AbsoluteLayout.LayoutBounds="350,10,25,25"
                             Command="{Binding ChangePassVisCommand}"
                             HeightRequest="20"
                             ImageSource="fondo.jpg" />
                     </AbsoluteLayout>
 
                     <AbsoluteLayout
-                        Grid.Row="6"
+                        Grid.Row="7"
                         Grid.Column="1"
                         Grid.ColumnSpan="2">
                         <Entry
@@ -148,21 +162,21 @@
                             HorizontalTextAlignment="Center"
                             IsPassword="{Binding IsPasswordRep}"
                             Opacity=".8"
-                            Placeholder="Repeat your password"
+                            Placeholder="Repite tu contraseña"
                             PlaceholderColor="DimGray"
                             Text="{Binding RepContra}"
                             VerticalOptions="Center"
                             WidthRequest="400" />
 
                         <Button
-                            AbsoluteLayout.LayoutBounds="360,10,25,25"
+                            AbsoluteLayout.LayoutBounds="350,10,25,25"
                             Command="{Binding ChangePassRepVisCommand}"
                             HeightRequest="20"
                             ImageSource="fondo.jpg" />
                     </AbsoluteLayout>
 
                     <Button
-                        Grid.Row="7"
+                        Grid.Row="8"
                         Grid.Column="1"
                         Grid.ColumnSpan="2"
                         BackgroundColor="{Binding ColorAcc}"
@@ -173,20 +187,20 @@
                         WidthRequest="400" />
 
                     <HorizontalStackLayout
-                        Grid.Row="8"
+                        Grid.Row="9"
                         Grid.Column="1"
                         Grid.ColumnSpan="2"
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
                         <Label
                             HorizontalOptions="End"
-                            Text="Already have an account?"
-                            TextColor="DarkGray"
+                            Text="¿Ya tienes una cuenta?"
+                            TextColor="White"
                             VerticalOptions="CenterAndExpand" />
                         <Label
                             Margin="10,0"
                             HorizontalOptions="Start"
-                            Text="Log in"
+                            Text="Inicia sesion"
                             VerticalOptions="CenterAndExpand" />
 
                         <HorizontalStackLayout.GestureRecognizers>
@@ -222,7 +236,7 @@
                 <Grid
                     ColumnDefinitions="*,200,200,*"
                     HorizontalOptions="Center"
-                    RowDefinitions="*,80,40,65,65,65,65,70,50,*"
+                    RowDefinitions="*,80,40,65,65,65,65,65,70,50,*"
                     VerticalOptions="Center">
                     <Button
                         Grid.Row="1"
@@ -238,12 +252,12 @@
                         Grid.ColumnSpan="2"
                         FontSize="Small"
                         HorizontalOptions="Center"
-                        Text="Choose your hobbies"
+                        Text="Elige tus hobbies"
                         TextColor="White" />
 
                     <CollectionView
                         Grid.Row="3"
-                        Grid.RowSpan="4"
+                        Grid.RowSpan="5"
                         Grid.Column="1"
                         Grid.ColumnSpan="2"
                         ItemsSource="{Binding Items}"
@@ -268,7 +282,7 @@
                                             HorizontalOptions="Center"
                                             Opacity=".6"
                                             Source="fondo.jpg"
-                                            WidthRequest="70" />
+                                            WidthRequest="120" />
                                         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                             <CheckBox
                                                 HorizontalOptions="Center"
@@ -289,7 +303,7 @@
                     </CollectionView>
 
                     <Button
-                        Grid.Row="7"
+                        Grid.Row="8"
                         Grid.Column="1"
                         Margin="0,0,5,0"
                         BackgroundColor="{Binding ColorAcc}"
@@ -299,7 +313,7 @@
                         TextColor="{Binding TxColor}"
                         WidthRequest="180" />
                     <Button
-                        Grid.Row="7"
+                        Grid.Row="8"
                         Grid.Column="2"
                         Margin="5,0,0,0"
                         BackgroundColor="{Binding ColorAcc}"
@@ -310,20 +324,20 @@
                         WidthRequest="180" />
 
                     <HorizontalStackLayout
-                        Grid.Row="8"
+                        Grid.Row="9"
                         Grid.Column="1"
                         Grid.ColumnSpan="2"
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
                         <Label
                             HorizontalOptions="End"
-                            Text="Already have an account?"
-                            TextColor="DarkGray"
+                            Text="¿Ya tienes una cuenta?"
+                            TextColor="White"
                             VerticalOptions="CenterAndExpand" />
                         <Label
                             Margin="10,0"
                             HorizontalOptions="Start"
-                            Text="Log in"
+                            Text="Inicia sesion"
                             VerticalOptions="CenterAndExpand" />
 
                         <HorizontalStackLayout.GestureRecognizers>

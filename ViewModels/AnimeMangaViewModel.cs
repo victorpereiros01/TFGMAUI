@@ -129,6 +129,11 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task GetSeason(string season)
         {
+            if (season is null)
+            {
+                return;
+            }
+
             var year = IsSeasonSelected ? "2024" : season.Split('-')[0];
             var seasonSplit = IsSeasonSelected ? season.Split(".")[0] : season.Split('-')[1].ToLower();
 
@@ -142,7 +147,8 @@ namespace TFGMaui.ViewModels
             foreach (var item in pagtrend.Data)
             {
                 item.Imagen = item.Images.Jpg.Image_url;
-                item.Color = MiscellaneousUtils.GetColorHobbie("Anime");
+                item.Color = MiscellaneousUtils.GetColorHobbie("Anime")[0];
+                item.Color2 = MiscellaneousUtils.GetColorHobbie("Anime")[1];
             }
             pagtrend.Data = MiscellaneousUtils.GetNelements(pagtrend.Data, 10);
 

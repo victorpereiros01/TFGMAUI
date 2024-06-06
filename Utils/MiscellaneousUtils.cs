@@ -22,16 +22,17 @@ namespace TFGMaui.Utils
             return new Color(red, green, blue, alpha);
         }
 
-        public static Color GetColorHobbie(string hType)
+        public static Color[] GetColorHobbie(string hType)
         {
             return hType switch
             {
-                "Movie" => ConvertFromSystemDrawingColor(System.Drawing.Color.Blue),
-                "Serie" => ConvertFromSystemDrawingColor(System.Drawing.Color.Green),
-                "Manga" => ConvertFromSystemDrawingColor(System.Drawing.Color.Red),
-                "Anime" => ConvertFromSystemDrawingColor(System.Drawing.Color.Orange),
-                "Game" => ConvertFromSystemDrawingColor(System.Drawing.Color.Purple),
-                "Book" => ConvertFromSystemDrawingColor(System.Drawing.Color.Yellow)
+                "Movie" => [Color.FromArgb("#23369C"), Color.FromArgb("#7078AF")],
+                "Serie" => [Color.FromArgb("#239C62"), Color.FromArgb("#70AF92")],
+                "Manga" => [Color.FromArgb("#9C6923"), Color.FromArgb("#AF9370")],
+                "Anime" => [Color.FromArgb("#9C2323"), Color.FromArgb("#D10303")],
+                "Game" => [Color.FromArgb("#5d3085"), Color.FromArgb("#9B70AF")],
+                "Book" => [Color.FromArgb("#c1be0f"), Color.FromArgb("#cfd59b")],
+                _ => throw new NotImplementedException()
             };
         }
 

@@ -112,7 +112,8 @@ namespace TFGMaui.ViewModels
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
                 foreach (var item in pagtrend.Results)
                 {
-                    item.Color = MiscellaneousUtils.GetColorHobbie("Serie");
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Serie")[0];
+                    item.Color2 = MiscellaneousUtils.GetColorHobbie("Serie")[1];
                 }
 
                 PaginaTS = pagtrend;
@@ -153,7 +154,8 @@ namespace TFGMaui.ViewModels
             pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
             foreach (var item in pagtrend.Results)
             {
-                item.Color = MiscellaneousUtils.GetColorHobbie("Serie");
+                item.Color = MiscellaneousUtils.GetColorHobbie("Serie")[0];
+                item.Color2 = MiscellaneousUtils.GetColorHobbie("Serie")[1];
             }
 
             PaginaAux = pagtrend;

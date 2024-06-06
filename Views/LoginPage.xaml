@@ -77,7 +77,7 @@
                         Grid.ColumnSpan="2"
                         FontSize="Small"
                         HorizontalOptions="Center"
-                        Text="All your hobbies reunited: One app"
+                        Text="Tus hobbies reunidos: Una aplicacion"
                         TextColor="White" />
 
                     <Entry
@@ -88,7 +88,7 @@
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
                         Opacity=".8"
-                        Placeholder="Username or email"
+                        Placeholder="Nombre de usuario o email"
                         PlaceholderColor="DimGray"
                         Text="{Binding UsuarioActivo.Username}"
                         VerticalOptions="Center"
@@ -105,7 +105,7 @@
                             HorizontalTextAlignment="Center"
                             IsPassword="{Binding IsPassword}"
                             Opacity=".8"
-                            Placeholder="Password"
+                            Placeholder="Contraseña"
                             PlaceholderColor="DimGray"
                             ReturnCommand="{Binding LoginCommand}"
                             Text="{Binding UsuarioActivo.Password}"
@@ -113,7 +113,7 @@
                             WidthRequest="400" />
 
                         <Button
-                            AbsoluteLayout.LayoutBounds="360,10,25,25"
+                            AbsoluteLayout.LayoutBounds="350,10,25,25"
                             Command="{Binding ChangePassVisCommand}"
                             HeightRequest="20"
                             ImageSource="fondo.jpg" />
@@ -128,8 +128,8 @@
                         VerticalOptions="Center">
                         <CheckBox IsChecked="{Binding IsRememberMe}" VerticalOptions="Center" />
                         <Label
-                            Text="Keep me signed in"
-                            TextColor="DarkGray"
+                            Text="Mantenme la sesion iniciada"
+                            TextColor="White"
                             VerticalOptions="Center">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ChangeRememberCommand}" NumberOfTapsRequired="1" />
@@ -157,13 +157,13 @@
                         <Label
                             Margin="0,0,5,0"
                             HorizontalOptions="End"
-                            Text="¿Haven´t registered yet?"
-                            TextColor="DarkGray"
+                            Text="¿No te has registrado todavia?"
+                            TextColor="White"
                             VerticalOptions="Center" />
 
                         <Label
                             Margin="5,0,0,0"
-                            Text="Create an account"
+                            Text="Crea una cuenta"
                             VerticalOptions="Center" />
 
                         <HorizontalStackLayout.GestureRecognizers>
@@ -178,7 +178,7 @@
                 BorderColor="{AppThemeBinding Light=Black,
                                               Dark=White}"
                 CornerRadius="30"
-                HeightRequest="120"
+                HeightRequest="135"
                 WidthRequest="500">
                 <Frame.Shadow>
                     <Shadow
@@ -199,7 +199,7 @@
                     BackgroundColor="{Binding ColorAccCom}"
                     Command="{Binding LoginGuestCommand}"
                     HeightRequest="60"
-                    Text="Or enter guest mode"
+                    Text="O entra en modo invitado"
                     TextColor="{Binding TxColorCom}"
                     WidthRequest="400" />
             </Frame>

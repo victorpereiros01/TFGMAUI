@@ -33,10 +33,18 @@
 
                 <AbsoluteLayout>
                     <Button
-                        AbsoluteLayout.LayoutBounds="10,0"
+                        FontSize="30"
                         HeightRequest="80"
-                        Text="Games"
-                        WidthRequest="300" />
+                        Text="VIDEOJUEGOS"
+                        TextColor="Black"
+                        WidthRequest="300">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                <GradientStop Offset="0" Color="#5d3085" />
+                                <GradientStop Offset="1" Color="#848484" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
 
                     <!--  Home  -->
                     <Button
@@ -178,7 +186,7 @@
 
                         <Button
                             Margin="10,0,0,0"
-                            BackgroundColor="Purple"
+                            BackgroundColor="#5d3085"
                             Command="{Binding GetTrendGCommand}"
                             HeightRequest="40"
                             HorizontalOptions="Center"

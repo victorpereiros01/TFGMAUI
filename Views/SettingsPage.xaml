@@ -70,7 +70,7 @@
                                 Margin="8"
                                 Command="{Binding ChangeDarkLightCommand}"
                                 HorizontalOptions="Center"
-                                Text="cambiar colores"
+                                Text="Cambiar colores"
                                 VerticalOptions="Center" />
                         </HorizontalStackLayout>
                     </Frame>
@@ -79,7 +79,7 @@
                         <HorizontalStackLayout>
                             <Label
                                 HorizontalOptions="Center"
-                                Text="Parental mode"
+                                Text="Modo parental"
                                 VerticalOptions="Center" />
                             <Switch
                                 Margin="10,0,-110,0"
@@ -88,7 +88,7 @@
                             <Button
                                 Command="{Binding EnableParentalModeCommand}"
                                 HorizontalOptions="Center"
-                                Text="Change"
+                                Text="Cambiar"
                                 VerticalOptions="Center" />
                         </HorizontalStackLayout>
                     </Frame>
@@ -110,7 +110,7 @@
                         CommandParameter="LoginPage"
                         HeightRequest="100"
                         HorizontalOptions="End"
-                        Text="Log out"
+                        Text="Salir"
                         TextColor="Black"
                         WidthRequest="115" />
                 </HorizontalStackLayout>
@@ -292,7 +292,7 @@
 
                                 <toolkit:Expander.Content>
                                     <Frame BackgroundColor="#EEEEEE">
-                                        <Grid ColumnDefinitions="300,100" RowDefinitions="220,100">
+                                        <Grid ColumnDefinitions="300,110" RowDefinitions="220,100">
                                             <Border
                                                 Grid.Row="0"
                                                 Grid.RowSpan="2"
@@ -303,7 +303,7 @@
 
                                                 <Image
                                                     Aspect="AspectFill"
-                                                    HeightRequest="300"
+                                                    HeightRequest="320"
                                                     Source="{Binding Avatar}" />
                                             </Border>
                                             <Button

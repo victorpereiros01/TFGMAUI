@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using TFGMaui.Models;
@@ -52,12 +53,12 @@ namespace TFGMaui.ViewModels
         {
             ColorStr = "Oscuro"; IsDark = true;
             Languages = [
-                new LanguageModel() { Imagen= ImageSource.FromFile("spanish.png"), Value= "Spanish", Utf8= "es-ES"},
-                new LanguageModel() { Imagen= ImageSource.FromFile("english.png"), Value= "English", Utf8= "en-US"},
-                new LanguageModel() { Imagen= ImageSource.FromFile("german.png"), Value= "German", Utf8= "de"},
-                new LanguageModel() { Imagen= ImageSource.FromFile("italy.png"), Value= "Italian", Utf8= "it"},
-                new LanguageModel() { Imagen= ImageSource.FromFile("portuguese.png"), Value= "Portuguese", Utf8= "pt"},
-                new LanguageModel() { Imagen= ImageSource.FromFile("japanese.png"), Value= "Japanese", Utf8= "ja"}
+                new LanguageModel() { Imagen= ImageSource.FromFile("spanish.png"), Value= "ESPAÑOL", Utf8= "es-ES"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("english.png"), Value= "INGLES", Utf8= "en-US"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("german.png"), Value= "ALEMAN", Utf8= "de"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("italy.png"), Value= "ITALIANO", Utf8= "it"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("portuguese.png"), Value= "PORTUGUES", Utf8= "pt"},
+                new LanguageModel() { Imagen= ImageSource.FromFile("japanese.png"), Value= "JAPONES", Utf8= "ja"}
             ];
         }
 
@@ -103,10 +104,10 @@ namespace TFGMaui.ViewModels
         {
             Items =
             [
-                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[0], HobbieType = "Cinema" },
-                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[1], HobbieType = "Manganime" },
-                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[2], HobbieType = "Games" },
-                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[3], HobbieType = "Books" }
+                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[0], HobbieType = "CINE" },
+                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[1], HobbieType = "MANGANIME" },
+                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[2], HobbieType = "VIDEOJUEGOS" },
+                new HobbieModel() { IsChecked = UsuarioActivo.Hobbies[3], HobbieType = "LIBROS" }
             ];
 
             Avatar = UsuarioActivo.Avatar;
@@ -141,7 +142,12 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         private async Task ChangeAvatar()
         {
-            if (new SettingsRepository().ChangeAvatar(base64, UsuarioActivo))
+            if (Base64.IsNullOrEmpty())
+            {
+                return;
+            }
+
+            if (new SettingsRepository().ChangeAvatar(Base64, UsuarioActivo))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Avatar cambiado satisfactoriamente", "Aceptar");
             }

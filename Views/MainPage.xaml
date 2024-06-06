@@ -64,22 +64,23 @@
                                 <Label
                                     FontAttributes="Bold"
                                     HorizontalOptions="Center"
-                                    Text="Pending hobbies"
+                                    Text="Hobbies pendientes"
                                     VerticalOptions="Center" />
                             </HorizontalStackLayout>
                         </Border>
 
                         <IndicatorView
                             x:Name="indicator"
-                            Margin="5,-5,5,8"
+                            Margin="5,-5,5,10"
                             CascadeInputTransparent="True"
+                            HeightRequest="35"
                             HorizontalOptions="Center"
-                            IndicatorSize="35"
+                            IndicatorSize="30"
                             VerticalOptions="Center" />
 
                         <CarouselView
                             CurrentItem="{Binding SavP}"
-                            EmptyView="Add hobbies to pending"
+                            EmptyView="Añade hobbies a pendientes"
                             HeightRequest="430"
                             HorizontalOptions="Center"
                             IndicatorView="indicator"
@@ -92,9 +93,10 @@
                                     <Frame CornerRadius="10">
                                         <Frame.Background>
                                             <LinearGradientBrush EndPoint="0,1">
-                                                <GradientStop Offset="0.9" Color="#EEEEEE" />
-                                                <GradientStop Offset="0.6" Color="DimGray" />
-                                                <GradientStop Offset="0" Color="{Binding Color}" />
+                                                <GradientStop Offset="1" Color="#EEEEEE" />
+                                                <GradientStop Offset="0.6" Color="{Binding Color2}" />
+                                                <GradientStop Offset="0.3" Color="{Binding Color}" />
+                                                <GradientStop Offset="0" Color="#6d6c75" />
                                             </LinearGradientBrush>
                                         </Frame.Background>
 
@@ -145,7 +147,7 @@
                             <Label
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center"
-                                Text="Favorite hobbies"
+                                Text="Hobbies favoritos"
                                 VerticalOptions="Center" />
                         </HorizontalStackLayout>
                     </Border>
@@ -156,7 +158,7 @@
                         Margin="0,-10,0,0"
                         ZIndex="1">
                         <CollectionView
-                            EmptyView="Add hobbies to favorite"
+                            EmptyView="Añade hobbies a favoritos"
                             HeightRequest="362"
                             HorizontalOptions="Center"
                             ItemsSource="{Binding ListFav}"
@@ -182,9 +184,10 @@
                                         WidthRequest="150">
                                         <Frame.Background>
                                             <LinearGradientBrush EndPoint="0,1">
-                                                <GradientStop Offset="0.9" Color="#EEEEEE" />
-                                                <GradientStop Offset="0.6" Color="DimGray" />
-                                                <GradientStop Offset="0" Color="{Binding Color}" />
+                                                <GradientStop Offset="1" Color="#EEEEEE" />
+                                                <GradientStop Offset="0.6" Color="{Binding Color2}" />
+                                                <GradientStop Offset="0.3" Color="{Binding Color}" />
+                                                <GradientStop Offset="0" Color="#6d6c75" />
                                             </LinearGradientBrush>
                                         </Frame.Background>
 
@@ -237,13 +240,13 @@
                                 <Label
                                     FontAttributes="Bold"
                                     HorizontalOptions="Center"
-                                    Text="Seen hobbies"
+                                    Text="Hobbies terminados"
                                     VerticalOptions="Center" />
                             </HorizontalStackLayout>
                         </Border>
 
                         <CollectionView
-                            EmptyView="Add hobbies to seen"
+                            EmptyView="Añade hobbies a terminados"
                             HeightRequest="275"
                             HorizontalOptions="Center"
                             ItemsSource="{Binding ListSeen}"
@@ -264,9 +267,10 @@
                                     <Frame HeightRequest="270">
                                         <Frame.Background>
                                             <LinearGradientBrush EndPoint="0,1">
-                                                <GradientStop Offset="0.9" Color="#EEEEEE" />
-                                                <GradientStop Offset="0.6" Color="DimGray" />
-                                                <GradientStop Offset="0" Color="{Binding Color}" />
+                                                <GradientStop Offset="1" Color="#EEEEEE" />
+                                                <GradientStop Offset="0.6" Color="{Binding Color2}" />
+                                                <GradientStop Offset="0.3" Color="{Binding Color}" />
+                                                <GradientStop Offset="0" Color="#6d6c75" />
                                             </LinearGradientBrush>
                                         </Frame.Background>
 
@@ -320,7 +324,7 @@
                         Grid.Column="2"
                         Grid.ColumnSpan="3"
                         Margin="10,20"
-                        Padding="50,15"
+                        Padding="15"
                         BackgroundColor="#EEEEEE">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="10" />
@@ -390,53 +394,66 @@
                             Margin="10"
                             Command="{Binding NavegarCommand}"
                             CommandParameter="MovieSeriesPage"
-                            FontSize="Subtitle"
-                            Text="Cinema"
+                            FontSize="30"
+                            Text="CINE"
                             TextColor="Black"
                             WidthRequest="{Binding HobbieWidth}">
                             <Button.Background>
                                 <LinearGradientBrush EndPoint="1,0">
-                                    <GradientStop Offset="0.9" Color="Green" />
-                                    <GradientStop Offset="0" Color="Blue" />
+                                    <GradientStop Offset="0" Color="#35b176" />
+                                    <GradientStop Offset="1" Color="#0020ff" />
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
 
                         <Button
                             Margin="10"
-                            BackgroundColor="Purple"
                             Command="{Binding NavegarGCommand}"
                             CommandParameter="GamesPage"
-                            FontSize="Subtitle"
-                            Text="Games"
+                            FontSize="30"
+                            Text="VIDEOJUEGOS"
                             TextColor="Black"
-                            WidthRequest="{Binding HobbieWidth}" />
-
-                        <Button
-                            Margin="10"
-                            BackgroundColor="Yellow"
-                            Command="{Binding NavegarCommand}"
-                            CommandParameter="BooksPage"
-                            FontSize="Subtitle"
-                            Text="Books"
-                            TextColor="Black"
-                            WidthRequest="{Binding HobbieWidth}" />
+                            WidthRequest="{Binding HobbieWidth}">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Offset="1" Color="#d073b9" />
+                                    <GradientStop Offset="0" Color="#5d3085" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
 
                         <Button
                             Margin="10"
                             Command="{Binding NavegarCommand}"
                             CommandParameter="AnimeMangaPage"
-                            FontSize="Subtitle"
-                            Text="Ani-manga"
+                            FontSize="30"
+                            Text="MANGANIME"
                             TextColor="Black"
                             WidthRequest="{Binding HobbieWidth}">
                             <Button.Background>
                                 <LinearGradientBrush EndPoint="1,0">
-                                    <GradientStop Offset="0.9" Color="Red" />
-                                    <GradientStop Offset="0" Color="Orange" />
+                                    <GradientStop Offset="0" Color="#d53333" />
+                                    <GradientStop Offset="1" Color="#daae51" />
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
+
+                        <Button
+                            Margin="10"
+                            Command="{Binding NavegarCommand}"
+                            CommandParameter="BooksPage"
+                            FontSize="30"
+                            Text="LIBROS"
+                            TextColor="Black"
+                            WidthRequest="{Binding HobbieWidth}">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Offset="1" Color="#9dd073" />
+                                    <GradientStop Offset="0" Color="#dbdf28" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+
                     </HorizontalStackLayout>
                 </Grid>
             </Frame>
@@ -465,7 +482,7 @@
                 <Grid
                     ColumnDefinitions="400,340,80,240,80"
                     HeightRequest="730"
-                    RowDefinitions="100,100,370,130"
+                    RowDefinitions="100,100,320,180"
                     WidthRequest="1180">
 
                     <!--  Favoritos cabecera  -->
@@ -491,7 +508,7 @@
                                 <Label
                                     FontAttributes="Bold"
                                     HorizontalOptions="Center"
-                                    Text="Login to add favorite hobbies"
+                                    Text="Inicia sesion para añadir hobbies"
                                     VerticalOptions="Center" />
                             </HorizontalStackLayout>
                         </Border>
@@ -518,7 +535,7 @@
                             <Label
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center"
-                                Text="Login to add pending hobbies"
+                                Text="Inicia sesion para añadir hobbies"
                                 VerticalOptions="Center" />
                         </HorizontalStackLayout>
                     </Border>
@@ -547,7 +564,7 @@
                                 <Label
                                     FontAttributes="Bold"
                                     HorizontalOptions="Center"
-                                    Text="Login to add seen hobbies"
+                                    Text="Inicia sesion para añadir hobbies"
                                     VerticalOptions="Center" />
                             </HorizontalStackLayout>
                         </Border>
@@ -644,16 +661,16 @@
                             Margin="0,60,0,0"
                             FontSize="40"
                             HorizontalOptions="Center"
-                            Text="Don´t u have an account?" />
+                            Text="¿No tienes una cuenta?" />
                         <Button
                             Margin="40"
                             Command="{Binding NavegarCommand}"
                             CommandParameter="RegisterPage"
                             FontSize="35"
                             HeightRequest="100"
-                            Text="REGISTER"
+                            Text="REGISTRATE"
                             TextColor="Black"
-                            WidthRequest="450" />
+                            WidthRequest="500" />
                     </VerticalStackLayout>
 
                     <!--  Botones de los menus, que se adapta  -->
@@ -665,53 +682,66 @@
                             Margin="10"
                             Command="{Binding NavegarCommand}"
                             CommandParameter="MovieSeriesPage"
-                            FontSize="Subtitle"
-                            Text="Cinema"
+                            FontSize="30"
+                            Text="CINE"
                             TextColor="Black"
                             WidthRequest="{Binding HobbieWidth}">
                             <Button.Background>
                                 <LinearGradientBrush EndPoint="1,0">
-                                    <GradientStop Offset="0.9" Color="Green" />
-                                    <GradientStop Offset="0" Color="Blue" />
+                                    <GradientStop Offset="0" Color="#35b176" />
+                                    <GradientStop Offset="1" Color="#0020ff" />
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
 
                         <Button
                             Margin="10"
-                            BackgroundColor="Purple"
                             Command="{Binding NavegarGCommand}"
                             CommandParameter="GamesPage"
-                            FontSize="Subtitle"
-                            Text="Games"
+                            FontSize="30"
+                            Text="VIDEOJUEGOS"
                             TextColor="Black"
-                            WidthRequest="{Binding HobbieWidth}" />
-
-                        <Button
-                            Margin="10"
-                            BackgroundColor="Yellow"
-                            Command="{Binding NavegarCommand}"
-                            CommandParameter="BooksPage"
-                            FontSize="Subtitle"
-                            Text="Books"
-                            TextColor="Black"
-                            WidthRequest="{Binding HobbieWidth}" />
+                            WidthRequest="{Binding HobbieWidth}">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Offset="1" Color="#d073b9" />
+                                    <GradientStop Offset="0" Color="#5d3085" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
 
                         <Button
                             Margin="10"
                             Command="{Binding NavegarCommand}"
                             CommandParameter="AnimeMangaPage"
-                            FontSize="Subtitle"
-                            Text="Ani-manga"
+                            FontSize="30"
+                            Text="MANGANIME"
                             TextColor="Black"
                             WidthRequest="{Binding HobbieWidth}">
                             <Button.Background>
                                 <LinearGradientBrush EndPoint="1,0">
-                                    <GradientStop Offset="0.9" Color="Red" />
-                                    <GradientStop Offset="0" Color="Orange" />
+                                    <GradientStop Offset="0" Color="#d53333" />
+                                    <GradientStop Offset="1" Color="#daae51" />
                                 </LinearGradientBrush>
                             </Button.Background>
                         </Button>
+
+                        <Button
+                            Margin="10"
+                            Command="{Binding NavegarCommand}"
+                            CommandParameter="BooksPage"
+                            FontSize="30"
+                            Text="LIBROS"
+                            TextColor="Black"
+                            WidthRequest="{Binding HobbieWidth}">
+                            <Button.Background>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Offset="1" Color="#9dd073" />
+                                    <GradientStop Offset="0" Color="#dbdf28" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+
                     </HorizontalStackLayout>
                 </Grid>
             </Frame>

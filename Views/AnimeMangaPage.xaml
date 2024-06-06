@@ -28,7 +28,8 @@
 
         <Frame AbsoluteLayout.LayoutBounds="75,90,1050,650" CornerRadius="10">
             <AbsoluteLayout>
-                <Button AbsoluteLayout.LayoutBounds="335,0"
+                <Button
+                    AbsoluteLayout.LayoutBounds="335,0"
                     BackgroundColor="#848484"
                     Command="{Binding NavegarCommand}"
                     CommandParameter="MainPage"
@@ -40,9 +41,19 @@
 
                 <Button
                     AbsoluteLayout.LayoutBounds="700,0"
+                    FontSize="30"
                     HeightRequest="80"
-                    Text="Anime"
-                    WidthRequest="300" />
+                    Text="ANIME"
+                    TextColor="Black"
+                    WidthRequest="300">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Offset="1" Color="#d53333" />
+                            <GradientStop Offset="0" Color="#848484" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+
                 <SearchBar
                     x:Name="tx_filtro"
                     Margin="10"
@@ -104,9 +115,19 @@
 
                 <Button
                     AbsoluteLayout.LayoutBounds="10,0"
+                    FontSize="30"
                     HeightRequest="80"
-                    Text="Manga"
-                    WidthRequest="300" />
+                    Text="MANGA"
+                    TextColor="Black"
+                    WidthRequest="300">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Offset="0" Color="#daae51" />
+                            <GradientStop Offset="1" Color="#848484" />
+                        </LinearGradientBrush>
+                    </Button.Background>
+                </Button>
+
                 <SearchBar
                     x:Name="tx_filtro2"
                     Margin="10"

@@ -36,9 +36,19 @@
                     <AbsoluteLayout>
                         <Button
                             AbsoluteLayout.LayoutBounds="10,0"
+                            Command="{Binding VolverGenerosCommand}"
+                            FontSize="30"
                             HeightRequest="80"
-                            Text="Libros"
-                            WidthRequest="300" />
+                            Text="LIBROS"
+                            TextColor="Black"
+                            WidthRequest="300">
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Offset="1" Color="#848484" />
+                                    <GradientStop Offset="0" Color="#dbdf28" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
 
                         <!--  Home  -->
                         <Button
@@ -207,9 +217,18 @@
                         <Button
                             AbsoluteLayout.LayoutBounds="10,0"
                             Command="{Binding VolverGenerosCommand}"
+                            FontSize="30"
                             HeightRequest="80"
-                            Text="Libros"
-                            WidthRequest="300" />
+                            Text="LIBROS"
+                            TextColor="Black"
+                            WidthRequest="300">
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Offset="1" Color="#848484" />
+                                    <GradientStop Offset="0" Color="#dbdf28" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
 
                         <!--  Home  -->
                         <Button

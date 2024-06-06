@@ -34,9 +34,18 @@
                 <AbsoluteLayout>
                     <Button
                         AbsoluteLayout.LayoutBounds="10,0"
+                        FontSize="30"
                         HeightRequest="80"
-                        Text="Series"
-                        WidthRequest="300" />
+                        Text="SERIES"
+                        TextColor="Black"
+                        WidthRequest="300">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                <GradientStop Offset="0" Color="#35b176" />
+                                <GradientStop Offset="1" Color="#848484" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
 
                     <!--  Home  -->
                     <Button

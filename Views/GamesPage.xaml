@@ -12,80 +12,89 @@
     BindingContext="{viewmodels:GameViewModel}">
 
     <AbsoluteLayout
-        HeightRequest="800"
+        HeightRequest="900"
         HorizontalOptions="Center"
         VerticalOptions="Center"
-        WidthRequest="1200">
+        WidthRequest="1600">
         <Button
-            AbsoluteLayout.LayoutBounds="1095,10"
+            AbsoluteLayout.LayoutBounds="1475,30"
             BackgroundColor="Beige"
             Command="{Binding MinimizeAppCommand}" />
 
         <Button
-            AbsoluteLayout.LayoutBounds="1145,10"
+            AbsoluteLayout.LayoutBounds="1525,30"
             BackgroundColor="Red"
             Command="{Binding CloseAppCommand}" />
-        <Frame AbsoluteLayout.LayoutBounds="75,90,1050,650" CornerRadius="10">
+
+        <Frame
+            AbsoluteLayout.LayoutBounds="30,80,1540,790"
+            BackgroundColor="#EEEEEE"
+            CornerRadius="20">
             <VerticalStackLayout>
                 <VerticalStackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding HideCommand}" NumberOfTapsRequired="2" />
                 </VerticalStackLayout.GestureRecognizers>
 
                 <AbsoluteLayout>
-                    <Button
-                        FontSize="30"
-                        HeightRequest="80"
-                        Text="VIDEOJUEGOS"
-                        TextColor="Black"
-                        WidthRequest="300">
-                        <Button.Background>
-                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                <GradientStop Offset="0" Color="#5d3085" />
-                                <GradientStop Offset="1" Color="#848484" />
-                            </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
-
-                    <!--  Home  -->
-                    <Button
-                        AbsoluteLayout.LayoutBounds="335,0"
-                        BackgroundColor="#848484"
-                        Command="{Binding NavegarCommand}"
-                        CommandParameter="MainPage"
-                        HeightRequest="80"
-                        ImageSource="titulo.png"
-                        ToolTipProperties.Text="Go to Homepage"
-                        WidthRequest="340"
-                        ZIndex="1" />
-
-                    <!--  Buscador  -->
-                    <Label
-                        AbsoluteLayout.LayoutBounds="700,0"
-                        FontSize="25"
+                    <HorizontalStackLayout
+                        AbsoluteLayout.LayoutBounds="0,0"
                         HorizontalOptions="Center"
-                        Text="Buscar juegos" />
-                    <SearchBar
-                        x:Name="tx_filtro"
-                        Margin="10"
-                        AbsoluteLayout.LayoutBounds="690,25"
-                        CancelButtonColor="Red"
-                        IsTextPredictionEnabled="True"
-                        SearchCommand="{Binding NavegarSearchCommand}"
-                        WidthRequest="300">
-                        <SearchBar.Behaviors>
-                            <toolkit:EventToCommandBehavior
-                                Command="{Binding GetSearchCommand}"
-                                CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
-                                EventName="TextChanged" />
-                            <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
-                        </SearchBar.Behaviors>
-                    </SearchBar>
+                        VerticalOptions="Center"
+                        WidthRequest="1500">
+                        <Button
+                            FontSize="30"
+                            HeightRequest="80"
+                            Text="VIDEOJUEGOS"
+                            TextColor="Black" VerticalOptions="Start"
+                            WidthRequest="300">
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                    <GradientStop Offset="0" Color="#5d3085" />
+                                    <GradientStop Offset="1" Color="#848484" />
+                                </LinearGradientBrush>
+                            </Button.Background>
+                        </Button>
+
+                        <!--  Home  -->
+                        <Button
+                            Margin="30,0"
+                            BackgroundColor="#848484"
+                            Command="{Binding NavegarCommand}"
+                            CommandParameter="MainPage"
+                            HeightRequest="120"
+                            ImageSource="titulo.png"
+                            ToolTipProperties.Text="Go to Homepage"
+                            WidthRequest="490"
+                            ZIndex="1" />
+
+                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Start">
+                            <!--  Buscador  -->
+                            <Label
+                                FontSize="25"
+                                HorizontalOptions="Center"
+                                Text="Buscar juegos" />
+                            <SearchBar
+                                x:Name="tx_filtro"
+                                CancelButtonColor="Red"
+                                IsTextPredictionEnabled="True"
+                                SearchCommand="{Binding NavegarSearchCommand}"
+                                WidthRequest="300">
+                                <SearchBar.Behaviors>
+                                    <toolkit:EventToCommandBehavior
+                                        Command="{Binding GetSearchCommand}"
+                                        CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
+                                        EventName="TextChanged" />
+                                    <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
+                                </SearchBar.Behaviors>
+                            </SearchBar>
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
 
                     <!--  x, y, width y height  -->
                     <!--  Buscador desplegable  -->
                     <CollectionView
-                        AbsoluteLayout.LayoutBounds="700,80"
-                        BackgroundColor="White"
+                        AbsoluteLayout.LayoutBounds="1025,80"
+                        BackgroundColor="#EEEEEE"
                         HeightRequest="328"
                         IsVisible="{Binding IsSearchFocus}"
                         ItemsSource="{Binding PaginaAux.Items}"
@@ -123,24 +132,24 @@
                     <!--  Top  -->
                     <Label
                         Margin="10"
-                        AbsoluteLayout.LayoutBounds="0,90"
+                        AbsoluteLayout.LayoutBounds="0,120"
                         FontAttributes="Bold"
                         FontSize="Title"
-                        Text="Top" />
+                        Text="Top 20" />
 
                     <CollectionView
-                        AbsoluteLayout.LayoutBounds="5,145"
-                        HeightRequest="202"
+                        AbsoluteLayout.LayoutBounds="5,175"
+                        HeightRequest="242"
                         HorizontalScrollBarVisibility="Always"
                         ItemsSource="{Binding PaginaTopG.Items}"
                         SelectedItem="{Binding Game3}"
                         SelectionChangedCommand="{Binding ShowMovieMopupCommand}"
                         SelectionChangedCommandParameter="{Binding Game3.Id}"
                         SelectionMode="Single"
-                        WidthRequest="1000">
+                        WidthRequest="1490">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout
-                                HorizontalItemSpacing="5"
+                                HorizontalItemSpacing="4"
                                 Orientation="Horizontal"
                                 Span="1"
                                 VerticalItemSpacing="5" />
@@ -148,7 +157,7 @@
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:MovieModel">
-                                <Frame HeightRequest="192" WidthRequest="133">
+                                <Frame WidthRequest="178">
                                     <Frame.Background>
                                         <LinearGradientBrush EndPoint="0,1">
                                             <GradientStop Offset="0.9" Color="#EEEEEE" />
@@ -158,12 +167,12 @@
                                     </Frame.Background>
 
                                     <VerticalStackLayout
-                                        HeightRequest="130"
+                                        HeightRequest="160"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center">
                                         <Image
                                             Aspect="AspectFit"
-                                            HeightRequest="140"
+                                            HeightRequest="170"
                                             Source="{Binding Imagen}" />
                                     </VerticalStackLayout>
                                 </Frame>
@@ -173,7 +182,7 @@
 
                     <!--  Tendencias switch  -->
                     <HorizontalStackLayout
-                        AbsoluteLayout.LayoutBounds="0,360"
+                        AbsoluteLayout.LayoutBounds="0,440"
                         HorizontalOptions="Center"
                         VerticalOptions="Center">
                         <Label
@@ -197,18 +206,18 @@
 
                     <!--  Trending  -->
                     <CollectionView
-                        AbsoluteLayout.LayoutBounds="5,420"
-                        HeightRequest="182"
+                        AbsoluteLayout.LayoutBounds="5,500"
+                        HeightRequest="242"
                         HorizontalScrollBarVisibility="Always"
                         ItemsSource="{Binding PaginaTrendG.Items}"
                         SelectedItem="{Binding Game}"
                         SelectionChangedCommand="{Binding ShowMovieMopupCommand}"
                         SelectionChangedCommandParameter="{Binding Game.Id}"
                         SelectionMode="Single"
-                        WidthRequest="1000">
+                        WidthRequest="1490">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout
-                                HorizontalItemSpacing="5"
+                                HorizontalItemSpacing="4"
                                 Orientation="Horizontal"
                                 Span="1"
                                 VerticalItemSpacing="5" />
@@ -216,7 +225,7 @@
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:Name="trend" x:DataType="models:MovieModel">
-                                <Frame WidthRequest="133">
+                                <Frame WidthRequest="178">
                                     <Frame.Background>
                                         <LinearGradientBrush EndPoint="0,1">
                                             <GradientStop Offset="0.9" Color="#EEEEEE" />
@@ -226,12 +235,12 @@
                                     </Frame.Background>
 
                                     <VerticalStackLayout
-                                        HeightRequest="130"
+                                        HeightRequest="160"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center">
                                         <Image
                                             Aspect="AspectFit"
-                                            HeightRequest="140"
+                                            HeightRequest="170"
                                             Source="{Binding Imagen}" />
                                     </VerticalStackLayout>
                                 </Frame>

@@ -11,23 +11,22 @@
     BindingContext="{viewmodels:RegisterViewModel}">
 
     <AbsoluteLayout
-        HeightRequest="800"
+        HeightRequest="900"
         HorizontalOptions="Center"
         VerticalOptions="Center"
-        WidthRequest="1200">
-
+        WidthRequest="1600">
         <Button
-            AbsoluteLayout.LayoutBounds="1095,10"
+            AbsoluteLayout.LayoutBounds="1495,10"
             BackgroundColor="Beige"
             Command="{Binding MinimizeAppCommand}" />
 
         <Button
-            AbsoluteLayout.LayoutBounds="1145,10"
+            AbsoluteLayout.LayoutBounds="1545,10"
             BackgroundColor="Red"
             Command="{Binding CloseAppCommand}" />
 
         <VerticalStackLayout
-            AbsoluteLayout.LayoutBounds="350,75,500,650"
+            AbsoluteLayout.LayoutBounds="550,115,500,650"
             HorizontalOptions="Center"
             VerticalOptions="Center">
             <Frame

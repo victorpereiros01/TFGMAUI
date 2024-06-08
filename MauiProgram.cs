@@ -44,8 +44,8 @@ namespace TFGMaui
                             p.IsResizable = false;
                         }
 
-                        const int width = 1200;
-                        const int height = 800;
+                        const int width = 1600;
+                        const int height = 900;
                         /*I suggest you to use MoveAndResize instead of Resize because this way you make sure to center the window*/
                         winuiAppWindow.MoveAndResize(new RectInt32(1920 / 2 - width / 2, 1080 / 2 - height / 2, width, height));
                     });

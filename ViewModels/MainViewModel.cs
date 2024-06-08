@@ -94,7 +94,7 @@ namespace TFGMaui.ViewModels
                     hobbieC += 1;
                 }
             }
-            HobbieWidth = 1140 / hobbieC - 20;
+            HobbieWidth = 1485 / hobbieC - 20;
 
             SavF = ListFav.IsNullOrEmpty() ? new() : ListFav[0];
             SavS = ListSeen.IsNullOrEmpty() ? new() : ListSeen[0];

@@ -12,126 +12,75 @@
     BindingContext="{viewmodels:AnimeMangaViewModel}">
 
     <AbsoluteLayout
-        HeightRequest="800"
+        HeightRequest="900"
         HorizontalOptions="Center"
         VerticalOptions="Center"
-        WidthRequest="1200">
+        WidthRequest="1600">
         <Button
-            AbsoluteLayout.LayoutBounds="1095,10"
+            AbsoluteLayout.LayoutBounds="1475,30"
             BackgroundColor="Beige"
             Command="{Binding MinimizeAppCommand}" />
 
         <Button
-            AbsoluteLayout.LayoutBounds="1145,10"
+            AbsoluteLayout.LayoutBounds="1525,30"
             BackgroundColor="Red"
             Command="{Binding CloseAppCommand}" />
 
-        <Frame AbsoluteLayout.LayoutBounds="75,90,1050,650" CornerRadius="10">
+        <Frame
+            AbsoluteLayout.LayoutBounds="30,80,1540,790"
+            BackgroundColor="#EEEEEE"
+            CornerRadius="20">
             <AbsoluteLayout>
-                <Button
-                    AbsoluteLayout.LayoutBounds="335,0"
-                    BackgroundColor="#848484"
-                    Command="{Binding NavegarCommand}"
-                    CommandParameter="MainPage"
-                    HeightRequest="80"
-                    ImageSource="titulo.png"
-                    ToolTipProperties.Text="Go to Homepage"
-                    WidthRequest="340"
-                    ZIndex="1" />
+                <HorizontalStackLayout
+                    AbsoluteLayout.LayoutBounds="0,0"
+                    HorizontalOptions="Center"
+                    WidthRequest="1500">
+                    <Button
+                        FontSize="30"
+                        HeightRequest="80"
+                        Text="MANGA"
+                        TextColor="Black"
+                        VerticalOptions="Start"
+                        WidthRequest="300">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="0" Color="#daae51" />
+                                <GradientStop Offset="1" Color="#848484" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
 
-                <Button
-                    AbsoluteLayout.LayoutBounds="700,0"
-                    FontSize="30"
-                    HeightRequest="80"
-                    Text="ANIME"
-                    TextColor="Black"
-                    WidthRequest="300">
-                    <Button.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Offset="1" Color="#d53333" />
-                            <GradientStop Offset="0" Color="#848484" />
-                        </LinearGradientBrush>
-                    </Button.Background>
-                </Button>
+                    <Button
+                        Margin="30,0"
+                        BackgroundColor="#848484"
+                        Command="{Binding NavegarCommand}"
+                        CommandParameter="MainPage"
+                        HeightRequest="120"
+                        ImageSource="titulo.png"
+                        ToolTipProperties.Text="Go to Homepage"
+                        WidthRequest="490"
+                        ZIndex="1" />
 
-                <SearchBar
-                    x:Name="tx_filtro"
-                    Margin="10"
-                    AbsoluteLayout.LayoutBounds="690,80"
-                    CancelButtonColor="Red"
-                    IsTextPredictionEnabled="True"
-                    SearchCommand="{Binding NavegarSearchCommand}"
-                    WidthRequest="300">
-                    <SearchBar.Behaviors>
-                        <toolkit:EventToCommandBehavior
-                            Command="{Binding GetSearchACommand}"
-                            CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
-                            EventName="TextChanged" />
-                        <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
-                        <toolkit:EventToCommandBehavior
-                            Command="{Binding GetSearchACommand}"
-                            CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
-                            EventName="Focused" />
-                        <toolkit:EventToCommandBehavior Command="{Binding HideCommand}" EventName="Unfocused" />
-                    </SearchBar.Behaviors>
-                </SearchBar>
-
-                <CollectionView
-                    AbsoluteLayout.LayoutBounds="700,135"
-                    BackgroundColor="White"
-                    HeightRequest="328"
-                    IsVisible="{Binding IsSearchFocus}"
-                    ItemsSource="{Binding PaginaAux.Data}"
-                    SelectedItem="{Binding Anime}"
-                    SelectionChangedCommand="{Binding ShowAnimeMopupCommand}"
-                    SelectionChangedCommandParameter="{Binding Anime.Id}"
-                    SelectionMode="Single"
-                    WidthRequest="300"
-                    ZIndex="1">
-
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:Name="aux" x:DataType="models:AnimeModel">
-                            <Border>
-                                <Border.StrokeShape>
-                                    <RoundRectangle CornerRadius="12" />
-                                </Border.StrokeShape>
-                                <HorizontalStackLayout Padding="10">
-                                    <Image
-                                        Aspect="AspectFill"
-                                        HeightRequest="60"
-                                        Source="{Binding Imagen}"
-                                        WidthRequest="50" />
-
-                                    <Label
-                                        Margin="10,0,0,0"
-                                        HorizontalOptions="Center"
-                                        Text="{Binding Title}"
-                                        VerticalOptions="Center" />
-                                </HorizontalStackLayout>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-
-                <Button
-                    AbsoluteLayout.LayoutBounds="10,0"
-                    FontSize="30"
-                    HeightRequest="80"
-                    Text="MANGA"
-                    TextColor="Black"
-                    WidthRequest="300">
-                    <Button.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Offset="0" Color="#daae51" />
-                            <GradientStop Offset="1" Color="#848484" />
-                        </LinearGradientBrush>
-                    </Button.Background>
-                </Button>
-
+                    <Button
+                        FontSize="30"
+                        HeightRequest="80"
+                        Text="ANIME"
+                        TextColor="Black"
+                        VerticalOptions="Start"
+                        WidthRequest="300">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="1" Color="#d53333" />
+                                <GradientStop Offset="0" Color="#848484" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                </HorizontalStackLayout>
+                
                 <SearchBar
                     x:Name="tx_filtro2"
                     Margin="10"
-                    AbsoluteLayout.LayoutBounds="0,80"
+                    AbsoluteLayout.LayoutBounds="165,80"
                     CancelButtonColor="Red"
                     IsTextPredictionEnabled="True"
                     SearchCommand="{Binding NavegarSearchCommand}"
@@ -151,7 +100,7 @@
                 </SearchBar>
 
                 <CollectionView
-                    AbsoluteLayout.LayoutBounds="10,135"
+                    AbsoluteLayout.LayoutBounds="175,135"
                     BackgroundColor="White"
                     HeightRequest="328"
                     IsVisible="{Binding IsSearchFocus2}"
@@ -187,146 +136,92 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
+                <SearchBar
+                    x:Name="tx_filtro"
+                    Margin="10"
+                    AbsoluteLayout.LayoutBounds="1015,80"
+                    CancelButtonColor="Red"
+                    IsTextPredictionEnabled="True"
+                    SearchCommand="{Binding NavegarSearchCommand}"
+                    WidthRequest="300">
+                    <SearchBar.Behaviors>
+                        <toolkit:EventToCommandBehavior
+                            Command="{Binding GetSearchACommand}"
+                            CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
+                            EventName="TextChanged" />
+                        <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
+                        <toolkit:EventToCommandBehavior
+                            Command="{Binding GetSearchACommand}"
+                            CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
+                            EventName="Focused" />
+                        <toolkit:EventToCommandBehavior Command="{Binding HideCommand}" EventName="Unfocused" />
+                    </SearchBar.Behaviors>
+                </SearchBar>
+
+                <CollectionView
+                    AbsoluteLayout.LayoutBounds="1025,135"
+                    BackgroundColor="White"
+                    HeightRequest="328"
+                    IsVisible="{Binding IsSearchFocus}"
+                    ItemsSource="{Binding PaginaAux.Data}"
+                    SelectedItem="{Binding Anime}"
+                    SelectionChangedCommand="{Binding ShowAnimeMopupCommand}"
+                    SelectionChangedCommandParameter="{Binding Anime.Id}"
+                    SelectionMode="Single"
+                    WidthRequest="300"
+                    ZIndex="1">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:Name="aux" x:DataType="models:AnimeModel">
+                            <Border>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12" />
+                                </Border.StrokeShape>
+                                <HorizontalStackLayout Padding="10">
+                                    <Image
+                                        Aspect="AspectFill"
+                                        HeightRequest="60"
+                                        Source="{Binding Imagen}"
+                                        WidthRequest="50" />
+
+                                    <Label
+                                        Margin="10,0,0,0"
+                                        HorizontalOptions="Center"
+                                        Text="{Binding Title}"
+                                        VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
                 <Label
-                    AbsoluteLayout.LayoutBounds="10,165"
+                    AbsoluteLayout.LayoutBounds="10,180"
                     FontAttributes="Bold"
                     FontSize="Title"
                     HorizontalOptions="Center"
                     Text="Animes de temporada"
                     VerticalOptions="Center" />
-
-                <Button
-                    AbsoluteLayout.LayoutBounds="446,110"
-                    BackgroundColor="#d3d3d3"
-                    Command="{Binding ChangeSeasonCommand}"
-                    CornerRadius="20"
-                    HeightRequest="80"
-                    ImageSource="{Binding ImageSeason}"
-                    IsVisible="{Binding IsSeasonSelected, Converter={toolkit:InvertedBoolConverter}}"
-                    Text="{Binding TextSeason}"
-                    TextColor="Black"
-                    WidthRequest="120" />
-
-                <Button
-                    AbsoluteLayout.LayoutBounds="390,90"
-                    BackgroundColor="LightPink"
-                    Command="{Binding ChangeSeasonCommand}"
-                    CommandParameter="spring.png"
-                    CornerRadius="20"
-                    HeightRequest="20"
-                    HorizontalOptions="Center"
-                    ImageSource="spring.png"
-                    IsVisible="{Binding IsSeasonSelected}"
-                    VerticalOptions="Center"
-                    WidthRequest="100"
-                    ZIndex="1" />
-                <Button
-                    AbsoluteLayout.LayoutBounds="520,90"
-                    BackgroundColor="#ffd662"
-                    Command="{Binding ChangeSeasonCommand}"
-                    CommandParameter="summer.png"
-                    CornerRadius="20"
-                    HeightRequest="20"
-                    HorizontalOptions="Center"
-                    ImageSource="summer.png"
-                    IsVisible="{Binding IsSeasonSelected}"
-                    VerticalOptions="Center"
-                    WidthRequest="100"
-                    ZIndex="1" />
-                <Button
-                    AbsoluteLayout.LayoutBounds="350,150"
-                    BackgroundColor="LightBlue"
-                    Command="{Binding ChangeSeasonCommand}"
-                    CommandParameter="winter.png"
-                    CornerRadius="20"
-                    HeightRequest="20"
-                    HorizontalOptions="Center"
-                    ImageSource="winter.png"
-                    IsVisible="{Binding IsSeasonSelected}"
-                    VerticalOptions="Center"
-                    WidthRequest="100"
-                    ZIndex="1" />
-                <Button
-                    AbsoluteLayout.LayoutBounds="560,150"
-                    BackgroundColor="LightSalmon"
-                    Command="{Binding ChangeSeasonCommand}"
-                    CommandParameter="fall.png"
-                    CornerRadius="20"
-                    HeightRequest="20"
-                    HorizontalOptions="Center"
-                    ImageSource="fall.png"
-                    IsVisible="{Binding IsSeasonSelected}"
-                    VerticalOptions="Center"
-                    WidthRequest="100"
-                    ZIndex="1" />
-
-                <Grid AbsoluteLayout.LayoutBounds="405,90" IsVisible="{Binding IsSeasonSelected}">
-                    <Path Stroke="Black" StrokeThickness="2">
-                        <Path.Data>
-                            <PathGeometry>
-                                <PathGeometry.Figures>
-                                    <PathFigure StartPoint="0,100">
-                                        <ArcSegment
-                                            IsLargeArc="True"
-                                            Point="200,100"
-                                            RotationAngle="0"
-                                            Size="100,100"
-                                            SweepDirection="Clockwise" />
-                                        <LineSegment Point="0,100" />
-                                    </PathFigure>
-                                </PathGeometry.Figures>
-                            </PathGeometry>
-                        </Path.Data>
-                    </Path>
-                </Grid>
-
-                <Entry
-                    x:Name="ent_season"
-                    AbsoluteLayout.LayoutBounds="740,150"
-                    HorizontalTextAlignment="Center"
-                    Placeholder="YYYY-SEASON"
-                    WidthRequest="150">
-                    <Entry.Behaviors>
-                        <toolkit:EventToCommandBehavior Command="{Binding ShowSeasonToolCommand}" EventName="Focused" />
-                        <toolkit:EventToCommandBehavior Command="{Binding HideSeasonToolCommand}" EventName="Unfocused" />
-                    </Entry.Behaviors>
-                </Entry>
-
-                <Button
-                    AbsoluteLayout.LayoutBounds="865,130"
-                    CornerRadius="50"
-                    HeightRequest="20"
-                    ImageSource="question.png"
-                    IsVisible="{Binding IsSearchSeasonFocus}"
-                    ToolTipProperties.Text="Like: 2003-WINTER/SPRING/SUMMER/FALL"
-                    WidthRequest="20" />
-
-                <Button
-                    AbsoluteLayout.LayoutBounds="920,150"
-                    Command="{Binding GetSeasonCommand}"
-                    CommandParameter="{Binding Source={x:Reference ent_season}, Path=Text}"
-                    WidthRequest="80" />
-
                 <CollectionView
-                    AbsoluteLayout.LayoutBounds="5,210"
-                    HeightRequest="185"
+                    AbsoluteLayout.LayoutBounds="5,230"
+                    HeightRequest="242"
                     ItemsSource="{Binding PaginaS.Data}"
                     SelectedItem="{Binding Anime2}"
                     SelectionChangedCommand="{Binding ShowAnimeMopupCommand}"
                     SelectionChangedCommandParameter="{Binding Anime2.Id}"
                     SelectionMode="Single"
-                    WidthRequest="995">
+                    WidthRequest="1485">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout
-                            HorizontalItemSpacing="7"
+                            HorizontalItemSpacing="8"
                             Orientation="Horizontal"
                             Span="1"
                             VerticalItemSpacing="5" />
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:MovieModel">
-                            <Frame>
+                        <DataTemplate x:DataType="models:AnimeModel">
+                            <Frame WidthRequest="196">
                                 <Frame.Background>
                                     <LinearGradientBrush EndPoint="0,1">
                                         <GradientStop Offset="0.9" Color="#EEEEEE" />
@@ -336,13 +231,12 @@
                                 </Frame.Background>
 
                                 <VerticalStackLayout
-                                    HeightRequest="142"
+                                    HeightRequest="180"
                                     HorizontalOptions="Center"
-                                    VerticalOptions="Center"
-                                    WidthRequest="111">
+                                    VerticalOptions="Center">
                                     <Image
                                         Aspect="AspectFit"
-                                        HeightRequest="130"
+                                        HeightRequest="190"
                                         Source="{Binding Imagen}" />
                                 </VerticalStackLayout>
                             </Frame>
@@ -350,22 +244,102 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
+                <Button
+                    AbsoluteLayout.LayoutBounds="685,150"
+                    BackgroundColor="#d3d3d3"
+                    Command="{Binding ChangeSeasonCommand}"
+                    CornerRadius="20"
+                    HeightRequest="60"
+                    ImageSource="{Binding ImageSeason}"
+                    IsVisible="{Binding IsSeasonSelected, Converter={toolkit:InvertedBoolConverter}}"
+                    Text="{Binding TextSeason}"
+                    TextColor="Black"
+                    WidthRequest="120" />
+
+                <HorizontalStackLayout AbsoluteLayout.LayoutBounds="535,160" IsVisible="{Binding IsSeasonSelected}">
+                    <Button
+                        Margin="0,0,10,0"
+                        AbsoluteLayout.LayoutBounds="350,150"
+                        BackgroundColor="LightBlue"
+                        Command="{Binding ChangeSeasonCommand}"
+                        CommandParameter="winter.png"
+                        CornerRadius="20"
+                        HeightRequest="20"
+                        HorizontalOptions="Center"
+                        ImageSource="winter.png"
+                        VerticalOptions="Center"
+                        WidthRequest="100"
+                        ZIndex="1" />
+
+                    <Button
+                        AbsoluteLayout.LayoutBounds="390,90"
+                        BackgroundColor="LightPink"
+                        Command="{Binding ChangeSeasonCommand}"
+                        CommandParameter="spring.png"
+                        CornerRadius="20"
+                        HeightRequest="20"
+                        HorizontalOptions="Center"
+                        ImageSource="spring.png"
+                        VerticalOptions="Center"
+                        WidthRequest="100"
+                        ZIndex="1" />
+
+                    <Button
+                        Margin="10,0"
+                        AbsoluteLayout.LayoutBounds="520,90"
+                        BackgroundColor="#ffd662"
+                        Command="{Binding ChangeSeasonCommand}"
+                        CommandParameter="summer.png"
+                        CornerRadius="20"
+                        HeightRequest="20"
+                        HorizontalOptions="Center"
+                        ImageSource="summer.png"
+                        VerticalOptions="Center"
+                        WidthRequest="100"
+                        ZIndex="1" />
+
+                    <Button
+                        AbsoluteLayout.LayoutBounds="560,150"
+                        BackgroundColor="LightSalmon"
+                        Command="{Binding ChangeSeasonCommand}"
+                        CommandParameter="fall.png"
+                        CornerRadius="20"
+                        HeightRequest="20"
+                        HorizontalOptions="Center"
+                        ImageSource="fall.png"
+                        VerticalOptions="Center"
+                        WidthRequest="100"
+                        ZIndex="1" />
+                </HorizontalStackLayout>
+
+                <Entry
+                    x:Name="ent_season"
+                    AbsoluteLayout.LayoutBounds="1090,160"
+                    HorizontalTextAlignment="Center"
+                    Placeholder="YYYY-SEASON"
+                    WidthRequest="150" />
+
+                <Button
+                    AbsoluteLayout.LayoutBounds="1400,160"
+                    Command="{Binding GetSeasonCommand}"
+                    CommandParameter="{Binding Source={x:Reference ent_season}, Path=Text}"
+                    WidthRequest="80" />
+
                 <Label
                     Margin="10,0"
-                    AbsoluteLayout.LayoutBounds="0,405"
+                    AbsoluteLayout.LayoutBounds="0,475"
                     FontAttributes="Bold"
                     FontSize="Title"
                     Text="Top anime" />
-
                 <CollectionView
-                    AbsoluteLayout.LayoutBounds="5,445"
-                    HeightRequest="162"
+                    AbsoluteLayout.LayoutBounds="5,510"
+                    HeightRequest="242"
                     ItemsSource="{Binding PaginaTopAnime.Data}"
                     SelectedItem="{Binding Anime3}"
                     SelectionChangedCommand="{Binding ShowAnimeMopupCommand}"
                     SelectionChangedCommandParameter="{Binding Anime3.Id}"
                     SelectionMode="Single"
-                    WidthRequest="480">
+                    WidthRequest="730">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout
                             HorizontalItemSpacing="5"
@@ -386,51 +360,34 @@
                                 </Frame.Background>
 
                                 <VerticalStackLayout
-                                    HeightRequest="110"
+                                    HeightRequest="190"
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center">
                                     <Image
                                         Aspect="AspectFit"
-                                        HeightRequest="120"
+                                        HeightRequest="200"
                                         Source="{Binding Imagen}" />
                                 </VerticalStackLayout>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-
-                    <CollectionView.GestureRecognizers>
-                        <PointerGestureRecognizer
-                            PointerEnteredCommand="{Binding ShowHideScrollCommand}"
-                            PointerEnteredCommandParameter="ShowTopA"
-                            PointerExitedCommand="{Binding ShowHideScrollCommand}"
-                            PointerExitedCommandParameter="HideTopA" />
-                    </CollectionView.GestureRecognizers>
                 </CollectionView>
-                <Button
-                    AbsoluteLayout.LayoutBounds="220,570,60,50"
-                    BackgroundColor="White"
-                    CornerRadius="50"
-                    ImageSource="flecha.png"
-                    IsVisible="{Binding IsFocusScr1}"
-                    Rotation="180"
-                    ZIndex="1" />
 
                 <Label
-                    AbsoluteLayout.LayoutBounds="525,405"
+                    AbsoluteLayout.LayoutBounds="765,475"
                     FontAttributes="Bold"
                     FontSize="Title"
                     Text="Top manga" />
-
                 <CollectionView
-                    AbsoluteLayout.LayoutBounds="520,445"
-                    HeightRequest="162"
+                    AbsoluteLayout.LayoutBounds="760,510"
+                    HeightRequest="242"
                     ItemsSource="{Binding PaginaTopManga.Data}"
                     SelectedItem="{Binding Manga2}"
                     SelectionChangedCommand="{Binding ShowMangaMopupCommand}"
                     SelectionChangedCommandParameter="{Binding Manga2.Id}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Always"
-                    WidthRequest="480">
+                    WidthRequest="730">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout
                             HorizontalItemSpacing="5"
@@ -451,34 +408,18 @@
                                 </Frame.Background>
 
                                 <VerticalStackLayout
-                                    HeightRequest="110"
+                                    HeightRequest="190"
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center">
                                     <Image
                                         Aspect="AspectFit"
-                                        HeightRequest="120"
+                                        HeightRequest="200"
                                         Source="{Binding Imagen}" />
                                 </VerticalStackLayout>
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-
-                    <CollectionView.GestureRecognizers>
-                        <PointerGestureRecognizer
-                            PointerEnteredCommand="{Binding ShowHideScrollCommand}"
-                            PointerEnteredCommandParameter="ShowTopM"
-                            PointerExitedCommand="{Binding ShowHideScrollCommand}"
-                            PointerExitedCommandParameter="HideTopM" />
-                    </CollectionView.GestureRecognizers>
                 </CollectionView>
-                <Button
-                    AbsoluteLayout.LayoutBounds="735,570,60,50"
-                    BackgroundColor="White"
-                    CornerRadius="50"
-                    ImageSource="flecha.png"
-                    IsVisible="{Binding IsFocusScr2}"
-                    Rotation="180"
-                    ZIndex="1" />
             </AbsoluteLayout>
         </Frame>
     </AbsoluteLayout>

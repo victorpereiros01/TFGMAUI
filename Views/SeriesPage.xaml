@@ -12,20 +12,24 @@
     BindingContext="{viewmodels:SerieViewModel}">
 
     <AbsoluteLayout
-        HeightRequest="800"
+        HeightRequest="900"
         HorizontalOptions="Center"
         VerticalOptions="Center"
-        WidthRequest="1200">
+        WidthRequest="1600">
         <Button
-            AbsoluteLayout.LayoutBounds="1095,10"
+            AbsoluteLayout.LayoutBounds="1475,30"
             BackgroundColor="Beige"
             Command="{Binding MinimizeAppCommand}" />
 
         <Button
-            AbsoluteLayout.LayoutBounds="1145,10"
+            AbsoluteLayout.LayoutBounds="1525,30"
             BackgroundColor="Red"
             Command="{Binding CloseAppCommand}" />
-        <Frame AbsoluteLayout.LayoutBounds="75,90,1050,650" CornerRadius="10">
+
+        <Frame
+            AbsoluteLayout.LayoutBounds="30,80,1540,790"
+            BackgroundColor="#EEEEEE"
+            CornerRadius="20">
             <VerticalStackLayout>
                 <VerticalStackLayout.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding HideCommand}" NumberOfTapsRequired="2" />
@@ -42,7 +46,7 @@
                         <Button.Background>
                             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                                 <GradientStop Offset="0" Color="#35b176" />
-                                <GradientStop Offset="1" Color="#848484" />
+
                             </LinearGradientBrush>
                         </Button.Background>
                     </Button>

@@ -52,12 +52,6 @@ namespace TFGMaui.ViewModels
         private bool isSearchFocus, isSearchFocus2;
 
         [ObservableProperty]
-        private bool isFocusScr1, isFocusScr2;
-
-        [ObservableProperty]
-        private bool isSearchSeasonFocus;
-
-        [ObservableProperty]
         private bool isSeasonSelected;
 
         [ObservableProperty]
@@ -75,11 +69,6 @@ namespace TFGMaui.ViewModels
             IsSeasonSelected = false;
             TextSeason = "Select season";
 
-            IsFocusScr1 = false;
-            IsFocusScr2 = false;
-
-            IsSearchSeasonFocus = false;
-
             Anime = new();
             Anime2 = new();
             Anime3 = new();
@@ -92,20 +81,6 @@ namespace TFGMaui.ViewModels
 
             MangaMopupViewModel = new();
             MangaMopup = new(MangaMopupViewModel);
-        }
-
-        [RelayCommand]
-        public async Task ShowHideScroll(string action)
-        {
-            switch (action)
-            {
-                case "ShowTopA": IsFocusScr1 = true; break;
-                case "HideTopA": IsFocusScr1 = false; break;
-                case "ShowTopM": IsFocusScr2 = true; break;
-                case "HideTopM": IsFocusScr2 = false; break;
-
-                default: break;
-            }
         }
 
         [RelayCommand]
@@ -245,21 +220,6 @@ namespace TFGMaui.ViewModels
         public async Task HideM()
         {
             IsSearchFocus2 = false;
-        }
-
-        [RelayCommand]
-        public async Task ShowSeasonTool()
-        {
-            if (!IsSeasonSelected)
-            {
-                IsSearchSeasonFocus = true;
-            }
-        }
-
-        [RelayCommand]
-        public async Task HideSeasonTool()
-        {
-            IsSearchSeasonFocus = false;
         }
 
         [RelayCommand]

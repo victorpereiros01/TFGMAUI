@@ -15,22 +15,22 @@
     </ContentPage.Behaviors>
 
     <AbsoluteLayout
-        HeightRequest="800"
+        HeightRequest="900"
         HorizontalOptions="Center"
         VerticalOptions="Center"
-        WidthRequest="1200">
+        WidthRequest="1600">
         <Button
-            AbsoluteLayout.LayoutBounds="1095,10"
+            AbsoluteLayout.LayoutBounds="1475,30"
             BackgroundColor="Beige"
             Command="{Binding MinimizeAppCommand}" />
 
         <Button
-            AbsoluteLayout.LayoutBounds="1145,10"
+            AbsoluteLayout.LayoutBounds="1525,30"
             BackgroundColor="Red"
             Command="{Binding CloseAppCommand}" />
 
         <Frame
-            AbsoluteLayout.LayoutBounds="50,60,1010,700"
+            AbsoluteLayout.LayoutBounds="295,100,1010,700"
             BackgroundColor="#EEEEEE"
             CornerRadius="20">
             <VerticalStackLayout HeightRequest="740" WidthRequest="970">

@@ -126,7 +126,7 @@ namespace TFGMaui.ViewModels
         {
             var f = await FileUtils.OpenFile();
 
-            if (f == null)
+            if (f is null)
             {
                 return;
             }
@@ -149,6 +149,7 @@ namespace TFGMaui.ViewModels
 
             if (new SettingsRepository().ChangeAvatar(Base64, UsuarioActivo))
             {
+                UsuarioActivo.Avatar = Avatar;
                 await App.Current.MainPage.DisplayAlert("Exito", "Avatar cambiado satisfactoriamente", "Aceptar");
             }
         }
@@ -178,6 +179,11 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ChangePass()
         {
+            if (NuevaPass.IsNullOrEmpty())
+            {
+                return;
+            }
+
             Pass = await App.Current.MainPage.DisplayPromptAsync("Alerta", "Introduce tu contraseña");
 
             if (Pass is null)
@@ -192,6 +198,13 @@ namespace TFGMaui.ViewModels
 
             if (new SettingsRepository().ChangePass(NuevaPass, UsuarioActivo))
             {
+                UsuarioActivo.Password = NuevaPass;
+                if (SecureStorage.GetAsync("credentialsStored").Equals(true.ToString()))
+                {
+                    await SecureStorage.SetAsync("password", UsuarioActivo.Password);
+                }
+
+                NuevaPass = "";
                 await App.Current.MainPage.DisplayAlert("Exito", "Contraseña cambiada satisfactoriamente", "Aceptar");
             }
         }
@@ -203,6 +216,11 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ChangeEmail()
         {
+            if (NuevoEmail.IsNullOrEmpty())
+            {
+                return;
+            }
+
             Pass = await App.Current.MainPage.DisplayPromptAsync("Alerta", "Introduce tu contraseña");
 
             if (Pass is null)
@@ -215,8 +233,10 @@ namespace TFGMaui.ViewModels
                 return;
             }
 
-            if (new SettingsRepository().ChangeEmail(NuevaPass, UsuarioActivo))
+            if (new SettingsRepository().ChangeEmail(NuevoEmail, UsuarioActivo))
             {
+                UsuarioActivo.Email = NuevoEmail;
+                NuevoEmail = "";
                 await App.Current.MainPage.DisplayAlert("Exito", "Email cambiado satisfactoriamente", "Aceptar");
             }
         }
@@ -267,6 +287,11 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ChangeUsername()
         {
+            if (NuevoNombre.IsNullOrEmpty())
+            {
+                return;
+            }
+
             Pass = await App.Current.MainPage.DisplayPromptAsync("Alerta", "Introduce tu contraseña");
 
             if (Pass is null)
@@ -281,6 +306,13 @@ namespace TFGMaui.ViewModels
 
             if (new SettingsRepository().ChangeUsername(NuevoNombre, UsuarioActivo))
             {
+                UsuarioActivo.Username = NuevoNombre;
+                if (SecureStorage.GetAsync("credentialsStored").Equals(true.ToString()))
+                {
+                    await SecureStorage.SetAsync("username", UsuarioActivo.Username);
+                }
+
+                NuevoNombre = "";
                 await App.Current.MainPage.DisplayAlert("Exito", "Nombre de usuario cambiado satisfactoriamente", "Aceptar");
             }
         }
@@ -292,6 +324,11 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ChangeHobbies()
         {
+            if (Items.Count == 0)
+            {
+                return;
+            }
+
             UsuarioActivo.Hobbies = [];
             Items.ToList().ForEach(x => UsuarioActivo.Hobbies.Add(x.IsChecked));
 

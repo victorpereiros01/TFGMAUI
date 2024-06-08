@@ -76,7 +76,7 @@
                         </Button.Background>
                     </Button>
                 </HorizontalStackLayout>
-                
+
                 <SearchBar
                     x:Name="tx_filtro2"
                     Margin="10"
@@ -245,7 +245,7 @@
                 </CollectionView>
 
                 <Button
-                    AbsoluteLayout.LayoutBounds="685,150"
+                    AbsoluteLayout.LayoutBounds="595,150"
                     BackgroundColor="#d3d3d3"
                     Command="{Binding ChangeSeasonCommand}"
                     CornerRadius="20"
@@ -254,7 +254,7 @@
                     IsVisible="{Binding IsSeasonSelected, Converter={toolkit:InvertedBoolConverter}}"
                     Text="{Binding TextSeason}"
                     TextColor="Black"
-                    WidthRequest="120" />
+                    WidthRequest="320" />
 
                 <HorizontalStackLayout AbsoluteLayout.LayoutBounds="535,160" IsVisible="{Binding IsSeasonSelected}">
                     <Button
@@ -262,7 +262,7 @@
                         AbsoluteLayout.LayoutBounds="350,150"
                         BackgroundColor="LightBlue"
                         Command="{Binding ChangeSeasonCommand}"
-                        CommandParameter="winter.png"
+                        CommandParameter="winter"
                         CornerRadius="20"
                         HeightRequest="20"
                         HorizontalOptions="Center"
@@ -275,7 +275,7 @@
                         AbsoluteLayout.LayoutBounds="390,90"
                         BackgroundColor="LightPink"
                         Command="{Binding ChangeSeasonCommand}"
-                        CommandParameter="spring.png"
+                        CommandParameter="spring"
                         CornerRadius="20"
                         HeightRequest="20"
                         HorizontalOptions="Center"
@@ -289,7 +289,7 @@
                         AbsoluteLayout.LayoutBounds="520,90"
                         BackgroundColor="#ffd662"
                         Command="{Binding ChangeSeasonCommand}"
-                        CommandParameter="summer.png"
+                        CommandParameter="summer"
                         CornerRadius="20"
                         HeightRequest="20"
                         HorizontalOptions="Center"
@@ -302,7 +302,7 @@
                         AbsoluteLayout.LayoutBounds="560,150"
                         BackgroundColor="LightSalmon"
                         Command="{Binding ChangeSeasonCommand}"
-                        CommandParameter="fall.png"
+                        CommandParameter="fall"
                         CornerRadius="20"
                         HeightRequest="20"
                         HorizontalOptions="Center"
@@ -312,17 +312,32 @@
                         ZIndex="1" />
                 </HorizontalStackLayout>
 
-                <Entry
-                    x:Name="ent_season"
+                <Picker
                     AbsoluteLayout.LayoutBounds="1090,160"
                     HorizontalTextAlignment="Center"
-                    Placeholder="YYYY-SEASON"
+                    ItemsSource="{Binding Anios}"
+                    SelectedItem="{Binding Anio}"
                     WidthRequest="150" />
+
+                <Picker
+                    x:Name="ent_season"
+                    AbsoluteLayout.LayoutBounds="1245,160"
+                    HorizontalTextAlignment="Center"
+                    WidthRequest="150">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Invierno</x:String>
+                            <x:String>Primavera</x:String>
+                            <x:String>Verano</x:String>
+                            <x:String>Otoño</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
 
                 <Button
                     AbsoluteLayout.LayoutBounds="1400,160"
                     Command="{Binding GetSeasonCommand}"
-                    CommandParameter="{Binding Source={x:Reference ent_season}, Path=Text}"
+                    CommandParameter="{Binding Source={x:Reference ent_season}, Path=SelectedItem}"
                     WidthRequest="80" />
 
                 <Label

@@ -46,7 +46,7 @@ namespace TFGMaui.Repositories
 
         public bool ChangeEmail(string nuevoEmail, UsuarioModel user)
         {
-            SetCmdQuery("UPDATE [dbo].[Users] SET [Password] = @Email WHERE IdUser = @IdUser");
+            SetCmdQuery("UPDATE [dbo].[Users] SET [Email] = @Email WHERE IdUser = @IdUser");
 
             AddCmdParameters(new() { { "@IdUser", user.Id }, { "@Email", nuevoEmail } });
 

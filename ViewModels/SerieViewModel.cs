@@ -107,7 +107,7 @@ namespace TFGMaui.ViewModels
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 5);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 10);
                 }
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
                 foreach (var item in pagtrend.Results)

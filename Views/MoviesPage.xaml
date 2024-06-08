@@ -48,6 +48,7 @@
                             HorizontalOptions="Start"
                             Text="PELICULAS"
                             TextColor="Black"
+                            VerticalOptions="Start"
                             WidthRequest="300">
                             <Button.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">

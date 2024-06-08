@@ -42,6 +42,11 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private MangaModel manga, manga2;
 
+        [ObservableProperty]
+        private List<string> anios;
+        [ObservableProperty]
+        private string anio;
+
         private AnimeMopup AnimeMopup;
         private AnimeMopupViewModel AnimeMopupViewModel;
 
@@ -66,8 +71,15 @@ namespace TFGMaui.ViewModels
             IsSearchFocus = false;
             IsSearchFocus2 = false;
 
+            Anios = [];
+            for (int i = 0; i < DateTime.Now.Year - 1968; i++)
+            {
+                Anios.Add((i + 1970).ToString());
+            }
+            Anio = Anios[^2];
+
             IsSeasonSelected = false;
-            TextSeason = "Select season";
+            TextSeason = "Selecciona una temporada de este año";
 
             Anime = new();
             Anime2 = new();
@@ -89,9 +101,25 @@ namespace TFGMaui.ViewModels
             if (IsSeasonSelected)
             {
                 TextSeason = "";
-                ImageSeason = ImageSource.FromFile(season);
+                ImageSeason = ImageSource.FromFile(season + ".png");
 
-                await GetSeason(season);
+                var requestPagina = new HttpRequestModel(url: IConstantes.BaseAnimeManga,
+                endpoint: $"seasons/{DateTime.Now.Year}/{season}",
+                parameters: null,
+                headers: new Dictionary<string, string> { { "Accept", "application/json" } });
+
+                var pagtrend = (PageA)await HttpService.ExecuteRequestAsync<PageA>(requestPagina); // v
+
+                foreach (var item in pagtrend.Data)
+                {
+                    item.Imagen = item.Images.Jpg.Image_url;
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Anime")[0];
+                    item.Color2 = MiscellaneousUtils.GetColorHobbie("Anime")[1];
+                }
+                pagtrend.Data = MiscellaneousUtils.GetNelements(pagtrend.Data, 10);
+
+                PaginaS = pagtrend;
+
                 IsSeasonSelected = false;
             }
             else
@@ -109,11 +137,19 @@ namespace TFGMaui.ViewModels
                 return;
             }
 
-            var year = IsSeasonSelected ? "2024" : season.Split('-')[0];
-            var seasonSplit = IsSeasonSelected ? season.Split(".")[0] : season.Split('-')[1].ToLower();
+            switch (season)
+            {
+                case "Invierno": season = "winter"; break;
+                case "Primavera": season = "spring"; break;
+                case "Verano": season = "summer"; break;
+                case "Otoño": season = "fall"; break;
+
+                default:
+                    break;
+            }
 
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseAnimeManga,
-                endpoint: $"seasons/{year}/{seasonSplit}",
+                endpoint: $"seasons/{Anio}/{season}",
                 parameters: null,
                 headers: new Dictionary<string, string> { { "Accept", "application/json" } });
 

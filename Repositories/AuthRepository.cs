@@ -21,9 +21,9 @@ namespace TFGMaui.Repositories
         {
             if (user.Email.IsNullOrEmpty() || user.Email.Equals(" "))
             {
-                SetCmdQuery("SELECT 1 FROM Users WHERE Username = @Username or Email = @Email");
+                SetCmdQuery("SELECT 1 FROM Users WHERE Username = @Username");
 
-                AddCmdParameters(new() { { "@Username", user.Username }, { "@Email", user.Email is null ? "" : user.Email } });
+                AddCmdParameters(new() { { "@Username", user.Username } });
 
                 Oconexion.Open();
 
@@ -32,9 +32,9 @@ namespace TFGMaui.Repositories
             }
             else
             {
-                SetCmdQuery("SELECT 1 FROM Users WHERE Username = @Username");
+                SetCmdQuery("SELECT 1 FROM Users WHERE Username = @Username or Email = @Email");
 
-                AddCmdParameters(new() { { "@Username", user.Username } });
+                AddCmdParameters(new() { { "@Username", user.Username }, { "@Email", user.Email is null ? "" : user.Email } });
 
                 Oconexion.Open();
 

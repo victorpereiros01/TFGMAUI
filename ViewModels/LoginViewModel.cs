@@ -99,9 +99,12 @@ namespace TFGMaui.ViewModels
                 await SecureStorage.SetAsync("password", IsRememberMe ? UsuarioActivo.Password : " ");
 
                 await Navegar("MainPage");
-                await Application.Current.MainPage.DisplayAlert("Saludos", "Bienvenid@ " + UsuarioActivo.Username, "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Saludos", "Bienvenid@ " + UsuarioActivo.Name, "Aceptar");
             }
-            catch (Exception e) { await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar"); }
+            catch (Exception e) { 
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "Aceptar");
+                UsuarioActivo = new();
+            }
         }
 
         private async void CheckStoredCredentials()

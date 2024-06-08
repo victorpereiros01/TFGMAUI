@@ -35,7 +35,7 @@
                 FileTypes = FilePickerFileType.Images
             });
 
-            if (result == null)
+            if (result is null)
             {
                 return null;
             }

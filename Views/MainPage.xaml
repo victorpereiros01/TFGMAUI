@@ -84,6 +84,7 @@
 
                             <CarouselView
                                 Margin="0,12,0,0"
+                                BackgroundColor="#EEEEEE"
                                 CurrentItem="{Binding SavP}"
                                 EmptyView="Añade hobbies a pendientes"
                                 HeightRequest="462"
@@ -108,16 +109,8 @@
                                             <VerticalStackLayout>
                                                 <Image
                                                     Aspect="AspectFill"
-                                                    HeightRequest="390"
+                                                    HeightRequest="420"
                                                     Source="{Binding Imagen}" />
-
-                                                <Label
-                                                    Margin="0,2,0,0"
-                                                    FontAttributes="Bold"
-                                                    HorizontalOptions="Center"
-                                                    HorizontalTextAlignment="Center"
-                                                    Text="{Binding Title}"
-                                                    VerticalOptions="Center" />
                                             </VerticalStackLayout>
                                         </Frame>
                                     </DataTemplate>
@@ -466,67 +459,61 @@
         </AbsoluteLayout>
 
         <AbsoluteLayout
-            HeightRequest="800"
+            HeightRequest="900"
             HorizontalOptions="Center"
             IsVisible="{Binding IsGuest}"
             VerticalOptions="Center"
-            WidthRequest="1200">
+            WidthRequest="1600">
             <Button
-                AbsoluteLayout.LayoutBounds="1095,10"
+                AbsoluteLayout.LayoutBounds="1475,30"
                 BackgroundColor="Beige"
                 Command="{Binding MinimizeAppCommand}" />
 
             <Button
-                AbsoluteLayout.LayoutBounds="1145,10"
+                AbsoluteLayout.LayoutBounds="1525,30"
                 BackgroundColor="Red"
                 Command="{Binding CloseAppCommand}" />
 
             <Frame
-                AbsoluteLayout.LayoutBounds="10,60,1180,730"
+                AbsoluteLayout.LayoutBounds="30,80,1540,790"
                 BackgroundColor="#EEEEEE"
                 CornerRadius="20">
                 <Grid
-                    ColumnDefinitions="400,340,80,240,80"
+                    ColumnDefinitions="500,25,490,25,110,220,120"
                     HeightRequest="730"
-                    RowDefinitions="100,100,320,180"
-                    WidthRequest="1180">
+                    RowDefinitions="120,15,100,380,15,110"
+                    WidthRequest="1500">
 
                     <!--  Favoritos cabecera  -->
-                    <VerticalStackLayout
-                        Grid.Row="0"
-                        Grid.RowSpan="3"
-                        Grid.Column="0">
-                        <Border
-                            Margin="0,0,0,20"
-                            BackgroundColor="#EEEEEE"
-                            HeightRequest="75"
-                            WidthRequest="380">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10" />
-                            </Border.StrokeShape>
+                    <Border
+                        Grid.Row="2"
+                        Grid.Column="4"
+                        Grid.ColumnSpan="3"
+                        BackgroundColor="#EEEEEE">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
 
-                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                <Image
-                                    Margin="10,0"
-                                    HeightRequest="40"
-                                    Source="heart.png" />
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Image
+                                Margin="10,0"
+                                HeightRequest="40"
+                                Source="heart.png" />
 
-                                <Label
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="Center"
-                                    Text="Inicia sesion para añadir hobbies"
-                                    VerticalOptions="Center" />
-                            </HorizontalStackLayout>
-                        </Border>
-                    </VerticalStackLayout>
+                            <Label
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="Inicia sesion para añadir hobbies"
+                                VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+
 
                     <!--  Cabecera de pendientes  -->
                     <Border
-                        Grid.Row="1"
-                        Grid.Column="1"
+                        Grid.Row="2"
+                        Grid.Column="2"
                         BackgroundColor="#EEEEEE"
-                        HeightRequest="60"
-                        WidthRequest="320"
                         ZIndex="1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="10" />
@@ -547,39 +534,33 @@
                     </Border>
 
                     <!--  Vistos cabecera  -->
-                    <VerticalStackLayout
-                        Grid.Row="1"
+                    <Border
+                        Grid.Row="2"
                         Grid.Column="0"
-                        Margin="0,20,0,0"
+                        BackgroundColor="#EEEEEE"
                         ZIndex="1">
-                        <Border
-                            Margin="0,0,0,15"
-                            BackgroundColor="#EEEEEE"
-                            HeightRequest="60"
-                            WidthRequest="380">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10" />
-                            </Border.StrokeShape>
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
 
-                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                                <Image
-                                    Margin="10,0"
-                                    HeightRequest="40"
-                                    Source="ojo.png" />
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Image
+                                Margin="10,0"
+                                HeightRequest="40"
+                                Source="ojo.png" />
 
-                                <Label
-                                    FontAttributes="Bold"
-                                    HorizontalOptions="Center"
-                                    Text="Inicia sesion para añadir hobbies"
-                                    VerticalOptions="Center" />
-                            </HorizontalStackLayout>
-                        </Border>
-                    </VerticalStackLayout>
+                            <Label
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center"
+                                Text="Inicia sesion para añadir hobbies"
+                                VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
 
                     <!--  Boton home  -->
                     <Button
                         Grid.Row="0"
-                        Grid.Column="1"
+                        Grid.Column="2"
                         BackgroundColor="#848484"
                         ImageSource="titulomayus.png"
                         ToolTipProperties.Text="Homepage"
@@ -587,11 +568,9 @@
 
                     <!--  Cabecera de saludos  -->
                     <Border
-                        Grid.Row="1"
-                        Grid.Column="2"
-                        Grid.ColumnSpan="3"
-                        Margin="10,20"
-                        Padding="50,15"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Padding="30"
                         BackgroundColor="#EEEEEE">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="10" />
@@ -610,9 +589,9 @@
                     <!--  Avatar de usuario  -->
                     <Border
                         Grid.Row="0"
-                        Grid.Column="2"
+                        Grid.Column="4"
                         Margin="10,0,0,0"
-                        HeightRequest="70">
+                        HeightRequest="100">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="50" />
                         </Border.StrokeShape>
@@ -627,8 +606,8 @@
                     <!--  Nombre de usuario  -->
                     <Border
                         Grid.Row="0"
-                        Grid.Column="3"
-                        Margin="10,10,0,10"
+                        Grid.Column="5"
+                        Margin="10"
                         BackgroundColor="#EEEEEE">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="10" />
@@ -638,7 +617,7 @@
                             <Label
                                 FontSize="Title"
                                 HorizontalOptions="Center"
-                                Text="{Binding UsuarioActivo.Username}"
+                                Text="{Binding UsuarioActivo.Name}"
                                 VerticalOptions="Center" />
                         </VerticalStackLayout>
                     </Border>
@@ -646,23 +625,23 @@
                     <!--  Boton ajustes  -->
                     <Button
                         Grid.Row="0"
-                        Grid.Column="4"
-                        Margin="-10,0,0,0"
+                        Grid.Column="6"
+                        Margin="10,0,0,0"
                         BackgroundColor="DimGray"
                         BorderColor="Black"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="LoginPage"
-                        HeightRequest="65"
+                        HeightRequest="110"
                         ImageSource="arrow.png"
                         Rotation="90"
-                        WidthRequest="60" />
+                        WidthRequest="100" />
 
                     <!--  Recomendacion de registrarse  -->
                     <VerticalStackLayout
-                        Grid.Row="2"
-                        Grid.RowSpan="1"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="5">
+                        Grid.Row="3"
+                        Grid.RowSpan="2"
+                        Grid.Column="2"
+                        HorizontalOptions="Center">
                         <Label
                             Margin="0,60,0,0"
                             FontSize="40"
@@ -674,20 +653,19 @@
                             CommandParameter="RegisterPage"
                             FontSize="35"
                             HeightRequest="100"
+                            HorizontalOptions="Center"
                             Text="REGISTRATE"
                             TextColor="Black"
-                            WidthRequest="500" />
+                            WidthRequest="490" />
                     </VerticalStackLayout>
 
                     <!--  Botones de los menus, que se adapta  -->
                     <HorizontalStackLayout
-                        Grid.Row="3"
+                        Grid.Row="5"
                         Grid.Column="0"
-                        Grid.ColumnSpan="5">
+                        Grid.ColumnSpan="8">
                         <Button
                             Margin="10"
-                            Command="{Binding NavegarCommand}"
-                            CommandParameter="MovieSeriesPage"
                             FontSize="30"
                             Text="CINE"
                             TextColor="Black"
@@ -702,8 +680,6 @@
 
                         <Button
                             Margin="10"
-                            Command="{Binding NavegarGCommand}"
-                            CommandParameter="GamesPage"
                             FontSize="30"
                             Text="VIDEOJUEGOS"
                             TextColor="Black"
@@ -718,8 +694,6 @@
 
                         <Button
                             Margin="10"
-                            Command="{Binding NavegarCommand}"
-                            CommandParameter="AnimeMangaPage"
                             FontSize="30"
                             Text="MANGANIME"
                             TextColor="Black"
@@ -734,8 +708,6 @@
 
                         <Button
                             Margin="10"
-                            Command="{Binding NavegarCommand}"
-                            CommandParameter="BooksPage"
                             FontSize="30"
                             Text="LIBROS"
                             TextColor="Black"

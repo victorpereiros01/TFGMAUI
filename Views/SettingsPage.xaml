@@ -221,7 +221,7 @@
                                                 Text="Cambiar email" />
 
 
-                                            <Label
+                                            <!--<Label
                                                 Grid.Row="4"
                                                 Grid.Column="1"
                                                 Grid.ColumnSpan="2"
@@ -232,7 +232,7 @@
                                                 Grid.Row="4"
                                                 Grid.Column="2"
                                                 FontSize="Micro"
-                                                Text="{Binding UsuarioActivo.Email}" />
+                                                Text="{Binding UsuarioActivo.Email}" />-->
 
                                             <Entry
                                                 Grid.Row="5"

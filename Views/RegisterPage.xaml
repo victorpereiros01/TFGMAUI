@@ -278,9 +278,10 @@
 
                                     <VerticalStackLayout Padding="0,15" HorizontalOptions="Center">
                                         <Image
+                                            HeightRequest="70"
                                             HorizontalOptions="Center"
                                             Opacity=".6"
-                                            Source="fondo.jpg"
+                                            Source="{Binding Imagen}"
                                             WidthRequest="120" />
                                         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                             <CheckBox

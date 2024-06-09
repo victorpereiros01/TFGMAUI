@@ -118,7 +118,19 @@
             HeightRequest="120"
             Text="Favoritos"
             TextColor="Black"
-            WidthRequest="290" />
+            WidthRequest="140" />
+        <Button
+            Margin="10"
+            AbsoluteLayout.LayoutBounds="180,490"
+            BackgroundColor="#EEEEEE"
+            BorderWidth="2"
+            Command="{Binding RemoveHobbieCommand}"
+            CommandParameter="Favorite"
+            HeightRequest="120"
+            Text="Quitar favoritos"
+            TextColor="Black"
+            WidthRequest="140" />
+
         <Button
             Margin="10"
             AbsoluteLayout.LayoutBounds="340,490"
@@ -129,7 +141,19 @@
             HeightRequest="120"
             Text="Pendiente"
             TextColor="Black"
-            WidthRequest="290" />
+            WidthRequest="140" />
+        <Button
+            Margin="10"
+            AbsoluteLayout.LayoutBounds="500,490"
+            BackgroundColor="#EEEEEE"
+            BorderWidth="2"
+            Command="{Binding RemoveHobbieCommand}"
+            CommandParameter="Pending"
+            HeightRequest="120"
+            Text="Quitar pend"
+            TextColor="Black"
+            WidthRequest="140" />
+
         <Button
             Margin="10"
             AbsoluteLayout.LayoutBounds="650,490"
@@ -140,23 +164,17 @@
             HeightRequest="120"
             Text="Vista"
             TextColor="Black"
-            WidthRequest="290" />
-
-
-        <!--<Button
-    Margin="10"
-    Command="{Binding RemoveHobbieCommand}"
-    CommandParameter="Favorite"
-    Text="Favoritos" />
-<Button
-    Margin="10"
-    Command="{Binding RemoveHobbieCommand}"
-    CommandParameter="Pending"
-    Text="Pendiente" />
-<Button
-    Margin="10,0,10,10"
-    Command="{Binding RemoveHobbieCommand}"
-    CommandParameter="Seen"
-    Text="Vista" />-->
+            WidthRequest="140" />
+        <Button
+            Margin="10"
+            AbsoluteLayout.LayoutBounds="800,490"
+            BackgroundColor="#EEEEEE"
+            BorderWidth="2"
+            Command="{Binding RemoveHobbieCommand}"
+            CommandParameter="Seen"
+            HeightRequest="120"
+            Text="Quitar vista"
+            TextColor="Black"
+            WidthRequest="140" />
     </AbsoluteLayout>
 </mopups:PopupPage>

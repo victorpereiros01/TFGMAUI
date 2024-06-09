@@ -56,6 +56,9 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private bool isGuest;
 
+        [ObservableProperty]
+        private bool cVis, vVis, mVis, lVis;
+
         /// <summary>
         /// Inicializa los saludos, con el dia en formato dia de la semana, numero y mes. Y obtiene las listas de trending y top
         /// </summary>
@@ -80,9 +83,7 @@ namespace TFGMaui.ViewModels
                     break;
             }
 
-            ListFav = new HobbieRepository().GetFavorites(UsuarioActivo.Id);
-            ListSeen = new HobbieRepository().GetSeen(UsuarioActivo.Id);
-            ListPend = new HobbieRepository().GetPending(UsuarioActivo.Id);
+            await GetHobbies();
 
             Bearer = await GetBearerG();
 
@@ -95,191 +96,114 @@ namespace TFGMaui.ViewModels
                 }
             }
             HobbieWidth = 1485 / hobbieC - 20;
+            CVis = UsuarioActivo.Hobbies[0];
+            VVis = UsuarioActivo.Hobbies[1];
+            MVis = UsuarioActivo.Hobbies[2];
+            LVis = UsuarioActivo.Hobbies[3];
+
+            await GetTopG();
+            await GetTrendG();
+
+            await GetTrending("day");
+            await GetTopAM();
+        }
+
+        public async Task GetHobbies()
+        {
+            ListFav = new HobbieRepository().GetFavorites(UsuarioActivo.Id);
+            ListSeen = new HobbieRepository().GetSeen(UsuarioActivo.Id);
+            ListPend = new HobbieRepository().GetPending(UsuarioActivo.Id);
 
             SavF = ListFav.IsNullOrEmpty() ? new() : ListFav[0];
             SavS = ListSeen.IsNullOrEmpty() ? new() : ListSeen[0];
             SavP = ListPend.IsNullOrEmpty() ? new() : ListPend[0];
 
-            await GetTrending("day");
-            await GetTopAM();
-
-            await GetTrendG();
-            await GetTopG();
         }
+
+        [RelayCommand]
+        public async Task ShowMoviePMopup(string id) => await ShowMopup(id, SavP);
+
+        [RelayCommand]
+        public async Task ShowMovieFMopup(string id) => await ShowMopup(id, SavF);
+
+        [RelayCommand]
+        public async Task ShowMovieSMopup(string id) => await ShowMopup(id, SavS);
 
         /// <summary>
         /// Abre el mopup
         /// </summary>
         /// <param name="id">Id de la pelicula seleccionada</param>
-        [RelayCommand]
-        public async Task ShowMoviePMopup(string id)
-        {
-            if (SavP.HobbieType.Equals("Movie"))
-            {
-                MovieMopupViewModel MovieMopupViewModel = new();
-                MovieMopup MovieMopup = new(MovieMopupViewModel);
-
-                MovieMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
-                await MopupService.Instance.PushAsync(MovieMopup);
-            }
-            else if (SavP.HobbieType.Equals("Serie"))
-            {
-                SerieMopupViewModel SerieMopupViewModel = new();
-                SerieMopup SerieMopup = new(SerieMopupViewModel);
-
-                SerieMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
-                await MopupService.Instance.PushAsync(SerieMopup);
-            }
-            else if (SavP.HobbieType.Equals("Manga"))
-            {
-                MangaMopupViewModel MangaMopupViewModel = new();
-                MangaMopup MangaMopup = new(MangaMopupViewModel);
-
-                MangaMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
-                await MopupService.Instance.PushAsync(MangaMopup);
-            }
-            else if (SavP.HobbieType.Equals("Anime"))
-            {
-                AnimeMopupViewModel AnimeMopupViewModel = new();
-                AnimeMopup AnimeMopup = new(AnimeMopupViewModel);
-
-                AnimeMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
-                await MopupService.Instance.PushAsync(AnimeMopup);
-            }
-            else if (SavP.HobbieType.Equals("Game"))
-            {
-                GameMopupViewModel GameMopupViewModel = new();
-                GameMopup GameMopup = new(GameMopupViewModel);
-
-                GameMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, Bearer);
-                await MopupService.Instance.PushAsync(GameMopup);
-            }
-            else if (SavP.HobbieType.Equals("Book"))
-            {
-                BookMopupViewModel BookMopupViewModel = new();
-                BookMopup BookMopup = new(BookMopupViewModel);
-
-                BookMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
-                await MopupService.Instance.PushAsync(BookMopup);
-            }
-        }
-
-        /// <summary>
-        /// Abre el mopup
-        /// </summary>
-        /// <param name="id">Id de la pelicula seleccionada</param>
-        [RelayCommand]
-        public async Task ShowMovieFMopup(string id)
-        {
-            if (SavF.HobbieType.Equals("Movie"))
-            {
-                MovieMopupViewModel MovieMopupViewModel = new();
-                MovieMopup MovieMopup = new(MovieMopupViewModel);
-
-                MovieMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
-                await MopupService.Instance.PushAsync(MovieMopup);
-            }
-            else if (SavF.HobbieType.Equals("Serie"))
-            {
-                SerieMopupViewModel SerieMopupViewModel = new();
-                SerieMopup SerieMopup = new(SerieMopupViewModel);
-
-                SerieMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
-                await MopupService.Instance.PushAsync(SerieMopup);
-            }
-            else if (SavF.HobbieType.Equals("Manga"))
-            {
-                MangaMopupViewModel MangaMopupViewModel = new();
-                MangaMopup MangaMopup = new(MangaMopupViewModel);
-
-                MangaMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
-                await MopupService.Instance.PushAsync(MangaMopup);
-            }
-            else if (SavF.HobbieType.Equals("Anime"))
-            {
-                AnimeMopupViewModel AnimeMopupViewModel = new();
-                AnimeMopup AnimeMopup = new(AnimeMopupViewModel);
-
-                AnimeMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
-                await MopupService.Instance.PushAsync(AnimeMopup);
-            }
-            else if (SavF.HobbieType.Equals("Game"))
-            {
-                GameMopupViewModel GameMopupViewModel = new();
-                GameMopup GameMopup = new(GameMopupViewModel);
-
-                GameMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, Bearer);
-                await MopupService.Instance.PushAsync(GameMopup);
-            }
-            else if (SavF.HobbieType.Equals("Book"))
-            {
-                BookMopupViewModel BookMopupViewModel = new();
-                BookMopup BookMopup = new(BookMopupViewModel);
-
-                BookMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
-                await MopupService.Instance.PushAsync(BookMopup);
-            }
-        }
-
-        /// <summary>
-        /// Abre el mopup
-        /// </summary>
-        /// <param name="id">Id de la pelicula seleccionada</param>
-        [RelayCommand]
-        public async Task ShowMovieSMopup(string id)
+        /// <param name="source">Source del hobby (SavP, SavF, SavS)</param>
+        public async Task ShowMopup(string id, object source)
         {
             if (id is null)
             {
                 return;
             }
 
-            if (SavS.HobbieType.Equals("Movie"))
+            switch (((SavedHobbieModel)source).HobbieType)
             {
-                MovieMopupViewModel MovieMopupViewModel = new();
-                MovieMopup MovieMopup = new(MovieMopupViewModel);
+                case "Movie":
+                    {
+                        var movieViewModel = new MovieMopupViewModel();
+                        var movieMopup = new MovieMopup(movieViewModel);
+                        movieViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
+                        await MopupService.Instance.PushAsync(movieMopup);
+                        break;
+                    }
 
-                MovieMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
-                await MopupService.Instance.PushAsync(MovieMopup);
+                case "Serie":
+                    {
+                        var serieViewModel = new SerieMopupViewModel();
+                        var serieMopup = new SerieMopup(serieViewModel);
+                        serieViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
+                        await MopupService.Instance.PushAsync(serieMopup);
+                        break;
+                    }
+
+                case "Manga":
+                    {
+                        var mangaViewModel = new MangaMopupViewModel();
+                        var mangaMopup = new MangaMopup(mangaViewModel);
+                        mangaViewModel.SendHobbieById(id, UsuarioActivo.Id);
+                        await MopupService.Instance.PushAsync(mangaMopup);
+                        break;
+                    }
+
+                case "Anime":
+                    {
+                        var animeViewModel = new AnimeMopupViewModel();
+                        var animeMopup = new AnimeMopup(animeViewModel);
+                        animeViewModel.SendHobbieById(id, UsuarioActivo.Id);
+                        await MopupService.Instance.PushAsync(animeMopup);
+                        break;
+                    }
+
+                case "Game":
+                    {
+                        var gameViewModel = new GameMopupViewModel();
+                        var gameMopup = new GameMopup(gameViewModel);
+                        gameViewModel.SendHobbieById(id, UsuarioActivo.Id, Bearer);
+                        await MopupService.Instance.PushAsync(gameMopup);
+                        break;
+                    }
+
+                case "Book":
+                    {
+                        var bookViewModel = new BookMopupViewModel();
+                        var bookMopup = new BookMopup(bookViewModel);
+                        bookViewModel.SendHobbieById(id, UsuarioActivo.Id);
+                        await MopupService.Instance.PushAsync(bookMopup);
+                        break;
+                    }
+
+                default:
+                    break;
             }
-            else if (SavS.HobbieType.Equals("Serie"))
-            {
-                SerieMopupViewModel SerieMopupViewModel = new();
-                SerieMopup SerieMopup = new(SerieMopupViewModel);
 
-                SerieMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
-                await MopupService.Instance.PushAsync(SerieMopup);
-            }
-            else if (SavS.HobbieType.Equals("Manga"))
+            while (true)
             {
-                MangaMopupViewModel MangaMopupViewModel = new();
-                MangaMopup MangaMopup = new(MangaMopupViewModel);
-
-                MangaMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
-                await MopupService.Instance.PushAsync(MangaMopup);
-            }
-            else if (SavS.HobbieType.Equals("Anime"))
-            {
-                AnimeMopupViewModel AnimeMopupViewModel = new();
-                AnimeMopup AnimeMopup = new(AnimeMopupViewModel);
-
-                AnimeMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
-                await MopupService.Instance.PushAsync(AnimeMopup);
-            }
-            else if (SavS.HobbieType.Equals("Game"))
-            {
-                GameMopupViewModel GameMopupViewModel = new();
-                GameMopup GameMopup = new(GameMopupViewModel);
-
-                GameMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, Bearer);
-                await MopupService.Instance.PushAsync(GameMopup);
-            }
-            else if (SavS.HobbieType.Equals("Book"))
-            {
-                BookMopupViewModel BookMopupViewModel = new();
-                BookMopup BookMopup = new(BookMopupViewModel);
-
-                BookMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
-                await MopupService.Instance.PushAsync(BookMopup);
+                await GetHobbies();
             }
         }
 
@@ -539,6 +463,10 @@ namespace TFGMaui.ViewModels
                 await SecureStorage.SetAsync("password", " ");
                 UsuarioActivo = new();
             }
+            else if (pagina.Equals("MainPage"))
+            {
+                await GetHobbies();
+            }
 
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
@@ -559,12 +487,6 @@ namespace TFGMaui.ViewModels
                 ["PaginaTopG"] = PaginaTopG,
                 ["PaginaTrendG"] = PaginaTrendG
             });
-        }
-
-        [RelayCommand]
-        public async Task BtnEntered()
-        {
-            //await Application.Current.MainPage.DisplayAlert("Saludos", relativeToContainerPosition.ToString(), "Aceptar");
         }
     }
 }

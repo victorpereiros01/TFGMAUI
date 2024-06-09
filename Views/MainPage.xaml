@@ -394,6 +394,7 @@
                             Command="{Binding NavegarCommand}"
                             CommandParameter="MovieSeriesPage"
                             FontSize="30"
+                            IsVisible="{Binding CVis}"
                             Text="CINE"
                             TextColor="Black"
                             WidthRequest="{Binding HobbieWidth}">
@@ -410,6 +411,7 @@
                             Command="{Binding NavegarGCommand}"
                             CommandParameter="GamesPage"
                             FontSize="30"
+                            IsVisible="{Binding VVis}"
                             Text="VIDEOJUEGOS"
                             TextColor="Black"
                             WidthRequest="{Binding HobbieWidth}">
@@ -426,6 +428,7 @@
                             Command="{Binding NavegarCommand}"
                             CommandParameter="AnimeMangaPage"
                             FontSize="30"
+                            IsVisible="{Binding MVis}"
                             Text="MANGANIME"
                             TextColor="Black"
                             WidthRequest="{Binding HobbieWidth}">
@@ -442,6 +445,7 @@
                             Command="{Binding NavegarCommand}"
                             CommandParameter="BooksPage"
                             FontSize="30"
+                            IsVisible="{Binding LVis}"
                             Text="LIBROS"
                             TextColor="Black"
                             WidthRequest="{Binding HobbieWidth}">

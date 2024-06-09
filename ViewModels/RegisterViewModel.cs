@@ -44,10 +44,10 @@ namespace TFGMaui.ViewModels
 
             Items =
             [
-                new HobbieModel() { IsChecked = false, HobbieType = "Cinema" },
-                new HobbieModel() { IsChecked = false, HobbieType = "Manganime" },
-                new HobbieModel() { IsChecked = false, HobbieType = "Games" },
-                new HobbieModel() { IsChecked = false, HobbieType = "Books & comics" }
+                new HobbieModel() { IsChecked = false, HobbieType = "CINE" },
+                new HobbieModel() { IsChecked = false, HobbieType = "VIDEOJUEGOS" },
+                new HobbieModel() { IsChecked = false, HobbieType = "MANGANIME" },
+                new HobbieModel() { IsChecked = false, HobbieType = "LIBROS" }
             ];
             UsuarioReg.Hobbies = [];
         }

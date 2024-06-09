@@ -3,6 +3,7 @@ using System.Data;
 using TFGMaui.Models;
 using TFGMaui.Services;
 using TFGMaui.Utils;
+using TFGMaui.ViewModels;
 
 namespace TFGMaui.Repositories
 {
@@ -21,6 +22,11 @@ namespace TFGMaui.Repositories
         /// <returns></returns>
         public bool AddHobbie(string addType, int idUser, string type, HobbieModel h)
         {
+            if (AreAnyNull(addType, idUser, type, h) || AreAnyNull(h.Id, h.Imagen, h.Title))
+            {
+                return false;
+            }
+
             SetCmdQuery($"SELECT 1 FROM {addType}Hobbies WHERE HobbieType = @HobbieType AND Value = @Value AND IdUser{addType.ToArray()[0]} = @IdUser");
 
             AddCmdParameters(
@@ -57,13 +63,20 @@ namespace TFGMaui.Repositories
 
         public bool RemoveHobbie(string addType, int idUser, string hobbieType, string value)
         {
+            if (AreAnyNull(addType, idUser, hobbieType, value))
+            {
+                return false;
+            }
+
             SetCmdQuery($"DELETE FROM {addType}Hobbies WHERE HobbieType = @HobbieType AND VALUE = @Value AND IdUser{addType.ToArray()[0]} = @IdUser ");
+
+            var ht = hobbieType.Split(".")[2].Replace("Model", "");
 
             AddCmdParameters(
                 new()
                 {
                     { "@IdUser", idUser },
-                    { "@HobbieType", hobbieType },
+                    { "@HobbieType", ht},
                     { "@Value", value }
                 }
             );
@@ -76,6 +89,11 @@ namespace TFGMaui.Repositories
             }
 
             return true;
+        }
+
+        private bool AreAnyNull(params object[] parameters)
+        {
+            return parameters.Any(p => p is null);
         }
 
         public List<SavedHobbieModel> GetHobbies(int idUser, string type)

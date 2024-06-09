@@ -206,11 +206,6 @@ namespace TFGMaui.ViewModels
                 default:
                     break;
             }
-
-            while (true)
-            {
-                await GetHobbies();
-            }
         }
 
         private async Task<string> GetBearerG()

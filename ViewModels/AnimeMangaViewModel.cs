@@ -100,7 +100,7 @@ namespace TFGMaui.ViewModels
         {
             if (IsSeasonSelected)
             {
-                TextSeason = "";
+                TextSeason = "Seleccionada: ";
                 ImageSeason = ImageSource.FromFile(season + ".png");
 
                 var requestPagina = new HttpRequestModel(url: IConstantes.BaseAnimeManga,

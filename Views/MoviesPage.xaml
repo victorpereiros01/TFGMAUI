@@ -131,6 +131,13 @@
                                 </Border>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
+
+                        <CollectionView.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding ShowMovieMopupCommand}"
+                                CommandParameter="{Binding Movie2.Id}"
+                                NumberOfTapsRequired="2" />
+                        </CollectionView.GestureRecognizers>
                     </CollectionView>
 
                     <!--  Top  -->
@@ -180,6 +187,13 @@
                                 </Frame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
+
+                        <CollectionView.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding ShowMovieMopupCommand}"
+                                CommandParameter="{Binding Movie3.Id}"
+                                NumberOfTapsRequired="2" />
+                        </CollectionView.GestureRecognizers>
                     </CollectionView>
 
                     <!--  Tendencias switch  -->
@@ -270,6 +284,13 @@
                                 </Frame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
+
+                        <CollectionView.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding ShowMovieMopupCommand}"
+                                CommandParameter="{Binding Movie.Id}"
+                                NumberOfTapsRequired="2" />
+                        </CollectionView.GestureRecognizers>
                     </CollectionView>
                 </AbsoluteLayout>
             </VerticalStackLayout>

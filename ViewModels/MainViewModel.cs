@@ -108,6 +108,13 @@ namespace TFGMaui.ViewModels
             await GetTopAM();
         }
 
+        [RelayCommand]
+        public async Task AbrirTiempo()
+        {
+            Uri uri = new("https://www.msn.com/es-ES/eltiempo"); await Application.Current.MainPage.DisplayAlert("Abriendo tiempo", "Estamos abriendo una pagina del tiempo en tu navegador", "Aceptar");
+            await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+        }
+
         public async Task GetHobbies()
         {
             ListFav = new HobbieRepository().GetFavorites(UsuarioActivo.Id);
@@ -117,7 +124,6 @@ namespace TFGMaui.ViewModels
             SavF = ListFav.IsNullOrEmpty() ? new() : ListFav[0];
             SavS = ListSeen.IsNullOrEmpty() ? new() : ListSeen[0];
             SavP = ListPend.IsNullOrEmpty() ? new() : ListPend[0];
-
         }
 
         [RelayCommand]
@@ -466,6 +472,7 @@ namespace TFGMaui.ViewModels
             else if (pagina.Equals("MainPage"))
             {
                 await GetHobbies();
+                //
             }
 
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()

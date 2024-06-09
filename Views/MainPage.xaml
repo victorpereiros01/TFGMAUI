@@ -232,7 +232,10 @@
                                     <RoundRectangle CornerRadius="10" />
                                 </Border.StrokeShape>
 
-                                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <HorizontalStackLayout
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    WidthRequest="300">
                                     <Image
                                         Margin="10,0"
                                         HeightRequest="40"
@@ -321,6 +324,14 @@
                                 Text="{Binding Saludos}"
                                 VerticalOptions="Center" />
                             <Image Source="{Binding Season}" />
+                            <Button
+                                Margin="5,0,0,0"
+                                BackgroundColor="White"
+                                BorderColor="Black"
+                                BorderWidth="2"
+                                Command="{Binding AbrirTiempoCommand}"
+                                CornerRadius="5"
+                                ImageSource="diagonal.png" />
                         </HorizontalStackLayout>
                     </Border>
 

@@ -134,6 +134,13 @@
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+
+                    <CollectionView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding ShowMangaMopupCommand}"
+                            CommandParameter="{Binding Manga.Id}"
+                            NumberOfTapsRequired="2" />
+                    </CollectionView.GestureRecognizers>
                 </CollectionView>
 
                 <SearchBar
@@ -193,6 +200,13 @@
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+
+                    <CollectionView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding ShowAnimeMopupCommand}"
+                            CommandParameter="{Binding Anime.Id}"
+                            NumberOfTapsRequired="2" />
+                    </CollectionView.GestureRecognizers>
                 </CollectionView>
 
                 <Label
@@ -242,19 +256,39 @@
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+
+                    <CollectionView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding ShowAnimeMopupCommand}"
+                            CommandParameter="{Binding Anime2.Id}"
+                            NumberOfTapsRequired="2" />
+                    </CollectionView.GestureRecognizers>
                 </CollectionView>
 
-                <Button
-                    AbsoluteLayout.LayoutBounds="595,150"
+                <Border
+                    AbsoluteLayout.LayoutBounds="545,150"
                     BackgroundColor="#d3d3d3"
-                    Command="{Binding ChangeSeasonCommand}"
-                    CornerRadius="20"
                     HeightRequest="60"
-                    ImageSource="{Binding ImageSeason}"
                     IsVisible="{Binding IsSeasonSelected, Converter={toolkit:InvertedBoolConverter}}"
-                    Text="{Binding TextSeason}"
-                    TextColor="Black"
-                    WidthRequest="320" />
+                    WidthRequest="400">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            Text="{Binding TextSeason}"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <Image HeightRequest="40" Source="{Binding ImageSeason}" />
+                    </HorizontalStackLayout>
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeSeasonCommand}" NumberOfTapsRequired="1" />
+                    </Border.GestureRecognizers>
+                </Border>
 
                 <HorizontalStackLayout AbsoluteLayout.LayoutBounds="535,160" IsVisible="{Binding IsSeasonSelected}">
                     <Button
@@ -364,7 +398,7 @@
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:MovieModel">
+                        <DataTemplate x:DataType="models:AnimeModel">
                             <Frame>
                                 <Frame.Background>
                                     <LinearGradientBrush EndPoint="0,1">
@@ -386,6 +420,13 @@
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+
+                    <CollectionView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding ShowAnimeMopupCommand}"
+                            CommandParameter="{Binding Anime3.Id}"
+                            NumberOfTapsRequired="2" />
+                    </CollectionView.GestureRecognizers>
                 </CollectionView>
 
                 <Label
@@ -434,6 +475,13 @@
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+
+                    <CollectionView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding ShowMangaMopupCommand}"
+                            CommandParameter="{Binding Manga2.Id}"
+                            NumberOfTapsRequired="2" />
+                    </CollectionView.GestureRecognizers>
                 </CollectionView>
             </AbsoluteLayout>
         </Frame>

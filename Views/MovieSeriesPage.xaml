@@ -166,6 +166,13 @@
                             </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+
+                    <CollectionView.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding ShowMovieMopupCommand}"
+                            CommandParameter="{Binding Movie.Id}"
+                            NumberOfTapsRequired="2" />
+                    </CollectionView.GestureRecognizers>
                 </CollectionView>
             </VerticalStackLayout>
         </Frame>

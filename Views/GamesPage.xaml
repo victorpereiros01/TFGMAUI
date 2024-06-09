@@ -45,7 +45,8 @@
                             FontSize="30"
                             HeightRequest="80"
                             Text="VIDEOJUEGOS"
-                            TextColor="Black" VerticalOptions="Start"
+                            TextColor="Black"
+                            VerticalOptions="Start"
                             WidthRequest="300">
                             <Button.Background>
                                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
@@ -106,7 +107,7 @@
                         ZIndex="1">
 
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:Name="aux" x:DataType="models:MovieModel">
+                            <DataTemplate x:Name="aux" x:DataType="models:GameModel">
                                 <Border>
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="12" />
@@ -127,6 +128,13 @@
                                 </Border>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
+
+                        <CollectionView.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding ShowMovieMopupCommand}"
+                                CommandParameter="{Binding Game2.Id}"
+                                NumberOfTapsRequired="2" />
+                        </CollectionView.GestureRecognizers>
                     </CollectionView>
 
                     <!--  Top  -->
@@ -156,7 +164,7 @@
                         </CollectionView.ItemsLayout>
 
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="models:MovieModel">
+                            <DataTemplate x:DataType="models:GameModel">
                                 <Frame WidthRequest="178">
                                     <Frame.Background>
                                         <LinearGradientBrush EndPoint="0,1">
@@ -178,6 +186,13 @@
                                 </Frame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
+
+                        <CollectionView.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding ShowMovieMopupCommand}"
+                                CommandParameter="{Binding Game3.Id}"
+                                NumberOfTapsRequired="2" />
+                        </CollectionView.GestureRecognizers>
                     </CollectionView>
 
                     <!--  Tendencias switch  -->
@@ -224,7 +239,7 @@
                         </CollectionView.ItemsLayout>
 
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:Name="trend" x:DataType="models:MovieModel">
+                            <DataTemplate x:Name="trend" x:DataType="models:GameModel">
                                 <Frame WidthRequest="178">
                                     <Frame.Background>
                                         <LinearGradientBrush EndPoint="0,1">
@@ -246,6 +261,13 @@
                                 </Frame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
+
+                        <CollectionView.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding ShowMovieMopupCommand}"
+                                CommandParameter="{Binding Game.Id}"
+                                NumberOfTapsRequired="2" />
+                        </CollectionView.GestureRecognizers>
                     </CollectionView>
                 </AbsoluteLayout>
             </VerticalStackLayout>

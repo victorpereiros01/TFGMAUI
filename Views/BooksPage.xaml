@@ -15,6 +15,7 @@
         <AbsoluteLayout
             HeightRequest="900"
             HorizontalOptions="Center"
+            IsVisible="{Binding IsGenero, Converter={toolkit:InvertedBoolConverter}}"
             VerticalOptions="Center"
             WidthRequest="1600">
             <Button
@@ -37,59 +38,64 @@
                     </VerticalStackLayout.GestureRecognizers>
 
                     <AbsoluteLayout>
-                        <Button
-                            AbsoluteLayout.LayoutBounds="10,0"
-                            Command="{Binding VolverGenerosCommand}"
-                            FontSize="30"
-                            HeightRequest="80"
-                            Text="LIBROS"
-                            TextColor="Black"
-                            WidthRequest="300">
-                            <Button.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Offset="1" Color="#848484" />
-                                    <GradientStop Offset="0" Color="#dbdf28" />
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
-
-                        <!--  Home  -->
-                        <Button
-                            Margin="30,0"
-                            BackgroundColor="#848484"
-                            Command="{Binding NavegarCommand}"
-                            CommandParameter="MainPage"
-                            HeightRequest="120"
-                            ImageSource="titulo.png"
-                            ToolTipProperties.Text="Go to Homepage"
-                            WidthRequest="490"
-                            ZIndex="1" />
-
-                        <!--  Buscador  -->
-                        <Label
-                            AbsoluteLayout.LayoutBounds="700,0"
-                            FontSize="25"
+                        <HorizontalStackLayout
                             HorizontalOptions="Center"
-                            Text="Buscar libros" />
-                        <SearchBar
-                            x:Name="tx_filtro"
-                            Margin="10"
-                            AbsoluteLayout.LayoutBounds="690,25"
-                            CancelButtonColor="Red"
-                            IsTextPredictionEnabled="True"
-                            SearchCommand="{Binding NavegarSearchCommand}"
-                            WidthRequest="300">
-                            <SearchBar.Behaviors>
-                                <toolkit:EventToCommandBehavior
-                                    Command="{Binding GetSearchCommand}"
-                                    CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
-                                    EventName="TextChanged" />
-                                <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
-                            </SearchBar.Behaviors>
-                        </SearchBar>
+                            VerticalOptions="Center"
+                            WidthRequest="1500">
+                            <Button
+                                AbsoluteLayout.LayoutBounds="10,0"
+                                FontSize="30"
+                                HeightRequest="80"
+                                Text="LIBROS"
+                                TextColor="Black"
+                                VerticalOptions="Start"
+                                WidthRequest="300">
+                                <Button.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Offset="1" Color="#848484" />
+                                        <GradientStop Offset="0" Color="#dbdf28" />
+                                    </LinearGradientBrush>
+                                </Button.Background>
+                            </Button>
+
+                            <!--  Home  -->
+                            <Button
+                                Margin="30,0"
+                                BackgroundColor="#848484"
+                                Command="{Binding NavegarCommand}"
+                                CommandParameter="MainPage"
+                                HeightRequest="120"
+                                ImageSource="titulo.png"
+                                ToolTipProperties.Text="Go to Homepage"
+                                WidthRequest="490"
+                                ZIndex="1" />
+
+                            <VerticalStackLayout>
+                                <!--  Buscador  -->
+                                <Label
+                                    FontSize="25"
+                                    HorizontalOptions="Center"
+                                    Text="Buscar libros" />
+                                <SearchBar
+                                    x:Name="tx_filtro"
+                                    Margin="10"
+                                    CancelButtonColor="Red"
+                                    IsTextPredictionEnabled="True"
+                                    SearchCommand="{Binding NavegarSearchCommand}"
+                                    WidthRequest="300">
+                                    <SearchBar.Behaviors>
+                                        <toolkit:EventToCommandBehavior
+                                            Command="{Binding GetSearchCommand}"
+                                            CommandParameter="{Binding Source={x:Reference tx_filtro}, Path=Text}"
+                                            EventName="TextChanged" />
+                                        <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
+                                    </SearchBar.Behaviors>
+                                </SearchBar>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
 
                         <CollectionView
-                            AbsoluteLayout.LayoutBounds="700,80"
+                            AbsoluteLayout.LayoutBounds="1025,90"
                             BackgroundColor="White"
                             HeightRequest="328"
                             IsVisible="{Binding IsSearchFocus}"
@@ -102,7 +108,7 @@
                             ZIndex="1">
 
                             <CollectionView.ItemTemplate>
-                                <DataTemplate x:Name="aux" x:DataType="models:MovieModel">
+                                <DataTemplate x:Name="aux" x:DataType="models:BookModel">
                                     <Border>
                                         <Border.StrokeShape>
                                             <RoundRectangle CornerRadius="12" />
@@ -117,7 +123,7 @@
                                             <Label
                                                 Margin="10,0,0,0"
                                                 HorizontalOptions="Center"
-                                                Text="{Binding Title}"
+                                                Text="{Binding VolumeInfo.Title}"
                                                 VerticalOptions="Center" />
                                         </HorizontalStackLayout>
                                     </Border>
@@ -125,71 +131,75 @@
                             </CollectionView.ItemTemplate>
                         </CollectionView>
 
-                        <Button
-                            AbsoluteLayout.LayoutBounds="350,120"
-                            Command="{Binding GetGenreCommand}"
-                            CommandParameter="Children"
-                            HeightRequest="140"
-                            Text="Children"
-                            WidthRequest="310" />
-                        <Button
-                            AbsoluteLayout.LayoutBounds="10,120"
-                            Command="{Binding GetGenreCommand}"
-                            CommandParameter="Children"
-                            HeightRequest="140"
-                            Text="Non fiction"
-                            WidthRequest="310" />
+                        <VerticalStackLayout AbsoluteLayout.LayoutBounds="10,160">
+                            <HorizontalStackLayout>
+                                <Button
+                                    Command="{Binding GetGenreCommand}"
+                                    CommandParameter="Juvenile"
+                                    HeightRequest="170"
+                                    Text="Juvenile"
+                                    WidthRequest="470" />
+                                <Button
+                                    Margin="30,0"
+                                    Command="{Binding GetGenreCommand}"
+                                    CommandParameter="Children"
+                                    HeightRequest="170"
+                                    Text="Non fiction"
+                                    WidthRequest="470" />
 
-                        <Button
-                            AbsoluteLayout.LayoutBounds="690,120"
-                            Command="{Binding GetGenreCommand}"
-                            CommandParameter="Children"
-                            HeightRequest="140"
-                            Text="Young adult"
-                            WidthRequest="310" />
-                        <Button
-                            AbsoluteLayout.LayoutBounds="10,290"
-                            Command="{Binding GetGenreCommand}"
-                            CommandParameter="Children"
-                            HeightRequest="140"
-                            Text="Science fiction"
-                            WidthRequest="310" />
-                        <Button
-                            AbsoluteLayout.LayoutBounds="350,290"
-                            Command="{Binding GetGenreCommand}"
-                            CommandParameter="Children"
-                            HeightRequest="140"
-                            Text="Fantasy"
-                            WidthRequest="310" />
-                        <Button
-                            AbsoluteLayout.LayoutBounds="690,290"
-                            Command="{Binding GetGenreCommand}"
-                            CommandParameter="Children"
-                            HeightRequest="140"
-                            Text="Historical fiction"
-                            WidthRequest="310" />
+                                <Button
+                                    Command="{Binding GetGenreCommand}"
+                                    CommandParameter="Young adult"
+                                    HeightRequest="170"
+                                    Text="Young adult"
+                                    WidthRequest="470" />
+                            </HorizontalStackLayout>
 
-                        <Button
-                            AbsoluteLayout.LayoutBounds="10,460"
-                            Command="{Binding GetGenreCommand}"
-                            CommandParameter="Children"
-                            HeightRequest="140"
-                            Text="Detective/thriller"
-                            WidthRequest="310" />
-                        <Button
-                            AbsoluteLayout.LayoutBounds="350,460"
-                            Command="{Binding GetGenreCommand}"
-                            CommandParameter="Children"
-                            HeightRequest="140"
-                            Text="Romance"
-                            WidthRequest="310" />
-                        <Button
-                            AbsoluteLayout.LayoutBounds="690,460"
-                            Command="{Binding GetGenreCommand}"
-                            CommandParameter="Children"
-                            HeightRequest="140"
-                            Text="Horror"
-                            WidthRequest="310" />
+                            <HorizontalStackLayout Margin="0,30">
+                                <Button
+                                    Command="{Binding GetGenreCommand}"
+                                    CommandParameter="Children"
+                                    HeightRequest="170"
+                                    Text="Science fiction"
+                                    WidthRequest="470" />
+                                <Button
+                                    Margin="30,0"
+                                    Command="{Binding GetGenreCommand}"
+                                    CommandParameter="Children"
+                                    HeightRequest="170"
+                                    Text="Fantasy"
+                                    WidthRequest="470" />
+                                <Button
+                                    Command="{Binding GetGenreCommand}"
+                                    CommandParameter="Children"
+                                    HeightRequest="170"
+                                    Text="Historical fiction"
+                                    WidthRequest="470" />
+                            </HorizontalStackLayout>
+
+
+                            <HorizontalStackLayout>
+                                <Button
+                                    Command="{Binding GetGenreCommand}"
+                                    CommandParameter="Children"
+                                    HeightRequest="170"
+                                    Text="Detective/thriller"
+                                    WidthRequest="470" />
+                                <Button
+                                    Margin="30,0"
+                                    Command="{Binding GetGenreCommand}"
+                                    CommandParameter="Children"
+                                    HeightRequest="170"
+                                    Text="Romance"
+                                    WidthRequest="470" />
+                                <Button
+                                    Command="{Binding GetGenreCommand}"
+                                    CommandParameter="Children"
+                                    HeightRequest="170"
+                                    Text="Horror"
+                                    WidthRequest="470" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
                     </AbsoluteLayout>
                 </VerticalStackLayout>
             </Frame>
@@ -198,6 +208,7 @@
         <AbsoluteLayout
             HeightRequest="900"
             HorizontalOptions="Center"
+            IsVisible="{Binding IsGenero}"
             VerticalOptions="Center"
             WidthRequest="1600">
             <Button
@@ -220,59 +231,65 @@
                     </VerticalStackLayout.GestureRecognizers>
 
                     <AbsoluteLayout>
-                        <Button
-                            AbsoluteLayout.LayoutBounds="10,0"
-                            Command="{Binding VolverGenerosCommand}"
-                            FontSize="30"
-                            HeightRequest="80"
-                            Text="LIBROS"
-                            TextColor="Black"
-                            WidthRequest="300">
-                            <Button.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Offset="1" Color="#848484" />
-                                    <GradientStop Offset="0" Color="#dbdf28" />
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
-
-                        <!--  Home  -->
-                        <Button
-                            Margin="30,0"
-                            BackgroundColor="#848484"
-                            Command="{Binding NavegarCommand}"
-                            CommandParameter="MainPage"
-                            HeightRequest="120"
-                            ImageSource="titulo.png"
-                            ToolTipProperties.Text="Go to Homepage"
-                            WidthRequest="490"
-                            ZIndex="1" />
-
-                        <!--  Buscador  -->
-                        <Label
-                            AbsoluteLayout.LayoutBounds="700,0"
-                            FontSize="25"
+                        <HorizontalStackLayout
                             HorizontalOptions="Center"
-                            Text="Buscar libros" />
-                        <SearchBar
-                            x:Name="tx_filtro2"
-                            Margin="10"
-                            AbsoluteLayout.LayoutBounds="690,25"
-                            CancelButtonColor="Red"
-                            IsTextPredictionEnabled="True"
-                            SearchCommand="{Binding NavegarSearchCommand}"
-                            WidthRequest="300">
-                            <SearchBar.Behaviors>
-                                <toolkit:EventToCommandBehavior
-                                    Command="{Binding GetSearchCommand}"
-                                    CommandParameter="{Binding Source={x:Reference tx_filtro2}, Path=Text}"
-                                    EventName="TextChanged" />
-                                <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
-                            </SearchBar.Behaviors>
-                        </SearchBar>
+                            VerticalOptions="Center"
+                            WidthRequest="1500">
+                            <Button
+                                AbsoluteLayout.LayoutBounds="10,0"
+                                Command="{Binding VolverGenerosCommand}"
+                                FontSize="30"
+                                HeightRequest="80"
+                                Text="LIBROS"
+                                TextColor="Black"
+                                VerticalOptions="Start"
+                                WidthRequest="300">
+                                <Button.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Offset="1" Color="#848484" />
+                                        <GradientStop Offset="0" Color="#dbdf28" />
+                                    </LinearGradientBrush>
+                                </Button.Background>
+                            </Button>
+
+                            <!--  Home  -->
+                            <Button
+                                Margin="30,0"
+                                BackgroundColor="#848484"
+                                Command="{Binding NavegarCommand}"
+                                CommandParameter="MainPage"
+                                HeightRequest="120"
+                                ImageSource="titulo.png"
+                                ToolTipProperties.Text="Go to Homepage"
+                                WidthRequest="490"
+                                ZIndex="1" />
+
+                            <VerticalStackLayout>
+                                <!--  Buscador  -->
+                                <Label
+                                    FontSize="25"
+                                    HorizontalOptions="Center"
+                                    Text="Buscar libros" />
+                                <SearchBar
+                                    x:Name="tx_filtro2"
+                                    Margin="10"
+                                    CancelButtonColor="Red"
+                                    IsTextPredictionEnabled="True"
+                                    SearchCommand="{Binding NavegarSearchCommand}"
+                                    WidthRequest="300">
+                                    <SearchBar.Behaviors>
+                                        <toolkit:EventToCommandBehavior
+                                            Command="{Binding GetSearchCommand}"
+                                            CommandParameter="{Binding Source={x:Reference tx_filtro2}, Path=Text}"
+                                            EventName="TextChanged" />
+                                        <toolkit:EventToCommandBehavior Command="{Binding NavegarSearchCommand}" EventName="SearchButtonPressed" />
+                                    </SearchBar.Behaviors>
+                                </SearchBar>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
 
                         <CollectionView
-                            AbsoluteLayout.LayoutBounds="700,80"
+                            AbsoluteLayout.LayoutBounds="1025,90"
                             BackgroundColor="White"
                             HeightRequest="328"
                             IsVisible="{Binding IsSearchFocus}"
@@ -309,8 +326,8 @@
                         </CollectionView>
 
                         <CollectionView
-                            AbsoluteLayout.LayoutBounds="5,100"
-                            HeightRequest="455"
+                            AbsoluteLayout.LayoutBounds="10,160"
+                            HeightRequest="855"
                             HorizontalOptions="Center"
                             ItemsSource="{Binding PaginaGenero.Items}"
                             SelectedItem="{Binding Book3}"
@@ -318,7 +335,7 @@
                             SelectionChangedCommandParameter="{Binding Book3.Id}"
                             SelectionMode="Single"
                             VerticalOptions="Center"
-                            WidthRequest="1000">
+                            WidthRequest="1470">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout
                                     HorizontalItemSpacing="5"
@@ -338,7 +355,7 @@
                                             </LinearGradientBrush>
                                         </Frame.Background>
 
-                                        <VerticalStackLayout HeightRequest="170">
+                                        <VerticalStackLayout HeightRequest="230">
                                             <Image
                                                 Aspect="AspectFit"
                                                 HeightRequest="170"
@@ -349,19 +366,6 @@
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                     </AbsoluteLayout>
-
-                    <HorizontalStackLayout AbsoluteLayout.LayoutBounds="10,600" HorizontalOptions="Center">
-                        <Button Command="{Binding}" Text="Primero" />
-                        <Button
-                            Margin="10,0"
-                            Command="{Binding}"
-                            Text="&lt;" />
-                        <Button Command="{Binding}" Text="&gt;" />
-                        <Button
-                            Margin="10,0"
-                            Command="{Binding}"
-                            Text="Ultimo" />
-                    </HorizontalStackLayout>
                 </VerticalStackLayout>
             </Frame>
         </AbsoluteLayout>

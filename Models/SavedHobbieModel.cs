@@ -21,6 +21,5 @@
         public DateTime DateEnd { get; set; }
 
         public Color Color { get; set; }
-        public Color Color2 { get; set; }
     }
 }

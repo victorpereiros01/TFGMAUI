@@ -18,94 +18,145 @@
             PositionOut="Center" />
     </mopups:PopupPage.Animation>
 
-    <VerticalStackLayout
-        Padding="10"
-        BackgroundColor="White"
-        HeightRequest="600"
-        WidthRequest="400">
+    <AbsoluteLayout
+        BackgroundColor="#EEEEEE"
+        HeightRequest="650"
+        WidthRequest="1000">
         <Button
+            AbsoluteLayout.LayoutBounds="935,10"
+            BackgroundColor="Red"
             Command="{Binding CloseInfoMopupCommand}"
             HeightRequest="50"
             HorizontalOptions="End"
+            Text="X"
+            TextColor="IndianRed"
             VerticalOptions="Center"
-            WidthRequest="50" />
+            WidthRequest="50"
+            ZIndex="1" />
 
-        <HorizontalStackLayout Margin="10">
-            <Label
-                HorizontalOptions="Start"
-                Text="{Binding Game.Title}"
-                VerticalOptions="Center" />
-            <Label
-                Margin="5,0,0,0"
-                HorizontalOptions="Center"
-                Text="{Binding Game.Rating}"
-                VerticalOptions="Center" />
-        </HorizontalStackLayout>
+        <Border AbsoluteLayout.LayoutBounds="0,0,1000,200">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20" />
+            </Border.StrokeShape>
+
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Offset="1" Color="#EEEEEE" />
+                    <GradientStop Offset="0" Color="#9B70AF" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
         <Label
+            AbsoluteLayout.LayoutBounds="350,80"
+            FontAttributes="Bold"
+            FontSize="30"
+            HeightRequest="40"
+            HorizontalOptions="Start"
+            Text="{Binding Game.Title}"
+            VerticalOptions="Center"
+            WidthRequest="600" />
+
+        <Label AbsoluteLayout.LayoutBounds="350,130" Text="Nota: " />
+        <Label
+            Margin="5,0,0,0"
+            AbsoluteLayout.LayoutBounds="390,125"
+            FontSize="20"
             HorizontalOptions="Center"
-            Text="{Binding Game.Id}"
+            Text="{Binding Game.Rating}"
+            VerticalOptions="Center" />
+        <Label
+            AbsoluteLayout.LayoutBounds="595,125"
+            FontSize="20"
+            Text="/100" />
+
+        <Label AbsoluteLayout.LayoutBounds="350,160" Text="Fecha: " />
+        <Label
+            AbsoluteLayout.LayoutBounds="400,160"
+            HorizontalOptions="Center"
+            Text="{Binding Game.Status}"
             VerticalOptions="Center" />
 
         <Editor
-            HeightRequest="100"
+            AbsoluteLayout.LayoutBounds="350,200"
+            HeightRequest="280"
             HorizontalOptions="Start"
             IsEnabled="{Binding IsVisibleEditor}"
             IsReadOnly="True"
             Text="{Binding Game.Summary}"
-            VerticalOptions="Center" />
+            VerticalOptions="Center"
+            WidthRequest="560" />
 
         <Button
             Margin="10"
+            AbsoluteLayout.LayoutBounds="897,190"
+            BackgroundColor="#EEEEEE"
+            BorderWidth="2"
             Command="{Binding CambiarEditorCommand}"
-            Text="Ver descripcion completa" />
+            Text="ø"
+            TextColor="Black"
+            ZIndex="1" />
 
-        <HorizontalStackLayout
-            HeightRequest="180"
+        <Image
+            Margin="10"
+            AbsoluteLayout.LayoutBounds="30,70"
+            Aspect="AspectFill"
+            BackgroundColor="Transparent"
+            HeightRequest="400"
             HorizontalOptions="Center"
-            VerticalOptions="Center">
-            <Image
-                Margin="10"
-                BackgroundColor="Red"
-                HeightRequest="150"
-                HorizontalOptions="Center"
-                Source="{Binding Game.Imagen}"
-                VerticalOptions="Center"
-                WidthRequest="100" />
+            Source="{Binding Game.Imagen}"
+            VerticalOptions="Center"
+            WidthRequest="290" />
 
-            <VerticalStackLayout>
-                <Button
-                    Margin="10"
-                    Command="{Binding AddHobbieCommand}"
-                    CommandParameter="Favorite"
-                    Text="Favoritos" />
-                <Button
-                    Margin="10"
-                    Command="{Binding AddHobbieCommand}"
-                    CommandParameter="Pending"
-                    Text="Pendiente" />
-                <Button
-                    Margin="10,0,10,10"
-                    Command="{Binding AddHobbieCommand}"
-                    CommandParameter="Seen"
-                    Text="Vista" />
-            </VerticalStackLayout>
-            <VerticalStackLayout>
-                <Button
-                    Margin="10"
-                    Command="{Binding RemoveHobbieCommand}"
-                    CommandParameter="Favorite"
-                    Text="Favoritos" />
-                <Button
-                    Margin="10"
-                    Command="{Binding RemoveHobbieCommand}"
-                    CommandParameter="Pending"
-                    Text="Pendiente" />
-                <Button
-                    Margin="10,0,10,10"
-                    Command="{Binding RemoveHobbieCommand}"
-                    CommandParameter="Seen"
-                    Text="Vista" />
-            </VerticalStackLayout>
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+        <Button
+            Margin="10"
+            AbsoluteLayout.LayoutBounds="30,490"
+            BackgroundColor="#EEEEEE"
+            BorderWidth="2"
+            Command="{Binding AddHobbieCommand}"
+            CommandParameter="Favorite"
+            HeightRequest="120"
+            Text="Favoritos"
+            TextColor="Black"
+            WidthRequest="290" />
+        <Button
+            Margin="10"
+            AbsoluteLayout.LayoutBounds="340,490"
+            BackgroundColor="#EEEEEE"
+            BorderWidth="2"
+            Command="{Binding AddHobbieCommand}"
+            CommandParameter="Pending"
+            HeightRequest="120"
+            Text="Pendiente"
+            TextColor="Black"
+            WidthRequest="290" />
+        <Button
+            Margin="10"
+            AbsoluteLayout.LayoutBounds="650,490"
+            BackgroundColor="#EEEEEE"
+            BorderWidth="2"
+            Command="{Binding AddHobbieCommand}"
+            CommandParameter="Seen"
+            HeightRequest="120"
+            Text="Vista"
+            TextColor="Black"
+            WidthRequest="290" />
+
+
+        <!--<Button
+    Margin="10"
+    Command="{Binding RemoveHobbieCommand}"
+    CommandParameter="Favorite"
+    Text="Favoritos" />
+<Button
+    Margin="10"
+    Command="{Binding RemoveHobbieCommand}"
+    CommandParameter="Pending"
+    Text="Pendiente" />
+<Button
+    Margin="10,0,10,10"
+    Command="{Binding RemoveHobbieCommand}"
+    CommandParameter="Seen"
+    Text="Vista" />-->
+    </AbsoluteLayout>
 </mopups:PopupPage>

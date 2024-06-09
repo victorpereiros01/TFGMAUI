@@ -82,7 +82,7 @@ namespace TFGMaui.ViewModels
 
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseBooks,
                 endpoint: $"volumes",
-                parameters: new Dictionary<string, string> { { "q", $"subject:\"{busqueda}\"" }, { "langRestrict", UsuarioActivo.Language.Split("-")[0] } },
+                parameters: new Dictionary<string, string> { { "q", $"subject:\"{busqueda}\"" }, { "orderBy", "relevance" }, { "langRestrict", "en" }, { "key", IConstantes.ApiKeyBooks } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" } });
 
             var pagtrend = (PageB)await HttpService.ExecuteRequestAsync<PageB>(requestPagina); // v
@@ -96,10 +96,9 @@ namespace TFGMaui.ViewModels
             {
                 if (item.VolumeInfo.ImageLinks is null)
                 {
-                    return;
+                    item.Imagen = item.Imagen = "https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg";
                 }
-
-                if (item.VolumeInfo.ImageLinks.Large is not null)
+                else if (item.VolumeInfo.ImageLinks.Large is not null)
                 {
                     item.Imagen = item.VolumeInfo.ImageLinks.Large;
                 }
@@ -116,8 +115,7 @@ namespace TFGMaui.ViewModels
                     item.Imagen = item.VolumeInfo.ImageLinks.Thumbnail;
                 }
 
-                item.Color = MiscellaneousUtils.GetColorHobbie("Book")[0];
-                item.Color2 = MiscellaneousUtils.GetColorHobbie("Book")[1];
+                item.Color = MiscellaneousUtils.GetColorHobbie("Book");
             }
 
             PaginaGenero = pagtrend;
@@ -140,7 +138,7 @@ namespace TFGMaui.ViewModels
 
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseBooks,
                 endpoint: $"volumes",
-                parameters: new Dictionary<string, string> { { "q", $"intitle:\"{busqueda}\"" }, { "langRestrict", UsuarioActivo.Language.Split("-")[0] } },
+                parameters: new Dictionary<string, string> { { "q", $"intitle:\"{busqueda}\"" }, { "langRestrict", UsuarioActivo.Language.Split("-")[0] }, { "key", IConstantes.ApiKeyBooks } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" } });
 
             var pagtrend = (PageB)await HttpService.ExecuteRequestAsync<PageB>(requestPagina); // v

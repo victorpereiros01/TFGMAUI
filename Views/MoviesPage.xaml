@@ -19,12 +19,17 @@
         <Button
             AbsoluteLayout.LayoutBounds="1475,30"
             BackgroundColor="Beige"
-            Command="{Binding MinimizeAppCommand}" />
+            Command="{Binding MinimizeAppCommand}"
+            Text="_"
+            TextColor="LightGray" />
 
         <Button
             AbsoluteLayout.LayoutBounds="1525,30"
             BackgroundColor="Red"
-            Command="{Binding CloseAppCommand}" />
+            Command="{Binding CloseAppCommand}"
+            HeightRequest="5"
+            Text="X"
+            TextColor="IndianRed" />
 
         <Frame
             AbsoluteLayout.LayoutBounds="30,80,1540,790"
@@ -42,36 +47,65 @@
                         VerticalOptions="Center"
                         WidthRequest="1500">
                         <Button
-                            AbsoluteLayout.LayoutBounds="10,0"
+                            BackgroundColor="#EEEEEE"
+                            BorderWidth="2"
+                            Command="{Binding NavegarCommand}"
+                            CommandParameter="MovieSeriesPage"
                             FontSize="30"
                             HeightRequest="80"
                             HorizontalOptions="Start"
-                            Text="PELICULAS"
+                            Text="Volver"
                             TextColor="Black"
                             VerticalOptions="Start"
+                            WidthRequest="150" />
+
+                        <Border
+                            Margin="20,0"
+                            HeightRequest="80"
+                            VerticalOptions="Start"
                             WidthRequest="300">
-                            <Button.Background>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+
+                            <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Offset="1" Color="#848484" />
-                                    <GradientStop Offset="0" Color="#0020ff" />
+                                    <GradientStop Offset="1" Color="#7078AF" />
+                                    <GradientStop Offset="0" Color="#eeeeee" />
                                 </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
+                            </Border.Background>
+
+                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Image
+                                    HeightRequest="50"
+                                    HorizontalOptions="Center"
+                                    Source="movie.png"
+                                    VerticalOptions="Center" />
+
+                                <Label
+                                    Margin="20,0,0,0"
+                                    FontSize="30"
+                                    HorizontalOptions="Center"
+                                    Text="PELICULAS"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </Border>
 
                         <!--  Home  -->
                         <Button
-                            Margin="30,0"
-                            BackgroundColor="#848484"
+                            BackgroundColor="#EEEEEE"
+                            BorderWidth="2"
                             Command="{Binding NavegarCommand}"
                             CommandParameter="MainPage"
                             HeightRequest="120"
-                            ImageSource="titulo.png"
+                            ImageSource="titulomayus.png"
                             ToolTipProperties.Text="Go to Homepage"
                             WidthRequest="490"
                             ZIndex="1" />
 
                         <!--  Buscador  -->
-                        <VerticalStackLayout>
+                        <VerticalStackLayout Margin="20,0">
                             <Label
                                 FontSize="25"
                                 HorizontalOptions="Center"
@@ -97,7 +131,7 @@
                     <!--  x, y, width y height  -->
                     <!--  Buscador desplegable  -->
                     <CollectionView
-                        AbsoluteLayout.LayoutBounds="1025,90"
+                        AbsoluteLayout.LayoutBounds="1090,90"
                         BackgroundColor="#eeeeee"
                         HeightRequest="328"
                         IsVisible="{Binding IsSearchFocus}"
@@ -170,7 +204,7 @@
                                     <Frame.Background>
                                         <LinearGradientBrush EndPoint="0,1">
                                             <GradientStop Offset="0.9" Color="#EEEEEE" />
-                                            <GradientStop Offset="0.6" Color="DimGray" />
+                                            <GradientStop Offset="0.6" Color="#848484" />
                                             <GradientStop Offset="0" Color="{Binding Color}" />
                                         </LinearGradientBrush>
                                     </Frame.Background>
@@ -263,17 +297,17 @@
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:Name="trend" x:DataType="models:MovieModel">
-                                <Frame HeightRequest="220">
+                                <Frame HeightRequest="220" WidthRequest="135">
                                     <Frame.Background>
                                         <LinearGradientBrush EndPoint="0,1">
                                             <GradientStop Offset="0.9" Color="#EEEEEE" />
-                                            <GradientStop Offset="0.6" Color="DimGray" />
+                                            <GradientStop Offset="0.6" Color="#848484" />
                                             <GradientStop Offset="0" Color="{Binding Color}" />
                                         </LinearGradientBrush>
                                     </Frame.Background>
 
                                     <VerticalStackLayout
-                                        HeightRequest="130"
+                                        HeightRequest="160"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center">
                                         <Image

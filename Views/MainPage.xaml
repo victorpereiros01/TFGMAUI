@@ -25,12 +25,17 @@
             <Button
                 AbsoluteLayout.LayoutBounds="1475,30"
                 BackgroundColor="Beige"
-                Command="{Binding MinimizeAppCommand}" />
+                Command="{Binding MinimizeAppCommand}"
+                Text="_"
+                TextColor="LightGray" />
 
             <Button
                 AbsoluteLayout.LayoutBounds="1525,30"
                 BackgroundColor="Red"
-                Command="{Binding CloseAppCommand}" />
+                Command="{Binding CloseAppCommand}"
+                HeightRequest="5"
+                Text="X"
+                TextColor="IndianRed" />
 
             <Frame
                 AbsoluteLayout.LayoutBounds="30,80,1540,790"
@@ -99,10 +104,9 @@
                                         <Frame CornerRadius="10">
                                             <Frame.Background>
                                                 <LinearGradientBrush EndPoint="0,1">
-                                                    <GradientStop Offset="1" Color="#EEEEEE" />
-                                                    <GradientStop Offset="0.6" Color="{Binding Color2}" />
-                                                    <GradientStop Offset="0.3" Color="{Binding Color}" />
-                                                    <GradientStop Offset="0" Color="#6d6c75" />
+                                                    <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                                    <GradientStop Offset="0.6" Color="DimGray" />
+                                                    <GradientStop Offset="0" Color="{Binding Color}" />
                                                 </LinearGradientBrush>
                                             </Frame.Background>
 
@@ -186,10 +190,9 @@
                                             HorizontalOptions="Start">
                                             <Frame.Background>
                                                 <LinearGradientBrush EndPoint="0,1">
-                                                    <GradientStop Offset="1" Color="#EEEEEE" />
-                                                    <GradientStop Offset="0.6" Color="{Binding Color2}" />
-                                                    <GradientStop Offset="0.3" Color="{Binding Color}" />
-                                                    <GradientStop Offset="0" Color="#6d6c75" />
+                                                    <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                                    <GradientStop Offset="0.6" Color="DimGray" />
+                                                    <GradientStop Offset="0" Color="{Binding Color}" />
                                                 </LinearGradientBrush>
                                             </Frame.Background>
 
@@ -272,10 +275,9 @@
                                         <Frame CornerRadius="10" HeightRequest="260">
                                             <Frame.Background>
                                                 <LinearGradientBrush EndPoint="0,1">
-                                                    <GradientStop Offset="1" Color="#EEEEEE" />
-                                                    <GradientStop Offset="0.6" Color="{Binding Color2}" />
-                                                    <GradientStop Offset="0.3" Color="{Binding Color}" />
-                                                    <GradientStop Offset="0" Color="#6d6c75" />
+                                                    <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                                    <GradientStop Offset="0.6" Color="DimGray" />
+                                                    <GradientStop Offset="0" Color="{Binding Color}" />
                                                 </LinearGradientBrush>
                                             </Frame.Background>
 
@@ -299,7 +301,8 @@
                     <Button
                         Grid.Row="0"
                         Grid.Column="2"
-                        BackgroundColor="#848484"
+                        BackgroundColor="#EEEEEE"
+                        BorderWidth="2"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="MainPage"
                         ImageSource="titulomayus.png"
@@ -323,11 +326,12 @@
                                 HorizontalOptions="Center"
                                 Text="{Binding Saludos}"
                                 VerticalOptions="Center" />
+
                             <Image Source="{Binding Season}" />
+
                             <Button
                                 Margin="5,0,0,0"
                                 BackgroundColor="White"
-                                BorderColor="Black"
                                 BorderWidth="2"
                                 Command="{Binding AbrirTiempoCommand}"
                                 CornerRadius="5"
@@ -387,8 +391,8 @@
                         Grid.Row="0"
                         Grid.Column="6"
                         Margin="10,0,0,0"
-                        BackgroundColor="DimGray"
-                        BorderColor="Black"
+                        BackgroundColor="#EEEEEE"
+                        BorderWidth="2"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="SettingsPage"
                         CornerRadius="20"
@@ -400,74 +404,150 @@
                         Grid.Row="5"
                         Grid.Column="0"
                         Grid.ColumnSpan="8">
-                        <Button
+                        <Border
                             Margin="10"
-                            Command="{Binding NavegarCommand}"
-                            CommandParameter="MovieSeriesPage"
-                            FontSize="30"
                             IsVisible="{Binding CVis}"
-                            Text="CINE"
-                            TextColor="Black"
                             WidthRequest="{Binding HobbieWidth}">
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="1,0">
-                                    <GradientStop Offset="0" Color="#35b176" />
-                                    <GradientStop Offset="1" Color="#0020ff" />
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
 
-                        <Button
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Offset="0" Color="#47b17f" />
+                                    <GradientStop Offset="1" Color="#7078AF" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+
+                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Image
+                                    HeightRequest="50"
+                                    HorizontalOptions="Center"
+                                    Source="tvcine.png"
+                                    VerticalOptions="Center" />
+
+                                <Label
+                                    Margin="20,0,0,0"
+                                    FontSize="30"
+                                    HorizontalOptions="Center"
+                                    Text="CINE"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding NavegarCommand}"
+                                    CommandParameter="MovieSeriesPage"
+                                    NumberOfTapsRequired="1" />
+                            </Border.GestureRecognizers>
+                        </Border>
+
+                        <Border
                             Margin="10"
-                            Command="{Binding NavegarGCommand}"
-                            CommandParameter="GamesPage"
-                            FontSize="30"
+                            BackgroundColor="#9B70AF"
                             IsVisible="{Binding VVis}"
-                            Text="VIDEOJUEGOS"
-                            TextColor="Black"
                             WidthRequest="{Binding HobbieWidth}">
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="1,0">
-                                    <GradientStop Offset="1" Color="#d073b9" />
-                                    <GradientStop Offset="0" Color="#5d3085" />
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
 
-                        <Button
+
+                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Image
+                                    HeightRequest="50"
+                                    HorizontalOptions="Center"
+                                    Source="video.png"
+                                    VerticalOptions="Center" />
+
+                                <Label
+                                    Margin="20,0,0,0"
+                                    FontSize="30"
+                                    HorizontalOptions="Center"
+                                    Text="VIDEOJUEGOS"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding NavegarGCommand}"
+                                    CommandParameter="GamesPage"
+                                    NumberOfTapsRequired="1" />
+                            </Border.GestureRecognizers>
+                        </Border>
+
+                        <Border
                             Margin="10"
-                            Command="{Binding NavegarCommand}"
-                            CommandParameter="AnimeMangaPage"
-                            FontSize="30"
                             IsVisible="{Binding MVis}"
-                            Text="MANGANIME"
-                            TextColor="Black"
                             WidthRequest="{Binding HobbieWidth}">
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="1,0">
-                                    <GradientStop Offset="0" Color="#d53333" />
-                                    <GradientStop Offset="1" Color="#daae51" />
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
 
-                        <Button
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Offset="0" Color="#cb4a4a" />
+                                    <GradientStop Offset="1" Color="#EBAE83" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+
+                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Image
+                                    HeightRequest="50"
+                                    HorizontalOptions="Center"
+                                    Source="manganime.png"
+                                    VerticalOptions="Center" />
+
+                                <Label
+                                    Margin="20,0,0,0"
+                                    FontSize="30"
+                                    HorizontalOptions="Center"
+                                    Text="MANGANIME"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding NavegarCommand}"
+                                    CommandParameter="AnimeMangaPage"
+                                    NumberOfTapsRequired="1" />
+                            </Border.GestureRecognizers>
+                        </Border>
+
+                        <Border
                             Margin="10"
-                            Command="{Binding NavegarCommand}"
-                            CommandParameter="BooksPage"
-                            FontSize="30"
+                            BackgroundColor="#e1e97b"
                             IsVisible="{Binding LVis}"
-                            Text="LIBROS"
-                            TextColor="Black"
                             WidthRequest="{Binding HobbieWidth}">
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="1,0">
-                                    <GradientStop Offset="1" Color="#9dd073" />
-                                    <GradientStop Offset="0" Color="#dbdf28" />
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
 
+                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Image
+                                    HeightRequest="50"
+                                    HorizontalOptions="Center"
+                                    Source="book.png"
+                                    VerticalOptions="Center" />
+
+                                <Label
+                                    Margin="20,0,0,0"
+                                    FontSize="30"
+                                    HorizontalOptions="Center"
+                                    Text="LIBROS"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding NavegarCommand}"
+                                    CommandParameter="BooksPage"
+                                    NumberOfTapsRequired="1" />
+                            </Border.GestureRecognizers>
+                        </Border>
                     </HorizontalStackLayout>
                 </Grid>
             </Frame>
@@ -597,7 +677,16 @@
                                 HorizontalOptions="Center"
                                 Text="{Binding Saludos}"
                                 VerticalOptions="Center" />
+
                             <Image Source="{Binding Season}" />
+
+                            <Button
+                                Margin="5,0,0,0"
+                                BackgroundColor="White"
+                                BorderWidth="2"
+                                Command="{Binding AbrirTiempoCommand}"
+                                CornerRadius="5"
+                                ImageSource="diagonal.png" />
                         </HorizontalStackLayout>
                     </Border>
 
@@ -679,62 +768,150 @@
                         Grid.Row="5"
                         Grid.Column="0"
                         Grid.ColumnSpan="8">
-                        <Button
+                        <Border
                             Margin="10"
-                            FontSize="30"
-                            Text="CINE"
-                            TextColor="Black"
+                            IsVisible="{Binding CVis}"
                             WidthRequest="{Binding HobbieWidth}">
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="1,0">
-                                    <GradientStop Offset="0" Color="#35b176" />
-                                    <GradientStop Offset="1" Color="#0020ff" />
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
 
-                        <Button
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Offset="0" Color="#47b17f" />
+                                    <GradientStop Offset="1" Color="#7078AF" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+
+                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Image
+                                    HeightRequest="50"
+                                    HorizontalOptions="Center"
+                                    Source="tvcine.png"
+                                    VerticalOptions="Center" />
+
+                                <Label
+                                    Margin="20,0,0,0"
+                                    FontSize="30"
+                                    HorizontalOptions="Center"
+                                    Text="CINE"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding NavegarCommand}"
+                                    CommandParameter="MovieSeriesPage"
+                                    NumberOfTapsRequired="1" />
+                            </Border.GestureRecognizers>
+                        </Border>
+
+                        <Border
                             Margin="10"
-                            FontSize="30"
-                            Text="VIDEOJUEGOS"
-                            TextColor="Black"
+                            BackgroundColor="#9B70AF"
+                            IsVisible="{Binding VVis}"
                             WidthRequest="{Binding HobbieWidth}">
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="1,0">
-                                    <GradientStop Offset="1" Color="#d073b9" />
-                                    <GradientStop Offset="0" Color="#5d3085" />
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
 
-                        <Button
+
+                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Image
+                                    HeightRequest="50"
+                                    HorizontalOptions="Center"
+                                    Source="video.png"
+                                    VerticalOptions="Center" />
+
+                                <Label
+                                    Margin="20,0,0,0"
+                                    FontSize="30"
+                                    HorizontalOptions="Center"
+                                    Text="VIDEOJUEGOS"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding NavegarGCommand}"
+                                    CommandParameter="GamesPage"
+                                    NumberOfTapsRequired="1" />
+                            </Border.GestureRecognizers>
+                        </Border>
+
+                        <Border
                             Margin="10"
-                            FontSize="30"
-                            Text="MANGANIME"
-                            TextColor="Black"
+                            IsVisible="{Binding MVis}"
                             WidthRequest="{Binding HobbieWidth}">
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="1,0">
-                                    <GradientStop Offset="0" Color="#d53333" />
-                                    <GradientStop Offset="1" Color="#daae51" />
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
 
-                        <Button
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Offset="0" Color="#cb4a4a" />
+                                    <GradientStop Offset="1" Color="#EBAE83" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+
+                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Image
+                                    HeightRequest="50"
+                                    HorizontalOptions="Center"
+                                    Source="manganime.png"
+                                    VerticalOptions="Center" />
+
+                                <Label
+                                    Margin="20,0,0,0"
+                                    FontSize="30"
+                                    HorizontalOptions="Center"
+                                    Text="MANGANIME"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding NavegarCommand}"
+                                    CommandParameter="AnimeMangaPage"
+                                    NumberOfTapsRequired="1" />
+                            </Border.GestureRecognizers>
+                        </Border>
+
+                        <Border
                             Margin="10"
-                            FontSize="30"
-                            Text="LIBROS"
-                            TextColor="Black"
+                            BackgroundColor="#e1e97b"
+                            IsVisible="{Binding LVis}"
                             WidthRequest="{Binding HobbieWidth}">
-                            <Button.Background>
-                                <LinearGradientBrush EndPoint="1,0">
-                                    <GradientStop Offset="1" Color="#9dd073" />
-                                    <GradientStop Offset="0" Color="#dbdf28" />
-                                </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
 
+                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Image
+                                    HeightRequest="50"
+                                    HorizontalOptions="Center"
+                                    Source="book.png"
+                                    VerticalOptions="Center" />
+
+                                <Label
+                                    Margin="20,0,0,0"
+                                    FontSize="30"
+                                    HorizontalOptions="Center"
+                                    Text="LIBROS"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding NavegarCommand}"
+                                    CommandParameter="BooksPage"
+                                    NumberOfTapsRequired="1" />
+                            </Border.GestureRecognizers>
+                        </Border>
                     </HorizontalStackLayout>
                 </Grid>
             </Frame>

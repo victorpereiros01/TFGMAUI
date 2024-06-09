@@ -19,12 +19,17 @@
         <Button
             AbsoluteLayout.LayoutBounds="1475,30"
             BackgroundColor="Beige"
-            Command="{Binding MinimizeAppCommand}" />
+            Command="{Binding MinimizeAppCommand}"
+            Text="_"
+            TextColor="LightGray" />
 
         <Button
             AbsoluteLayout.LayoutBounds="1525,30"
             BackgroundColor="Red"
-            Command="{Binding CloseAppCommand}" />
+            Command="{Binding CloseAppCommand}"
+            HeightRequest="5"
+            Text="X"
+            TextColor="IndianRed" />
 
         <Frame
             AbsoluteLayout.LayoutBounds="30,80,1540,790"
@@ -41,29 +46,47 @@
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                         WidthRequest="1500">
-                        <Button
-                            FontSize="30"
+                        <Border
                             HeightRequest="80"
-                            Text="VIDEOJUEGOS"
-                            TextColor="Black"
                             VerticalOptions="Start"
                             WidthRequest="300">
-                            <Button.Background>
-                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                    <GradientStop Offset="0" Color="#5d3085" />
-                                    <GradientStop Offset="1" Color="#848484" />
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Offset="0" Color="#9B70AF" />
+                                    <GradientStop Offset="1" Color="#eeeeee" />
                                 </LinearGradientBrush>
-                            </Button.Background>
-                        </Button>
+                            </Border.Background>
+
+                            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                <Image
+                                    HeightRequest="50"
+                                    HorizontalOptions="Center"
+                                    Source="video.png"
+                                    VerticalOptions="Center" />
+
+                                <Label
+                                    Margin="20,0,0,0"
+                                    FontSize="30"
+                                    HorizontalOptions="Center"
+                                    Text="VIDEOJUEGOS"
+                                    TextColor="Black"
+                                    VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </Border>
 
                         <!--  Home  -->
                         <Button
                             Margin="30,0"
-                            BackgroundColor="#848484"
+                            BackgroundColor="#EEEEEE"
+                            BorderWidth="2"
                             Command="{Binding NavegarCommand}"
                             CommandParameter="MainPage"
                             HeightRequest="120"
-                            ImageSource="titulo.png"
+                            ImageSource="titulomayus.png"
                             ToolTipProperties.Text="Go to Homepage"
                             WidthRequest="490"
                             ZIndex="1" />
@@ -210,7 +233,7 @@
 
                         <Button
                             Margin="10,0,0,0"
-                            BackgroundColor="#5d3085"
+                            BackgroundColor="#9B70AF"
                             Command="{Binding GetTrendGCommand}"
                             HeightRequest="40"
                             HorizontalOptions="Center"

@@ -47,7 +47,6 @@ namespace TFGMaui.Repositories
                 return false;
             }
 
-            // Segunda query
             SetCmdQuery($"INSERT into {addType}Hobbies(HobbieType, Value, IdUser{addType.ToArray()[0]}, Imagen, Title) VALUES(@HobbieType, @Value, @IdUser, @Imagen, @Title)");
 
             Oconexion.Close();
@@ -113,8 +112,7 @@ namespace TFGMaui.Repositories
                 listHobbies.Add(new SavedHobbieModel()
                 {
                     HobbieType = dr.GetString(1),
-                    Color = MiscellaneousUtils.GetColorHobbie(dr.GetString(1))[0],
-                    Color2 = MiscellaneousUtils.GetColorHobbie(dr.GetString(1))[1],
+                    Color = MiscellaneousUtils.GetColorHobbie(dr.GetString(1)),
                     Value = dr.GetString(2),
                     Imagen = dr.GetString(3),
                     Title = dr.GetString(4)

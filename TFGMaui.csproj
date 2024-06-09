@@ -59,7 +59,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Remove="Resources\Images\anime.png" />
 		<None Remove="Resources\Images\arrow.png" />
+		<None Remove="Resources\Images\arrowleft.png" />
+		<None Remove="Resources\Images\book.png" />
 		<None Remove="Resources\Images\diagonal.png" />
 		<None Remove="Resources\Images\english.png" />
 		<None Remove="Resources\Images\fall.png" />
@@ -70,6 +73,9 @@
 		<None Remove="Resources\Images\invert.png" />
 		<None Remove="Resources\Images\italy.png" />
 		<None Remove="Resources\Images\japanese.png" />
+		<None Remove="Resources\Images\manga.png" />
+		<None Remove="Resources\Images\manganime.png" />
+		<None Remove="Resources\Images\movie.png" />
 		<None Remove="Resources\Images\not_heart.png" />
 		<None Remove="Resources\Images\not_ojo.png" />
 		<None Remove="Resources\Images\not_pending.png" />
@@ -87,7 +93,10 @@
 		<None Remove="Resources\Images\titulomayus.png" />
 		<None Remove="Resources\Images\titulomayuswhite.png" />
 		<None Remove="Resources\Images\titulowhite.png" />
+		<None Remove="Resources\Images\tv.png" />
+		<None Remove="Resources\Images\tvcine.png" />
 		<None Remove="Resources\Images\user.png" />
+		<None Remove="Resources\Images\video.png" />
 		<None Remove="Resources\Images\winter.png" />
 	</ItemGroup>
 

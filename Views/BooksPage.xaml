@@ -21,12 +21,17 @@
             <Button
                 AbsoluteLayout.LayoutBounds="1475,30"
                 BackgroundColor="Beige"
-                Command="{Binding MinimizeAppCommand}" />
+                Command="{Binding MinimizeAppCommand}"
+                Text="_"
+                TextColor="LightGray" />
 
             <Button
                 AbsoluteLayout.LayoutBounds="1525,30"
                 BackgroundColor="Red"
-                Command="{Binding CloseAppCommand}" />
+                Command="{Binding CloseAppCommand}"
+                HeightRequest="5"
+                Text="X"
+                TextColor="IndianRed" />
 
             <Frame
                 AbsoluteLayout.LayoutBounds="30,80,1540,790"
@@ -42,30 +47,47 @@
                             HorizontalOptions="Center"
                             VerticalOptions="Center"
                             WidthRequest="1500">
-                            <Button
-                                AbsoluteLayout.LayoutBounds="10,0"
-                                FontSize="30"
+                            <Border
                                 HeightRequest="80"
-                                Text="LIBROS"
-                                TextColor="Black"
                                 VerticalOptions="Start"
                                 WidthRequest="300">
-                                <Button.Background>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10" />
+                                </Border.StrokeShape>
+
+                                <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Offset="1" Color="#848484" />
-                                        <GradientStop Offset="0" Color="#dbdf28" />
+                                        <GradientStop Offset="1" Color="#eeeeee" />
+                                        <GradientStop Offset="0" Color="#e1e97b" />
                                     </LinearGradientBrush>
-                                </Button.Background>
-                            </Button>
+                                </Border.Background>
+
+                                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Image
+                                        HeightRequest="50"
+                                        HorizontalOptions="Center"
+                                        Source="book.png"
+                                        VerticalOptions="Center" />
+
+                                    <Label
+                                        Margin="20,0,0,0"
+                                        FontSize="30"
+                                        HorizontalOptions="Center"
+                                        Text="LIBROS"
+                                        TextColor="Black"
+                                        VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </Border>
 
                             <!--  Home  -->
                             <Button
                                 Margin="30,0"
-                                BackgroundColor="#848484"
+                                BackgroundColor="#EEEEEE"
+                                BorderWidth="2"
                                 Command="{Binding NavegarCommand}"
                                 CommandParameter="MainPage"
                                 HeightRequest="120"
-                                ImageSource="titulo.png"
+                                ImageSource="titulomayus.png"
                                 ToolTipProperties.Text="Go to Homepage"
                                 WidthRequest="490"
                                 ZIndex="1" />
@@ -134,69 +156,105 @@
                         <VerticalStackLayout AbsoluteLayout.LayoutBounds="10,160">
                             <HorizontalStackLayout>
                                 <Button
+                                    BackgroundColor="#EEEEEE"
+                                    BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
                                     CommandParameter="Juvenile"
+                                    FontSize="25"
                                     HeightRequest="170"
                                     Text="Juvenile"
+                                    TextColor="Black"
                                     WidthRequest="470" />
                                 <Button
                                     Margin="30,0"
+                                    BackgroundColor="#EEEEEE"
+                                    BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
-                                    CommandParameter="Children"
+                                    CommandParameter="Non-fiction"
+                                    FontSize="25"
                                     HeightRequest="170"
                                     Text="Non fiction"
+                                    TextColor="Black"
                                     WidthRequest="470" />
 
                                 <Button
+                                    BackgroundColor="#EEEEEE"
+                                    BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
                                     CommandParameter="Young adult"
+                                    FontSize="25"
                                     HeightRequest="170"
                                     Text="Young adult"
+                                    TextColor="Black"
                                     WidthRequest="470" />
                             </HorizontalStackLayout>
 
                             <HorizontalStackLayout Margin="0,30">
                                 <Button
+                                    BackgroundColor="#EEEEEE"
+                                    BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
-                                    CommandParameter="Children"
+                                    CommandParameter="Science fiction"
+                                    FontSize="25"
                                     HeightRequest="170"
                                     Text="Science fiction"
+                                    TextColor="Black"
                                     WidthRequest="470" />
                                 <Button
                                     Margin="30,0"
+                                    BackgroundColor="#EEEEEE"
+                                    BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
-                                    CommandParameter="Children"
+                                    CommandParameter="Fantasy"
+                                    FontSize="25"
                                     HeightRequest="170"
                                     Text="Fantasy"
+                                    TextColor="Black"
                                     WidthRequest="470" />
                                 <Button
+                                    BackgroundColor="#EEEEEE"
+                                    BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
-                                    CommandParameter="Children"
+                                    CommandParameter="Historical fiction"
+                                    FontSize="25"
                                     HeightRequest="170"
                                     Text="Historical fiction"
+                                    TextColor="Black"
                                     WidthRequest="470" />
                             </HorizontalStackLayout>
 
 
                             <HorizontalStackLayout>
                                 <Button
+                                    BackgroundColor="#EEEEEE"
+                                    BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
-                                    CommandParameter="Children"
+                                    CommandParameter="Thriller"
+                                    FontSize="25"
                                     HeightRequest="170"
                                     Text="Detective/thriller"
+                                    TextColor="Black"
                                     WidthRequest="470" />
                                 <Button
                                     Margin="30,0"
+                                    BackgroundColor="#EEEEEE"
+                                    BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
-                                    CommandParameter="Children"
+                                    CommandParameter="Romance"
+                                    FontSize="25"
                                     HeightRequest="170"
                                     Text="Romance"
+                                    TextColor="Black"
                                     WidthRequest="470" />
                                 <Button
+                                    BackgroundColor="#EEEEEE"
+                                    BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
-                                    CommandParameter="Children"
+                                    CommandParameter="Horror"
+                                    FontSize="25"
                                     HeightRequest="170"
                                     Text="Horror"
+                                    TextColor="Black"
                                     WidthRequest="470" />
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
@@ -235,31 +293,51 @@
                             HorizontalOptions="Center"
                             VerticalOptions="Center"
                             WidthRequest="1500">
-                            <Button
-                                AbsoluteLayout.LayoutBounds="10,0"
-                                Command="{Binding VolverGenerosCommand}"
-                                FontSize="30"
+                            <Border
                                 HeightRequest="80"
-                                Text="LIBROS"
-                                TextColor="Black"
                                 VerticalOptions="Start"
                                 WidthRequest="300">
-                                <Button.Background>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10" />
+                                </Border.StrokeShape>
+
+                                <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Offset="1" Color="#848484" />
-                                        <GradientStop Offset="0" Color="#dbdf28" />
+                                        <GradientStop Offset="1" Color="#eeeeee" />
+                                        <GradientStop Offset="0" Color="#e1e97b" />
                                     </LinearGradientBrush>
-                                </Button.Background>
-                            </Button>
+                                </Border.Background>
+
+                                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Image
+                                        HeightRequest="50"
+                                        HorizontalOptions="Center"
+                                        Source="arrowleft.png"
+                                        VerticalOptions="Center" />
+
+                                    <Label
+                                        Margin="20,0,0,0"
+                                        FontSize="30"
+                                        HorizontalOptions="Center"
+                                        Text="LIBROS"
+                                        TextColor="Black"
+                                        VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding VolverGenerosCommand}" NumberOfTapsRequired="1" />
+                                </Border.GestureRecognizers>
+                            </Border>
 
                             <!--  Home  -->
                             <Button
                                 Margin="30,0"
-                                BackgroundColor="#848484"
+                                BackgroundColor="#EEEEEE"
+                                BorderWidth="2"
                                 Command="{Binding NavegarCommand}"
                                 CommandParameter="MainPage"
                                 HeightRequest="120"
-                                ImageSource="titulo.png"
+                                ImageSource="titulomayus.png"
                                 ToolTipProperties.Text="Go to Homepage"
                                 WidthRequest="490"
                                 ZIndex="1" />
@@ -346,7 +424,7 @@
 
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:Name="gen" x:DataType="models:BookModel">
-                                    <Frame WidthRequest="190">
+                                    <Frame WidthRequest="210">
                                         <Frame.Background>
                                             <LinearGradientBrush EndPoint="0,1">
                                                 <GradientStop Offset="0.9" Color="#EEEEEE" />
@@ -358,7 +436,7 @@
                                         <VerticalStackLayout HeightRequest="230">
                                             <Image
                                                 Aspect="AspectFit"
-                                                HeightRequest="170"
+                                                HeightRequest="240"
                                                 Source="{Binding Imagen}" />
                                         </VerticalStackLayout>
                                     </Frame>

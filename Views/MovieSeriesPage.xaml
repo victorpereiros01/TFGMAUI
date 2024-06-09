@@ -23,12 +23,17 @@
         <Button
             AbsoluteLayout.LayoutBounds="1475,30"
             BackgroundColor="Beige"
-            Command="{Binding MinimizeAppCommand}" />
+            Command="{Binding MinimizeAppCommand}"
+            Text="_"
+            TextColor="LightGray" />
 
         <Button
             AbsoluteLayout.LayoutBounds="1525,30"
             BackgroundColor="Red"
-            Command="{Binding CloseAppCommand}" />
+            Command="{Binding CloseAppCommand}"
+            HeightRequest="5"
+            Text="X"
+            TextColor="IndianRed" />
 
         <Frame
             AbsoluteLayout.LayoutBounds="30,80,1540,790"
@@ -36,50 +41,95 @@
             CornerRadius="20">
             <VerticalStackLayout Padding="10">
                 <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                    <Button
-                        Command="{Binding NavegarMCommand}"
-                        CommandParameter="MoviesPage"
-                        FontSize="30"
+                    <Border
                         HeightRequest="80"
-                        Text="PELICULAS"
-                        TextColor="Black"
                         VerticalOptions="Start"
-                        WidthRequest="280">
-                        <Button.Background>
+                        WidthRequest="300">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
+
+                        <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Offset="1" Color="#848484" />
-                                <GradientStop Offset="0" Color="#0020ff" />
+                                <GradientStop Offset="0" Color="#7078AF" />
+                                <GradientStop Offset="1" Color="#eeeeee" />
                             </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
+                        </Border.Background>
+
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Image
+                                HeightRequest="50"
+                                HorizontalOptions="Center"
+                                Source="movie.png"
+                                VerticalOptions="Center" />
+
+                            <Label
+                                Margin="20,0,0,0"
+                                FontSize="30"
+                                HorizontalOptions="Center"
+                                Text="PELICULAS"
+                                TextColor="Black"
+                                VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding NavegarMCommand}"
+                                CommandParameter="MoviesPage"
+                                NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                    </Border>
 
                     <Button
                         Margin="30,0"
-                        BackgroundColor="#848484"
+                        BackgroundColor="#EEEEEE"
+                        BorderWidth="2"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="MainPage"
                         HeightRequest="120"
-                        ImageSource="titulo.png"
+                        ImageSource="titulomayus.png"
                         ToolTipProperties.Text="Go to Homepage"
                         WidthRequest="490"
                         ZIndex="1" />
 
-                    <Button
-                        Command="{Binding NavegarSCommand}"
-                        CommandParameter="SeriesPage"
-                        FontSize="30"
+                    <Border
                         HeightRequest="80"
-                        Text="SERIES"
-                        TextColor="Black"
                         VerticalOptions="Start"
-                        WidthRequest="280">
-                        <Button.Background>
-                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                <GradientStop Offset="1" Color="#35b176" />
-                                <GradientStop Offset="0" Color="#848484" />
+                        WidthRequest="300">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
+
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="1" Color="#47b17f" />
+                                <GradientStop Offset="0" Color="#eeeeee" />
                             </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
+                        </Border.Background>
+
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Image
+                                HeightRequest="50"
+                                HorizontalOptions="Center"
+                                Source="tv.png"
+                                VerticalOptions="Center" />
+
+                            <Label
+                                Margin="20,0,0,0"
+                                FontSize="30"
+                                HorizontalOptions="Center"
+                                Text="SERIES"
+                                TextColor="Black"
+                                VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding NavegarSCommand}"
+                                CommandParameter="SeriesPage"
+                                NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                    </Border>
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout

@@ -101,17 +101,16 @@ namespace TFGMaui.ViewModels
             MVis = UsuarioActivo.Hobbies[2];
             LVis = UsuarioActivo.Hobbies[3];
 
-            await GetTopG();
-            await GetTrendG();
-
             await GetTrending("day");
             await GetTopAM();
+            await GetTopG();
+            await GetTrendG();
         }
 
         [RelayCommand]
         public async Task AbrirTiempo()
         {
-            Uri uri = new("https://www.msn.com/es-ES/eltiempo"); await Application.Current.MainPage.DisplayAlert("Abriendo tiempo", "Estamos abriendo una pagina del tiempo en tu navegador", "Aceptar");
+            Uri uri = new("https://www.msn.com/es-ES/eltiempo"); await Application.Current.MainPage.DisplayAlert("Abriendo tiempo", "Se esta abriendo una pagina en tu navegador", "Aceptar");
             await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         }
 
@@ -255,8 +254,7 @@ namespace TFGMaui.ViewModels
                 foreach (var item in listTrend)
                 {
                     item.Imagen = await GetImage(item.Cover);
-                    item.Color = MiscellaneousUtils.GetColorHobbie("Game")[0];
-                    item.Color2 = MiscellaneousUtils.GetColorHobbie("Game")[1];
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Game");
                 }
 
                 PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) };
@@ -330,8 +328,7 @@ namespace TFGMaui.ViewModels
                 foreach (var item in listTrend)
                 {
                     item.Imagen = await GetImage(item.Cover);
-                    item.Color = MiscellaneousUtils.GetColorHobbie("Game")[0];
-                    item.Color2 = MiscellaneousUtils.GetColorHobbie("Game")[1];
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Game");
                 }
 
                 PageG pageG = new() { Items = listTrend, Total = listTrend.Count, Pages = Math.DivRem(listTrend.Count, 20, out int str) };
@@ -359,8 +356,7 @@ namespace TFGMaui.ViewModels
                 foreach (var item in pagseason.Data)
                 {
                     item.Imagen = item.Images.Jpg.Image_url;
-                    item.Color = MiscellaneousUtils.GetColorHobbie("Anime")[0];
-                    item.Color2 = MiscellaneousUtils.GetColorHobbie("Anime")[1];
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Anime");
                 }
 
                 PaginaS = pagseason;
@@ -380,8 +376,7 @@ namespace TFGMaui.ViewModels
             foreach (var item in pagtrend.Data)
             {
                 item.Imagen = item.Images.Jpg.Image_url;
-                item.Color = MiscellaneousUtils.GetColorHobbie("Manga")[0];
-                item.Color2 = MiscellaneousUtils.GetColorHobbie("Manga")[1];
+                item.Color = MiscellaneousUtils.GetColorHobbie("Manga");
             }
 
             PaginaTopManga = pagtrend;
@@ -396,8 +391,7 @@ namespace TFGMaui.ViewModels
             foreach (var item in pagtrend2.Data)
             {
                 item.Imagen = item.Images.Jpg.Image_url;
-                item.Color = MiscellaneousUtils.GetColorHobbie("Anime")[0];
-                item.Color2 = MiscellaneousUtils.GetColorHobbie("Anime")[1];
+                item.Color = MiscellaneousUtils.GetColorHobbie("Anime");
             }
 
             PaginaTopAnime = pagtrend2;
@@ -423,8 +417,7 @@ namespace TFGMaui.ViewModels
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
                 foreach (var item in pagtrend.Results)
                 {
-                    item.Color = MiscellaneousUtils.GetColorHobbie(item.MediaType.Equals("tv") ? "Serie" : "Movie")[0];
-                    item.Color2 = MiscellaneousUtils.GetColorHobbie(item.MediaType.Equals("tv") ? "Serie" : "Movie")[1];
+                    item.Color = MiscellaneousUtils.GetColorHobbie(item.MediaType.Equals("tv") ? "Serie" : "Movie");
                 }
 
                 PaginaTrendMovSerie = pagtrend;

@@ -18,94 +18,151 @@
             PositionOut="Center" />
     </mopups:PopupPage.Animation>
 
-    <VerticalStackLayout
-        Padding="10"
-        BackgroundColor="White"
-        HeightRequest="600"
-        WidthRequest="400">
-        <Button
-            Command="{Binding CloseInfoMopupCommand}"
-            HeightRequest="50"
-            HorizontalOptions="End"
-            VerticalOptions="Center"
-            WidthRequest="50" />
+    <Border HeightRequest="650" WidthRequest="1000">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20" />
+        </Border.StrokeShape>
 
-        <HorizontalStackLayout Margin="10">
+        <AbsoluteLayout
+            BackgroundColor="#EEEEEE"
+            HeightRequest="650"
+            WidthRequest="1000">
+            <Button
+                AbsoluteLayout.LayoutBounds="935,10"
+                BackgroundColor="Red"
+                Command="{Binding CloseInfoMopupCommand}"
+                HeightRequest="50"
+                HorizontalOptions="End"
+                Text="X"
+                TextColor="IndianRed"
+                VerticalOptions="Center"
+                WidthRequest="50"
+                ZIndex="1" />
+
+            <Border AbsoluteLayout.LayoutBounds="0,0,1000,200">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20" />
+                </Border.StrokeShape>
+
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Offset="1" Color="#EEEEEE" />
+                        <GradientStop Offset="0" Color="#e1e97b" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
             <Label
+                AbsoluteLayout.LayoutBounds="350,80"
+                FontAttributes="Bold"
+                FontSize="30"
+                HeightRequest="40"
                 HorizontalOptions="Start"
                 Text="{Binding Book.VolumeInfo.Title}"
-                VerticalOptions="Center" />
+                VerticalOptions="Center"
+                WidthRequest="600" />
+
+            <Label AbsoluteLayout.LayoutBounds="350,130" Text="Nota: " />
             <Label
                 Margin="5,0,0,0"
+                AbsoluteLayout.LayoutBounds="390,125"
+                FontSize="20"
                 HorizontalOptions="Center"
                 Text="{Binding Book.VolumeInfo.AverageRating}"
                 VerticalOptions="Center" />
-        </HorizontalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="{Binding Book.VolumeInfo.Categories}"
-            VerticalOptions="Center" />
+            <Label
+                AbsoluteLayout.LayoutBounds="410,125"
+                FontSize="20"
+                Text="/5" />
 
-        <Editor
-            HeightRequest="100"
-            HorizontalOptions="Start"
-            IsEnabled="{Binding IsVisibleEditor}"
-            IsReadOnly="True"
-            Text="{Binding Book.VolumeInfo.Description}"
-            VerticalOptions="Center" />
+            <Label AbsoluteLayout.LayoutBounds="350,160" Text="Fecha: " />
+            <Label
+                AbsoluteLayout.LayoutBounds="400,160"
+                HorizontalOptions="Center"
+                Text="{Binding Book.VolumeInfo.PublishedDate}"
+                VerticalOptions="Center" />
 
-        <Button
-            Margin="10"
-            Command="{Binding CambiarEditorCommand}"
-            Text="Ver descripcion completa" />
+            <Editor
+                AbsoluteLayout.LayoutBounds="350,200"
+                HeightRequest="280"
+                HorizontalOptions="Start"
+                IsEnabled="{Binding IsVisibleEditor}"
+                IsReadOnly="True"
+                Text="{Binding Book.VolumeInfo.Description}"
+                VerticalOptions="Center"
+                WidthRequest="560" />
 
-        <HorizontalStackLayout
-            HeightRequest="180"
-            HorizontalOptions="Center"
-            VerticalOptions="Center">
+            <Button
+                Margin="10"
+                AbsoluteLayout.LayoutBounds="897,190"
+                BackgroundColor="#EEEEEE"
+                BorderWidth="2"
+                Command="{Binding CambiarEditorCommand}"
+                Text="ø"
+                TextColor="Black"
+                ZIndex="1" />
+
             <Image
                 Margin="10"
-                BackgroundColor="Red"
-                HeightRequest="150"
+                AbsoluteLayout.LayoutBounds="30,70"
+                Aspect="AspectFill"
+                BackgroundColor="Transparent"
+                HeightRequest="400"
                 HorizontalOptions="Center"
                 Source="{Binding Book.Imagen}"
                 VerticalOptions="Center"
-                WidthRequest="100" />
+                WidthRequest="290" />
 
-            <VerticalStackLayout>
-                <Button
-                    Margin="10"
-                    Command="{Binding AddHobbieCommand}"
-                    CommandParameter="Favorite"
-                    Text="Favoritos" />
-                <Button
-                    Margin="10"
-                    Command="{Binding AddHobbieCommand}"
-                    CommandParameter="Pending"
-                    Text="Pendiente" />
-                <Button
-                    Margin="10,0,10,10"
-                    Command="{Binding AddHobbieCommand}"
-                    CommandParameter="Seen"
-                    Text="Vista" />
-            </VerticalStackLayout>
-            <VerticalStackLayout>
-                <Button
-                    Margin="10"
-                    Command="{Binding RemoveHobbieCommand}"
-                    CommandParameter="Favorite"
-                    Text="Favoritos" />
-                <Button
-                    Margin="10"
-                    Command="{Binding RemoveHobbieCommand}"
-                    CommandParameter="Pending"
-                    Text="Pendiente" />
-                <Button
-                    Margin="10,0,10,10"
-                    Command="{Binding RemoveHobbieCommand}"
-                    CommandParameter="Seen"
-                    Text="Vista" />
-            </VerticalStackLayout>
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+            <Button
+                Margin="10"
+                AbsoluteLayout.LayoutBounds="30,490"
+                BackgroundColor="#EEEEEE"
+                BorderWidth="2"
+                Command="{Binding AddHobbieCommand}"
+                CommandParameter="Favorite"
+                HeightRequest="120"
+                Text="Favoritos"
+                TextColor="Black"
+                WidthRequest="290" />
+            <Button
+                Margin="10"
+                AbsoluteLayout.LayoutBounds="340,490"
+                BackgroundColor="#EEEEEE"
+                BorderWidth="2"
+                Command="{Binding AddHobbieCommand}"
+                CommandParameter="Pending"
+                HeightRequest="120"
+                Text="Pendiente"
+                TextColor="Black"
+                WidthRequest="290" />
+            <Button
+                Margin="10"
+                AbsoluteLayout.LayoutBounds="650,490"
+                BackgroundColor="#EEEEEE"
+                BorderWidth="2"
+                Command="{Binding AddHobbieCommand}"
+                CommandParameter="Seen"
+                HeightRequest="120"
+                Text="Vista"
+                TextColor="Black"
+                WidthRequest="290" />
+
+
+            <!--<Button
+            Margin="10"
+            Command="{Binding RemoveHobbieCommand}"
+            CommandParameter="Favorite"
+            Text="Favoritos" />
+        <Button
+            Margin="10"
+            Command="{Binding RemoveHobbieCommand}"
+            CommandParameter="Pending"
+            Text="Pendiente" />
+        <Button
+            Margin="10,0,10,10"
+            Command="{Binding RemoveHobbieCommand}"
+            CommandParameter="Seen"
+            Text="Vista" />-->
+        </AbsoluteLayout>
+    </Border>
 </mopups:PopupPage>

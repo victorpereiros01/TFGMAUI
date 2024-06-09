@@ -147,7 +147,7 @@
                             AbsoluteLayout.LayoutBounds="350,10,25,25"
                             Command="{Binding ChangePassVisCommand}"
                             HeightRequest="20"
-                            ImageSource="fondo.jpg" />
+                            ImageSource="not_ojo.png" />
                     </AbsoluteLayout>
 
                     <AbsoluteLayout

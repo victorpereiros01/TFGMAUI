@@ -251,6 +251,11 @@ namespace TFGMaui.ViewModels
 
             Pass = await App.Current.MainPage.DisplayPromptAsync("Alerta", "Introduce tu contraseña");
 
+            if (Pass.IsNullOrEmpty())
+            {
+                return;
+            }
+
             if (!Pass.Equals(UsuarioActivo.Password.Trim()))
             {
                 return;

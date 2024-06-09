@@ -50,7 +50,7 @@ namespace TFGMaui.ViewModels
         {
             Type = "Day";
             IsDay = true;
-            ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Blue).GetComplementary();
+            ColorType = Color.FromArgb("#7078AF");
 
             IsSearchFocus = false;
             Movie = new();
@@ -69,13 +69,13 @@ namespace TFGMaui.ViewModels
             {
                 Type = "Week";
                 IsDay = false;
-                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Blue);
+                ColorType = Color.FromArgb("#7078AF").GetComplementary();
             }
             else
             {
                 Type = "Day";
                 IsDay = true;
-                ColorType = MiscellaneousUtils.ConvertFromSystemDrawingColor(System.Drawing.Color.Blue).GetComplementary();
+                ColorType = Color.FromArgb("#7078AF");
             }
 
             await GetTrending(Type.ToLower());
@@ -112,6 +112,38 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task Navegar(string pagina)
         {
+            if (pagina.Equals("MovieSeriesPage"))
+            {
+                var requestPagina = new HttpRequestModel(url: IConstantes.BaseMovieDb,
+               endpoint: $"trending/all/{Type.ToLower()}",
+               parameters: new Dictionary<string, string> { { "api_key", IConstantes.MovieDB_ApiKey }, { "language", UsuarioActivo.Language }, { "page", 1.ToString() } },
+               headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "Authorization", IConstantes.MovieDB_Bearer } });
+
+                try
+                {
+                    var pagtrend = (PageM)await HttpService.ExecuteRequestAsync<PageM>(requestPagina);
+
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 14);
+                    pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
+                    foreach (var item in pagtrend.Results)
+                    {
+                        item.Color = MiscellaneousUtils.GetColorHobbie(item.MediaType.Equals("tv") ? "Serie" : "Movie");
+                    }
+
+                    await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
+                    {
+                        ["UsuarioActivo"] = UsuarioActivo,
+                        ["PaginaT"] = pagtrend
+                    });
+
+                    return;
+                }
+                catch (Exception e)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Saludos", e.ToString(), "Aceptar");
+                }
+            }
+
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()
             {
                 ["UsuarioActivo"] = UsuarioActivo
@@ -141,8 +173,7 @@ namespace TFGMaui.ViewModels
 
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen); foreach (var item in pagtrend.Results)
                 {
-                    item.Color = MiscellaneousUtils.GetColorHobbie("Movie")[0];
-                    item.Color2 = MiscellaneousUtils.GetColorHobbie("Movie")[1];
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Movie");
                 }
 
                 PaginaT = pagtrend;
@@ -176,8 +207,7 @@ namespace TFGMaui.ViewModels
             pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
             foreach (var item in pagtrend.Results)
             {
-                item.Color = MiscellaneousUtils.GetColorHobbie("Movie")[0];
-                item.Color2 = MiscellaneousUtils.GetColorHobbie("Movie")[1];
+                item.Color = MiscellaneousUtils.GetColorHobbie("Movie");
             }
 
             PaginaAux = pagtrend;
@@ -207,8 +237,7 @@ namespace TFGMaui.ViewModels
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
                 foreach (var item in pagtrend.Results)
                 {
-                    item.Color = MiscellaneousUtils.GetColorHobbie("Movie")[0];
-                    item.Color2 = MiscellaneousUtils.GetColorHobbie("Movie")[1];
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Movie");
                 }
 
                 PaginaPelisTop = pagtrend;

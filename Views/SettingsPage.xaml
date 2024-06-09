@@ -22,12 +22,17 @@
         <Button
             AbsoluteLayout.LayoutBounds="1475,30"
             BackgroundColor="Beige"
-            Command="{Binding MinimizeAppCommand}" />
+            Command="{Binding MinimizeAppCommand}"
+            Text="_"
+            TextColor="LightGray" />
 
         <Button
             AbsoluteLayout.LayoutBounds="1525,30"
             BackgroundColor="Red"
-            Command="{Binding CloseAppCommand}" />
+            Command="{Binding CloseAppCommand}"
+            HeightRequest="5"
+            Text="X"
+            TextColor="IndianRed" />
 
         <Frame
             AbsoluteLayout.LayoutBounds="295,100,1010,700"
@@ -63,14 +68,17 @@
                                 VerticalOptions="Center"
                                 WidthRequest="50" />
                             <Switch
-                                Margin="10,0,-110,0"
+                                Margin="10,0,-115,0"
                                 IsEnabled="False"
                                 IsToggled="{Binding IsDark}" />
                             <Button
                                 Margin="8"
+                                BackgroundColor="#EEEEEE"
+                                BorderWidth="2"
                                 Command="{Binding ChangeDarkLightCommand}"
                                 HorizontalOptions="Center"
                                 Text="Cambiar colores"
+                                TextColor="Black"
                                 VerticalOptions="Center" />
                         </HorizontalStackLayout>
                     </Frame>
@@ -86,16 +94,20 @@
                                 IsEnabled="False"
                                 IsToggled="{Binding Adulto}" />
                             <Button
+                                BackgroundColor="#EEEEEE"
+                                BorderWidth="2"
                                 Command="{Binding EnableParentalModeCommand}"
                                 HorizontalOptions="Center"
                                 Text="Cambiar"
+                                TextColor="Black"
                                 VerticalOptions="Center" />
                         </HorizontalStackLayout>
                     </Frame>
 
                     <Button
                         Margin="-10"
-                        BackgroundColor="DimGray"
+                        BackgroundColor="#EEEEEE"
+                        BorderWidth="2"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="MainPage"
                         HeightRequest="70"

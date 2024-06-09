@@ -15,7 +15,6 @@ namespace TFGMaui.Models
         public string HobbieType { get; set; }
 
         public Color Color { get; set; }
-        public Color Color2 { get; set; }
     }
 
     internal class PageM

@@ -113,8 +113,7 @@ namespace TFGMaui.ViewModels
                 foreach (var item in pagtrend.Data)
                 {
                     item.Imagen = item.Images.Jpg.Image_url;
-                    item.Color = MiscellaneousUtils.GetColorHobbie("Anime")[0];
-                    item.Color2 = MiscellaneousUtils.GetColorHobbie("Anime")[1];
+                    item.Color = MiscellaneousUtils.GetColorHobbie("Anime");
                 }
                 pagtrend.Data = MiscellaneousUtils.GetNelements(pagtrend.Data, 10);
 
@@ -158,8 +157,7 @@ namespace TFGMaui.ViewModels
             foreach (var item in pagtrend.Data)
             {
                 item.Imagen = item.Images.Jpg.Image_url;
-                item.Color = MiscellaneousUtils.GetColorHobbie("Anime")[0];
-                item.Color2 = MiscellaneousUtils.GetColorHobbie("Anime")[1];
+                item.Color = MiscellaneousUtils.GetColorHobbie("Anime");
             }
             pagtrend.Data = MiscellaneousUtils.GetNelements(pagtrend.Data, 10);
 

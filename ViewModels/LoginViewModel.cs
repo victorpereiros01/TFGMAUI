@@ -5,6 +5,8 @@ using Microsoft.UI;
 using TFGMaui.Repositories;
 using TFGMaui.Utils;
 using Windows.UI.ViewManagement;
+using Microsoft.Maui.ApplicationModel.DataTransfer;
+using Microsoft.Maui.Graphics;
 
 namespace TFGMaui.ViewModels
 {
@@ -24,8 +26,12 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private bool isRememberMe;
 
+        [ObservableProperty]
+        private string textSee;
+
         public LoginViewModel()
         {
+            TextSee = "ø";
             UsuarioActivo = new();
             IsPassword = true;
             CheckStoredCredentials();
@@ -99,7 +105,9 @@ namespace TFGMaui.ViewModels
                 await SecureStorage.SetAsync("password", IsRememberMe ? UsuarioActivo.Password : " ");
 
                 await Navegar("MainPage");
-                await Application.Current.MainPage.DisplayAlert("Saludos", "Bienvenid@ " + UsuarioActivo.Name, "Aceptar");                
+                await Application.Current.MainPage.DisplayAlert("Saludos", "Bienvenid@ " + UsuarioActivo.Name, "Aceptar");
+                UsuarioActivo = new();
+                TextSee = "ø";
             }
             catch (Exception e)
             {
@@ -140,7 +148,16 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         private async Task ChangePassVis()
         {
-            IsPassword = !IsPassword;
+            if (IsPassword)
+            {
+                TextSee = "o";
+                IsPassword = false;
+            }
+            else
+            {
+                TextSee = "ø";
+                IsPassword = true;
+            }
         }
     }
 }

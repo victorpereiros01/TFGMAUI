@@ -59,6 +59,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Remove="Resources\Fonts\Montserrat-Regular.ttf" />
+		<None Remove="Resources\Fonts\Montserrat-SemiBold.ttf" />
 		<None Remove="Resources\Images\anime.png" />
 		<None Remove="Resources\Images\arrow.png" />
 		<None Remove="Resources\Images\arrowleft.png" />

@@ -118,7 +118,7 @@
                             WidthRequest="400" />
 
                         <Label
-                            AbsoluteLayout.LayoutBounds="330,12"
+                            AbsoluteLayout.LayoutBounds="333,12"
                             FontAttributes="Italic"
                             Text="Optional"
                             TextColor="Navy"
@@ -142,11 +142,20 @@
                             VerticalOptions="Center"
                             WidthRequest="400" />
 
-                        <Button
-                            AbsoluteLayout.LayoutBounds="350,10,25,25"
-                            Command="{Binding ChangePassVisCommand}"
-                            CornerRadius="0"
-                            HeightRequest="20" />
+                        <Border AbsoluteLayout.LayoutBounds="350,10,25,25" HeightRequest="25">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
+
+                            <Label
+                                Padding="8,2"
+                                BackgroundColor="LightGray"
+                                Text="{Binding TextSee}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ChangePassVisCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Border>
                     </AbsoluteLayout>
 
                     <AbsoluteLayout
@@ -166,11 +175,20 @@
                             VerticalOptions="Center"
                             WidthRequest="400" />
 
-                        <Button
-                            AbsoluteLayout.LayoutBounds="350,10,25,25"
-                            Command="{Binding ChangePassRepVisCommand}"
-                            CornerRadius="0"
-                            HeightRequest="20" />
+                        <Border AbsoluteLayout.LayoutBounds="350,10,25,25" HeightRequest="25">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
+
+                            <Label
+                                Padding="8,2"
+                                BackgroundColor="LightGray"
+                                Text="{Binding TextSeeRep}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ChangePassRepVisCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Border>
                     </AbsoluteLayout>
 
                     <Button

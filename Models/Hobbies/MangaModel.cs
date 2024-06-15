@@ -31,7 +31,7 @@ namespace TFGMaui.Models
 
         public List<Parameters> Demographics { get; set; }   // -
 
-        public double Score { get; set; }   // -
+        public double? Score { get; set; }   // -
 
         public string Synopsis { get; set; }    // -
     }

@@ -35,7 +35,7 @@ namespace TFGMaui.Models
 
         public string? Rank { get; set; }    // v
 
-        public double Score { get; set; }   // v
+        public double? Score { get; set; }   // v
     }
 
     public class AnimeData

@@ -31,8 +31,14 @@ namespace TFGMaui.ViewModels
         [ObservableProperty]
         private bool isPassword, isPasswordRep;
 
+        [ObservableProperty]
+        private string textSee, textSeeRep;
+
         public RegisterViewModel()
         {
+            TextSee = "ø";
+            TextSeeRep = "ø";
+
             ColorAcc = Color.Parse(new UISettings().GetColorValue(UIColorType.Accent).ToString());
             TxColor = MiscellaneousUtils.ColorIsDarkOrLight(colorAcc);
 
@@ -55,13 +61,31 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         private async Task ChangePassVis()
         {
-            IsPassword = !IsPassword;
+            if (IsPassword)
+            {
+                TextSee = "o";
+                IsPassword = false;
+            }
+            else
+            {
+                TextSee = "ø";
+                IsPassword = true;
+            }
         }
 
         [RelayCommand]
         private async Task ChangePassRepVis()
         {
-            IsPasswordRep = !IsPasswordRep;
+            if (IsPasswordRep)
+            {
+                TextSeeRep = "o";
+                IsPasswordRep = false;
+            }
+            else
+            {
+                TextSeeRep = "ø";
+                IsPasswordRep = true;
+            }
         }
 
         [RelayCommand]
@@ -161,6 +185,7 @@ namespace TFGMaui.ViewModels
                     await Navegar("LoginPage");
                     UsuarioReg = new();
                     FirstPageReg = true;
+                    TextSee = "ø"; TextSeeRep = "ø";
                 }
             }
             catch { }

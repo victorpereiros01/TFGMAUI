@@ -75,6 +75,7 @@
 
                                     <Label
                                         FontAttributes="Bold"
+                                        FontFamily="MontserratSemibold"
                                         HorizontalOptions="Center"
                                         Text="Hobbies pendientes"
                                         VerticalOptions="Center" />
@@ -161,6 +162,7 @@
 
                                     <Label
                                         FontAttributes="Bold"
+                                        FontFamily="MontserratSemibold"
                                         HorizontalOptions="Center"
                                         Text="Hobbies favoritos"
                                         VerticalOptions="Center" />
@@ -252,6 +254,7 @@
 
                                     <Label
                                         FontAttributes="Bold"
+                                        FontFamily="MontserratSemibold"
                                         HorizontalOptions="Center"
                                         Text="Hobbies terminados"
                                         VerticalOptions="Center" />
@@ -609,6 +612,7 @@
 
                             <Label
                                 FontAttributes="Bold"
+                                FontFamily="MontserratSemibold"
                                 HorizontalOptions="Center"
                                 Text="Inicia sesion para añadir hobbies"
                                 VerticalOptions="Center" />
@@ -632,6 +636,7 @@
 
                             <Label
                                 FontAttributes="Bold"
+                                FontFamily="MontserratSemibold"
                                 HorizontalOptions="Center"
                                 Text="Inicia sesion para añadir hobbies"
                                 VerticalOptions="Center" />
@@ -655,6 +660,7 @@
 
                             <Label
                                 FontAttributes="Bold"
+                                FontFamily="MontserratSemibold"
                                 HorizontalOptions="Center"
                                 Text="Inicia sesion para añadir hobbies"
                                 VerticalOptions="Center" />

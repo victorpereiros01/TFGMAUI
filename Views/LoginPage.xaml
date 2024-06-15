@@ -111,11 +111,20 @@
                             VerticalOptions="Center"
                             WidthRequest="400" />
 
-                        <Button
-                            AbsoluteLayout.LayoutBounds="350,10,25,25"
-                            Command="{Binding ChangePassVisCommand}"
-                            CornerRadius="0"
-                            HeightRequest="20" />
+                        <Border AbsoluteLayout.LayoutBounds="360,10,25,25" HeightRequest="25">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
+
+                            <Label
+                                Padding="8,2"
+                                BackgroundColor="LightGray"
+                                Text="{Binding TextSee}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ChangePassVisCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Border>
                     </AbsoluteLayout>
 
                     <HorizontalStackLayout

@@ -264,6 +264,7 @@ namespace TFGMaui.ViewModels
             UsuarioActivo.Adulto = !UsuarioActivo.Adulto;
             if (new SettingsRepository().ChangeParentalMode(UsuarioActivo))
             {
+                Adulto = UsuarioActivo.Adulto;
                 await App.Current.MainPage.DisplayAlert("Exito", "Modo parental cambiado satisfactoriamente", "Aceptar");
             }
         }

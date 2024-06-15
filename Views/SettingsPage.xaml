@@ -36,7 +36,8 @@
 
         <Frame
             AbsoluteLayout.LayoutBounds="295,100,1010,700"
-            BackgroundColor="#EEEEEE"
+            BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                              Dark=#8c8c8c}"
             CornerRadius="20">
             <VerticalStackLayout HeightRequest="740" WidthRequest="970">
                 <HorizontalStackLayout>
@@ -58,13 +59,11 @@
                             VerticalOptions="Center" />
                     </VerticalStackLayout>
 
-                    <Frame Margin="0,5,0,5" BackgroundColor="#EEEEEE">
+                    <Frame Margin="0,5,0,5" BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}">
                         <HorizontalStackLayout>
                             <Label
                                 HorizontalOptions="Center"
                                 Text="{Binding ColorStr}"
-                                TextColor="{AppThemeBinding Light=black,
-                                                            Dark=white}"
                                 VerticalOptions="Center"
                                 WidthRequest="50" />
                             <Switch
@@ -73,17 +72,19 @@
                                 IsToggled="{Binding IsDark}" />
                             <Button
                                 Margin="8"
-                                BackgroundColor="#EEEEEE"
+                                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                  Dark=#8c8c8c}"
                                 BorderWidth="2"
                                 Command="{Binding ChangeDarkLightCommand}"
                                 HorizontalOptions="Center"
                                 Text="Cambiar colores"
-                                TextColor="Black"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}"
                                 VerticalOptions="Center" />
                         </HorizontalStackLayout>
                     </Frame>
 
-                    <Frame Margin="10,5" BackgroundColor="#EEEEEE">
+                    <Frame Margin="10,5" BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}">
                         <HorizontalStackLayout>
                             <Label
                                 HorizontalOptions="Center"
@@ -94,19 +95,22 @@
                                 IsEnabled="False"
                                 IsToggled="{Binding Adulto}" />
                             <Button
-                                BackgroundColor="#EEEEEE"
+                                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                  Dark=#8c8c8c}"
                                 BorderWidth="2"
                                 Command="{Binding EnableParentalModeCommand}"
                                 HorizontalOptions="Center"
                                 Text="Cambiar"
-                                TextColor="Black"
+                                TextColor="{AppThemeBinding Light=Black,
+                                                            Dark=White}"
                                 VerticalOptions="Center" />
                         </HorizontalStackLayout>
                     </Frame>
 
                     <Button
                         Margin="-10"
-                        BackgroundColor="#EEEEEE"
+                        BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                          Dark=#8c8c8c}"
                         BorderWidth="2"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="MainPage"
@@ -136,7 +140,7 @@
                             <!--  Expander para las creedenciales  -->
                             <toolkit:Expander x:Name="MyExpander3" WidthRequest="460">
                                 <toolkit:Expander.Header>
-                                    <Frame BackgroundColor="#EEEEEE" HeightRequest="60">
+                                    <Frame BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}" HeightRequest="60">
                                         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                             <Label
                                                 HorizontalOptions="Center"
@@ -164,7 +168,7 @@
                                 </toolkit:Expander.Header>
 
                                 <toolkit:Expander.Content>
-                                    <Frame BackgroundColor="#EEEEEE">
+                                    <Frame BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}">
                                         <Grid ColumnDefinitions="195,30,190" RowDefinitions="30,70,70,50,30,70">
                                             <Label
                                                 Grid.Row="0"
@@ -275,7 +279,7 @@
                                 Margin="20,0,0,0"
                                 WidthRequest="460">
                                 <toolkit:Expander.Header>
-                                    <Frame BackgroundColor="#EEEEEE" HeightRequest="60">
+                                    <Frame BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}" HeightRequest="60">
                                         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                             <Label
                                                 HorizontalOptions="Center"
@@ -303,7 +307,7 @@
                                 </toolkit:Expander.Header>
 
                                 <toolkit:Expander.Content>
-                                    <Frame BackgroundColor="#EEEEEE">
+                                    <Frame BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}">
                                         <Grid ColumnDefinitions="300,110" RowDefinitions="220,100">
                                             <Border
                                                 Grid.Row="0"
@@ -322,17 +326,24 @@
                                                 Grid.Row="0"
                                                 Grid.Column="1"
                                                 Margin="10,10,0,10"
+                                                Padding="20"
+                                                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                                  Dark=#8c8c8c}"
+                                                BorderWidth="2"
                                                 Command="{Binding EditAvatarCommand}"
                                                 HeightRequest="100"
-                                                Text="editar"
+                                                ImageSource="editar.png"
                                                 VerticalOptions="End" />
                                             <Button
                                                 Grid.Row="1"
                                                 Grid.Column="1"
                                                 Margin="10,10,0,10"
+                                                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                                  Dark=#8c8c8c}"
+                                                BorderWidth="2"
                                                 Command="{Binding ChangeAvatarCommand}"
                                                 HeightRequest="100"
-                                                Text="cambiar foto" />
+                                                ImageSource="upload.png" />
                                         </Grid>
                                     </Frame>
                                 </toolkit:Expander.Content>
@@ -343,7 +354,7 @@
                             <!--  Expander para los idiomas  -->
                             <toolkit:Expander x:Name="MyExpander" WidthRequest="460">
                                 <toolkit:Expander.Header>
-                                    <Frame BackgroundColor="#EEEEEE" HeightRequest="60">
+                                    <Frame BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}" HeightRequest="60">
                                         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                             <Label
                                                 HorizontalOptions="Center"
@@ -371,7 +382,7 @@
                                 </toolkit:Expander.Header>
 
                                 <toolkit:Expander.Content>
-                                    <Frame BackgroundColor="#EEEEEE">
+                                    <Frame BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}">
                                         <CollectionView
                                             HeightRequest="250"
                                             ItemsSource="{Binding Languages}"
@@ -389,7 +400,7 @@
 
                                             <CollectionView.ItemTemplate>
                                                 <DataTemplate x:DataType="models:LanguageModel">
-                                                    <Border BackgroundColor="#EEEEEE">
+                                                    <Border BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}">
                                                         <Border.StrokeShape>
                                                             <RoundRectangle CornerRadius="12" />
                                                         </Border.StrokeShape>
@@ -426,7 +437,7 @@
                                 Margin="20,0,0,0"
                                 WidthRequest="460">
                                 <toolkit:Expander.Header>
-                                    <Frame BackgroundColor="#EEEEEE" HeightRequest="60">
+                                    <Frame BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}" HeightRequest="60">
                                         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                             <Label
                                                 HorizontalOptions="Center"
@@ -454,7 +465,7 @@
                                 </toolkit:Expander.Header>
 
                                 <toolkit:Expander.Content>
-                                    <Frame BackgroundColor="#EEEEEE">
+                                    <Frame BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}">
                                         <VerticalStackLayout HeightRequest="250" HorizontalOptions="Center">
                                             <CollectionView
                                                 HeightRequest="190"
@@ -470,7 +481,7 @@
 
                                                 <CollectionView.ItemTemplate>
                                                     <DataTemplate x:DataType="models:HobbieModel">
-                                                        <Border BackgroundColor="#EEEEEE">
+                                                        <Border BackgroundColor="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}">
                                                             <Border.StrokeShape>
                                                                 <RoundRectangle CornerRadius="12" />
                                                             </Border.StrokeShape>

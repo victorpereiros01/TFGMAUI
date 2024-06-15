@@ -159,6 +159,8 @@ namespace TFGMaui.ViewModels
 
                     await App.Current.MainPage.DisplayAlert("Usuario creado", "Se ha registrado el usuario correctamente", "Aceptar");
                     await Navegar("LoginPage");
+                    UsuarioReg = new();
+                    FirstPageReg = true;
                 }
             }
             catch { }

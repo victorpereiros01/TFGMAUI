@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using TFGMaui.Utils;
 using TFGMaui.ViewModels;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace TFGMaui.Repositories
 {
@@ -110,6 +111,24 @@ namespace TFGMaui.Repositories
             };
 
             return user;
+        }
+
+        public ImageSource GetImage(string username)
+        {
+            SetCmdQuery("SELECT Avatar FROM Users WHERE Username = @Username");
+
+            AddCmdParameters(new() { { "@Username", username } });
+
+            // Abre la conexion e inicializa el reader para obtener los datos
+            Oconexion.Open();
+            using SqlDataReader dr = Cmd.ExecuteReader();
+
+            if (!dr.Read())
+            {
+                return null;
+            }
+
+            return FileUtils.GetSource(dr.GetString(0));
         }
 
         public bool Registrar(UsuarioModel user)

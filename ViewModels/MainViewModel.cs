@@ -460,7 +460,6 @@ namespace TFGMaui.ViewModels
             else if (pagina.Equals("MainPage"))
             {
                 await GetHobbies();
-                //
             }
 
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()

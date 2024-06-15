@@ -18,6 +18,9 @@ namespace TFGMaui.ViewModels.Mopup
         [ObservableProperty]
         private bool isVisibleEditor;
 
+        [ObservableProperty]
+        private bool isAddedFavorite, isAddedPending, isAddedSeen;
+
         public MangaMopupViewModel()
         {
             IsVisibleEditor = false;
@@ -31,7 +34,17 @@ namespace TFGMaui.ViewModels.Mopup
                 Id = id
             };
             _ = GetMangaDetails();
+
+            CheckAdded();
         }
+
+        private void CheckAdded()
+        {
+            IsAddedFavorite = new HobbieRepository().Exists("Favorite", UserId, "Manga", Manga.Id);
+            IsAddedSeen = new HobbieRepository().Exists("Seen", UserId, "Manga", Manga.Id);
+            IsAddedPending = new HobbieRepository().Exists("Pending", UserId, "Manga", Manga.Id);
+        }
+
 
         [RelayCommand]
         public async Task CambiarEditor()
@@ -68,8 +81,10 @@ namespace TFGMaui.ViewModels.Mopup
         {
             if (new HobbieRepository().AddHobbie(type, UserId, "Manga", new HobbieModel() { Id = Manga.Id, Imagen = Manga.Imagen, Title = Manga.Title }))
             {
-                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie añadido satisfactoriamente", "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
             }
+
+            CheckAdded();
         }
 
         [RelayCommand]
@@ -77,8 +92,10 @@ namespace TFGMaui.ViewModels.Mopup
         {
             if (new HobbieRepository().RemoveHobbie(type, UserId, Manga.GetType().ToString(), Manga.Id))
             {
-                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie borrado satisfactoriamente", "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
             }
+
+            CheckAdded();
         }
     }
 }

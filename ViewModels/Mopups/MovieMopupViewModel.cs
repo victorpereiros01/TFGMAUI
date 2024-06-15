@@ -20,6 +20,9 @@ namespace TFGMaui.ViewModels.Mopup
         [ObservableProperty]
         private string lang;
 
+        [ObservableProperty]
+        private bool isAddedFavorite, isAddedPending, isAddedSeen;
+
         public MovieMopupViewModel()
         {
             IsVisibleEditor = false;
@@ -34,7 +37,18 @@ namespace TFGMaui.ViewModels.Mopup
                 Id = id
             };
             _ = GetMovieDetails();
+
+            CheckAdded();
         }
+
+        private void CheckAdded()
+        {
+            IsAddedFavorite = new HobbieRepository().Exists("Favorite", UserId, "Movie", Movie.Id);
+            IsAddedSeen = new HobbieRepository().Exists("Seen", UserId, "Movie", Movie.Id);
+            IsAddedPending = new HobbieRepository().Exists("Pending", UserId, "Movie", Movie.Id);
+        }
+
+
 
         [RelayCommand]
         public async Task CambiarEditor()
@@ -70,8 +84,10 @@ namespace TFGMaui.ViewModels.Mopup
         {
             if (new HobbieRepository().AddHobbie(type, UserId, "Movie", new HobbieModel() { Id = Movie.Id, Imagen = Movie.Imagen, Title = Movie.Title }))
             {
-                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie añadido satisfactoriamente", "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
             }
+
+            CheckAdded();
         }
 
         [RelayCommand]
@@ -79,8 +95,10 @@ namespace TFGMaui.ViewModels.Mopup
         {
             if (new HobbieRepository().RemoveHobbie(type, UserId, Movie.GetType().ToString(), Movie.Id))
             {
-                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie borrado satisfactoriamente", "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
             }
+
+            CheckAdded();
         }
     }
 }

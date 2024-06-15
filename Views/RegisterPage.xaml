@@ -30,8 +30,7 @@
             HorizontalOptions="Center"
             VerticalOptions="Center">
             <Frame
-                BorderColor="{AppThemeBinding Light=Black,
-                                              Dark=White}"
+                BorderColor="Black"
                 CornerRadius="30"
                 HorizontalOptions="Center"
                 IsVisible="{Binding FirstPageReg}"
@@ -146,8 +145,8 @@
                         <Button
                             AbsoluteLayout.LayoutBounds="350,10,25,25"
                             Command="{Binding ChangePassVisCommand}"
-                            HeightRequest="20"
-                            ImageSource="not_ojo.png" />
+                            CornerRadius="0"
+                            HeightRequest="20" />
                     </AbsoluteLayout>
 
                     <AbsoluteLayout
@@ -170,8 +169,8 @@
                         <Button
                             AbsoluteLayout.LayoutBounds="350,10,25,25"
                             Command="{Binding ChangePassRepVisCommand}"
-                            HeightRequest="20"
-                            ImageSource="fondo.jpg" />
+                            CornerRadius="0"
+                            HeightRequest="20" />
                     </AbsoluteLayout>
 
                     <Button
@@ -210,8 +209,7 @@
             </Frame>
 
             <Frame
-                BorderColor="{AppThemeBinding Light=Black,
-                                              Dark=White}"
+                BorderColor="Black"
                 CornerRadius="30"
                 HorizontalOptions="Center"
                 IsVisible="{Binding FirstPageReg, Converter={toolkit:InvertedBoolConverter}}"

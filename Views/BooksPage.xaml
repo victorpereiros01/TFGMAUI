@@ -35,7 +35,8 @@
 
             <Frame
                 AbsoluteLayout.LayoutBounds="30,80,1540,790"
-                BackgroundColor="#EEEEEE"
+                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                  Dark=#8c8c8c}"
                 CornerRadius="20">
                 <VerticalStackLayout>
                     <VerticalStackLayout.GestureRecognizers>
@@ -57,7 +58,7 @@
 
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Offset="1" Color="#eeeeee" />
+                                        <GradientStop Offset="1" Color="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}" />
                                         <GradientStop Offset="0" Color="#e1e97b" />
                                     </LinearGradientBrush>
                                 </Border.Background>
@@ -82,12 +83,14 @@
                             <!--  Home  -->
                             <Button
                                 Margin="30,0"
-                                BackgroundColor="#EEEEEE"
+                                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                  Dark=#8c8c8c}"
                                 BorderWidth="2"
                                 Command="{Binding NavegarCommand}"
                                 CommandParameter="MainPage"
                                 HeightRequest="120"
-                                ImageSource="titulomayus.png"
+                                ImageSource="{AppThemeBinding Light=titulomayus.png,
+                                                              Dark=titulomayuswhite.png}"
                                 ToolTipProperties.Text="Go to Homepage"
                                 WidthRequest="490"
                                 ZIndex="1" />
@@ -118,7 +121,8 @@
 
                         <CollectionView
                             AbsoluteLayout.LayoutBounds="1025,90"
-                            BackgroundColor="White"
+                            BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                              Dark=#8c8c8c}"
                             HeightRequest="328"
                             IsVisible="{Binding IsSearchFocus}"
                             ItemsSource="{Binding PaginaAux.Items}"
@@ -156,7 +160,8 @@
                         <VerticalStackLayout AbsoluteLayout.LayoutBounds="10,160">
                             <HorizontalStackLayout>
                                 <Button
-                                    BackgroundColor="#EEEEEE"
+                                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                      Dark=#8c8c8c}"
                                     BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
                                     CommandParameter="Juvenile"
@@ -167,7 +172,8 @@
                                     WidthRequest="470" />
                                 <Button
                                     Margin="30,0"
-                                    BackgroundColor="#EEEEEE"
+                                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                      Dark=#8c8c8c}"
                                     BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
                                     CommandParameter="Non-fiction"
@@ -178,7 +184,8 @@
                                     WidthRequest="470" />
 
                                 <Button
-                                    BackgroundColor="#EEEEEE"
+                                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                      Dark=#8c8c8c}"
                                     BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
                                     CommandParameter="Young adult"
@@ -191,7 +198,8 @@
 
                             <HorizontalStackLayout Margin="0,30">
                                 <Button
-                                    BackgroundColor="#EEEEEE"
+                                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                      Dark=#8c8c8c}"
                                     BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
                                     CommandParameter="Science fiction"
@@ -202,7 +210,8 @@
                                     WidthRequest="470" />
                                 <Button
                                     Margin="30,0"
-                                    BackgroundColor="#EEEEEE"
+                                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                      Dark=#8c8c8c}"
                                     BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
                                     CommandParameter="Fantasy"
@@ -212,7 +221,8 @@
                                     TextColor="Black"
                                     WidthRequest="470" />
                                 <Button
-                                    BackgroundColor="#EEEEEE"
+                                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                      Dark=#8c8c8c}"
                                     BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
                                     CommandParameter="Historical fiction"
@@ -226,7 +236,8 @@
 
                             <HorizontalStackLayout>
                                 <Button
-                                    BackgroundColor="#EEEEEE"
+                                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                      Dark=#8c8c8c}"
                                     BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
                                     CommandParameter="Thriller"
@@ -237,7 +248,8 @@
                                     WidthRequest="470" />
                                 <Button
                                     Margin="30,0"
-                                    BackgroundColor="#EEEEEE"
+                                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                      Dark=#8c8c8c}"
                                     BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
                                     CommandParameter="Romance"
@@ -247,7 +259,8 @@
                                     TextColor="Black"
                                     WidthRequest="470" />
                                 <Button
-                                    BackgroundColor="#EEEEEE"
+                                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                      Dark=#8c8c8c}"
                                     BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
                                     CommandParameter="Horror"
@@ -281,7 +294,8 @@
 
             <Frame
                 AbsoluteLayout.LayoutBounds="30,80,1540,790"
-                BackgroundColor="#EEEEEE"
+                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                  Dark=#8c8c8c}"
                 CornerRadius="20">
                 <VerticalStackLayout>
                     <VerticalStackLayout.GestureRecognizers>
@@ -303,7 +317,7 @@
 
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Offset="1" Color="#eeeeee" />
+                                        <GradientStop Offset="1" Color="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}" />
                                         <GradientStop Offset="0" Color="#e1e97b" />
                                     </LinearGradientBrush>
                                 </Border.Background>
@@ -332,12 +346,14 @@
                             <!--  Home  -->
                             <Button
                                 Margin="30,0"
-                                BackgroundColor="#EEEEEE"
+                                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                  Dark=#8c8c8c}"
                                 BorderWidth="2"
                                 Command="{Binding NavegarCommand}"
                                 CommandParameter="MainPage"
                                 HeightRequest="120"
-                                ImageSource="titulomayus.png"
+                                ImageSource="{AppThemeBinding Light=titulomayus.png,
+                                                              Dark=titulomayuswhite.png}"
                                 ToolTipProperties.Text="Go to Homepage"
                                 WidthRequest="490"
                                 ZIndex="1" />
@@ -427,7 +443,7 @@
                                     <Frame WidthRequest="210">
                                         <Frame.Background>
                                             <LinearGradientBrush EndPoint="0,1">
-                                                <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                                <GradientStop Offset="0.9" Color="{AppThemeBinding Light=#EEEEEE, Dark=#2e2e2e}" />
                                                 <GradientStop Offset="0.6" Color="DimGray" />
                                                 <GradientStop Offset="0" Color="{Binding Color}" />
                                             </LinearGradientBrush>

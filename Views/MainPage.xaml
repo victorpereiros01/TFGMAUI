@@ -39,7 +39,8 @@
 
             <Frame
                 AbsoluteLayout.LayoutBounds="30,80,1540,790"
-                BackgroundColor="#EEEEEE"
+                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                  Dark=#8c8c8c}"
                 CornerRadius="20">
                 <Grid
                     ColumnDefinitions="500,25,490,25,110,220,120"
@@ -59,7 +60,8 @@
                         <VerticalStackLayout>
                             <Border
                                 Margin="0,0,0,20"
-                                BackgroundColor="#EEEEEE"
+                                BackgroundColor="{AppThemeBinding Light=#e6e6e6,
+                                                                  Dark=#676767}"
                                 HeightRequest="80">
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="10" />
@@ -89,7 +91,8 @@
 
                             <CarouselView
                                 Margin="0,12,0,0"
-                                BackgroundColor="#EEEEEE"
+                                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                  Dark=#676767}"
                                 CurrentItem="{Binding SavP}"
                                 EmptyView="Añade hobbies a pendientes"
                                 HeightRequest="462"
@@ -104,7 +107,7 @@
                                         <Frame CornerRadius="10">
                                             <Frame.Background>
                                                 <LinearGradientBrush EndPoint="0,1">
-                                                    <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                                    <GradientStop Offset="0.9" Color="{AppThemeBinding Light=#EEEEEE, Dark=#2e2e2e}" />
                                                     <GradientStop Offset="0.6" Color="DimGray" />
                                                     <GradientStop Offset="0" Color="{Binding Color}" />
                                                 </LinearGradientBrush>
@@ -142,7 +145,8 @@
 
                         <VerticalStackLayout>
                             <Border
-                                BackgroundColor="#EEEEEE"
+                                BackgroundColor="{AppThemeBinding Light=#e6e6e6,
+                                                                  Dark=#676767}"
                                 HeightRequest="80"
                                 ZIndex="1">
                                 <Border.StrokeShape>
@@ -190,7 +194,7 @@
                                             HorizontalOptions="Start">
                                             <Frame.Background>
                                                 <LinearGradientBrush EndPoint="0,1">
-                                                    <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                                    <GradientStop Offset="0.9" Color="{AppThemeBinding Light=#EEEEEE, Dark=#2e2e2e}" />
                                                     <GradientStop Offset="0.6" Color="DimGray" />
                                                     <GradientStop Offset="0" Color="{Binding Color}" />
                                                 </LinearGradientBrush>
@@ -223,6 +227,8 @@
                         Grid.Column="4"
                         Grid.ColumnSpan="3"
                         Margin="10,0,0,0"
+                        BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                          Dark=#8c8c8c}"
                         HeightRequest="360"
                         ZIndex="1">
                         <Border.StrokeShape>
@@ -230,7 +236,7 @@
                         </Border.StrokeShape>
 
                         <VerticalStackLayout>
-                            <Border BackgroundColor="#EEEEEE" HeightRequest="80">
+                            <Border BackgroundColor="{AppThemeBinding Light=#e6e6e6, Dark=#676767}" HeightRequest="80">
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="10" />
                                 </Border.StrokeShape>
@@ -275,7 +281,7 @@
                                         <Frame CornerRadius="10" HeightRequest="260">
                                             <Frame.Background>
                                                 <LinearGradientBrush EndPoint="0,1">
-                                                    <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                                    <GradientStop Offset="0.9" Color="{AppThemeBinding Light=#EEEEEE, Dark=#2e2e2e}" />
                                                     <GradientStop Offset="0.6" Color="DimGray" />
                                                     <GradientStop Offset="0" Color="{Binding Color}" />
                                                 </LinearGradientBrush>
@@ -301,11 +307,13 @@
                     <Button
                         Grid.Row="0"
                         Grid.Column="2"
-                        BackgroundColor="#EEEEEE"
+                        BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                          Dark=#8c8c8c}"
                         BorderWidth="2"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="MainPage"
-                        ImageSource="titulomayus.png"
+                        ImageSource="{AppThemeBinding Light=titulomayus.png,
+                                                      Dark=titulomayuswhite.png}"
                         ToolTipProperties.Text="Homepage"
                         ZIndex="1" />
 
@@ -315,7 +323,8 @@
                         Grid.ColumnSpan="3"
                         Margin="10,10,0,10"
                         Padding="15"
-                        BackgroundColor="#EEEEEE">
+                        BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                          Dark=#8c8c8c}">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="10" />
                         </Border.StrokeShape>
@@ -331,7 +340,8 @@
 
                             <Button
                                 Margin="5,0,0,0"
-                                BackgroundColor="White"
+                                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                  Dark=#8c8c8c}"
                                 BorderWidth="2"
                                 Command="{Binding AbrirTiempoCommand}"
                                 CornerRadius="5"
@@ -366,7 +376,8 @@
                         Grid.Row="0"
                         Grid.Column="5"
                         Margin="10"
-                        BackgroundColor="#EEEEEE">
+                        BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                          Dark=#8c8c8c}">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="10" />
                         </Border.StrokeShape>
@@ -391,7 +402,8 @@
                         Grid.Row="0"
                         Grid.Column="6"
                         Margin="10,0,0,0"
-                        BackgroundColor="#EEEEEE"
+                        BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                          Dark=#8c8c8c}"
                         BorderWidth="2"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="SettingsPage"
@@ -571,7 +583,8 @@
 
             <Frame
                 AbsoluteLayout.LayoutBounds="30,80,1540,790"
-                BackgroundColor="#EEEEEE"
+                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                  Dark=#8c8c8c}"
                 CornerRadius="20">
                 <Grid
                     ColumnDefinitions="500,25,490,25,110,220,120"
@@ -583,8 +596,7 @@
                     <Border
                         Grid.Row="2"
                         Grid.Column="4"
-                        Grid.ColumnSpan="3"
-                        BackgroundColor="#EEEEEE">
+                        Grid.ColumnSpan="3">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="10" />
                         </Border.StrokeShape>
@@ -603,12 +615,10 @@
                         </HorizontalStackLayout>
                     </Border>
 
-
                     <!--  Cabecera de pendientes  -->
                     <Border
                         Grid.Row="2"
                         Grid.Column="2"
-                        BackgroundColor="#EEEEEE"
                         ZIndex="1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="10" />
@@ -632,7 +642,6 @@
                     <Border
                         Grid.Row="2"
                         Grid.Column="0"
-                        BackgroundColor="#EEEEEE"
                         ZIndex="1">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="10" />
@@ -656,8 +665,13 @@
                     <Button
                         Grid.Row="0"
                         Grid.Column="2"
-                        BackgroundColor="#848484"
-                        ImageSource="titulomayus.png"
+                        BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                          Dark=#8c8c8c}"
+                        BorderWidth="2"
+                        Command="{Binding NavegarCommand}"
+                        CommandParameter="MainPage"
+                        ImageSource="{AppThemeBinding Light=titulomayus.png,
+                                                      Dark=titulomayuswhite.png}"
                         ToolTipProperties.Text="Homepage"
                         ZIndex="1" />
 
@@ -665,8 +679,7 @@
                     <Border
                         Grid.Row="0"
                         Grid.Column="0"
-                        Padding="30"
-                        BackgroundColor="#EEEEEE">
+                        Padding="30">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="10" />
                         </Border.StrokeShape>
@@ -682,7 +695,8 @@
 
                             <Button
                                 Margin="5,0,0,0"
-                                BackgroundColor="White"
+                                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                  Dark=#8c8c8c}"
                                 BorderWidth="2"
                                 Command="{Binding AbrirTiempoCommand}"
                                 CornerRadius="5"
@@ -711,8 +725,7 @@
                     <Border
                         Grid.Row="0"
                         Grid.Column="5"
-                        Margin="10"
-                        BackgroundColor="#EEEEEE">
+                        Margin="10">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="10" />
                         </Border.StrokeShape>
@@ -759,7 +772,8 @@
                             HeightRequest="100"
                             HorizontalOptions="Center"
                             Text="REGISTRATE"
-                            TextColor="Black"
+                            TextColor="{AppThemeBinding Light=Black,
+                                                        Dark=White}"
                             WidthRequest="490" />
                     </VerticalStackLayout>
 

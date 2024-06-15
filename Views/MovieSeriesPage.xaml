@@ -37,7 +37,8 @@
 
         <Frame
             AbsoluteLayout.LayoutBounds="30,80,1540,790"
-            BackgroundColor="#EEEEEE"
+            BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                              Dark=#8c8c8c}"
             CornerRadius="20">
             <VerticalStackLayout Padding="10">
                 <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
@@ -52,7 +53,7 @@
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                 <GradientStop Offset="0" Color="#7078AF" />
-                                <GradientStop Offset="1" Color="#eeeeee" />
+                                <GradientStop Offset="1" Color="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}" />
                             </LinearGradientBrush>
                         </Border.Background>
 
@@ -82,12 +83,14 @@
 
                     <Button
                         Margin="30,0"
-                        BackgroundColor="#EEEEEE"
+                        BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                          Dark=#8c8c8c}"
                         BorderWidth="2"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="MainPage"
                         HeightRequest="120"
-                        ImageSource="titulomayus.png"
+                        ImageSource="{AppThemeBinding Light=titulomayus.png,
+                                                      Dark=titulomayuswhite.png}"
                         ToolTipProperties.Text="Go to Homepage"
                         WidthRequest="490"
                         ZIndex="1" />
@@ -103,7 +106,7 @@
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                 <GradientStop Offset="1" Color="#47b17f" />
-                                <GradientStop Offset="0" Color="#eeeeee" />
+                                <GradientStop Offset="0" Color="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}" />
                             </LinearGradientBrush>
                         </Border.Background>
 
@@ -158,7 +161,8 @@
 
                             <Label
                                 Margin="-105,0,0,0"
-                                BackgroundColor="#EEEEEE"
+                                BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                                  Dark=#8c8c8c}"
                                 FontSize="Micro"
                                 HorizontalOptions="End"
                                 Text="{Binding Type}"
@@ -201,7 +205,7 @@
                             <Frame>
                                 <Frame.Background>
                                     <LinearGradientBrush EndPoint="0,1">
-                                        <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                        <GradientStop Offset="0.9" Color="{AppThemeBinding Light=#EEEEEE, Dark=#2e2e2e}" />
                                         <GradientStop Offset="0.6" Color="#848484" />
                                         <GradientStop Offset="0" Color="{Binding Color}" />
                                     </LinearGradientBrush>

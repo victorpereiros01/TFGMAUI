@@ -19,7 +19,8 @@
     </mopups:PopupPage.Animation>
 
     <AbsoluteLayout
-        BackgroundColor="#EEEEEE"
+        BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                          Dark=#8c8c8c}"
         HeightRequest="650"
         WidthRequest="1000">
         <Button
@@ -41,7 +42,7 @@
 
             <Border.Background>
                 <LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Offset="1" Color="#EEEEEE" />
+                    <GradientStop Offset="1" Color="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}" />
                     <GradientStop Offset="0" Color="#47b17f" />
                 </LinearGradientBrush>
             </Border.Background>
@@ -72,7 +73,7 @@
 
         <Label AbsoluteLayout.LayoutBounds="350,160" Text="Estatus: " />
         <Label
-            AbsoluteLayout.LayoutBounds="445,160"
+            AbsoluteLayout.LayoutBounds="415,160"
             HorizontalOptions="Center"
             Text="{Binding Serie.Status}"
             VerticalOptions="Center" />
@@ -90,91 +91,213 @@
         <Button
             Margin="10"
             AbsoluteLayout.LayoutBounds="897,190"
-            BackgroundColor="#EEEEEE"
+            BackgroundColor="{AppThemeBinding Dark=#EEEEEE,
+                                              Light=#8c8c8c}"
             BorderWidth="2"
             Command="{Binding CambiarEditorCommand}"
             Text="ø"
             TextColor="Black"
             ZIndex="1" />
 
-        <Image
+        <Border
             Margin="10"
             AbsoluteLayout.LayoutBounds="30,70"
-            Aspect="AspectFill"
-            BackgroundColor="Transparent"
             HeightRequest="400"
-            HorizontalOptions="Center"
-            Source="{Binding Serie.Imagen}"
-            VerticalOptions="Center"
-            WidthRequest="290" />
+            WidthRequest="290">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
 
-        <Button
+            <Image
+                Aspect="AspectFill"
+                BackgroundColor="Transparent"
+                HorizontalOptions="Center"
+                Source="{Binding Serie.Imagen}"
+                VerticalOptions="Center" />
+        </Border>
+
+        <Border
             Margin="10"
             AbsoluteLayout.LayoutBounds="30,490"
-            BackgroundColor="#EEEEEE"
-            BorderWidth="2"
-            Command="{Binding AddHobbieCommand}"
-            CommandParameter="Favorite"
             HeightRequest="120"
-            Text="Favoritos"
-            TextColor="Black"
-            WidthRequest="140" />
-        <Button
-            Margin="10"
-            AbsoluteLayout.LayoutBounds="180,490"
-            BackgroundColor="#EEEEEE"
-            BorderWidth="2"
-            Command="{Binding RemoveHobbieCommand}"
-            CommandParameter="Favorite"
-            HeightRequest="120"
-            Text="Quitar favoritos"
-            TextColor="Black"
-            WidthRequest="140" />
+            IsVisible="{Binding IsAddedFavorite}"
+            WidthRequest="290">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
 
-        <Button
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Image
+                    Margin="10,0"
+                    HeightRequest="40"
+                    Source="heart.png" />
+
+                <Label
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Favorito"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding AddHobbieCommand}"
+                    CommandParameter="Favorite"
+                    NumberOfTapsRequired="1" />
+            </Border.GestureRecognizers>
+        </Border>
+        <Border
+            Margin="10"
+            AbsoluteLayout.LayoutBounds="30,490"
+            HeightRequest="120"
+            IsVisible="{Binding IsAddedFavorite, Converter={toolkit:InvertedBoolConverter}}"
+            WidthRequest="290">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Image
+                    Margin="10,0"
+                    HeightRequest="40"
+                    Source="not_heart.png" />
+
+                <Label
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Quitar favorito"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding RemoveHobbieCommand}"
+                    CommandParameter="Favorite"
+                    NumberOfTapsRequired="1" />
+            </Border.GestureRecognizers>
+        </Border>
+
+        <Border
             Margin="10"
             AbsoluteLayout.LayoutBounds="340,490"
-            BackgroundColor="#EEEEEE"
-            BorderWidth="2"
-            Command="{Binding AddHobbieCommand}"
-            CommandParameter="Pending"
             HeightRequest="120"
-            Text="Pendiente"
-            TextColor="Black"
-            WidthRequest="140" />
-        <Button
-            Margin="10"
-            AbsoluteLayout.LayoutBounds="500,490"
-            BackgroundColor="#EEEEEE"
-            BorderWidth="2"
-            Command="{Binding RemoveHobbieCommand}"
-            CommandParameter="Pending"
-            HeightRequest="120"
-            Text="Quitar pend"
-            TextColor="Black"
-            WidthRequest="140" />
+            IsVisible="{Binding IsAddedPending}"
+            WidthRequest="290">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
 
-        <Button
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Image
+                    Margin="10,0"
+                    HeightRequest="40"
+                    Source="pending.png" />
+
+                <Label
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Pendiente"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding AddHobbieCommand}"
+                    CommandParameter="Pending"
+                    NumberOfTapsRequired="1" />
+            </Border.GestureRecognizers>
+        </Border>
+
+        <Border
+            Margin="10"
+            AbsoluteLayout.LayoutBounds="340,490"
+            HeightRequest="120"
+            IsVisible="{Binding IsAddedPending, Converter={toolkit:InvertedBoolConverter}}"
+            WidthRequest="290">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Image
+                    Margin="10,0"
+                    HeightRequest="40"
+                    Source="not_pending.png" />
+
+                <Label
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Quitar pendiente"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding RemoveHobbieCommand}"
+                    CommandParameter="Pending"
+                    NumberOfTapsRequired="1" />
+            </Border.GestureRecognizers>
+        </Border>
+
+        <Border
             Margin="10"
             AbsoluteLayout.LayoutBounds="650,490"
-            BackgroundColor="#EEEEEE"
-            BorderWidth="2"
-            Command="{Binding AddHobbieCommand}"
-            CommandParameter="Seen"
             HeightRequest="120"
-            Text="Vista"
-            TextColor="Black"
-            WidthRequest="140" />
-        <Button
+            IsVisible="{Binding IsAddedSeen}"
+            WidthRequest="290">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Image
+                    Margin="10,0"
+                    HeightRequest="40"
+                    Source="ojo.png" />
+
+                <Label
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Terminado"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding AddHobbieCommand}"
+                    CommandParameter="Seen"
+                    NumberOfTapsRequired="1" />
+            </Border.GestureRecognizers>
+        </Border>
+        <Border
             Margin="10"
-            AbsoluteLayout.LayoutBounds="800,490"
-            BackgroundColor="#EEEEEE"
-            BorderWidth="2"
-            Command="{Binding RemoveHobbieCommand}"
-            CommandParameter="Seen"
+            AbsoluteLayout.LayoutBounds="650,490"
             HeightRequest="120"
-            Text="Quitar vista"
-            TextColor="Black"
-            WidthRequest="140" />
+            IsVisible="{Binding IsAddedSeen, Converter={toolkit:InvertedBoolConverter}}"
+            WidthRequest="290">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Image
+                    Margin="10,0"
+                    HeightRequest="40"
+                    Source="not_ojo.png" />
+
+                <Label
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Quitar terminado"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding RemoveHobbieCommand}"
+                    CommandParameter="Seen"
+                    NumberOfTapsRequired="1" />
+            </Border.GestureRecognizers>
+        </Border>
     </AbsoluteLayout>
 </mopups:PopupPage>

@@ -64,6 +64,7 @@
 		<None Remove="Resources\Images\arrowleft.png" />
 		<None Remove="Resources\Images\book.png" />
 		<None Remove="Resources\Images\diagonal.png" />
+		<None Remove="Resources\Images\editar.png" />
 		<None Remove="Resources\Images\english.png" />
 		<None Remove="Resources\Images\fall.png" />
 		<None Remove="Resources\Images\flecha.png" />
@@ -95,6 +96,7 @@
 		<None Remove="Resources\Images\titulowhite.png" />
 		<None Remove="Resources\Images\tv.png" />
 		<None Remove="Resources\Images\tvcine.png" />
+		<None Remove="Resources\Images\upload.png" />
 		<None Remove="Resources\Images\user.png" />
 		<None Remove="Resources\Images\video.png" />
 		<None Remove="Resources\Images\winter.png" />

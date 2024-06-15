@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using TFGMaui.Models;
 using TFGMaui.Repositories;
 using TFGMaui.Services;
+using TFGMaui.Utils;
+using Windows.Data.Html;
 
 namespace TFGMaui.ViewModels.Mopup
 {
@@ -17,6 +19,9 @@ namespace TFGMaui.ViewModels.Mopup
 
         [ObservableProperty]
         private bool isVisibleEditor;
+
+        [ObservableProperty]
+        private bool isAddedFavorite, isAddedPending, isAddedSeen;
 
         public BookMopupViewModel()
         {
@@ -31,6 +36,15 @@ namespace TFGMaui.ViewModels.Mopup
                 Id = id
             };
             _ = GetMovieDetails();
+
+            CheckAdded();
+        }
+
+        private void CheckAdded()
+        {
+            IsAddedFavorite = new HobbieRepository().Exists("Favorite", UserId, "Book", Book.Id);
+            IsAddedSeen = new HobbieRepository().Exists("Seen", UserId, "Book", Book.Id);
+            IsAddedPending = new HobbieRepository().Exists("Pending", UserId, "Book", Book.Id);
         }
 
         [RelayCommand]
@@ -78,7 +92,7 @@ namespace TFGMaui.ViewModels.Mopup
                     m.Imagen = m.VolumeInfo.ImageLinks.Thumbnail;
                 }
             }
-
+            m.VolumeInfo.Description = MiscellaneousUtils.HtmlToPlainText(m.VolumeInfo.Description);
             Book = m;
         }
 
@@ -87,8 +101,10 @@ namespace TFGMaui.ViewModels.Mopup
         {
             if (new HobbieRepository().AddHobbie(type, UserId, "Book", new HobbieModel() { Id = Book.Id, Imagen = Book.Imagen, Title = Book.VolumeInfo.Title }))
             {
-                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie añadido satisfactoriamente", "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
             }
+
+            CheckAdded();
         }
 
         [RelayCommand]
@@ -96,8 +112,10 @@ namespace TFGMaui.ViewModels.Mopup
         {
             if (new HobbieRepository().RemoveHobbie(type, UserId, Book.GetType().ToString(), Book.Id))
             {
-                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie borrado satisfactoriamente", "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
             }
+
+            CheckAdded();
         }
     }
 }

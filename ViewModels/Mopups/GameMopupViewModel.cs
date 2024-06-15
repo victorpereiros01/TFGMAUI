@@ -4,7 +4,6 @@ using Mopups.Services;
 using TFGMaui.Models;
 using TFGMaui.Repositories;
 using TFGMaui.Services;
-
 namespace TFGMaui.ViewModels.Mopup
 {
     public partial class GameMopupViewModel : ObservableObject
@@ -18,6 +17,9 @@ namespace TFGMaui.ViewModels.Mopup
         private bool isVisibleEditor;
 
         public string Bearer { get; set; }
+
+        [ObservableProperty]
+        private bool isAddedFavorite, isAddedPending, isAddedSeen;
 
         public GameMopupViewModel()
         {
@@ -33,8 +35,16 @@ namespace TFGMaui.ViewModels.Mopup
                 Id = id
             };
             _ = GetGameDetails();
+
+            CheckAdded();
         }
 
+        private void CheckAdded()
+        {
+            IsAddedFavorite = new HobbieRepository().Exists("Favorite", UserId, "Game", Game.Id);
+            IsAddedSeen = new HobbieRepository().Exists("Seen", UserId, "Game", Game.Id);
+            IsAddedPending = new HobbieRepository().Exists("Pending", UserId, "Game", Game.Id);
+        }
 
         [RelayCommand]
         public async Task CambiarEditor()
@@ -71,6 +81,33 @@ namespace TFGMaui.ViewModels.Mopup
 
                 var g = listTrend[0];
                 g.Imagen = await GetImage(g.Cover);
+                switch (g.Status)
+                {
+                    case 0:
+                        g.StatusString = "Released";
+                        break;
+                    case 1:
+                        g.StatusString = "Alpha";
+                        break;
+                    case 2:
+                        g.StatusString = "Beta";
+                        break;
+                    case 3:
+                        g.StatusString = "Early Access";
+                        break;
+                    case 4:
+                        g.StatusString = "Offline";
+                        break;
+                    case 5:
+                        g.StatusString = "Cancelled";
+                        break;
+                    case 6:
+                        g.StatusString = "Rumored";
+                        break;
+                    case 7:
+                        g.StatusString = "Delisted";
+                        break;
+                }
                 Game = g;
             }
             catch (Exception e)
@@ -121,8 +158,10 @@ namespace TFGMaui.ViewModels.Mopup
         {
             if (new HobbieRepository().AddHobbie(type, UserId, "Game", new HobbieModel() { Id = Game.Id, Imagen = Game.Imagen, Title = Game.Title }))
             {
-                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie añadido satisfactoriamente", "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
             }
+
+            CheckAdded();
         }
 
         [RelayCommand]
@@ -130,8 +169,10 @@ namespace TFGMaui.ViewModels.Mopup
         {
             if (new HobbieRepository().RemoveHobbie(type, UserId, Game.GetType().ToString(), Game.Id))
             {
-                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie borrado satisfactoriamente", "Aceptar");
+                await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
             }
+
+            CheckAdded();
         }
     }
 }

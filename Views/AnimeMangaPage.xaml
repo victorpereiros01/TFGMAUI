@@ -33,7 +33,8 @@
 
         <Frame
             AbsoluteLayout.LayoutBounds="30,80,1540,790"
-            BackgroundColor="#EEEEEE"
+            BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                              Dark=#8c8c8c}"
             CornerRadius="20">
             <AbsoluteLayout>
                 <HorizontalStackLayout
@@ -51,7 +52,7 @@
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                 <GradientStop Offset="0" Color="#EBAE83" />
-                                <GradientStop Offset="1" Color="#eeeeee" />
+                                <GradientStop Offset="1" Color="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}" />
                             </LinearGradientBrush>
                         </Border.Background>
 
@@ -74,12 +75,14 @@
 
                     <Button
                         Margin="30,0"
-                        BackgroundColor="#EEEEEE"
+                        BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                          Dark=#8c8c8c}"
                         BorderWidth="2"
                         Command="{Binding NavegarCommand}"
                         CommandParameter="MainPage"
                         HeightRequest="120"
-                        ImageSource="titulomayus.png"
+                        ImageSource="{AppThemeBinding Light=titulomayus.png,
+                                                      Dark=titulomayuswhite.png}"
                         ToolTipProperties.Text="Go to Homepage"
                         WidthRequest="490"
                         ZIndex="1" />
@@ -95,7 +98,7 @@
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                 <GradientStop Offset="1" Color="#cb4a4a" />
-                                <GradientStop Offset="0" Color="#eeeeee" />
+                                <GradientStop Offset="0" Color="{AppThemeBinding Light=#EEEEEE, Dark=#8c8c8c}" />
                             </LinearGradientBrush>
                         </Border.Background>
 
@@ -141,7 +144,8 @@
 
                 <CollectionView
                     AbsoluteLayout.LayoutBounds="175,135"
-                    BackgroundColor="White"
+                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                      Dark=#8c8c8c}"
                     HeightRequest="328"
                     IsVisible="{Binding IsSearchFocus2}"
                     ItemsSource="{Binding PaginaAux2.Data}"
@@ -207,7 +211,8 @@
 
                 <CollectionView
                     AbsoluteLayout.LayoutBounds="1025,135"
-                    BackgroundColor="White"
+                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                      Dark=#8c8c8c}"
                     HeightRequest="328"
                     IsVisible="{Binding IsSearchFocus}"
                     ItemsSource="{Binding PaginaAux.Data}"
@@ -217,13 +222,13 @@
                     SelectionMode="Single"
                     WidthRequest="300"
                     ZIndex="1">
-
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:Name="aux" x:DataType="models:AnimeModel">
                             <Border>
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="12" />
                                 </Border.StrokeShape>
+
                                 <HorizontalStackLayout Padding="10">
                                     <Image
                                         Aspect="AspectFill"
@@ -278,7 +283,7 @@
                             <Frame WidthRequest="196">
                                 <Frame.Background>
                                     <LinearGradientBrush EndPoint="0,1">
-                                        <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                        <GradientStop Offset="0.9" Color="{AppThemeBinding Light=#EEEEEE, Dark=#2e2e2e}" />
                                         <GradientStop Offset="0.6" Color="DimGray" />
                                         <GradientStop Offset="0" Color="{Binding Color}" />
                                     </LinearGradientBrush>
@@ -307,7 +312,8 @@
 
                 <Border
                     AbsoluteLayout.LayoutBounds="545,150"
-                    BackgroundColor="#EEEEEE"
+                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                      Dark=#8c8c8c}"
                     HeightRequest="60"
                     IsVisible="{Binding IsSeasonSelected, Converter={toolkit:InvertedBoolConverter}}"
                     WidthRequest="400">
@@ -321,7 +327,6 @@
                             FontSize="15"
                             HorizontalOptions="Center"
                             Text="{Binding TextSeason}"
-                            TextColor="Black"
                             VerticalOptions="Center" />
                         <Image HeightRequest="40" Source="{Binding ImageSeason}" />
                     </HorizontalStackLayout>
@@ -389,6 +394,8 @@
 
                 <Picker
                     AbsoluteLayout.LayoutBounds="1090,160"
+                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                      Dark=#8c8c8c}"
                     HorizontalTextAlignment="Center"
                     ItemsSource="{Binding Anios}"
                     SelectedItem="{Binding Anio}"
@@ -397,6 +404,8 @@
                 <Picker
                     x:Name="ent_season"
                     AbsoluteLayout.LayoutBounds="1245,160"
+                    BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                      Dark=#8c8c8c}"
                     HorizontalTextAlignment="Center"
                     WidthRequest="150">
                     <Picker.ItemsSource>
@@ -443,7 +452,7 @@
                             <Frame>
                                 <Frame.Background>
                                     <LinearGradientBrush EndPoint="0,1">
-                                        <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                        <GradientStop Offset="0.9" Color="{AppThemeBinding Light=#EEEEEE, Dark=#2e2e2e}" />
                                         <GradientStop Offset="0.6" Color="DimGray" />
                                         <GradientStop Offset="0" Color="{Binding Color}" />
                                     </LinearGradientBrush>
@@ -498,7 +507,7 @@
                             <Frame>
                                 <Frame.Background>
                                     <LinearGradientBrush EndPoint="0,1">
-                                        <GradientStop Offset="0.9" Color="#EEEEEE" />
+                                        <GradientStop Offset="0.9" Color="{AppThemeBinding Light=#EEEEEE, Dark=#2e2e2e}" />
                                         <GradientStop Offset="0.6" Color="DimGray" />
                                         <GradientStop Offset="0" Color="{Binding Color}" />
                                     </LinearGradientBrush>

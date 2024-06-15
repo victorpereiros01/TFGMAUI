@@ -45,9 +45,12 @@ namespace TFGMaui.Models
 
         public List<int> GameLocalizations { get; set; }
 
+        public string Slug { get; set; }
+
         public int? Collection { get; set; }
 
-        public int? Status { get; set; }    //
+        public int Status { get; set; }    //
+        public string StatusString { get; set; }    //
 
         public List<int> Collections { get; set; }      //
 

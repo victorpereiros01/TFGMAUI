@@ -29,8 +29,7 @@
             HorizontalOptions="Center"
             VerticalOptions="Center">
             <Frame
-                BorderColor="{AppThemeBinding Light=Black,
-                                              Dark=White}"
+                BorderColor="Black"
                 CornerRadius="30"
                 WidthRequest="500">
                 <Frame.Shadow>
@@ -115,8 +114,8 @@
                         <Button
                             AbsoluteLayout.LayoutBounds="350,10,25,25"
                             Command="{Binding ChangePassVisCommand}"
-                            HeightRequest="20"
-                            ImageSource="fondo.jpg" />
+                            CornerRadius="0"
+                            HeightRequest="20" />
                     </AbsoluteLayout>
 
                     <HorizontalStackLayout
@@ -175,8 +174,7 @@
 
             <Frame
                 Margin="0,10,0,0"
-                BorderColor="{AppThemeBinding Light=Black,
-                                              Dark=White}"
+                BorderColor="Black"
                 CornerRadius="30"
                 HeightRequest="135"
                 WidthRequest="500">

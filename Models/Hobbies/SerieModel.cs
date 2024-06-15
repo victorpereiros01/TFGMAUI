@@ -40,6 +40,7 @@ namespace TFGMaui.Models
 
         public string Type { get; set; }
 
+        [JsonProperty("vote_average")]
         public double VoteAverage { get; set; }
 
         public List<ProductionCompany> ProductionCompanies { get; set; }

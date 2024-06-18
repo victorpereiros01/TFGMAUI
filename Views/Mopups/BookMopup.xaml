@@ -72,7 +72,7 @@
                 Text="{Binding Book.VolumeInfo.AverageRating}"
                 VerticalOptions="Center" />
             <Label
-                AbsoluteLayout.LayoutBounds="415,125"
+                AbsoluteLayout.LayoutBounds="425,125"
                 FontSize="20"
                 Text="/5" />
 

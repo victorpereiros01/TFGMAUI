@@ -31,6 +31,8 @@ namespace TFGMaui.ViewModels
 
         public LoginViewModel()
         {
+            Application.Current.UserAppTheme = Preferences.Get("AppTheme", true) ? AppTheme.Light : AppTheme.Dark;
+
             TextSee = "ø";
             UsuarioActivo = new();
             IsPassword = true;

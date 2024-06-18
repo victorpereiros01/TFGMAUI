@@ -22,16 +22,20 @@
                 AbsoluteLayout.LayoutBounds="1475,30"
                 BackgroundColor="Beige"
                 Command="{Binding MinimizeAppCommand}"
+                FontAttributes="Bold"
                 Text="_"
-                TextColor="LightGray" />
+                TextColor="{AppThemeBinding Light=#EEEEEE,
+                                            Dark=#8c8c8c}" />
 
             <Button
                 AbsoluteLayout.LayoutBounds="1525,30"
                 BackgroundColor="Red"
                 Command="{Binding CloseAppCommand}"
+                FontAttributes="Bold"
                 HeightRequest="5"
                 Text="X"
-                TextColor="IndianRed" />
+                TextColor="{AppThemeBinding Light=#EEEEEE,
+                                            Dark=#8c8c8c}" />
 
             <Frame
                 AbsoluteLayout.LayoutBounds="30,80,1540,790"
@@ -164,7 +168,7 @@
                                                                       Dark=#8c8c8c}"
                                     BorderWidth="2"
                                     Command="{Binding GetGenreCommand}"
-                                    CommandParameter="Juvenile"
+                                    CommandParameter="children"
                                     FontSize="25"
                                     HeightRequest="170"
                                     Text="Juvenile"
@@ -285,12 +289,21 @@
             <Button
                 AbsoluteLayout.LayoutBounds="1475,30"
                 BackgroundColor="Beige"
-                Command="{Binding MinimizeAppCommand}" />
+                Command="{Binding MinimizeAppCommand}"
+                FontAttributes="Bold"
+                Text="_"
+                TextColor="{AppThemeBinding Light=#EEEEEE,
+                                            Dark=#8c8c8c}" />
 
             <Button
                 AbsoluteLayout.LayoutBounds="1525,30"
                 BackgroundColor="Red"
-                Command="{Binding CloseAppCommand}" />
+                Command="{Binding CloseAppCommand}"
+                FontAttributes="Bold"
+                HeightRequest="5"
+                Text="X"
+                TextColor="{AppThemeBinding Light=#EEEEEE,
+                                            Dark=#8c8c8c}" />
 
             <Frame
                 AbsoluteLayout.LayoutBounds="30,80,1540,790"
@@ -384,7 +397,8 @@
 
                         <CollectionView
                             AbsoluteLayout.LayoutBounds="1025,90"
-                            BackgroundColor="White"
+                            BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                                              Dark=#8c8c8c}"
                             HeightRequest="328"
                             IsVisible="{Binding IsSearchFocus}"
                             ItemsSource="{Binding PaginaAux.Items}"
@@ -421,8 +435,9 @@
 
                         <CollectionView
                             AbsoluteLayout.LayoutBounds="10,160"
-                            HeightRequest="855"
+                            HeightRequest="700"
                             HorizontalOptions="Center"
+                            HorizontalScrollBarVisibility="Never"
                             ItemsSource="{Binding PaginaGenero.Items}"
                             SelectedItem="{Binding Book3}"
                             SelectionChangedCommand="{Binding ShowBookMopupCommand}"
@@ -440,7 +455,7 @@
 
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:Name="gen" x:DataType="models:BookModel">
-                                    <Frame WidthRequest="210">
+                                    <Frame HeightRequest="285" WidthRequest="210">
                                         <Frame.Background>
                                             <LinearGradientBrush EndPoint="0,1">
                                                 <GradientStop Offset="0.9" Color="{AppThemeBinding Light=#EEEEEE, Dark=#2e2e2e}" />

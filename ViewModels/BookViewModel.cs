@@ -60,7 +60,7 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ShowBookMopup(string id)
         {
-            BookMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
+            BookMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language.Split("-")[0]);
             await MopupService.Instance.PushAsync(BookMopup);
             //await Hide();
         }
@@ -82,7 +82,7 @@ namespace TFGMaui.ViewModels
 
             var requestPagina = new HttpRequestModel(url: IConstantes.BaseBooks,
                 endpoint: $"volumes",
-                parameters: new Dictionary<string, string> { { "q", $"subject:\"{busqueda}\"" }, { "orderBy", "relevance" }, { "langRestrict", "en" }, { "key", IConstantes.ApiKeyBooks } },
+                parameters: new Dictionary<string, string> { { "q", $"subject:\"{busqueda}\"" }, { "orderBy", "relevance" }, { "langRestrict", UsuarioActivo.Language.Split("-")[0] }, { "key", IConstantes.ApiKeyBooks }, { "maxResults", "40" } },
                 headers: new Dictionary<string, string> { { "Accept", "application/json" } });
 
             var pagtrend = (PageB)await HttpService.ExecuteRequestAsync<PageB>(requestPagina); // v
@@ -92,13 +92,20 @@ namespace TFGMaui.ViewModels
                 return;
             }
 
+            pagtrend.Items = pagtrend.Items
+                .Where(item => item.VolumeInfo.AverageRating != 0
+                               && item.VolumeInfo.Title != null
+                               && item.VolumeInfo.ImageLinks != null)
+                .ToList();
+
+            if (pagtrend.Items.Count >= 10)
+            {
+                pagtrend.Items = MiscellaneousUtils.GetNelements(pagtrend.Items, 10);
+            }
+
             foreach (var item in pagtrend.Items)
             {
-                if (item.VolumeInfo.ImageLinks is null)
-                {
-                    item.Imagen = item.Imagen = "https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg";
-                }
-                else if (item.VolumeInfo.ImageLinks.Large is not null)
+                if (item.VolumeInfo.ImageLinks.Large is not null)
                 {
                     item.Imagen = item.VolumeInfo.ImageLinks.Large;
                 }

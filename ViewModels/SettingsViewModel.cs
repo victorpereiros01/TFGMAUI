@@ -51,7 +51,9 @@ namespace TFGMaui.ViewModels
 
         public SettingsViewModel()
         {
-            ColorStr = "Oscuro"; IsDark = true;
+            IsDark = Preferences.Get("AppTheme", false);
+            ColorStr = IsDark ? "Claro" : "Oscuro";
+
             Languages = [
                 new LanguageModel() { Imagen= ImageSource.FromFile("spanish.png"), Value= "ESPAÑOL", Utf8= "es-ES"},
                 new LanguageModel() { Imagen= ImageSource.FromFile("english.png"), Value= "INGLES", Utf8= "en-US"},
@@ -112,13 +114,6 @@ namespace TFGMaui.ViewModels
 
             Avatar = UsuarioActivo.Avatar;
             Adulto = UsuarioActivo.Adulto;
-        }
-
-        [RelayCommand]
-        private async void BrowserOpen_Clicked()
-        {
-            Uri uri = new("https://www.microsoft.com");
-            await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         }
 
         [RelayCommand]
@@ -274,16 +269,18 @@ namespace TFGMaui.ViewModels
         {
             if (IsDark)
             {
-                ColorStr = "Claro";
+                ColorStr = "Oscuro";
                 IsDark = false;
                 Application.Current.UserAppTheme = AppTheme.Dark;
             }
             else
             {
-                ColorStr = "Oscuro";
+                ColorStr = "Claro";
                 IsDark = true;
                 Application.Current.UserAppTheme = AppTheme.Light;
             }
+
+            Preferences.Set("Apptheme", IsDark);
         }
 
         /// <summary>
@@ -330,13 +327,13 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ChangeHobbies()
         {
-            if (Items.Count == 0)
+            if (!Items.Any(item => item.IsChecked))
             {
                 return;
             }
 
             UsuarioActivo.Hobbies = [];
-            Items.ToList().ForEach(x => UsuarioActivo.Hobbies.Add(x.IsChecked));
+            Items.ToList().ForEach(x => UsuarioActivo.Hobbies.Add(x.IsChecked));          
 
             if (new SettingsRepository().ChangeHobbies(UsuarioActivo))
             {

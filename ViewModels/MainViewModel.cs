@@ -87,24 +87,24 @@ namespace TFGMaui.ViewModels
 
             Bearer = await GetBearerG();
 
-            var hobbieC = 0;
-            foreach (var item in UsuarioActivo.Hobbies)
-            {
-                if (item)
-                {
-                    hobbieC += 1;
-                }
-            }
-            HobbieWidth = 1485 / hobbieC - 20;
-            CVis = UsuarioActivo.Hobbies[0];
-            VVis = UsuarioActivo.Hobbies[1];
-            MVis = UsuarioActivo.Hobbies[2];
-            LVis = UsuarioActivo.Hobbies[3];
+            SetHobbies();
 
             await GetTrending("day");
             await GetTopAM();
             await GetTopG();
             await GetTrendG();
+        }
+
+        private void SetHobbies()
+        {
+            var hobbieC = UsuarioActivo.Hobbies.Count(item => item);
+
+            HobbieWidth = 1485 / hobbieC - 20;
+
+            CVis = UsuarioActivo.Hobbies.ElementAtOrDefault(0);
+            VVis = UsuarioActivo.Hobbies.ElementAtOrDefault(1);
+            MVis = UsuarioActivo.Hobbies.ElementAtOrDefault(2);
+            LVis = UsuarioActivo.Hobbies.ElementAtOrDefault(3);
         }
 
         [RelayCommand]
@@ -197,7 +197,7 @@ namespace TFGMaui.ViewModels
                     {
                         var bookViewModel = new BookMopupViewModel();
                         var bookMopup = new BookMopup(bookViewModel);
-                        bookViewModel.SendHobbieById(id, UsuarioActivo.Id);
+                        bookViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language.Split("-")[0]);
                         await MopupService.Instance.PushAsync(bookMopup);
                         break;
                     }
@@ -460,6 +460,7 @@ namespace TFGMaui.ViewModels
             else if (pagina.Equals("MainPage"))
             {
                 await GetHobbies();
+                SetHobbies();
             }
 
             await Shell.Current.GoToAsync("//" + pagina, new Dictionary<string, object>()

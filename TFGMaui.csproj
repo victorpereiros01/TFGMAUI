@@ -88,6 +88,7 @@
 		<None Remove="Resources\Images\portuguese.png" />
 		<None Remove="Resources\Images\question.png" />
 		<None Remove="Resources\Images\reload.png" />
+		<None Remove="Resources\Images\search.png" />
 		<None Remove="Resources\Images\settings.png" />
 		<None Remove="Resources\Images\spanish.png" />
 		<None Remove="Resources\Images\spring.png" />

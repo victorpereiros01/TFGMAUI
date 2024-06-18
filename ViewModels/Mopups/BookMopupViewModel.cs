@@ -23,13 +23,16 @@ namespace TFGMaui.ViewModels.Mopup
         [ObservableProperty]
         private bool isAddedFavorite, isAddedPending, isAddedSeen;
 
+        private string lang;
+
         public BookMopupViewModel()
         {
             IsVisibleEditor = false;
         }
 
-        public void SendHobbieById(string id, int userId)
+        public void SendHobbieById(string id, int userId, string lang)
         {
+            this.lang = lang;
             UserId = userId;
             Book = new()
             {
@@ -69,29 +72,27 @@ namespace TFGMaui.ViewModels.Mopup
             var requestPelicula = new HttpRequestModel(url: IConstantes.BaseBooks,
                 endpoint: $"volumes/{Book.Id}",
                 parameters: new Dictionary<string, string> { { "key", IConstantes.ApiKeyBooks } },
-                headers: new Dictionary<string, string> { { "Accept", "application/json" } });
+                headers: new Dictionary<string, string> { { "Accept", "application/json" }, { "langRestriction", lang } });
 
             var m = (BookModel)await HttpService.ExecuteRequestAsync<BookModel>(requestPelicula); // v
 
-            if (m.VolumeInfo.ImageLinks is not null)
+            if (m.VolumeInfo.ImageLinks.Large is not null)
             {
-                if (m.VolumeInfo.ImageLinks.Large is not null)
-                {
-                    m.Imagen = m.VolumeInfo.ImageLinks.Large;
-                }
-                else if (m.VolumeInfo.ImageLinks.Medium is not null)
-                {
-                    m.Imagen = m.VolumeInfo.ImageLinks.Medium;
-                }
-                else if (m.VolumeInfo.ImageLinks.Small is not null)
-                {
-                    m.Imagen = m.VolumeInfo.ImageLinks.Small;
-                }
-                else if (m.VolumeInfo.ImageLinks.Thumbnail is not null)
-                {
-                    m.Imagen = m.VolumeInfo.ImageLinks.Thumbnail;
-                }
+                m.Imagen = m.VolumeInfo.ImageLinks.Large;
             }
+            else if (m.VolumeInfo.ImageLinks.Medium is not null)
+            {
+                m.Imagen = m.VolumeInfo.ImageLinks.Medium;
+            }
+            else if (m.VolumeInfo.ImageLinks.Small is not null)
+            {
+                m.Imagen = m.VolumeInfo.ImageLinks.Small;
+            }
+            else if (m.VolumeInfo.ImageLinks.Thumbnail is not null)
+            {
+                m.Imagen = m.VolumeInfo.ImageLinks.Thumbnail;
+            }
+
             m.VolumeInfo.Description = MiscellaneousUtils.HtmlToPlainText(m.VolumeInfo.Description);
             Book = m;
         }

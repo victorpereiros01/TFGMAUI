@@ -18,16 +18,16 @@
             PositionOut="Center" />
     </mopups:PopupPage.Animation>
 
-    <Border HeightRequest="650" WidthRequest="1000">
+    <Border
+        BackgroundColor="{AppThemeBinding Light=#EEEEEE,
+                                          Dark=#8c8c8c}"
+        HeightRequest="650"
+        WidthRequest="1000">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="20" />
         </Border.StrokeShape>
 
-        <AbsoluteLayout
-            BackgroundColor="{AppThemeBinding Light=#EEEEEE,
-                                              Dark=#8c8c8c}"
-            HeightRequest="650"
-            WidthRequest="1000">
+        <AbsoluteLayout HeightRequest="650" WidthRequest="1000">
             <Button
                 AbsoluteLayout.LayoutBounds="935,10"
                 BackgroundColor="Red"

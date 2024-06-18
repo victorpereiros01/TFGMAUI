@@ -20,16 +20,20 @@
             AbsoluteLayout.LayoutBounds="1475,30"
             BackgroundColor="Beige"
             Command="{Binding MinimizeAppCommand}"
+            FontAttributes="Bold"
             Text="_"
-            TextColor="LightGray" />
+            TextColor="{AppThemeBinding Light=#EEEEEE,
+                                        Dark=#8c8c8c}" />
 
         <Button
             AbsoluteLayout.LayoutBounds="1525,30"
             BackgroundColor="Red"
             Command="{Binding CloseAppCommand}"
+            FontAttributes="Bold"
             HeightRequest="5"
             Text="X"
-            TextColor="IndianRed" />
+            TextColor="{AppThemeBinding Light=#EEEEEE,
+                                        Dark=#8c8c8c}" />
 
         <Frame
             AbsoluteLayout.LayoutBounds="30,80,1540,790"
@@ -262,7 +266,7 @@
                     Text="Animes de temporada"
                     VerticalOptions="Center" />
                 <CollectionView
-                    AbsoluteLayout.LayoutBounds="5,230"
+                    AbsoluteLayout.LayoutBounds="5,220"
                     HeightRequest="242"
                     ItemsSource="{Binding PaginaS.Data}"
                     SelectedItem="{Binding Anime2}"
@@ -422,6 +426,8 @@
                     AbsoluteLayout.LayoutBounds="1400,160"
                     Command="{Binding GetSeasonCommand}"
                     CommandParameter="{Binding Source={x:Reference ent_season}, Path=SelectedItem}"
+                    HeightRequest="30"
+                    ImageSource="search.png"
                     WidthRequest="80" />
 
                 <Label

@@ -26,16 +26,20 @@
                 AbsoluteLayout.LayoutBounds="1475,30"
                 BackgroundColor="Beige"
                 Command="{Binding MinimizeAppCommand}"
+                FontAttributes="Bold"
                 Text="_"
-                TextColor="LightGray" />
+                TextColor="{AppThemeBinding Light=#EEEEEE,
+                                            Dark=#8c8c8c}" />
 
             <Button
                 AbsoluteLayout.LayoutBounds="1525,30"
                 BackgroundColor="Red"
                 Command="{Binding CloseAppCommand}"
+                FontAttributes="Bold"
                 HeightRequest="5"
                 Text="X"
-                TextColor="IndianRed" />
+                TextColor="{AppThemeBinding Light=#EEEEEE,
+                                            Dark=#8c8c8c}" />
 
             <Frame
                 AbsoluteLayout.LayoutBounds="30,80,1540,790"
@@ -93,7 +97,7 @@
                             <CarouselView
                                 Margin="0,12,0,0"
                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE,
-                                                                  Dark=#676767}"
+                                                                  Dark=#8c8c8c}"
                                 CurrentItem="{Binding SavP}"
                                 EmptyView="Añade hobbies a pendientes"
                                 HeightRequest="462"
@@ -577,12 +581,21 @@
             <Button
                 AbsoluteLayout.LayoutBounds="1475,30"
                 BackgroundColor="Beige"
-                Command="{Binding MinimizeAppCommand}" />
+                Command="{Binding MinimizeAppCommand}"
+                FontAttributes="Bold"
+                Text="_"
+                TextColor="{AppThemeBinding Light=#EEEEEE,
+                                            Dark=#8c8c8c}" />
 
             <Button
                 AbsoluteLayout.LayoutBounds="1525,30"
                 BackgroundColor="Red"
-                Command="{Binding CloseAppCommand}" />
+                Command="{Binding CloseAppCommand}"
+                FontAttributes="Bold"
+                HeightRequest="5"
+                Text="X"
+                TextColor="{AppThemeBinding Light=#EEEEEE,
+                                            Dark=#8c8c8c}" />
 
             <Frame
                 AbsoluteLayout.LayoutBounds="30,80,1540,790"

@@ -21,13 +21,20 @@ namespace TFGMaui.ViewModels.Mopup
         [ObservableProperty]
         private bool isAddedFavorite, isAddedPending, isAddedSeen;
 
+        [ObservableProperty]
+        private List<ReviewModel> listReviews;
+
+        [ObservableProperty]
+        private bool guest;
+
         public GameMopupViewModel()
         {
             IsVisibleEditor = false;
         }
 
-        public void SendHobbieById(string id, int userId, string bearer)
+        public void SendHobbieById(string id, int userId, string bearer, bool guest)
         {
+            Guest = guest;
             Bearer = bearer;
             UserId = userId;
             Game = new()
@@ -35,6 +42,11 @@ namespace TFGMaui.ViewModels.Mopup
                 Id = id
             };
             _ = GetGameDetails();
+
+            ListReviews = new HobbieRepository().GetReviewsHobbie(Game.Id);
+            ListReviews.Where(x => x.IdUser == UserId)
+              .ToList()
+              .ForEach(x => x.Name = "Tu");
 
             CheckAdded();
         }
@@ -44,6 +56,11 @@ namespace TFGMaui.ViewModels.Mopup
             IsAddedFavorite = new HobbieRepository().Exists("Favorite", UserId, "Game", Game.Id);
             IsAddedSeen = new HobbieRepository().Exists("Seen", UserId, "Game", Game.Id);
             IsAddedPending = new HobbieRepository().Exists("Pending", UserId, "Game", Game.Id);
+
+            ListReviews = new HobbieRepository().GetReviewsHobbie(Game.Id);
+            ListReviews.Where(x => x.IdUser == UserId)
+              .ToList()
+              .ForEach(x => x.Name = "Tu");
         }
 
         [RelayCommand]
@@ -108,6 +125,8 @@ namespace TFGMaui.ViewModels.Mopup
                         g.StatusString = "Delisted";
                         break;
                 }
+
+                g.Rating = Convert.ToDouble(string.Format("{0:N2}", g.Rating / 10));
                 Game = g;
             }
             catch (Exception e)
@@ -156,7 +175,19 @@ namespace TFGMaui.ViewModels.Mopup
         [RelayCommand]
         public async Task AddHobbie(string type)
         {
-            if (new HobbieRepository().AddHobbie(type, UserId, "Game", new HobbieModel() { Id = Game.Id, Imagen = Game.Imagen, Title = Game.Title }))
+            string review = "", stars = "";
+
+            if (type.Equals("Seen"))
+            {
+                stars = await App.Current.MainPage.DisplayPromptAsync("Puntua el hobbie", "Deja tu puntuación", placeholder: "Ej 8.25", maxLength: 4, keyboard: Keyboard.Numeric);
+
+                if (stars is not null)
+                {
+                    review = await App.Current.MainPage.DisplayPromptAsync("Puntua el hobbie", "Deja tu reseña", maxLength: 20, keyboard: Keyboard.Default);
+                }
+            }
+
+            if (new HobbieRepository().AddHobbie(type, UserId, "Game", new HobbieModel() { Id = Game.Id, Imagen = Game.Imagen, Title = Game.Title }, stars, review))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
             }

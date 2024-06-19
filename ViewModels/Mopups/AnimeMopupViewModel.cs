@@ -20,19 +20,31 @@ namespace TFGMaui.ViewModels.Mopup
         [ObservableProperty]
         private bool isAddedFavorite, isAddedPending, isAddedSeen;
 
+        [ObservableProperty]
+        private List<ReviewModel> listReviews;
+
+        [ObservableProperty]
+        private bool guest;
+
         public AnimeMopupViewModel()
         {
             IsVisibleEditor = false;
         }
 
-        public void SendHobbieById(string id, int userId)
+        public void SendHobbieById(string id, int userId, bool guest)
         {
+            Guest = guest;
             UserId = userId;
             Anime = new()
             {
                 Id = id
             };
             _ = GetMovieDetails();
+
+            ListReviews = new HobbieRepository().GetReviewsHobbie(Anime.Id);
+            ListReviews.Where(x => x.IdUser == UserId)
+              .ToList()
+              .ForEach(x => x.Name = "Tu");
 
             CheckAdded();
         }
@@ -42,6 +54,11 @@ namespace TFGMaui.ViewModels.Mopup
             IsAddedFavorite = new HobbieRepository().Exists("Favorite", UserId, "Anime", Anime.Id);
             IsAddedSeen = new HobbieRepository().Exists("Seen", UserId, "Anime", Anime.Id);
             IsAddedPending = new HobbieRepository().Exists("Pending", UserId, "Anime", Anime.Id);
+
+            ListReviews = new HobbieRepository().GetReviewsHobbie(Anime.Id);
+            ListReviews.Where(x => x.IdUser == UserId)
+              .ToList()
+              .ForEach(x => x.Name = "Tu");
         }
 
         [RelayCommand]
@@ -77,7 +94,19 @@ namespace TFGMaui.ViewModels.Mopup
         [RelayCommand]
         public async Task AddHobbie(string type)
         {
-            if (new HobbieRepository().AddHobbie(type, UserId, "Anime", new HobbieModel() { Id = Anime.Id, Imagen = Anime.Imagen, Title = Anime.Title }))
+            string review = "", stars = "";
+
+            if (type.Equals("Seen"))
+            {
+                stars = await App.Current.MainPage.DisplayPromptAsync("Puntua el hobbie", "Deja tu puntuación", placeholder: "Ej 8.25", maxLength: 4, keyboard: Keyboard.Numeric);
+
+                if (stars is not null)
+                {
+                    review = await App.Current.MainPage.DisplayPromptAsync("Puntua el hobbie", "Deja tu reseña", maxLength: 20, keyboard: Keyboard.Default);
+                }
+            }
+
+            if (new HobbieRepository().AddHobbie(type, UserId, "Anime", new HobbieModel() { Id = Anime.Id, Imagen = Anime.Imagen, Title = Anime.Title }, stars, review))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
             }
@@ -91,6 +120,14 @@ namespace TFGMaui.ViewModels.Mopup
             if (new HobbieRepository().RemoveHobbie(type, UserId, Anime.GetType().ToString(), Anime.Id))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
+            }
+
+            if (type.Equals("Seen"))
+            {
+                ListReviews = new HobbieRepository().GetReviewsHobbie(Anime.Id);
+                ListReviews.Where(x => x.IdUser == UserId)
+                  .ToList()
+                  .ForEach(x => x.Name = "Tu");
             }
 
             CheckAdded();

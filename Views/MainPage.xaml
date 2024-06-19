@@ -94,6 +94,18 @@
                                 IndicatorSize="30"
                                 VerticalOptions="Center" />
 
+                            <VerticalStackLayout
+                                Margin="0,220,0,0"
+                                HeightRequest="462"
+                                IsVisible="{Binding IsEmptyPending}"
+                                WidthRequest="492"
+                                ZIndex="1">
+                                <Label
+                                    HorizontalOptions="Center"
+                                    Text="Añade hobbies a pendientes"
+                                    TextColor="Black"
+                                    VerticalOptions="End" />
+                            </VerticalStackLayout>
                             <CarouselView
                                 Margin="0,12,0,0"
                                 BackgroundColor="{AppThemeBinding Light=#EEEEEE,
@@ -785,14 +797,16 @@
                             Text="¿No tienes una cuenta?" />
                         <Button
                             Margin="40"
+                            BackgroundColor="{AppThemeBinding Light=#676767,
+                                                              Dark=#e6e6e6}"
                             Command="{Binding NavegarCommand}"
                             CommandParameter="RegisterPage"
                             FontSize="35"
                             HeightRequest="100"
                             HorizontalOptions="Center"
                             Text="REGISTRATE"
-                            TextColor="{AppThemeBinding Light=Black,
-                                                        Dark=White}"
+                            TextColor="{AppThemeBinding Light=White,
+                                                        Dark=Black}"
                             WidthRequest="490" />
                     </VerticalStackLayout>
 

@@ -189,7 +189,7 @@
                         AbsoluteLayout.LayoutBounds="20,120"
                         FontAttributes="Bold"
                         FontSize="Title"
-                        Text="Top 10" />
+                        Text="Top 20" />
 
                     <CollectionView
                         AbsoluteLayout.LayoutBounds="20,175"
@@ -199,12 +199,12 @@
                         SelectionChangedCommand="{Binding ShowMovieMopupCommand}"
                         SelectionChangedCommandParameter="{Binding Serie3.Id}"
                         SelectionMode="Single"
-                        WidthRequest="1490">
+                        WidthRequest="1470">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout
                                 HorizontalItemSpacing="5"
-                                Orientation="Horizontal"
-                                Span="1"
+                                Orientation="Vertical"
+                                Span="10"
                                 VerticalItemSpacing="5" />
                         </CollectionView.ItemsLayout>
 
@@ -220,7 +220,7 @@
                                     </Frame.Background>
 
                                     <VerticalStackLayout
-                                        HeightRequest="160"
+                                        HeightRequest="150"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center">
                                         <Image
@@ -297,12 +297,12 @@
                         SelectionChangedCommand="{Binding ShowMovieMopupCommand}"
                         SelectionChangedCommandParameter="{Binding Serie.Id}"
                         SelectionMode="Single"
-                        WidthRequest="1490">
+                        WidthRequest="1470">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout
                                 HorizontalItemSpacing="5"
-                                Orientation="Horizontal"
-                                Span="1"
+                                Orientation="Vertical"
+                                Span="10"
                                 VerticalItemSpacing="5" />
                         </CollectionView.ItemsLayout>
 

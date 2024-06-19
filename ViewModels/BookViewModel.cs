@@ -60,7 +60,7 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ShowBookMopup(string id)
         {
-            BookMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language.Split("-")[0]);
+            BookMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language.Split("-")[0], UsuarioActivo.Guest);
             await MopupService.Instance.PushAsync(BookMopup);
             //await Hide();
         }

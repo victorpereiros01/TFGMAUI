@@ -189,14 +189,14 @@
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout
                                 HorizontalItemSpacing="4"
-                                Orientation="Horizontal"
-                                Span="1"
+                                Orientation="Vertical"
+                                Span="8"
                                 VerticalItemSpacing="5" />
                         </CollectionView.ItemsLayout>
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:GameModel">
-                                <Frame WidthRequest="178">
+                                <Frame WidthRequest="178" HeightRequest="230">
                                     <Frame.Background>
                                         <LinearGradientBrush EndPoint="0,1">
                                             <GradientStop Offset="0.9" Color="{AppThemeBinding Light=#EEEEEE, Dark=#2e2e2e}" />
@@ -264,14 +264,14 @@
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout
                                 HorizontalItemSpacing="4"
-                                Orientation="Horizontal"
-                                Span="1"
+                                Orientation="Vertical"
+                                Span="8"
                                 VerticalItemSpacing="5" />
                         </CollectionView.ItemsLayout>
 
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:Name="trend" x:DataType="models:GameModel">
-                                <Frame WidthRequest="178">
+                                <Frame WidthRequest="178" HeightRequest="230">
                                     <Frame.Background>
                                         <LinearGradientBrush EndPoint="0,1">
                                             <GradientStop Offset="0.9" Color="{AppThemeBinding Light=#EEEEEE, Dark=#2e2e2e}" />

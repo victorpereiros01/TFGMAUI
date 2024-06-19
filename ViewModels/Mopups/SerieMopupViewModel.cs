@@ -24,13 +24,20 @@ namespace TFGMaui.ViewModels.Mopup
         [ObservableProperty]
         private bool isAddedFavorite, isAddedPending, isAddedSeen;
 
+        [ObservableProperty]
+        private List<ReviewModel> listReviews;
+
+        [ObservableProperty]
+        private bool guest;
+
         public SerieMopupViewModel()
         {
             IsVisibleEditor = false;
         }
 
-        public void SendHobbieById(string id, int userId, string lang)
+        public void SendHobbieById(string id, int userId, string lang, bool guest)
         {
+            Guest = guest;
             UserId = userId;
             Lang = lang;
             Serie = new()
@@ -38,6 +45,11 @@ namespace TFGMaui.ViewModels.Mopup
                 Id = id
             };
             _ = GetMovieDetails();
+
+            ListReviews = new HobbieRepository().GetReviewsHobbie(Serie.Id);
+            ListReviews.Where(x => x.IdUser == UserId)
+              .ToList()
+              .ForEach(x => x.Name = "Tu");
 
             CheckAdded();
         }
@@ -47,6 +59,11 @@ namespace TFGMaui.ViewModels.Mopup
             IsAddedFavorite = new HobbieRepository().Exists("Favorite", UserId, "Serie", Serie.Id);
             IsAddedSeen = new HobbieRepository().Exists("Seen", UserId, "Serie", Serie.Id);
             IsAddedPending = new HobbieRepository().Exists("Pending", UserId, "Serie", Serie.Id);
+
+            ListReviews = new HobbieRepository().GetReviewsHobbie(Serie.Id);
+            ListReviews.Where(x => x.IdUser == UserId)
+              .ToList()
+              .ForEach(x => x.Name = "Tu");
         }
 
 
@@ -76,13 +93,26 @@ namespace TFGMaui.ViewModels.Mopup
 
             var m = (SerieModel)await HttpService.ExecuteRequestAsync<SerieModel>(requestPelicula); // v
             m.Imagen = "https://image.tmdb.org/t/p/original" + m.Imagen;
+            m.VoteAverage = Convert.ToDouble(string.Format("{0:N2}", m.VoteAverage));
             Serie = m;
         }
 
         [RelayCommand]
         public async Task AddHobbie(string type)
         {
-            if (new HobbieRepository().AddHobbie(type, UserId, "Serie", new HobbieModel() { Id = Serie.Id, Imagen = Serie.Imagen, Title = Serie.Title }))
+            string review = "", stars = "";
+
+            if (type.Equals("Seen"))
+            {
+                stars = await App.Current.MainPage.DisplayPromptAsync("Puntua el hobbie", "Deja tu puntuación", placeholder: "Ej 8.25", maxLength: 4, keyboard: Keyboard.Numeric);
+
+                if (stars is not null)
+                {
+                    review = await App.Current.MainPage.DisplayPromptAsync("Puntua el hobbie", "Deja tu reseña", maxLength: 20, keyboard: Keyboard.Default);
+                }
+            }
+
+            if (new HobbieRepository().AddHobbie(type, UserId, "Serie", new HobbieModel() { Id = Serie.Id, Imagen = Serie.Imagen, Title = Serie.Title }, stars, review))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
             }

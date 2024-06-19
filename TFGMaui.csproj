@@ -92,6 +92,7 @@
 		<None Remove="Resources\Images\settings.png" />
 		<None Remove="Resources\Images\spanish.png" />
 		<None Remove="Resources\Images\spring.png" />
+		<None Remove="Resources\Images\star.png" />
 		<None Remove="Resources\Images\summer.png" />
 		<None Remove="Resources\Images\titulo.png" />
 		<None Remove="Resources\Images\titulomayus.png" />

@@ -107,7 +107,7 @@ namespace TFGMaui.ViewModels
 
                 if (cut)
                 {
-                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 10);
+                    pagtrend.Results = MiscellaneousUtils.GetNelements(pagtrend.Results, 20);
                 }
                 pagtrend.Results.ToList().ForEach(x => x.Imagen = "https://image.tmdb.org/t/p/original" + x.Imagen);
                 foreach (var item in pagtrend.Results)
@@ -167,7 +167,7 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ShowMovieMopup(string id)
         {
-            SerieMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
+            SerieMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language, UsuarioActivo.Guest);
             await MopupService.Instance.PushAsync(SerieMopup);
             //await Hide();
         }

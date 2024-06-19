@@ -2,6 +2,19 @@
 
 namespace TFGMaui.Models
 {
+    public class ReviewModel
+    {
+        public int IdUser { get; set; }
+
+        public string Name { get; set; }
+
+        public decimal Score { get; set; }
+
+        public string Review { get; set; }
+
+        public ImageSource ImageAvatar { get; set; }
+    }
+
     public class HobbieModel
     {
         public string Id { get; set; }

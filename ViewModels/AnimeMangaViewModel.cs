@@ -115,7 +115,7 @@ namespace TFGMaui.ViewModels
                     item.Imagen = item.Images.Jpg.Image_url;
                     item.Color = MiscellaneousUtils.GetColorHobbie("Anime");
                 }
-                pagtrend.Data = MiscellaneousUtils.GetNelements(pagtrend.Data, 10);
+                pagtrend.Data = MiscellaneousUtils.GetNelements(pagtrend.Data, 14);
 
                 PaginaS = pagtrend;
 
@@ -159,7 +159,7 @@ namespace TFGMaui.ViewModels
                 item.Imagen = item.Images.Jpg.Image_url;
                 item.Color = MiscellaneousUtils.GetColorHobbie("Anime");
             }
-            pagtrend.Data = MiscellaneousUtils.GetNelements(pagtrend.Data, 10);
+            pagtrend.Data = MiscellaneousUtils.GetNelements(pagtrend.Data, 14);
 
             PaginaS = pagtrend;
         }
@@ -171,7 +171,7 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ShowAnimeMopup(string id)
         {
-            AnimeMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
+            AnimeMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Guest);
             await MopupService.Instance.PushAsync(AnimeMopup);
             //await Hide();
         }
@@ -183,7 +183,7 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ShowMangaMopup(string id)
         {
-            MangaMopupViewModel.SendHobbieById(id, UsuarioActivo.Id);
+            MangaMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Guest);
             await MopupService.Instance.PushAsync(MangaMopup);
             //await Hide();
         }

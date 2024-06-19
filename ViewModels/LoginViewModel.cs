@@ -107,7 +107,10 @@ namespace TFGMaui.ViewModels
                 await SecureStorage.SetAsync("password", IsRememberMe ? UsuarioActivo.Password : " ");
 
                 await Navegar("MainPage");
-                await Application.Current.MainPage.DisplayAlert("Saludos", "Bienvenid@ " + UsuarioActivo.Name, "Aceptar");
+                if (!UsuarioActivo.Guest)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Saludos", "Bienvenid@ " + UsuarioActivo.Name, "Aceptar");
+                }
                 UsuarioActivo = new();
                 TextSee = "ø";
             }

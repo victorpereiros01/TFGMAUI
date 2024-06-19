@@ -83,34 +83,38 @@ namespace TFGMaui.Repositories
         /// <returns></returns>
         public UsuarioModel? Login(string username, string password)
         {
-            SetCmdQuery("SELECT IdUser, Username, Name, Email, Avatar, Password, Hobbie1, Hobbie2, Hobbie3, Hobbie4, Adult, Language FROM Users WHERE Username = @Username or Email = @Username AND Password = @Pass");
-
-            AddCmdParameters(new() { { "@Username", username }, { "@Pass", password } });
-
-            // Abre la conexion e inicializa el reader para obtener los datos
-            Oconexion.Open();
-            using SqlDataReader dr = Cmd.ExecuteReader();
-
-            if (!dr.Read())
+            try
             {
-                return null;
+                SetCmdQuery("SELECT IdUser, Username, Name, Email, Avatar, Password, Hobbie1, Hobbie2, Hobbie3, Hobbie4, Adult, Language FROM Users WHERE Username = @Username or Email = @Username AND Password = @Pass");
+
+                AddCmdParameters(new() { { "@Username", username }, { "@Pass", password } });
+
+                // Abre la conexion e inicializa el reader para obtener los datos
+                Oconexion.Open();
+                using SqlDataReader dr = Cmd.ExecuteReader();
+
+                if (!dr.Read())
+                {
+                    return null;
+                }
+
+                var user = new UsuarioModel
+                {
+                    Id = dr.GetInt32(0),
+                    Username = dr.GetString(1).Trim(),
+                    Name = dr.GetString(2).Trim(),
+                    Email = dr.GetString(3).Trim(),
+                    Avatar = FileUtils.GetSource(dr.GetString(4)),
+                    Password = dr.GetString(5).Trim(),
+                    Hobbies = [dr.GetBoolean(6), dr.GetBoolean(7), dr.GetBoolean(8), dr.GetBoolean(9)],
+                    Adulto = dr.GetBoolean(10),
+                    Language = dr.GetString(11).Trim(),
+                    Guest = dr.GetString(1).Equals("admin")
+                };
+
+                return user;
             }
-
-            var user = new UsuarioModel
-            {
-                Id = dr.GetInt32(0),
-                Username = dr.GetString(1).Trim(),
-                Name = dr.GetString(2).Trim(),
-                Email = dr.GetString(3).Trim(),
-                Avatar = FileUtils.GetSource(dr.GetString(4)),
-                Password = dr.GetString(5).Trim(),
-                Hobbies = [dr.GetBoolean(6), dr.GetBoolean(7), dr.GetBoolean(8), dr.GetBoolean(9)],
-                Adulto = dr.GetBoolean(10),
-                Language = dr.GetString(11).Trim(),
-                Guest = dr.GetString(1).Equals("admin")
-            };
-
-            return user;
+            catch { throw new Exception(); }
         }
 
         public ImageSource GetImage(string username)

@@ -149,7 +149,7 @@ namespace TFGMaui.ViewModels
         [RelayCommand]
         public async Task ShowMovieMopup(string id)
         {
-            MovieMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
+            MovieMopupViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language, UsuarioActivo.Guest);
             await MopupService.Instance.PushAsync(MovieMopup);
         }
 

@@ -226,6 +226,7 @@
                     SelectionMode="Single"
                     WidthRequest="300"
                     ZIndex="1">
+
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:Name="aux" x:DataType="models:AnimeModel">
                             <Border>
@@ -277,14 +278,14 @@
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout
                             HorizontalItemSpacing="8"
-                            Orientation="Horizontal"
-                            Span="1"
+                            Orientation="Vertical"
+                            Span="7"
                             VerticalItemSpacing="5" />
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:AnimeModel">
-                            <Frame WidthRequest="196">
+                            <Frame HeightRequest="230" WidthRequest="196">
                                 <Frame.Background>
                                     <LinearGradientBrush EndPoint="0,1">
                                         <GradientStop Offset="0.9" Color="{AppThemeBinding Light=#EEEEEE, Dark=#2e2e2e}" />
@@ -432,12 +433,12 @@
 
                 <Label
                     Margin="10,0"
-                    AbsoluteLayout.LayoutBounds="0,475"
+                    AbsoluteLayout.LayoutBounds="755,475"
                     FontAttributes="Bold"
                     FontSize="Title"
                     Text="Top anime" />
                 <CollectionView
-                    AbsoluteLayout.LayoutBounds="5,510"
+                    AbsoluteLayout.LayoutBounds="760,510"
                     HeightRequest="242"
                     ItemsSource="{Binding PaginaTopAnime.Data}"
                     SelectedItem="{Binding Anime3}"
@@ -486,12 +487,12 @@
                 </CollectionView>
 
                 <Label
-                    AbsoluteLayout.LayoutBounds="765,475"
+                    AbsoluteLayout.LayoutBounds="10,475"
                     FontAttributes="Bold"
                     FontSize="Title"
                     Text="Top manga" />
                 <CollectionView
-                    AbsoluteLayout.LayoutBounds="760,510"
+                    AbsoluteLayout.LayoutBounds="5,510  "
                     HeightRequest="242"
                     ItemsSource="{Binding PaginaTopManga.Data}"
                     SelectedItem="{Binding Manga2}"

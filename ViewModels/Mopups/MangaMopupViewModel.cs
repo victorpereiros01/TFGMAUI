@@ -21,19 +21,31 @@ namespace TFGMaui.ViewModels.Mopup
         [ObservableProperty]
         private bool isAddedFavorite, isAddedPending, isAddedSeen;
 
+        [ObservableProperty]
+        private List<ReviewModel> listReviews;
+
+        [ObservableProperty]
+        private bool guest;
+
         public MangaMopupViewModel()
         {
             IsVisibleEditor = false;
         }
 
-        public void SendHobbieById(string id, int userId)
+        public void SendHobbieById(string id, int userId, bool guest)
         {
+            Guest = guest;
             UserId = userId;
             Manga = new()
             {
                 Id = id
             };
             _ = GetMangaDetails();
+
+            ListReviews = new HobbieRepository().GetReviewsHobbie(Manga.Id);
+            ListReviews.Where(x => x.IdUser == UserId)
+              .ToList()
+              .ForEach(x => x.Name = "Tu");
 
             CheckAdded();
         }
@@ -43,6 +55,11 @@ namespace TFGMaui.ViewModels.Mopup
             IsAddedFavorite = new HobbieRepository().Exists("Favorite", UserId, "Manga", Manga.Id);
             IsAddedSeen = new HobbieRepository().Exists("Seen", UserId, "Manga", Manga.Id);
             IsAddedPending = new HobbieRepository().Exists("Pending", UserId, "Manga", Manga.Id);
+
+            ListReviews = new HobbieRepository().GetReviewsHobbie(Manga.Id);
+            ListReviews.Where(x => x.IdUser == UserId)
+              .ToList()
+              .ForEach(x => x.Name = "Tu");
         }
 
 
@@ -79,7 +96,19 @@ namespace TFGMaui.ViewModels.Mopup
         [RelayCommand]
         public async Task AddHobbie(string type)
         {
-            if (new HobbieRepository().AddHobbie(type, UserId, "Manga", new HobbieModel() { Id = Manga.Id, Imagen = Manga.Imagen, Title = Manga.Title }))
+            string review = "", stars = "";
+
+            if (type.Equals("Seen"))
+            {
+                stars = await App.Current.MainPage.DisplayPromptAsync("Puntua el hobbie", "Deja tu puntuación", placeholder: "Ej 8.25", maxLength: 4, keyboard: Keyboard.Numeric);
+
+                if (stars is not null)
+                {
+                    review = await App.Current.MainPage.DisplayPromptAsync("Puntua el hobbie", "Deja tu reseña", maxLength: 20, keyboard: Keyboard.Default);
+                }
+            }
+
+            if (new HobbieRepository().AddHobbie(type, UserId, "Manga", new HobbieModel() { Id = Manga.Id, Imagen = Manga.Imagen, Title = Manga.Title }, stars, review))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
             }

@@ -46,6 +46,9 @@ namespace TFGMaui.ViewModels
         private SavedHobbieModel savF, savP, savS;
 
         [ObservableProperty]
+        private bool isEmptyPending;
+
+        [ObservableProperty]
         private int hobbieWidth;
 
         public string Bearer { get; set; }
@@ -123,6 +126,8 @@ namespace TFGMaui.ViewModels
             SavF = ListFav.IsNullOrEmpty() ? new() : ListFav[0];
             SavS = ListSeen.IsNullOrEmpty() ? new() : ListSeen[0];
             SavP = ListPend.IsNullOrEmpty() ? new() : ListPend[0];
+
+            IsEmptyPending = ListPend.IsNullOrEmpty();
         }
 
         [RelayCommand]
@@ -152,7 +157,7 @@ namespace TFGMaui.ViewModels
                     {
                         var movieViewModel = new MovieMopupViewModel();
                         var movieMopup = new MovieMopup(movieViewModel);
-                        movieViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
+                        movieViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language, UsuarioActivo.Guest);
                         await MopupService.Instance.PushAsync(movieMopup);
                         break;
                     }
@@ -161,7 +166,7 @@ namespace TFGMaui.ViewModels
                     {
                         var serieViewModel = new SerieMopupViewModel();
                         var serieMopup = new SerieMopup(serieViewModel);
-                        serieViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language);
+                        serieViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language, UsuarioActivo.Guest);
                         await MopupService.Instance.PushAsync(serieMopup);
                         break;
                     }
@@ -170,7 +175,7 @@ namespace TFGMaui.ViewModels
                     {
                         var mangaViewModel = new MangaMopupViewModel();
                         var mangaMopup = new MangaMopup(mangaViewModel);
-                        mangaViewModel.SendHobbieById(id, UsuarioActivo.Id);
+                        mangaViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Guest);
                         await MopupService.Instance.PushAsync(mangaMopup);
                         break;
                     }
@@ -179,7 +184,7 @@ namespace TFGMaui.ViewModels
                     {
                         var animeViewModel = new AnimeMopupViewModel();
                         var animeMopup = new AnimeMopup(animeViewModel);
-                        animeViewModel.SendHobbieById(id, UsuarioActivo.Id);
+                        animeViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Guest);
                         await MopupService.Instance.PushAsync(animeMopup);
                         break;
                     }
@@ -188,7 +193,7 @@ namespace TFGMaui.ViewModels
                     {
                         var gameViewModel = new GameMopupViewModel();
                         var gameMopup = new GameMopup(gameViewModel);
-                        gameViewModel.SendHobbieById(id, UsuarioActivo.Id, Bearer);
+                        gameViewModel.SendHobbieById(id, UsuarioActivo.Id, Bearer, UsuarioActivo.Guest);
                         await MopupService.Instance.PushAsync(gameMopup);
                         break;
                     }
@@ -197,7 +202,7 @@ namespace TFGMaui.ViewModels
                     {
                         var bookViewModel = new BookMopupViewModel();
                         var bookMopup = new BookMopup(bookViewModel);
-                        bookViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language.Split("-")[0]);
+                        bookViewModel.SendHobbieById(id, UsuarioActivo.Id, UsuarioActivo.Language.Split("-")[0], UsuarioActivo.Guest);
                         await MopupService.Instance.PushAsync(bookMopup);
                         break;
                     }
@@ -352,7 +357,7 @@ namespace TFGMaui.ViewModels
             {
                 var pagseason = (PageA)await HttpService.ExecuteRequestAsync<PageA>(requestPaginas);
 
-                pagseason.Data = MiscellaneousUtils.GetNelements(pagseason.Data, 8);
+                pagseason.Data = MiscellaneousUtils.GetNelements(pagseason.Data, 14);
                 foreach (var item in pagseason.Data)
                 {
                     item.Imagen = item.Images.Jpg.Image_url;

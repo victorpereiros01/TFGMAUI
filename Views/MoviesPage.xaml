@@ -189,7 +189,7 @@
                         AbsoluteLayout.LayoutBounds="0,120"
                         FontAttributes="Bold"
                         FontSize="Title"
-                        Text="Top 10" />
+                        Text="Top 20" />
                     <CollectionView
                         AbsoluteLayout.LayoutBounds="0,175"
                         HeightRequest="242"
@@ -201,9 +201,9 @@
                         WidthRequest="1490">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout
-                                HorizontalItemSpacing="7"
-                                Orientation="Horizontal"
-                                Span="1"
+                                HorizontalItemSpacing="5"
+                                Orientation="Vertical"
+                                Span="10"
                                 VerticalItemSpacing="5" />
                         </CollectionView.ItemsLayout>
 
@@ -299,9 +299,9 @@
                         WidthRequest="1490">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout
-                                HorizontalItemSpacing="7"
-                                Orientation="Horizontal"
-                                Span="1"
+                                HorizontalItemSpacing="5"
+                                Orientation="Vertical"
+                                Span="10"
                                 VerticalItemSpacing="5" />
                         </CollectionView.ItemsLayout>
 

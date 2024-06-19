@@ -6,7 +6,6 @@ using TFGMaui.Models;
 using TFGMaui.Repositories;
 using TFGMaui.Services;
 using TFGMaui.Utils;
-using Windows.Data.Html;
 
 namespace TFGMaui.ViewModels.Mopup
 {
@@ -23,6 +22,12 @@ namespace TFGMaui.ViewModels.Mopup
         [ObservableProperty]
         private bool isAddedFavorite, isAddedPending, isAddedSeen;
 
+        [ObservableProperty]
+        private List<ReviewModel> listReviews;
+
+        [ObservableProperty]
+        private bool guest;
+
         private string lang;
 
         public BookMopupViewModel()
@@ -30,8 +35,9 @@ namespace TFGMaui.ViewModels.Mopup
             IsVisibleEditor = false;
         }
 
-        public void SendHobbieById(string id, int userId, string lang)
+        public void SendHobbieById(string id, int userId, string lang, bool guest)
         {
+            Guest = guest;
             this.lang = lang;
             UserId = userId;
             Book = new()
@@ -39,6 +45,11 @@ namespace TFGMaui.ViewModels.Mopup
                 Id = id
             };
             _ = GetMovieDetails();
+
+            ListReviews = new HobbieRepository().GetReviewsHobbie(Book.Id);
+            ListReviews.Where(x => x.IdUser == UserId)
+              .ToList()
+              .ForEach(x => x.Name = "Tu");
 
             CheckAdded();
         }
@@ -48,6 +59,11 @@ namespace TFGMaui.ViewModels.Mopup
             IsAddedFavorite = new HobbieRepository().Exists("Favorite", UserId, "Book", Book.Id);
             IsAddedSeen = new HobbieRepository().Exists("Seen", UserId, "Book", Book.Id);
             IsAddedPending = new HobbieRepository().Exists("Pending", UserId, "Book", Book.Id);
+
+            ListReviews = new HobbieRepository().GetReviewsHobbie(Book.Id);
+            ListReviews.Where(x => x.IdUser == UserId)
+              .ToList()
+              .ForEach(x => x.Name = "Tu");
         }
 
         [RelayCommand]
@@ -94,13 +110,26 @@ namespace TFGMaui.ViewModels.Mopup
             }
 
             m.VolumeInfo.Description = MiscellaneousUtils.HtmlToPlainText(m.VolumeInfo.Description);
+            m.VolumeInfo.AverageRating *= 2;
             Book = m;
         }
 
         [RelayCommand]
         public async Task AddHobbie(string type)
         {
-            if (new HobbieRepository().AddHobbie(type, UserId, "Book", new HobbieModel() { Id = Book.Id, Imagen = Book.Imagen, Title = Book.VolumeInfo.Title }))
+            string review = "", stars = "";
+
+            if (type.Equals("Seen"))
+            {
+                stars = await App.Current.MainPage.DisplayPromptAsync("Puntua el hobbie", "Deja tu puntuación", placeholder: "Ej 8.25", maxLength: 4, keyboard: Keyboard.Numeric);
+
+                if (stars is not null)
+                {
+                    review = await App.Current.MainPage.DisplayPromptAsync("Puntua el hobbie", "Deja tu reseña", maxLength: 20, keyboard: Keyboard.Default);
+                }
+            }
+
+            if (new HobbieRepository().AddHobbie(type, UserId, "Book", new HobbieModel() { Id = Book.Id, Imagen = Book.Imagen, Title = Book.VolumeInfo.Title }, stars, review))
             {
                 await App.Current.MainPage.DisplayAlert("Exito", "Hobbie cambiado satisfactoriamente", "Aceptar");
             }

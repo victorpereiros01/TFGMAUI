@@ -2,7 +2,7 @@
 ----------
 
 
-Este proyecto se centra en desarrollar una aplicación que unifique la gestión de hobbies, guardandolos en listas de pendientes, favoritos y vistos/terminados.
+Este proyecto se centra en desarrollar una aplicación que unifique la gestión de hobbies.
 
 
 ![Logo](Resources/Images/titulomayus.png)
